@@ -1,0 +1,4 @@
+.venv_libs/
+.DS_Store
+Thumbs.db
+*.log

@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Late Night Vibes Seattle</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo">LNV</div>
+        <div>
+          <div class="title">Late Night Vibes</div>
+          <div class="subtitle">Seattle after 9 PM • anchored to Little Red Hen</div>
+        </div>
+      </div>
+      <div class="top-actions">
+        <input id="searchInput" type="search" placeholder="Search venue, vibe, or neighborhood" />
+        <label class="file-input">
+          Load CSV
+          <input id="csvFile" type="file" accept=".csv" />
+        </label>
+        <button id="resetFilters" type="button">Reset</button>
+      </div>
+    </header>
+
+    <section class="stats">
+      <div class="stat">
+        <div class="stat-label">Venues</div>
+        <div id="venueCount" class="stat-value">0</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Filtered</div>
+        <div id="filteredCount" class="stat-value">0</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Active Vibes</div>
+        <div id="activeVibes" class="stat-value">0</div>
+      </div>
+      <div class="status" id="statusText">Loading...</div>
+    </section>
+
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="sidebar-section">
+          <div class="sidebar-title">Filters</div>
+          <label class="field">
+            Area
+            <select id="areaSelect">
+              <option value="">All Areas</option>
+            </select>
+          </label>
+          <label class="field">
+            Category
+            <select id="categorySelect">
+              <option value="">All Categories</option>
+            </select>
+          </label>
+          <label class="field">
+            Sort
+            <select id="sortSelect">
+              <option value="name">Name</option>
+              <option value="area">Area</option>
+              <option value="category">Category</option>
+              <option value="distance">Distance</option>
+              <option value="closing">Closing Time</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="sidebar-section">
+          <div class="sidebar-title">Vibes</div>
+          <div id="vibeList" class="vibes-list"></div>
+        </div>
+
+        <div class="sidebar-section">
+          <div class="sidebar-title">Recommendations</div>
+          <label class="field">
+            Starting venue
+            <select id="venueSelect">
+              <option value="">Pick a venue</option>
+            </select>
+          </label>
+          <label class="field">
+            Max distance from anchor (miles)
+            <input id="maxDistanceInput" type="number" min="0" step="0.5" value="6" />
+          </label>
+          <label class="field">
+            Results
+            <input id="resultCountInput" type="number" min="3" max="20" value="8" />
+          </label>
+          <div id="recommendationList" class="recommendation-list"></div>
+        </div>
+      </aside>
+
+      <main class="content">
+        <div id="venueGrid" class="venue-grid"></div>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
