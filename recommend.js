@@ -114,7 +114,14 @@ function computeRecommendations(base, maxDist, maxResults) {
         catScore ? "Same category" : "Different category",
         areaScore ? "Same neighborhood" : normalizeValue(venue.Area),
       ].join(" · ");
-      return { venue, score, reason };
+      const breakdown = {
+        vibe: Math.round(vibeScore * 100),
+        category: Math.round(catScore * 100),
+        area: Math.round(areaScore * 100),
+        distance: Math.round(distScore * 100),
+        total: Math.round(score * 100),
+      };
+      return { venue, score, reason, breakdown };
     })
     .filter(Boolean)
     .sort((a, b) => b.score - a.score)
@@ -165,7 +172,7 @@ function renderRecommendations() {
     return;
   }
 
-  recs.forEach(({ venue, reason }) => {
+  recs.forEach(({ venue, reason, breakdown }) => {
     const mapLink = normalizeValue(venue["Google Maps Driving Link"]);
     const tags = normalizeValue(venue["Vibe Tags"]).split(",").map((t) => normalizeValue(t).toLowerCase()).filter(Boolean);
     const primaryTag = tags[0] || "general";
@@ -179,6 +186,15 @@ function renderRecommendations() {
         <div class="name">${mapLink ? `<a href="${mapLink}" target="_blank" rel="noopener">${nameText}</a>` : nameText}</div>
         <div class="meta">${normalizeValue(venue.Area)} · ${normalizeValue(venue.Category)}</div>
         <div class="reason">${reason}</div>
+        <div class="score-breakdown">
+          <div class="score-bar-group">
+            <div class="score-bar-row"><span class="score-label">Vibes</span><div class="score-track"><div class="score-fill" style="width:${breakdown.vibe}%;background:#2bff86"></div></div><span class="score-pct">${breakdown.vibe}%</span></div>
+            <div class="score-bar-row"><span class="score-label">Category</span><div class="score-track"><div class="score-fill" style="width:${breakdown.category}%;background:#4dd6ff"></div></div><span class="score-pct">${breakdown.category}%</span></div>
+            <div class="score-bar-row"><span class="score-label">Area</span><div class="score-track"><div class="score-fill" style="width:${breakdown.area}%;background:#ff7ad6"></div></div><span class="score-pct">${breakdown.area}%</span></div>
+            <div class="score-bar-row"><span class="score-label">Distance</span><div class="score-track"><div class="score-fill" style="width:${breakdown.distance}%;background:#ffd36e"></div></div><span class="score-pct">${breakdown.distance}%</span></div>
+          </div>
+          <div class="score-total">Match: ${breakdown.total}%</div>
+        </div>
         <div class="pills">
           <span class="pill">${normalizeValue(venue["Typical Closing Time"]) || "Late"}</span>
           <span class="pill">${normalizeValue(venue["Driving Distance"]) || "Distance TBD"}</span>

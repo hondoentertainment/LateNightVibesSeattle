@@ -1,0 +1,188 @@
+.compare-header {
+  padding: 20px 16px 16px;
+  border-bottom: 1px solid #1c2232;
+  background: #0e1118;
+}
+
+@media (min-width: 860px) {
+  .compare-header { padding: 28px 32px 20px; }
+}
+
+.compare-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 6px;
+}
+
+.compare-desc {
+  font-size: 13px;
+  color: #93a1c6;
+  margin: 0 0 16px;
+  line-height: 1.5;
+}
+
+.compare-selects {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+@media (min-width: 600px) {
+  .compare-selects {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+.compare-selects select {
+  background: #111827;
+  color: #e8e8e8;
+  border: 1px solid #2a334d;
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-size: 14px;
+  min-height: 48px;
+}
+
+/* ─── Comparison grid ─── */
+.comparison-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  padding: 16px;
+  padding-bottom: 90px;
+}
+
+@media (min-width: 600px) {
+  .comparison-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    padding: 24px 32px 48px;
+  }
+}
+
+.compare-empty {
+  grid-column: 1 / -1;
+  padding: 40px 20px;
+  text-align: center;
+  background: #101520;
+  border: 1px dashed #2a334d;
+  border-radius: 16px;
+  color: #93a1c6;
+  font-size: 14px;
+}
+
+/* ─── Neighborhood card ─── */
+.hood-card {
+  background: #101520;
+  border: 1px solid #1f2638;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.hood-header {
+  padding: 20px 20px 14px;
+  border-bottom: 1px solid #1c2436;
+}
+
+.hood-name {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.hood-subtitle {
+  font-size: 12px;
+  color: #8fa0c2;
+}
+
+.hood-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: #1c2436;
+}
+
+.hood-stat {
+  background: #101520;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.hood-stat-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #8fa0c2;
+}
+
+.hood-stat-value {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.hood-stat-value.highlight {
+  color: #2bff86;
+}
+
+.hood-vibes {
+  padding: 16px 20px;
+}
+
+.hood-vibes-title {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #8fa0c2;
+  margin-bottom: 10px;
+}
+
+.hood-vibes-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.hood-vibes-list .pill {
+  font-size: 11px;
+  padding: 4px 10px;
+}
+
+.hood-categories {
+  padding: 0 20px 16px;
+}
+
+.hood-cat-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  font-size: 12px;
+  color: #b8c6e6;
+  border-bottom: 1px solid #151d2e;
+}
+
+.hood-cat-item:last-child {
+  border-bottom: none;
+}
+
+.hood-cat-count {
+  color: #8fa0c2;
+  font-size: 11px;
+}
+
+.hood-action {
+  display: block;
+  text-align: center;
+  padding: 14px;
+  color: #2bff86;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  border-top: 1px solid #1c2436;
+}
+
+.hood-action:hover {
+  background: rgba(43, 255, 134, 0.05);
+}

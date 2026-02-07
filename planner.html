@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0a0c12" />
+    <title>Night Plan — Late Night Vibes Seattle</title>
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="apple-touch-icon" href="favicon.png" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="planner.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <img src="lnv-logo.png" alt="Late Night Vibes" class="header-logo" />
+      </div>
+      <div class="top-actions desktop-only">
+        <a href="index.html" class="nav-pill">Browse Venues</a>
+        <a href="recommend.html" class="nav-pill">Recommendations</a>
+        <a href="admin.html" class="nav-pill">Admin</a>
+      </div>
+    </header>
+
+    <!-- Mobile controls -->
+    <div class="planner-mobile-controls mobile-only">
+      <div class="planner-heading-mobile">Night Plan Builder</div>
+      <div class="planner-desc">Set your vibe arc, time window, and neighborhood — we'll build your itinerary.</div>
+      <div class="planner-fields-mobile">
+        <label class="field">
+          Start time
+          <select id="startTime">
+            <option value="21:00">9:00 PM</option>
+            <option value="21:30">9:30 PM</option>
+            <option value="22:00" selected>10:00 PM</option>
+            <option value="22:30">10:30 PM</option>
+            <option value="23:00">11:00 PM</option>
+            <option value="23:30">11:30 PM</option>
+            <option value="00:00">12:00 AM</option>
+          </select>
+        </label>
+        <label class="field">
+          End time
+          <select id="endTime">
+            <option value="00:00">12:00 AM</option>
+            <option value="00:30">12:30 AM</option>
+            <option value="01:00">1:00 AM</option>
+            <option value="01:30">1:30 AM</option>
+            <option value="02:00" selected>2:00 AM</option>
+            <option value="02:30">2:30 AM</option>
+            <option value="03:00">3:00 AM</option>
+            <option value="04:00">4:00 AM</option>
+          </select>
+        </label>
+      </div>
+      <label class="field">
+        Neighborhood focus
+        <select id="areaFilter">
+          <option value="">Any area</option>
+        </select>
+      </label>
+      <label class="field">
+        Vibe arc
+        <select id="vibeArc">
+          <option value="chill-to-wild">Chill → High-energy → Late eats</option>
+          <option value="date-night">Date night (chill → upscale → late)</option>
+          <option value="party">Party mode (dancey → high-energy → late)</option>
+          <option value="explore">Neighborhood explore (varied)</option>
+          <option value="low-key">Low-key all night (chill → casual)</option>
+        </select>
+      </label>
+      <label class="field">
+        Stops
+        <select id="stopCount">
+          <option value="2">2 stops</option>
+          <option value="3" selected>3 stops</option>
+          <option value="4">4 stops</option>
+          <option value="5">5 stops</option>
+        </select>
+      </label>
+      <button id="buildPlan" class="btn-build" type="button">Build my night</button>
+      <div class="planner-secondary-actions" id="mobileSecondaryActions" style="display:none">
+        <button id="shufflePlan" class="btn-shuffle" type="button">Shuffle</button>
+        <button id="sharePlan" class="btn-share-plan" type="button">Share plan</button>
+      </div>
+    </div>
+
+    <!-- Desktop layout -->
+    <div class="planner-layout">
+      <aside class="planner-sidebar desktop-only">
+        <div class="sidebar-section">
+          <div class="sidebar-title">Night Plan Builder</div>
+          <p class="planner-desc">Set your vibe arc, time window, and neighborhood — we'll build your itinerary.</p>
+          <label class="field">
+            Start time
+            <select id="startTimeDesktop">
+              <option value="21:00">9:00 PM</option>
+              <option value="21:30">9:30 PM</option>
+              <option value="22:00" selected>10:00 PM</option>
+              <option value="22:30">10:30 PM</option>
+              <option value="23:00">11:00 PM</option>
+              <option value="23:30">11:30 PM</option>
+              <option value="00:00">12:00 AM</option>
+            </select>
+          </label>
+          <label class="field">
+            End time
+            <select id="endTimeDesktop">
+              <option value="00:00">12:00 AM</option>
+              <option value="00:30">12:30 AM</option>
+              <option value="01:00">1:00 AM</option>
+              <option value="01:30">1:30 AM</option>
+              <option value="02:00" selected>2:00 AM</option>
+              <option value="02:30">2:30 AM</option>
+              <option value="03:00">3:00 AM</option>
+              <option value="04:00">4:00 AM</option>
+            </select>
+          </label>
+          <label class="field">
+            Neighborhood focus
+            <select id="areaFilterDesktop">
+              <option value="">Any area</option>
+            </select>
+          </label>
+          <label class="field">
+            Vibe arc
+            <select id="vibeArcDesktop">
+              <option value="chill-to-wild">Chill → High-energy → Late eats</option>
+              <option value="date-night">Date night (chill → upscale → late)</option>
+              <option value="party">Party mode (dancey → high-energy → late)</option>
+              <option value="explore">Neighborhood explore (varied)</option>
+              <option value="low-key">Low-key all night (chill → casual)</option>
+            </select>
+          </label>
+          <label class="field">
+            Stops
+            <select id="stopCountDesktop">
+              <option value="2">2 stops</option>
+              <option value="3" selected>3 stops</option>
+              <option value="4">4 stops</option>
+              <option value="5">5 stops</option>
+            </select>
+          </label>
+          <button id="buildPlanDesktop" class="btn-build" type="button">Build my night</button>
+          <div class="planner-secondary-actions" id="desktopSecondaryActions" style="display:none">
+            <button id="shufflePlanDesktop" class="btn-shuffle" type="button">Shuffle</button>
+            <button id="sharePlanDesktop" class="btn-share-plan" type="button">Share plan</button>
+          </div>
+        </div>
+      </aside>
+
+      <main class="planner-results">
+        <div id="itinerary" class="itinerary"></div>
+      </main>
+    </div>
+
+    <!-- Bottom nav (mobile) -->
+    <nav class="bottom-nav mobile-only">
+      <a href="index.html" class="bottom-nav-item">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        <span>Browse</span>
+      </a>
+      <a href="recommend.html" class="bottom-nav-item">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01z"/></svg>
+        <span>For You</span>
+      </a>
+      <a href="admin.html" class="bottom-nav-item">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+        <span>Admin</span>
+      </a>
+    </nav>
+
+    <script src="planner.js"></script>
+  </body>
+</html>

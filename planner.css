@@ -1,0 +1,366 @@
+/* ─── Mobile controls ─── */
+.planner-mobile-controls {
+  flex-direction: column;
+  padding: 16px;
+  background: #0e1118;
+  border-bottom: 1px solid #1c2232;
+  gap: 10px;
+}
+
+.planner-heading-mobile {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.planner-desc {
+  font-size: 13px;
+  color: #93a1c6;
+  line-height: 1.5;
+  margin-bottom: 6px;
+}
+
+.planner-fields-mobile {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.planner-fields-mobile .field {
+  margin-bottom: 0;
+}
+
+.btn-build {
+  background: #2bff86;
+  color: #0b0d14;
+  border: none;
+  padding: 14px 24px;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  min-height: 52px;
+  width: 100%;
+  margin-top: 4px;
+  transition: background 0.15s ease;
+}
+
+.btn-build:hover {
+  background: #22e676;
+}
+
+.btn-build:active {
+  background: #1ad16a;
+}
+
+/* ─── Layout ─── */
+.planner-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  padding: 16px;
+  padding-bottom: 90px;
+}
+
+@media (min-width: 860px) {
+  .planner-layout {
+    grid-template-columns: 320px 1fr;
+    gap: 24px;
+    padding: 24px 32px 48px;
+  }
+}
+
+.planner-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.planner-results {
+  min-width: 0;
+}
+
+/* ─── Itinerary ─── */
+.itinerary {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.itinerary-empty {
+  padding: 40px 24px;
+  text-align: center;
+  background: #101520;
+  border: 1px dashed #2a334d;
+  border-radius: 16px;
+  color: #93a1c6;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* ─── Stop card ─── */
+.stop-card {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 0;
+  position: relative;
+}
+
+.stop-timeline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 18px;
+}
+
+.stop-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #2bff86;
+  border: 3px solid #0b0d14;
+  z-index: 1;
+  flex-shrink: 0;
+}
+
+.stop-line {
+  width: 2px;
+  flex: 1;
+  background: #1f2a40;
+}
+
+.stop-card:last-child .stop-line {
+  display: none;
+}
+
+.stop-content {
+  background: #101520;
+  border: 1px solid #1e2638;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stop-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.stop-number {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #2bff86;
+  font-weight: 700;
+}
+
+.stop-time {
+  font-size: 12px;
+  color: #8fa0c2;
+  white-space: nowrap;
+}
+
+.stop-name {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.stop-name a {
+  color: #e8e8e8;
+  text-decoration: none;
+}
+
+.stop-name a:hover {
+  text-decoration: underline;
+}
+
+.stop-meta {
+  font-size: 12px;
+  color: #93a1c6;
+}
+
+.stop-why {
+  font-size: 12px;
+  color: #b8c6e6;
+  line-height: 1.5;
+  background: #0d111b;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #1c2436;
+}
+
+.stop-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.stop-pills .pill {
+  font-size: 11px;
+  padding: 4px 8px;
+}
+
+.stop-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.stop-actions a {
+  color: #2bff86;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* ─── Connector card ─── */
+.connector {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 0;
+}
+
+.connector-line {
+  display: flex;
+  justify-content: center;
+}
+
+.connector-line div {
+  width: 2px;
+  height: 100%;
+  background: #1f2a40;
+}
+
+.connector-info {
+  padding: 4px 0 4px 0;
+  font-size: 11px;
+  color: #6b7a9a;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ─── Secondary actions ─── */
+.planner-secondary-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.btn-shuffle {
+  flex: 1;
+  background: #151a28;
+  color: #e8e8e8;
+  border: 1px solid #2a334d;
+  padding: 12px 16px;
+  border-radius: 14px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  min-height: 48px;
+}
+
+.btn-shuffle:hover { border-color: #3a4560; }
+
+.btn-share-plan {
+  flex: 1;
+  background: #151a28;
+  color: #93a1c6;
+  border: 1px solid #2a334d;
+  padding: 12px 16px;
+  border-radius: 14px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  min-height: 48px;
+}
+
+.btn-share-plan:hover { border-color: #3a4560; color: #e8e8e8; }
+
+/* ─── Lock button on stops ─── */
+.stop-lock {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: #151a28;
+  border: 1px solid #2a334d;
+  color: #6b7a9a;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.stop-lock.locked {
+  color: #2bff86;
+  border-color: #2bff86;
+}
+
+.stop-header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ─── Swap button ─── */
+.swap-btn {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #1a2236;
+  border: 1px solid #2a334d;
+  color: #93a1c6;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  font-size: 12px;
+  margin: 0 auto;
+}
+
+.swap-btn:hover {
+  border-color: #2bff86;
+  color: #2bff86;
+}
+
+/* ─── Share toast ─── */
+.share-toast {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #2bff86;
+  color: #0b0d14;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  z-index: 200;
+  pointer-events: none;
+  animation: toastIn 0.3s ease, toastOut 0.3s ease 1.5s forwards;
+}
+
+@keyframes toastIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+@keyframes toastOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@media (min-width: 860px) {
+  .stop-content {
+    padding: 20px;
+  }
+  .stop-name {
+    font-size: 18px;
+  }
+}
