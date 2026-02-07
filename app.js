@@ -1,5 +1,7 @@
 const DEFAULT_CSV = "venue_list_500plus.csv";
 
+const PAGE_SIZE = 40;
+
 const state = {
   all: [],
   filtered: [],
@@ -8,6 +10,8 @@ const state = {
   favorites: new Set(),
   currentView: "grid", // "grid" or "map"
   showSavedOnly: false,
+  openNowOnly: false,
+  renderLimit: PAGE_SIZE,
 };
 
 /* ─── Favorites persistence ─── */
@@ -71,6 +75,13 @@ const elements = {
   filterOverlay: $("filterOverlay"),
   filterDrawer: $("filterDrawer"),
   filterClose: $("filterClose"),
+  // Open Now toggles
+  openNowDesktop: $("openNowDesktop"),
+  openNowMobile: $("openNowMobile"),
+  // Load more
+  loadMoreWrap: $("loadMoreWrap"),
+  loadMoreBtn: $("loadMoreBtn"),
+  loadMoreCount: $("loadMoreCount"),
   // Detail drawer
   detailOverlay: $("detailOverlay"),
   detailDrawer: $("detailDrawer"),
@@ -351,6 +362,7 @@ function updateFilterBadge() {
   let count = 0;
   if (getAreaValue()) count++;
   if (getCategoryValue()) count++;
+  if (state.openNowOnly) count++;
   count += state.activeVibes.size;
   let badge = elements.filterToggle.querySelector(".filter-badge");
   if (count > 0) {
@@ -391,7 +403,7 @@ function getSortValue() {
 }
 
 /* ─── Filter + Sort ─── */
-function applyFilters() {
+function applyFilters(keepRenderLimit) {
   const query = getSearchQuery();
   const area = getAreaValue();
   const category = getCategoryValue();
@@ -399,6 +411,10 @@ function applyFilters() {
 
   state.filtered = state.all.filter((venue) => {
     if (state.showSavedOnly && !state.favorites.has(normalizeValue(venue.Name))) return false;
+    if (state.openNowOnly) {
+      const open = isVenueOpen(normalizeValue(venue["Typical Closing Time"]));
+      if (open !== true) return false;
+    }
     if (area && normalizeValue(venue.Area) !== area) return false;
     if (category && normalizeValue(venue.Category) !== category) return false;
     if (query) {
@@ -413,13 +429,16 @@ function applyFilters() {
     return true;
   });
 
+  if (!keepRenderLimit) state.renderLimit = PAGE_SIZE;
   sortFiltered();
   renderGrid();
+  updateLoadMore();
   updateStats();
   updateFilterBadge();
   updateResultSummary();
+  saveFilterState();
   if (state.currentView === "map") renderMap();
-  if (elements.grid) elements.grid.scrollIntoView({ behavior: "smooth", block: "start" });
+  if (!keepRenderLimit && elements.grid) elements.grid.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 function sortFiltered() {
@@ -500,7 +519,8 @@ function renderGrid() {
     elements.grid.appendChild(empty);
     return;
   }
-  state.filtered.forEach((venue) => {
+  const visibleVenues = state.filtered.slice(0, state.renderLimit);
+  visibleVenues.forEach((venue, venueIdx) => {
     const mapLink = normalizeValue(venue["Google Maps Driving Link"]);
     const nameText = normalizeValue(venue.Name);
     const closingTime = normalizeValue(venue["Typical Closing Time"]);
@@ -544,6 +564,9 @@ function renderGrid() {
       if (e.target.closest(".venue-fav")) return;
       openDetail(venue);
     });
+
+    // Staggered entrance animation
+    card.style.animationDelay = `${Math.min(venueIdx, 30) * 30}ms`;
 
     card.style.cursor = "pointer";
     elements.grid.appendChild(card);
@@ -715,6 +738,7 @@ function setView(view) {
     elements.mapContainer.style.display = "block";
     renderMap();
   }
+  saveFilterState();
 }
 
 if (elements.viewToggle) {
@@ -798,7 +822,7 @@ function renderMap() {
       radius: 7, fillColor: color, color: "#0b0d14", weight: 2, opacity: 1, fillOpacity: 0.85,
     }).addTo(leafletMap);
     const isFav = state.favorites.has(normalizeValue(venue.Name));
-    marker.bindPopup(`<div style="font-family:Inter,sans-serif;font-size:13px"><strong>${normalizeValue(venue.Name)}</strong> ${isFav ? "♥" : ""}<br><span style="color:#666">${normalizeValue(venue.Area)} · ${normalizeValue(venue.Category)}</span><br><span style="color:#888">${normalizeValue(venue["Typical Closing Time"]) || "Late"}</span></div>`);
+    marker.bindPopup(`<div><strong>${normalizeValue(venue.Name)}</strong> ${isFav ? "♥" : ""}<br><span style="color:#8fa0c2">${normalizeValue(venue.Area)} · ${normalizeValue(venue.Category)}</span><br><span style="color:#93a1c6">${normalizeValue(venue["Typical Closing Time"]) || "Late"}</span></div>`);
     marker.on("click", () => openDetail(venue));
     mapMarkers.push(marker);
     bounds.push([lat, lng]);
@@ -823,6 +847,7 @@ function initFilters() {
 function loadFromText(text) {
   state.all = loadDataFromCSV(text);
   initFilters();
+  restoreFilterState();
   applyFilters();
   setStatus("Loaded " + state.all.length + " venues");
 }
@@ -867,6 +892,115 @@ addListener(elements.csvFile, "change", (event) => {
   reader.readAsText(file);
 });
 
+/* ─── Load More pagination ─── */
+function updateLoadMore() {
+  if (!elements.loadMoreWrap) return;
+  const total = state.filtered.length;
+  const showing = Math.min(state.renderLimit, total);
+  if (showing < total) {
+    elements.loadMoreWrap.style.display = "flex";
+    const remaining = total - showing;
+    elements.loadMoreCount.textContent = `Showing ${showing} of ${total} — ${remaining} more`;
+  } else {
+    elements.loadMoreWrap.style.display = "none";
+  }
+}
+
+if (elements.loadMoreBtn) {
+  elements.loadMoreBtn.addEventListener("click", () => {
+    state.renderLimit += PAGE_SIZE;
+    renderGrid();
+    updateLoadMore();
+  });
+}
+
+/* ─── Open Now toggle ─── */
+function syncOpenNow() {
+  if (elements.openNowDesktop) elements.openNowDesktop.checked = state.openNowOnly;
+  if (elements.openNowMobile) elements.openNowMobile.checked = state.openNowOnly;
+}
+
+addListener(elements.openNowDesktop, "change", () => {
+  state.openNowOnly = elements.openNowDesktop.checked;
+  syncOpenNow();
+  applyFilters();
+});
+
+addListener(elements.openNowMobile, "change", () => {
+  state.openNowOnly = elements.openNowMobile.checked;
+  syncOpenNow();
+  applyFilters();
+});
+
+/* ─── Persist filter state to sessionStorage ─── */
+function saveFilterState() {
+  try {
+    const data = {
+      area: getAreaValue(),
+      category: getCategoryValue(),
+      sort: getSortValue(),
+      search: getSearchQuery(),
+      vibes: Array.from(state.activeVibes),
+      view: state.currentView,
+      openNow: state.openNowOnly,
+    };
+    sessionStorage.setItem("lnv_filters", JSON.stringify(data));
+  } catch (_) {}
+}
+
+function restoreFilterState() {
+  try {
+    const raw = sessionStorage.getItem("lnv_filters");
+    if (!raw) return false;
+    const data = JSON.parse(raw);
+
+    // Restore search
+    if (data.search) {
+      if (elements.searchInput) elements.searchInput.value = data.search;
+      if (elements.searchInputMobile) elements.searchInputMobile.value = data.search;
+    }
+
+    // Restore area (must happen after initFilters populates options)
+    if (data.area) {
+      if (elements.areaSelect) elements.areaSelect.value = data.area;
+      if (elements.areaSelectMobile) elements.areaSelectMobile.value = data.area;
+    }
+
+    // Restore category
+    if (data.category) {
+      if (elements.categorySelect) elements.categorySelect.value = data.category;
+      if (elements.categorySelectMobile) elements.categorySelectMobile.value = data.category;
+    }
+
+    // Restore sort
+    if (data.sort) {
+      if (elements.sortSelect) elements.sortSelect.value = data.sort;
+      if (elements.sortSelectMobile) elements.sortSelectMobile.value = data.sort;
+    }
+
+    // Restore vibes
+    if (data.vibes && data.vibes.length) {
+      state.activeVibes = new Set(data.vibes);
+      syncVibeCheckboxes();
+    }
+
+    // Restore open now
+    if (data.openNow) {
+      state.openNowOnly = true;
+      syncOpenNow();
+    }
+
+    // Restore view
+    if (data.view && data.view !== "grid") {
+      setView(data.view);
+    }
+
+    return true;
+  } catch (_) {
+    return false;
+  }
+}
+
 /* ─── Highlight active nav for saved view ─── */
 if (state.showSavedOnly) {
   document.querySelectorAll(".bottom-nav-item").forEach((a) => a.classList.remove("active"));
@@ -875,5 +1009,117 @@ if (state.showSavedOnly) {
   const savedLink = $("savedLink");
   if (savedLink) savedLink.style.borderColor = "#2bff86";
 }
+
+/* ─── Swipe-to-dismiss detail drawer (mobile) ─── */
+(function initSwipeToDismiss() {
+  const drawer = elements.detailDrawer;
+  const overlay = elements.detailOverlay;
+  if (!drawer) return;
+
+  let startY = 0;
+  let currentY = 0;
+  let isDragging = false;
+
+  drawer.addEventListener("touchstart", (e) => {
+    // Only start swipe from the handle / header area (top 60px)
+    const touch = e.touches[0];
+    const rect = drawer.getBoundingClientRect();
+    if (touch.clientY - rect.top > 60) return;
+    startY = touch.clientY;
+    currentY = startY;
+    isDragging = true;
+    drawer.style.transition = "none";
+  }, { passive: true });
+
+  drawer.addEventListener("touchmove", (e) => {
+    if (!isDragging) return;
+    currentY = e.touches[0].clientY;
+    const dy = Math.max(0, currentY - startY);
+    drawer.style.transform = `translateY(${dy}px)`;
+    if (overlay) overlay.style.opacity = Math.max(0, 1 - dy / 300);
+  }, { passive: true });
+
+  drawer.addEventListener("touchend", () => {
+    if (!isDragging) return;
+    isDragging = false;
+    drawer.style.transition = "";
+    if (overlay) overlay.style.opacity = "";
+    const dy = currentY - startY;
+    if (dy > 80) {
+      closeDetail();
+    } else {
+      drawer.style.transform = "";
+    }
+  }, { passive: true });
+})();
+
+/* ─── Pull-to-refresh (mobile) ─── */
+(function initPullToRefresh() {
+  const indicator = $("ptrIndicator");
+  if (!indicator) return;
+
+  let startY = 0;
+  let isPulling = false;
+
+  const content = document.querySelector(".content") || document.querySelector(".layout");
+  if (!content) return;
+
+  content.addEventListener("touchstart", (e) => {
+    // Only if scrolled to top
+    if (window.scrollY > 10) return;
+    startY = e.touches[0].clientY;
+    isPulling = true;
+  }, { passive: true });
+
+  content.addEventListener("touchmove", (e) => {
+    if (!isPulling) return;
+    const dy = e.touches[0].clientY - startY;
+    if (dy > 40 && dy < 150 && window.scrollY <= 0) {
+      indicator.classList.add("pulling");
+      indicator.innerHTML = "<span>Release to refresh</span>";
+    } else {
+      indicator.classList.remove("pulling");
+    }
+  }, { passive: true });
+
+  content.addEventListener("touchend", () => {
+    if (!isPulling) return;
+    isPulling = false;
+    if (indicator.classList.contains("pulling")) {
+      indicator.classList.remove("pulling");
+      indicator.classList.add("refreshing");
+      indicator.innerHTML = '<div class="ptr-spinner"></div><span>Refreshing…</span>';
+      // Re-render to update open/closed badges
+      setTimeout(() => {
+        applyFilters();
+        indicator.classList.remove("refreshing");
+        indicator.innerHTML = "<span>Pull to refresh</span>";
+        showToast("Status badges updated");
+      }, 600);
+    }
+  }, { passive: true });
+})();
+
+/* ─── Keyboard shortcut: / to focus search ─── */
+document.addEventListener("keydown", (e) => {
+  // Don't trigger if typing in an input, select, or textarea
+  const tag = (e.target.tagName || "").toLowerCase();
+  if (tag === "input" || tag === "textarea" || tag === "select" || e.target.isContentEditable) return;
+  if (e.key === "/") {
+    e.preventDefault();
+    const isMobile = window.innerWidth < 860;
+    const input = isMobile ? elements.searchInputMobile : elements.searchInput;
+    if (input) {
+      input.focus();
+      input.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+  }
+  // Escape to close detail drawer
+  if (e.key === "Escape") {
+    if (elements.detailDrawer && elements.detailDrawer.classList.contains("open")) {
+      closeDetail();
+    }
+  }
+});
 
 loadDefaultCSV();

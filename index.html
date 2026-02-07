@@ -79,6 +79,11 @@
               <option value="closing">Closing Time</option>
             </select>
           </label>
+          <label class="open-now-toggle">
+            <input type="checkbox" id="openNowMobile" />
+            <span class="open-now-dot"></span>
+            <span>Open Now Only</span>
+          </label>
         </div>
         <div class="drawer-section">
           <div class="drawer-section-title">Vibes</div>
@@ -114,6 +119,11 @@
               <option value="closing">Closing Time</option>
             </select>
           </label>
+          <label class="open-now-toggle">
+            <input type="checkbox" id="openNowDesktop" />
+            <span class="open-now-dot"></span>
+            <span>Open Now Only</span>
+          </label>
         </div>
         <div class="sidebar-section">
           <div class="sidebar-title">Vibes</div>
@@ -135,7 +145,12 @@
           </div>
         </div>
         <div id="vibeLegend" class="vibe-legend" style="display:none"></div>
+        <div id="ptrIndicator" class="ptr-indicator"><span>Pull to refresh</span></div>
         <div id="venueGrid" class="venue-grid"></div>
+        <div id="loadMoreWrap" class="load-more-wrap" style="display:none">
+          <button id="loadMoreBtn" class="load-more-btn" type="button">Load More</button>
+          <div id="loadMoreCount" class="load-more-count"></div>
+        </div>
         <div id="mapContainer"></div>
       </main>
     </div>
