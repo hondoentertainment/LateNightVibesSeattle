@@ -7,27 +7,64 @@ const state = {
   activeVibes: new Set(),
 };
 
+/* ─── Element refs ─── */
+const $ = (id) => document.getElementById(id);
+
 const elements = {
-  csvFile: document.getElementById("csvFile"),
-  resetFilters: document.getElementById("resetFilters"),
-  venueCount: document.getElementById("venueCount"),
-  filteredCount: document.getElementById("filteredCount"),
-  activeVibes: document.getElementById("activeVibes"),
-  statusText: document.getElementById("statusText"),
-  searchInput: document.getElementById("searchInput"),
-  areaSelect: document.getElementById("areaSelect"),
-  categorySelect: document.getElementById("categorySelect"),
-  sortSelect: document.getElementById("sortSelect"),
-  vibeList: document.getElementById("vibeList"),
-  grid: document.getElementById("venueGrid"),
-  venueSelect: document.getElementById("venueSelect"),
-  maxDistanceInput: document.getElementById("maxDistanceInput"),
-  resultCountInput: document.getElementById("resultCountInput"),
-  recommendationList: document.getElementById("recommendationList"),
+  csvFile: $("csvFile"),
+  venueCount: $("venueCount"),
+  filteredCount: $("filteredCount"),
+  activeVibes: $("activeVibes"),
+  statusText: $("statusText"),
+  grid: $("venueGrid"),
+  // Desktop
+  searchInput: $("searchInput"),
+  areaSelect: $("areaSelectDesktop"),
+  categorySelect: $("categorySelectDesktop"),
+  sortSelect: $("sortSelectDesktop"),
+  vibeList: $("vibeListDesktop"),
+  // Mobile drawer
+  searchInputMobile: $("searchInputMobile"),
+  areaSelectMobile: $("areaSelect"),
+  categorySelectMobile: $("categorySelect"),
+  sortSelectMobile: $("sortSelect"),
+  vibeListMobile: $("vibeList"),
+  // Drawer
+  filterToggle: $("filterToggle"),
+  filterOverlay: $("filterOverlay"),
+  filterDrawer: $("filterDrawer"),
+  filterClose: $("filterClose"),
 };
 
+/* ─── Drawer toggle ─── */
+function openDrawer() {
+  elements.filterOverlay.classList.add("open");
+  elements.filterDrawer.classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+
+function closeDrawer() {
+  elements.filterOverlay.classList.remove("open");
+  elements.filterDrawer.classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+if (elements.filterToggle) elements.filterToggle.addEventListener("click", openDrawer);
+if (elements.filterOverlay) elements.filterOverlay.addEventListener("click", closeDrawer);
+if (elements.filterClose) elements.filterClose.addEventListener("click", closeDrawer);
+
+/* ─── Sync paired selects ─── */
+function syncSelect(source, target) {
+  if (target) target.value = source.value;
+}
+
+/* ─── Utilities ─── */
 function setStatus(text) {
-  elements.statusText.textContent = text;
+  if (elements.statusText) elements.statusText.textContent = text;
+}
+
+function normalizeValue(value) {
+  return (value || "").toString().trim();
 }
 
 function parseCSV(text) {
@@ -35,47 +72,25 @@ function parseCSV(text) {
   let current = "";
   let inQuotes = false;
   const cells = [];
-
-  function pushCell() {
-    cells.push(current);
-    current = "";
-  }
-
-  function pushRow() {
-    rows.push(cells.splice(0));
-  }
-
+  function pushCell() { cells.push(current); current = ""; }
+  function pushRow() { rows.push(cells.splice(0)); }
   for (let i = 0; i < text.length; i++) {
     const char = text[i];
     if (char === "\"") {
       const next = text[i + 1];
-      if (inQuotes && next === "\"") {
-        current += "\"";
-        i++;
-      } else {
-        inQuotes = !inQuotes;
-      }
+      if (inQuotes && next === "\"") { current += "\""; i++; }
+      else inQuotes = !inQuotes;
     } else if (char === "," && !inQuotes) {
       pushCell();
     } else if ((char === "\n" || char === "\r") && !inQuotes) {
-      if (char === "\r" && text[i + 1] === "\n") {
-        i++;
-      }
-      pushCell();
-      pushRow();
+      if (char === "\r" && text[i + 1] === "\n") i++;
+      pushCell(); pushRow();
     } else {
       current += char;
     }
   }
-  if (current.length > 0 || cells.length > 0) {
-    pushCell();
-    pushRow();
-  }
+  if (current.length > 0 || cells.length > 0) { pushCell(); pushRow(); }
   return rows;
-}
-
-function normalizeValue(value) {
-  return (value || "").toString().trim();
 }
 
 function parseTimeToMinutes(value) {
@@ -90,102 +105,126 @@ function parseTimeToMinutes(value) {
   return hour * 60 + minute;
 }
 
-function parseDistanceMiles(value) {
-  const text = normalizeValue(value).toLowerCase();
-  const match = text.match(/([\d.]+)\s*mi/);
-  return match ? parseFloat(match[1]) : null;
-}
-
 function loadDataFromCSV(text) {
   const rows = parseCSV(text);
   if (!rows.length) return [];
   const headers = rows[0].map((h) => normalizeValue(h));
-  const data = rows.slice(1).filter((row) => row.some((cell) => cell && cell.trim()));
-  return data.map((row) => {
-    const record = {};
-    headers.forEach((header, idx) => {
-      record[header] = normalizeValue(row[idx]);
+  return rows.slice(1)
+    .filter((row) => row.some((c) => c && c.trim()))
+    .map((row) => {
+      const r = {};
+      headers.forEach((h, i) => { r[h] = normalizeValue(row[i]); });
+      return r;
     });
-    return record;
-  });
 }
 
 function collectVibes(venues) {
   const vibeSet = new Set();
   venues.forEach((venue) => {
-    const tags = normalizeValue(venue["Vibe Tags"]).split(",");
-    tags.map((tag) => normalizeValue(tag)).filter(Boolean).forEach((tag) => vibeSet.add(tag));
+    normalizeValue(venue["Vibe Tags"]).split(",")
+      .map((t) => normalizeValue(t)).filter(Boolean)
+      .forEach((t) => vibeSet.add(t));
   });
   return vibeSet;
 }
 
 function getVibeSet(venue) {
   return new Set(
-    normalizeValue(venue["Vibe Tags"])
-      .split(",")
-      .map((tag) => normalizeValue(tag).toLowerCase())
-      .filter(Boolean)
+    normalizeValue(venue["Vibe Tags"]).split(",")
+      .map((t) => normalizeValue(t).toLowerCase()).filter(Boolean)
   );
 }
 
+/* ─── Build filters ─── */
 function buildOptions(select, values) {
+  if (!select) return;
   const current = select.value;
   select.innerHTML = "<option value=\"\">All</option>";
   values.forEach((value) => {
-    const option = document.createElement("option");
-    option.value = value;
-    option.textContent = value;
-    select.appendChild(option);
+    const opt = document.createElement("option");
+    opt.value = value;
+    opt.textContent = value;
+    select.appendChild(opt);
   });
   select.value = current;
 }
 
-function buildVibeChips(vibes) {
-  elements.vibeList.innerHTML = "";
+function buildVibeChips(vibes, container) {
+  if (!container) return;
+  container.innerHTML = "";
   Array.from(vibes).sort().forEach((tag) => {
     const label = document.createElement("label");
     label.className = "vibe-chip";
     const input = document.createElement("input");
     input.type = "checkbox";
     input.value = tag;
+    input.checked = state.activeVibes.has(tag);
     input.addEventListener("change", () => {
-      if (input.checked) {
-        state.activeVibes.add(tag);
-      } else {
-        state.activeVibes.delete(tag);
-      }
+      if (input.checked) state.activeVibes.add(tag);
+      else state.activeVibes.delete(tag);
+      syncVibeCheckboxes();
       applyFilters();
     });
     const span = document.createElement("span");
     span.textContent = tag;
     label.appendChild(input);
     label.appendChild(span);
-    elements.vibeList.appendChild(label);
+    container.appendChild(label);
   });
 }
 
+function syncVibeCheckboxes() {
+  [elements.vibeList, elements.vibeListMobile].forEach((container) => {
+    if (!container) return;
+    container.querySelectorAll("input[type='checkbox']").forEach((box) => {
+      box.checked = state.activeVibes.has(box.value);
+    });
+  });
+}
+
+/* ─── Get current filter values (prefer whichever was last changed) ─── */
+function getSearchQuery() {
+  const desktop = elements.searchInput ? elements.searchInput.value : "";
+  const mobile = elements.searchInputMobile ? elements.searchInputMobile.value : "";
+  return normalizeValue(desktop || mobile).toLowerCase();
+}
+
+function getAreaValue() {
+  const d = elements.areaSelect ? elements.areaSelect.value : "";
+  const m = elements.areaSelectMobile ? elements.areaSelectMobile.value : "";
+  return normalizeValue(d || m);
+}
+
+function getCategoryValue() {
+  const d = elements.categorySelect ? elements.categorySelect.value : "";
+  const m = elements.categorySelectMobile ? elements.categorySelectMobile.value : "";
+  return normalizeValue(d || m);
+}
+
+function getSortValue() {
+  const d = elements.sortSelect ? elements.sortSelect.value : "";
+  const m = elements.sortSelectMobile ? elements.sortSelectMobile.value : "";
+  return d || m || "name";
+}
+
+/* ─── Filter + Sort ─── */
 function applyFilters() {
-  const query = normalizeValue(elements.searchInput.value).toLowerCase();
-  const area = normalizeValue(elements.areaSelect.value);
-  const category = normalizeValue(elements.categorySelect.value);
+  const query = getSearchQuery();
+  const area = getAreaValue();
+  const category = getCategoryValue();
   const activeVibes = Array.from(state.activeVibes);
 
   state.filtered = state.all.filter((venue) => {
     if (area && normalizeValue(venue.Area) !== area) return false;
     if (category && normalizeValue(venue.Category) !== category) return false;
     if (query) {
-      const haystack = [
-        venue.Name,
-        venue.Address,
-        venue.Category,
-        venue["Vibe Tags"],
-        venue.Area,
-      ].map((item) => normalizeValue(item).toLowerCase()).join(" ");
+      const haystack = [venue.Name, venue.Address, venue.Category, venue["Vibe Tags"], venue.Area]
+        .map((item) => normalizeValue(item).toLowerCase()).join(" ");
       if (!haystack.includes(query)) return false;
     }
     if (activeVibes.length) {
-      const tags = normalizeValue(venue["Vibe Tags"]).split(",").map((tag) => normalizeValue(tag));
-      if (!activeVibes.every((tag) => tags.includes(tag))) return false;
+      const tags = normalizeValue(venue["Vibe Tags"]).split(",").map((t) => normalizeValue(t));
+      if (!activeVibes.every((t) => tags.includes(t))) return false;
     }
     return true;
   });
@@ -196,7 +235,7 @@ function applyFilters() {
 }
 
 function sortFiltered() {
-  const sortBy = elements.sortSelect.value;
+  const sortBy = getSortValue();
   const collator = new Intl.Collator(undefined, { numeric: true, sensitivity: "base" });
   state.filtered.sort((a, b) => {
     if (sortBy === "distance") {
@@ -212,30 +251,32 @@ function sortFiltered() {
       if (bVal === null) return -1;
       return aVal - bVal;
     }
-    if (sortBy === "area") {
-      return collator.compare(a.Area, b.Area);
-    }
-    if (sortBy === "category") {
-      return collator.compare(a.Category, b.Category);
-    }
+    if (sortBy === "area") return collator.compare(a.Area, b.Area);
+    if (sortBy === "category") return collator.compare(a.Category, b.Category);
     return collator.compare(a.Name, b.Name);
   });
 }
 
-function hashSeed(value) {
-  let hash = 0;
-  for (let i = 0; i < value.length; i++) {
-    hash = (hash << 5) - hash + value.charCodeAt(i);
-    hash |= 0;
-  }
-  return Math.abs(hash);
+/* ─── Render ─── */
+function getPrimaryTag(tags) {
+  return tags.length ? tags[0] : "general";
 }
 
-function initialsFromName(name) {
-  const parts = normalizeValue(name).split(" ").filter(Boolean);
-  if (!parts.length) return "LN";
-  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
-  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+function getAttributeClasses(tags) {
+  const classes = [];
+  const tagSet = new Set(tags);
+  const addIf = (tag, cls) => { if (tagSet.has(tag)) classes.push(cls); };
+  addIf("upscale", "attr-upscale");
+  addIf("divey", "attr-divey");
+  addIf("live-music", "attr-live-music");
+  addIf("dancey", "attr-dancey");
+  addIf("sports", "attr-sports");
+  addIf("karaoke", "attr-karaoke");
+  addIf("late-eats", "attr-late-eats");
+  addIf("rooftop", "attr-rooftop");
+  addIf("views", "attr-views");
+  addIf("adult", "attr-adult");
+  return classes.join(" ");
 }
 
 function renderGrid() {
@@ -249,22 +290,34 @@ function renderGrid() {
   }
   state.filtered.forEach((venue) => {
     const mapLink = normalizeValue(venue["Google Maps Driving Link"]);
-    const posterIndex = hashSeed(venue.Name || "") % 6;
+    const nameText = normalizeValue(venue.Name);
+    const addressText = normalizeValue(venue.Address);
+    const tags = normalizeValue(venue["Vibe Tags"]).split(",")
+      .map((t) => normalizeValue(t).toLowerCase()).filter(Boolean);
+    const primaryTag = getPrimaryTag(tags);
+    const posterClass = `poster-general poster-${primaryTag.replace(/[^a-z0-9-]/g, "") || "general"}`;
+    const attributeClasses = getAttributeClasses(tags);
     const card = document.createElement("div");
-    card.className = "venue-card";
+    card.className = `venue-card ${attributeClasses}`;
     card.innerHTML = `
-      <div class="poster poster-${posterIndex}">${initialsFromName(venue.Name)}</div>
+      <div class="poster ${posterClass}"></div>
       <div class="venue-info">
-        <div class="venue-name">${normalizeValue(venue.Name)}</div>
-        <div class="venue-meta">${normalizeValue(venue.Area)} • ${normalizeValue(venue.Category)}</div>
+        <div class="venue-name">
+          ${mapLink ? `<a href="${mapLink}" target="_blank" rel="noopener">${nameText}</a>` : nameText}
+        </div>
+        <div class="venue-meta">${normalizeValue(venue.Area)} · ${normalizeValue(venue.Category)}</div>
         <div class="venue-pills">
-          <span class="pill">${normalizeValue(venue["Typical Closing Time"]) || "Late"}</span>
-          <span class="pill">${normalizeValue(venue["Driving Distance"]) || "Distance TBD"}</span>
+          <span class="pill pill-closing">${normalizeValue(venue["Typical Closing Time"]) || "Late"}</span>
+          <span class="pill pill-distance">${normalizeValue(venue["Driving Distance"]) || "Distance TBD"}</span>
         </div>
         <div class="venue-vibes">${normalizeValue(venue["Vibe Tags"])}</div>
         <div class="venue-links">
           ${mapLink ? `<a href="${mapLink}" target="_blank" rel="noopener">Directions</a>` : "<span></span>"}
-          <span class="venue-distance">${normalizeValue(venue.Address)}</span>
+          ${addressText && addressText.toLowerCase() !== "click link"
+            ? (mapLink
+                ? `<a class="venue-distance" href="${mapLink}" target="_blank" rel="noopener">${addressText}</a>`
+                : `<span class="venue-distance">${addressText}</span>`)
+            : `<span class="venue-distance"></span>`}
         </div>
       </div>
     `;
@@ -272,136 +325,24 @@ function renderGrid() {
   });
 }
 
-function buildVenueOptions() {
-  const venues = state.all
-    .map((venue) => normalizeValue(venue.Name))
-    .filter(Boolean)
-    .sort();
-  const current = elements.venueSelect.value;
-  elements.venueSelect.innerHTML = "<option value=\"\">Pick a venue</option>";
-  venues.forEach((name) => {
-    const option = document.createElement("option");
-    option.value = name;
-    option.textContent = name;
-    elements.venueSelect.appendChild(option);
-  });
-  elements.venueSelect.value = current;
-}
-
-function computeRecommendations(baseVenue, maxDistance, maxResults) {
-  const baseDistance = parseDistanceMiles(baseVenue["Driving Distance"]);
-  const baseVibes = getVibeSet(baseVenue);
-
-  return state.all
-    .filter((venue) => venue.Name && venue.Name !== baseVenue.Name)
-    .map((venue) => {
-      const distance = parseDistanceMiles(venue["Driving Distance"]);
-      if (maxDistance !== null && distance !== null && distance > maxDistance) {
-        return null;
-      }
-      const candidateVibes = getVibeSet(venue);
-      const intersection = Array.from(candidateVibes).filter((tag) => baseVibes.has(tag));
-      const union = new Set([...candidateVibes, ...baseVibes]);
-      const vibeScore = union.size ? intersection.length / union.size : 0;
-
-      const categoryScore =
-        normalizeValue(venue.Category).toLowerCase() === normalizeValue(baseVenue.Category).toLowerCase()
-          ? 1
-          : 0;
-      const areaScore =
-        normalizeValue(venue.Area).toLowerCase() === normalizeValue(baseVenue.Area).toLowerCase()
-          ? 1
-          : 0;
-
-      let distanceScore = 0.4;
-      if (distance !== null && baseDistance !== null && maxDistance) {
-        const diff = Math.abs(distance - baseDistance);
-        distanceScore = 1 - Math.min(diff / maxDistance, 1);
-      }
-
-      const score = vibeScore * 0.5 + categoryScore * 0.2 + areaScore * 0.2 + distanceScore * 0.1;
-      const reason = [
-        intersection.length ? `${intersection.length} shared vibes` : "new vibe twist",
-        categoryScore ? "same category" : "different category",
-        areaScore ? "same area" : "nearby area",
-      ].join(" • ");
-
-      return {
-        venue,
-        score,
-        reason,
-      };
-    })
-    .filter(Boolean)
-    .sort((a, b) => b.score - a.score)
-    .slice(0, maxResults);
-}
-
-function renderRecommendations() {
-  const selectedName = normalizeValue(elements.venueSelect.value);
-  elements.recommendationList.innerHTML = "";
-  if (!selectedName) {
-    const message = document.createElement("div");
-    message.className = "empty-state";
-    message.textContent = "Pick a venue to see similar nearby spots.";
-    elements.recommendationList.appendChild(message);
-    return;
-  }
-  const baseVenue = state.all.find((venue) => normalizeValue(venue.Name) === selectedName);
-  if (!baseVenue) return;
-  const maxDistance = parseFloat(elements.maxDistanceInput.value);
-  const results = Math.min(parseInt(elements.resultCountInput.value, 10) || 8, 20);
-  const recs = computeRecommendations(baseVenue, Number.isFinite(maxDistance) ? maxDistance : null, results);
-
-  if (!recs.length) {
-    const empty = document.createElement("div");
-    empty.className = "empty-state";
-    empty.textContent = "No nearby matches. Try a wider distance.";
-    elements.recommendationList.appendChild(empty);
-    return;
-  }
-
-  recs.forEach(({ venue, reason }) => {
-    const card = document.createElement("div");
-    card.className = "recommendation-card";
-    const mapLink = normalizeValue(venue["Google Maps Driving Link"]);
-    card.innerHTML = `
-      <div class="name">${normalizeValue(venue.Name)}</div>
-      <div class="meta">${normalizeValue(venue.Area)} • ${normalizeValue(venue.Category)}</div>
-      <div class="reason">${reason}</div>
-      ${mapLink ? `<a href="${mapLink}" target="_blank" rel="noopener">Directions</a>` : ""}
-    `;
-    elements.recommendationList.appendChild(card);
-  });
-}
-
 function updateStats() {
-  elements.venueCount.textContent = state.all.length.toString();
-  elements.filteredCount.textContent = state.filtered.length.toString();
-  elements.activeVibes.textContent = state.activeVibes.size.toString();
+  if (elements.venueCount) elements.venueCount.textContent = state.all.length;
+  if (elements.filteredCount) elements.filteredCount.textContent = state.filtered.length;
+  if (elements.activeVibes) elements.activeVibes.textContent = state.activeVibes.size;
 }
 
-function resetFilters() {
-  elements.searchInput.value = "";
-  elements.areaSelect.value = "";
-  elements.categorySelect.value = "";
-  elements.sortSelect.value = "name";
-  state.activeVibes.clear();
-  elements.vibeList.querySelectorAll("input[type='checkbox']").forEach((box) => {
-    box.checked = false;
-  });
-  applyFilters();
-}
-
+/* ─── Init ─── */
 function initFilters() {
   const areas = Array.from(new Set(state.all.map((v) => normalizeValue(v.Area)).filter(Boolean))).sort();
   const categories = Array.from(new Set(state.all.map((v) => normalizeValue(v.Category)).filter(Boolean))).sort();
+  // Desktop
   buildOptions(elements.areaSelect, areas);
   buildOptions(elements.categorySelect, categories);
-  state.vibes = collectVibes(state.all);
-  buildVibeChips(state.vibes);
-  buildVenueOptions();
-  renderRecommendations();
+  buildVibeChips(collectVibes(state.all), elements.vibeList);
+  // Mobile drawer
+  buildOptions(elements.areaSelectMobile, areas);
+  buildOptions(elements.categorySelectMobile, categories);
+  buildVibeChips(collectVibes(state.all), elements.vibeListMobile);
 }
 
 function loadFromText(text) {
@@ -415,22 +356,51 @@ async function loadDefaultCSV() {
   try {
     const response = await fetch(DEFAULT_CSV);
     if (!response.ok) throw new Error("Fetch failed");
-    const text = await response.text();
-    loadFromText(text);
+    loadFromText(await response.text());
   } catch (err) {
     setStatus("Unable to load default CSV. Use Load CSV to import.");
   }
 }
 
-elements.searchInput.addEventListener("input", applyFilters);
-elements.areaSelect.addEventListener("change", applyFilters);
-elements.categorySelect.addEventListener("change", applyFilters);
-elements.sortSelect.addEventListener("change", applyFilters);
-elements.resetFilters.addEventListener("click", resetFilters);
-elements.venueSelect.addEventListener("change", renderRecommendations);
-elements.maxDistanceInput.addEventListener("input", renderRecommendations);
-elements.resultCountInput.addEventListener("input", renderRecommendations);
-elements.csvFile.addEventListener("change", (event) => {
+/* ─── Event listeners (desktop) ─── */
+function addListener(el, event, fn) { if (el) el.addEventListener(event, fn); }
+
+addListener(elements.searchInput, "input", () => {
+  if (elements.searchInputMobile) elements.searchInputMobile.value = elements.searchInput.value;
+  applyFilters();
+});
+addListener(elements.areaSelect, "change", () => {
+  syncSelect(elements.areaSelect, elements.areaSelectMobile);
+  applyFilters();
+});
+addListener(elements.categorySelect, "change", () => {
+  syncSelect(elements.categorySelect, elements.categorySelectMobile);
+  applyFilters();
+});
+addListener(elements.sortSelect, "change", () => {
+  syncSelect(elements.sortSelect, elements.sortSelectMobile);
+  applyFilters();
+});
+
+/* ─── Event listeners (mobile) ─── */
+addListener(elements.searchInputMobile, "input", () => {
+  if (elements.searchInput) elements.searchInput.value = elements.searchInputMobile.value;
+  applyFilters();
+});
+addListener(elements.areaSelectMobile, "change", () => {
+  syncSelect(elements.areaSelectMobile, elements.areaSelect);
+  applyFilters();
+});
+addListener(elements.categorySelectMobile, "change", () => {
+  syncSelect(elements.categorySelectMobile, elements.categorySelect);
+  applyFilters();
+});
+addListener(elements.sortSelectMobile, "change", () => {
+  syncSelect(elements.sortSelectMobile, elements.sortSelect);
+  applyFilters();
+});
+
+addListener(elements.csvFile, "change", (event) => {
   const file = event.target.files[0];
   if (!file) return;
   const reader = new FileReader();

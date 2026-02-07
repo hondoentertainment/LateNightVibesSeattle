@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin — Late Night Vibes Seattle</title>
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="apple-touch-icon" href="favicon.png" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="admin.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <img src="lnv-logo.png" alt="Late Night Vibes" class="header-logo" />
+      </div>
+      <div class="top-actions">
+        <button id="resetFilters" type="button">Reset Filters</button>
+        <a href="index.html" class="admin-link">Back to Site</a>
+      </div>
+    </header>
+
+    <div class="admin-layout">
+      <section class="admin-card">
+        <h2>Dataset Stats</h2>
+        <div class="admin-stats">
+          <div class="stat">
+            <div class="stat-label">Total Venues</div>
+            <div id="venueCount" class="stat-value">0</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">Areas</div>
+            <div id="areaCount" class="stat-value">0</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">Categories</div>
+            <div id="categoryCount" class="stat-value">0</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">Unique Vibes</div>
+            <div id="vibeCount" class="stat-value">0</div>
+          </div>
+        </div>
+        <div class="status" id="statusText">Loading...</div>
+      </section>
+
+      <section class="admin-card">
+        <h2>Import Dataset</h2>
+        <p class="admin-desc">Upload a CSV to replace the current venue dataset.</p>
+        <label class="file-input file-input-lg">
+          Choose CSV File
+          <input id="csvFile" type="file" accept=".csv" />
+        </label>
+      </section>
+
+      <section class="admin-card">
+        <h2>Area Breakdown</h2>
+        <div id="areaBreakdown" class="breakdown-grid"></div>
+      </section>
+
+      <section class="admin-card">
+        <h2>Category Breakdown</h2>
+        <div id="categoryBreakdown" class="breakdown-grid"></div>
+      </section>
+
+      <section class="admin-card">
+        <h2>Vibe Breakdown</h2>
+        <div id="vibeBreakdown" class="breakdown-grid"></div>
+      </section>
+    </div>
+
+    <script src="admin.js"></script>
+  </body>
+</html>
