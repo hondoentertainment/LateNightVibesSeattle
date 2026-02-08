@@ -27,6 +27,12 @@
   gap: 10px;
 }
 
+@media (max-width: 420px) {
+  .compare-selects {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (min-width: 600px) {
   .compare-selects {
     grid-template-columns: 1fr 1fr 1fr;
@@ -49,7 +55,7 @@
   grid-template-columns: 1fr;
   gap: 16px;
   padding: 16px;
-  padding-bottom: 90px;
+  padding-bottom: calc(var(--bottom-nav-offset) + 16px);
 }
 
 @media (min-width: 600px) {

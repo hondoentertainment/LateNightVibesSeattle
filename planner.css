@@ -58,7 +58,13 @@
   grid-template-columns: 1fr;
   gap: 0;
   padding: 16px;
-  padding-bottom: 90px;
+  padding-bottom: calc(var(--bottom-nav-offset) + 16px);
+}
+
+@media (max-width: 420px) {
+  .planner-fields-mobile {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (min-width: 860px) {
@@ -332,7 +338,7 @@
 /* ─── Share toast ─── */
 .share-toast {
   position: fixed;
-  bottom: 80px;
+  bottom: calc(var(--bottom-nav-offset) + 8px);
   left: 50%;
   transform: translateX(-50%);
   background: #2bff86;
