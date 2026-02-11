@@ -223,6 +223,61 @@
   font-weight: 600;
 }
 
+.reroute-btn {
+  padding: 6px 12px;
+  background: #151a28;
+  border: 1px solid #2a334d;
+  border-radius: 8px;
+  color: #93a1c6;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.reroute-btn:hover {
+  border-color: #2bff86;
+  color: #2bff86;
+}
+
+.stop-warning {
+  font-size: 11px;
+  color: #ff9f5b;
+  margin-top: 4px;
+}
+
+.group-vote-section {
+  margin-bottom: 20px;
+  padding: 16px;
+  background: #101520;
+  border: 1px solid #2a334d;
+  border-radius: 14px;
+}
+
+.group-vote-title {
+  font-size: 14px;
+  color: #e8e8e8;
+  margin-bottom: 12px;
+}
+
+.group-vote-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.vote-btn {
+  padding: 8px 14px;
+  background: #1e2638;
+  border: 1px solid #2a334d;
+  border-radius: 10px;
+  color: #e8e8e8;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.vote-btn:hover {
+  border-color: #2bff86;
+}
+
 /* ─── Connector card ─── */
 .connector {
   display: grid;

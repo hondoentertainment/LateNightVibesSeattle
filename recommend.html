@@ -40,6 +40,17 @@
           <input id="resultCountInput" type="number" min="3" max="20" value="8" />
         </label>
       </div>
+      <label class="field">
+        Context
+        <select id="contextModeMobile">
+          <option value="">General</option>
+          <option value="date">Date night</option>
+          <option value="friends">Friends</option>
+          <option value="solo">Solo</option>
+          <option value="after-concert">After concert</option>
+          <option value="post-game">Post-game</option>
+        </select>
+      </label>
       <div class="sidebar-section" id="sourceCardMobile" style="display:none">
         <div class="sidebar-title">Starting From</div>
         <div id="sourceInfoMobile" class="source-info"></div>
@@ -60,11 +71,22 @@
             Max distance from anchor (miles)
             <input id="maxDistanceInputDesktop" type="number" min="0" step="0.5" value="6" />
           </label>
-          <label class="field">
-            Number of results
-            <input id="resultCountInputDesktop" type="number" min="3" max="20" value="8" />
-          </label>
-        </div>
+      <label class="field">
+        Number of results
+        <input id="resultCountInputDesktop" type="number" min="3" max="20" value="8" />
+      </label>
+      <label class="field">
+        Context
+        <select id="contextMode">
+          <option value="">General</option>
+          <option value="date">Date night</option>
+          <option value="friends">Friends</option>
+          <option value="solo">Solo</option>
+          <option value="after-concert">After concert</option>
+          <option value="post-game">Post-game</option>
+        </select>
+      </label>
+    </div>
 
         <div class="sidebar-section" id="sourceCard" style="display:none">
           <div class="sidebar-title">Starting From</div>
@@ -93,6 +115,20 @@
       </a>
     </nav>
 
+    <script src="config.js"></script>
+    <script src="lib/features.js"></script>
+    <script>
+      (function () {
+        const cfg = window.LNV_CONFIG || {};
+        const domain = cfg.plausibleDomain || "";
+        if (!domain) return;
+        const s = document.createElement("script");
+        s.defer = true;
+        s.dataset.domain = domain;
+        s.src = "https://plausible.io/js/script.js";
+        document.head.appendChild(s);
+      })();
+    </script>
     <script src="recommend.js"></script>
   </body>
 </html>

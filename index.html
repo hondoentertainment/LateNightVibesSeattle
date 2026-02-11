@@ -151,8 +151,41 @@
           <button id="loadMoreBtn" class="load-more-btn" type="button">Load More</button>
           <div id="loadMoreCount" class="load-more-count"></div>
         </div>
-        <div id="mapContainer"></div>
+        <div id="mapWrapper" class="map-wrapper" style="position:relative;display:none">
+          <div id="mapContainer"></div>
+          <div id="momentumHint" class="momentum-hint" style="display:none"></div>
+        </div>
       </main>
+    </div>
+
+    <!-- Intent-first onboarding (first visit) -->
+    <div id="onboardingOverlay" class="onboarding-overlay" style="display:none">
+      <div class="onboarding-card">
+        <h2>Plan your night in 3 quick questions</h2>
+        <div id="onboardingStep1" class="onboarding-step">
+          <p>Who are you with?</p>
+          <div class="onboarding-options">
+            <button type="button" data-val="solo">Solo</button>
+            <button type="button" data-val="date">Date</button>
+            <button type="button" data-val="friends">Friends</button>
+            <button type="button" data-val="group">Group</button>
+          </div>
+        </div>
+        <div id="onboardingStep2" class="onboarding-step" style="display:none">
+          <p>What's your energy tonight?</p>
+          <div class="onboarding-options">
+            <button type="button" data-val="chill">Chill</button>
+            <button type="button" data-val="medium">Medium</button>
+            <button type="button" data-val="high">High energy</button>
+          </div>
+        </div>
+        <div id="onboardingStep3" class="onboarding-step" style="display:none">
+          <p>Any neighborhood in mind?</p>
+          <div class="onboarding-options" id="onboardingAreas"></div>
+          <button type="button" class="onboarding-skip" data-val="">Any area</button>
+        </div>
+        <button type="button" id="onboardingDismiss" class="onboarding-dismiss">Skip</button>
+      </div>
     </div>
 
     <!-- Venue detail drawer -->
@@ -187,6 +220,20 @@
     </nav>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="config.js"></script>
+    <script>
+      (function () {
+        const cfg = window.LNV_CONFIG || {};
+        const domain = cfg.plausibleDomain || "";
+        if (!domain) return;
+        const s = document.createElement("script");
+        s.defer = true;
+        s.dataset.domain = domain;
+        s.src = "https://plausible.io/js/script.js";
+        document.head.appendChild(s);
+      })();
+    </script>
+    <script src="lib/features.js"></script>
     <script src="venue-photos.js"></script>
     <script src="app.js"></script>
   </body>

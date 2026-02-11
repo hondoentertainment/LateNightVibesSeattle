@@ -65,6 +65,8 @@ const maxDistMobile = $("maxDistanceInput");
 const maxDistDesktop = $("maxDistanceInputDesktop");
 const resultCountMobile = $("resultCountInput");
 const resultCountDesktop = $("resultCountInputDesktop");
+const contextMobile = $("contextModeMobile");
+const contextDesktop = $("contextModeDesktop");
 
 function getVenueSelectValue() {
   return normalizeValue((venueSelectMobile ? venueSelectMobile.value : "") || (venueSelectDesktop ? venueSelectDesktop.value : ""));
@@ -82,14 +84,30 @@ function getResultCount() {
   return Math.min(parseInt(m || d || "8", 10), 20);
 }
 
+function getContextMode() {
+  const m = contextMobile ? contextMobile.value : "";
+  const d = contextDesktop ? contextDesktop.value : "";
+  return m || d || "";
+}
+
 function syncSelect(source, target) {
   if (target) target.value = source.value;
 }
 
+/* ─── Context-aware vibes (2) ─── */
+const CONTEXT_VIBES = {
+  "date": ["date-friendly", "upscale", "chill"],
+  "friends": ["social", "group-friendly", "group-fun"],
+  "solo": ["chill", "casual"],
+  "after-concert": ["late-eats", "chill"],
+  "post-game": ["sports", "rowdy", "high-energy"],
+};
+
 /* ─── Recommendation engine ─── */
-function computeRecommendations(base, maxDist, maxResults) {
+function computeRecommendations(base, maxDist, maxResults, contextMode) {
   const baseDist = parseDistanceMiles(base["Driving Distance"]);
   const baseVibes = getVibeSet(base);
+  const contextPreferred = (CONTEXT_VIBES[contextMode] || []).map((t) => t.toLowerCase());
 
   return allVenues
     .filter((v) => v.Name && v.Name !== base.Name)
@@ -107,7 +125,12 @@ function computeRecommendations(base, maxDist, maxResults) {
       if (dist !== null && baseDist !== null && maxDist) {
         distScore = 1 - Math.min(Math.abs(dist - baseDist) / maxDist, 1);
       }
-      const score = vibeScore * 0.5 + catScore * 0.2 + areaScore * 0.2 + distScore * 0.1;
+      let contextBonus = 0;
+      if (contextPreferred.length && candidateVibes.size) {
+        const contextMatch = contextPreferred.filter((t) => candidateVibes.has(t)).length;
+        contextBonus = Math.min(0.2, (contextMatch / contextPreferred.length) * 0.2);
+      }
+      const score = Math.min(1, vibeScore * 0.5 + catScore * 0.2 + areaScore * 0.2 + distScore * 0.1 + contextBonus);
       const sharedVibes = intersection.length ? intersection.join(", ") : "new vibe twist";
       const reason = [
         intersection.length ? `${intersection.length} shared vibe${intersection.length > 1 ? "s" : ""}: ${sharedVibes}` : "Different vibe mix",
@@ -165,7 +188,8 @@ function renderRecommendations() {
 
   const maxDist = getMaxDist();
   const count = getResultCount();
-  const recs = computeRecommendations(base, Number.isFinite(maxDist) ? maxDist : null, count);
+  const context = getContextMode();
+  const recs = computeRecommendations(base, Number.isFinite(maxDist) ? maxDist : null, count, context);
 
   if (!recs.length) {
     grid.innerHTML = `<div class="rec-empty">No nearby matches. Try a wider distance.</div>`;
@@ -265,6 +289,14 @@ addListener(resultCountMobile, "input", () => {
 });
 addListener(resultCountDesktop, "input", () => {
   syncSelect(resultCountDesktop, resultCountMobile);
+  renderRecommendations();
+});
+addListener(contextMobile, "change", () => {
+  syncSelect(contextMobile, contextDesktop);
+  renderRecommendations();
+});
+addListener(contextDesktop, "change", () => {
+  syncSelect(contextDesktop, contextMobile);
   renderRecommendations();
 });
 

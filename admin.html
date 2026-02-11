@@ -69,6 +69,19 @@
       </section>
     </div>
 
+    <script src="config.js"></script>
+    <script>
+      (function () {
+        const cfg = window.LNV_CONFIG || {};
+        const domain = cfg.plausibleDomain || "";
+        if (!domain) return;
+        const s = document.createElement("script");
+        s.defer = true;
+        s.dataset.domain = domain;
+        s.src = "https://plausible.io/js/script.js";
+        document.head.appendChild(s);
+      })();
+    </script>
     <script src="admin.js"></script>
   </body>
 </html>

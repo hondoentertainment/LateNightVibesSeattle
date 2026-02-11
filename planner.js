@@ -216,6 +216,8 @@ function generateItinerary() {
   lastItinerary = { stops: finalStops, phases, startMin, slotDuration };
   renderItinerary(finalStops, phases, startMin, slotDuration);
   showSecondaryActions();
+  const voteSection = $("groupVoteSection");
+  if (voteSection) voteSection.style.display = "none";
 }
 
 function showSecondaryActions() {
@@ -230,6 +232,14 @@ function shuffleItinerary() {
   generateItinerary();
 }
 
+/* ─── 8. Reroute from here (recovery UX) ─── */
+function rerouteFromIndex(fromIdx) {
+  if (!lastItinerary.stops.length || fromIdx >= lastItinerary.stops.length - 1) return;
+  lockedStops.clear();
+  for (let i = 0; i <= fromIdx; i++) lockedStops.add(i);
+  generateItinerary();
+}
+
 /* ─── Swap two stops ─── */
 function swapStops(i, j) {
   if (!lastItinerary.stops[i] || !lastItinerary.stops[j]) return;
@@ -239,21 +249,29 @@ function swapStops(i, j) {
   renderItinerary(lastItinerary.stops, lastItinerary.phases, lastItinerary.startMin, lastItinerary.slotDuration);
 }
 
-/* ─── Share itinerary ─── */
+/* ─── 6. Share itinerary (group planning link) ─── */
 function shareItinerary() {
   if (!lastItinerary.stops.length) return;
+  const payload = {
+    s: lastItinerary.stops.map((v) => ({ n: normalizeValue(v.Name), a: normalizeValue(v.Area), c: normalizeValue(v.Category), t: normalizeValue(v["Typical Closing Time"]), l: normalizeValue(v["Google Maps Driving Link"]) })),
+    start: lastItinerary.startMin,
+    dur: lastItinerary.slotDuration,
+  };
+  const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
+  const url = `${window.location.origin}${window.location.pathname}?plan=${encoded}`;
   const lines = lastItinerary.stops.map((venue, idx) => {
     const slotStart = lastItinerary.startMin + idx * lastItinerary.slotDuration;
     const slotEnd = slotStart + lastItinerary.slotDuration;
-    const phase = lastItinerary.phases[idx];
-    return `${idx + 1}. ${normalizeValue(venue.Name)} (${minutesToLabel(slotStart)}–${minutesToLabel(slotEnd)}) — ${normalizeValue(venue.Area)}, ${normalizeValue(venue.Category)}`;
+    return `${idx + 1}. ${normalizeValue(venue.Name)} (${minutesToLabel(slotStart)}–${minutesToLabel(slotEnd)}) — ${normalizeValue(venue.Area)}`;
   });
-  const text = `My Late Night Vibes plan:\n${lines.join("\n")}`;
+  const text = `My Late Night Vibes plan:\n${lines.join("\n")}\n\nOpen plan: ${url}`;
 
   if (navigator.share) {
-    navigator.share({ title: "Night Plan", text }).catch(() => {});
+    navigator.share({ title: "Night Plan", text, url }).catch(() => {
+      navigator.clipboard.writeText(url).then(() => showToast("Link copied!")).catch(() => {});
+    });
   } else {
-    navigator.clipboard.writeText(text).then(() => showToast("Plan copied to clipboard!")).catch(() => {});
+    navigator.clipboard.writeText(url).then(() => showToast("Plan link copied!")).catch(() => {});
   }
 }
 
@@ -310,8 +328,18 @@ function renderItinerary(stops, phases, startMin, slotDuration) {
           ${tags.slice(0, 5).map((t) => `<span class="pill">${t}</span>`).join("")}
           <span class="pill pill-closing">${normalizeValue(venue["Typical Closing Time"]) || "Late"}</span>
         </div>
+        ${(function () {
+          const closingMin = parseTimeToMinutes(venue["Typical Closing Time"]);
+          let closingWarn = "";
+          if (closingMin !== null) {
+            const closeAdj = closingMin <= 360 ? closingMin + 1440 : closingMin;
+            if (closeAdj < slotEnd) closingWarn = '<div class="stop-warning">⚠ Closes before slot ends</div>';
+          }
+          return closingWarn;
+        })()}
         <div class="stop-actions">
           ${mapLink ? `<a href="${mapLink}" target="_blank" rel="noopener">Directions</a>` : ""}
+          <button class="reroute-btn" data-reroute-idx="${idx}" type="button" title="Reroute from here — keep stops before, regenerate rest">Reroute from here</button>
         </div>
       </div>
     `;
@@ -332,27 +360,30 @@ function renderItinerary(stops, phases, startMin, slotDuration) {
       }
     });
 
+    const rerouteBtn = stopEl.querySelector(".reroute-btn");
+    if (rerouteBtn) rerouteBtn.addEventListener("click", () => rerouteFromIndex(idx));
+
     container.appendChild(stopEl);
 
     // Swap connector between stops
     if (idx < stops.length - 1) {
-      const conn = document.createElement("div");
-      conn.className = "connector";
-      const nextArea = normalizeValue(stops[idx + 1].Area);
-      const thisArea = normalizeValue(venue.Area);
-      const travelNote = thisArea === nextArea ? "Same neighborhood" : `${thisArea} → ${nextArea}`;
-      conn.innerHTML = `
-        <div class="connector-line"><div></div></div>
-        <div class="connector-info">
-          <button class="swap-btn" data-swap-a="${idx}" data-swap-b="${idx + 1}" title="Swap these two stops" type="button">⇅</button>
-          ${travelNote} · ~${Math.floor(slotDuration)} min slot
-        </div>
-      `;
-      const swapBtn = conn.querySelector(".swap-btn");
-      swapBtn.addEventListener("click", () => {
-        swapStops(idx, idx + 1);
-      });
-      container.appendChild(conn);
+    const conn = document.createElement("div");
+    conn.className = "connector";
+    const nextArea = normalizeValue(stops[idx + 1].Area);
+    const thisArea = normalizeValue(venue.Area);
+    const travelNote = thisArea === nextArea ? "Same neighborhood" : `${thisArea} → ${nextArea}`;
+    const travelMin = (window.LNVFeatures && window.LNVFeatures.estimateTravelMinutes) ? window.LNVFeatures.estimateTravelMinutes(venue, stops[idx + 1]) : (thisArea === nextArea ? 5 : 15);
+    const queueBuf = "~10 min buffer";
+    conn.innerHTML = `
+      <div class="connector-line"><div></div></div>
+      <div class="connector-info">
+        <button class="swap-btn" data-swap-a="${idx}" data-swap-b="${idx + 1}" title="Swap these two stops" type="button">⇅</button>
+        ${travelNote} · ~${travelMin} min travel · ${queueBuf} · ~${Math.floor(slotDuration)} min slot
+      </div>
+    `;
+    const swapBtn = conn.querySelector(".swap-btn");
+    swapBtn.addEventListener("click", () => swapStops(idx, idx + 1));
+    container.appendChild(conn);
     }
   });
 }
@@ -375,17 +406,58 @@ function buildAreaOptions() {
 function loadFromText(text) {
   allVenues = loadDataFromCSV(text);
   buildAreaOptions();
-  $("itinerary").innerHTML = `<div class="itinerary-empty">Choose your settings and tap <strong>Build my night</strong> to generate an itinerary with ${allVenues.length} venues.</div>`;
+  const planParam = new URLSearchParams(window.location.search).get("plan");
+  if (planParam) {
+    loadSharedPlan(planParam);
+  } else {
+    $("itinerary").innerHTML = `<div class="itinerary-empty">Choose your settings and tap <strong>Build my night</strong> to generate an itinerary with ${allVenues.length} venues.</div>`;
+  }
 }
 
-async function loadDefaultCSV() {
+/* ─── 6. Load shared plan from URL (group planning) ─── */
+function loadSharedPlan(encoded) {
   try {
-    const resp = await fetch(DEFAULT_CSV);
-    if (!resp.ok) throw new Error("Fetch failed");
-    loadFromText(await resp.text());
-  } catch (err) {
-    $("itinerary").innerHTML = `<div class="itinerary-empty">Unable to load venue data.</div>`;
+    const json = decodeURIComponent(escape(atob(encoded)));
+    const data = JSON.parse(json);
+    const rawStops = data.s || [];
+    const startMin = data.start || 22 * 60;
+    const slotDuration = data.dur || 60;
+    const stops = rawStops.map((s) => {
+      const match = allVenues.find((v) => normalizeValue(v.Name) === s.n && normalizeValue(v.Area) === s.a);
+      return match || {
+        Name: s.n, Area: s.a, Category: s.c || "", "Typical Closing Time": s.t || "", "Google Maps Driving Link": s.l || "",
+        "Vibe Tags": "", "Driving Distance": "",
+      };
+    });
+    const phases = stops.map((_, i) => ({ label: `Stop ${i + 1}`, vibes: [] }));
+    lastItinerary = { stops, phases, startMin, slotDuration };
+    renderItinerary(stops, phases, startMin, slotDuration);
+    showSecondaryActions();
+    renderGroupVoteUI(stops);
+  } catch (_) {
+    $("itinerary").innerHTML = `<div class="itinerary-empty">Invalid or expired plan link.</div>`;
   }
+}
+
+function renderGroupVoteUI(stops) {
+  const section = $("groupVoteSection");
+  if (!section || !stops.length) return;
+  section.style.display = "block";
+  section.innerHTML = `
+    <div class="group-vote-title">Vote for your favorite stop</div>
+    <div class="group-vote-btns">
+      ${stops.map((v, i) => `<button type="button" class="vote-btn" data-idx="${i}">${i + 1}. ${normalizeValue(v.Name)}</button>`).join("")}
+    </div>
+  `;
+  const votes = {};
+  section.querySelectorAll(".vote-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const idx = btn.dataset.idx;
+      votes[idx] = (votes[idx] || 0) + 1;
+      btn.textContent = `${parseInt(idx, 10) + 1}. ${normalizeValue(stops[idx].Name)} (${votes[idx]})`;
+      showToast("Vote counted!");
+    });
+  });
 }
 
 /* ─── Listeners ─── */

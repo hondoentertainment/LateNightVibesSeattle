@@ -543,6 +543,11 @@ button,
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
 }
 
+.venue-card.sync-active {
+  transform: translateY(-3px);
+  box-shadow: 0 0 0 2px rgba(43, 255, 134, 0.7), 0 12px 24px rgba(0, 0, 0, 0.3);
+}
+
 /* ─── Poster gradients ─── */
 .poster {
   display: grid;
@@ -922,6 +927,10 @@ button,
   color: #0b0d14;
 }
 
+.map-wrapper {
+  position: relative;
+}
+
 #mapContainer {
   width: 100%;
   height: 500px;
@@ -930,10 +939,96 @@ button,
   display: none;
 }
 
+.momentum-hint {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  right: 12px;
+  padding: 8px 12px;
+  background: rgba(10, 12, 18, 0.9);
+  border-radius: 10px;
+  font-size: 12px;
+  color: #93a1c6;
+  pointer-events: none;
+}
+
 @media (min-width: 860px) {
   #mapContainer {
     height: 600px;
   }
+}
+
+/* ─── Viability & trust badges ─── */
+.pill.viability-cover { background: #ffd36e; color: #0b0d14; }
+.pill.viability-kitchen { background: #2bff86; color: #0b0d14; }
+.pill.viability-busy { background: #ff9f5b; color: #0b0d14; }
+.pill.viability-line { background: #ff7ad6; color: #0b0d14; }
+.pill.trust-verified { background: #4dd6ff; color: #0b0d14; }
+
+/* ─── Intent-first onboarding ─── */
+.onboarding-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.onboarding-card {
+  background: #101520;
+  border: 1px solid #2a334d;
+  border-radius: 20px;
+  padding: 28px;
+  max-width: 360px;
+  width: 100%;
+}
+
+.onboarding-card h2 {
+  margin: 0 0 24px;
+  font-size: 18px;
+  color: #e8e8e8;
+}
+
+.onboarding-step p {
+  margin: 0 0 12px;
+  color: #93a1c6;
+  font-size: 14px;
+}
+
+.onboarding-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.onboarding-options button,
+.onboarding-skip {
+  padding: 10px 16px;
+  background: #1e2638;
+  border: 1px solid #2a334d;
+  border-radius: 10px;
+  color: #e8e8e8;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.onboarding-options button:hover,
+.onboarding-skip:hover {
+  background: #2a334d;
+  border-color: #2bff86;
+}
+
+.onboarding-dismiss {
+  margin-top: 16px;
+  background: transparent;
+  border: none;
+  color: #6f768a;
+  font-size: 13px;
+  cursor: pointer;
 }
 
 /* ─── Search autocomplete ─── */

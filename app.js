@@ -14,6 +14,11 @@ const state = {
   renderLimit: PAGE_SIZE,
 };
 
+// Map/list sync state
+const cardByVenueKey = new Map();
+const markerByVenueKey = new Map();
+let activeVenueKey = "";
+
 /* ─── Favorites persistence ─── */
 function loadFavorites() {
   try {
@@ -51,6 +56,7 @@ const elements = {
   activeVibes: $("activeVibes"),
   statusText: $("statusText"),
   grid: $("venueGrid"),
+  mapWrapper: $("mapWrapper"),
   mapContainer: $("mapContainer"),
   resultSummary: $("resultSummary"),
   viewToggle: $("viewToggle"),
@@ -128,6 +134,12 @@ function openDetail(venue) {
   const posterClass = `poster-general poster-${primaryTag.replace(/[^a-z0-9-]/g, "") || "general"}`;
   const isFav = state.favorites.has(normalizeValue(venue.Name));
   const statusPill = getOpenStatusPill(closingTime);
+  const viabilityBadges = (window.LNVFeatures && window.LNVFeatures.getViabilityBadges) ? window.LNVFeatures.getViabilityBadges(venue) : [];
+  const trustBadge = (window.LNVFeatures && window.LNVFeatures.getTrustBadge) ? window.LNVFeatures.getTrustBadge() : null;
+  const viabilityHtml = viabilityBadges.length ? viabilityBadges.map((b) => `<span class="pill ${b.class}">${b.label}</span>`).join("") : "";
+  const trustHtml = trustBadge ? `<span class="pill ${trustBadge.class}">${trustBadge.label}</span>` : "";
+  const googleSearch = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${normalizeValue(venue.Name)} ${area} Seattle`)}`;
+  const yelpSearch = `https://www.yelp.com/search?find_desc=${encodeURIComponent(normalizeValue(venue.Name))}&find_loc=${encodeURIComponent(`${area}, Seattle`)}`;
 
   let websiteLink = "";
   if (website) {
@@ -136,10 +148,12 @@ function openDetail(venue) {
   }
 
   el.detailBody.innerHTML = `
-    <div class="detail-poster ${posterClass}"></div>
+    <div class="detail-poster ${posterClass}" id="detailPoster"></div>
     <div class="detail-name">${normalizeValue(venue.Name)}</div>
     <div class="detail-meta">${area} · ${category}</div>
     <div class="detail-row"><span class="label">Status</span>${statusPill}</div>
+    ${viabilityHtml ? `<div class="detail-viability">${viabilityHtml}</div>` : ""}
+    ${trustHtml ? `<div class="detail-trust">${trustHtml}</div>` : ""}
     ${closingTime ? `<div class="detail-row"><span class="label">Closes</span>${closingTime}</div>` : ""}
     ${distance ? `<div class="detail-row"><span class="label">Distance</span>${distance}</div>` : ""}
     ${address && address.toLowerCase() !== "click link" ? `<div class="detail-row"><span class="label">Address</span>${address}</div>` : ""}
@@ -148,10 +162,17 @@ function openDetail(venue) {
     <div class="detail-vibes">${tags.map((t) => `<span class="pill">${t}</span>`).join("")}</div>
     <div class="detail-actions">
       ${mapLink ? `<a class="btn-primary" href="${mapLink}" target="_blank" rel="noopener">Directions</a>` : ""}
+      <a class="btn-secondary" href="${googleSearch}" target="_blank" rel="noopener">Google</a>
+      <a class="btn-secondary" href="${yelpSearch}" target="_blank" rel="noopener">Yelp</a>
       <button class="btn-secondary ${isFav ? "favorited" : ""}" id="detailFavBtn" type="button">${isFav ? "♥ Saved" : "♡ Save"}</button>
       <button class="btn-share" id="detailShareBtn" type="button">Share</button>
     </div>
   `;
+
+  if (window.venuePhotos && window.venuePhotos.isEnabled()) {
+    const posterEl = $("detailPoster");
+    window.venuePhotos.applyVenuePhoto(posterEl, normalizeValue(venue.Name), area);
+  }
 
   const favBtn = $("detailFavBtn");
   if (favBtn) {
@@ -219,6 +240,71 @@ function setStatus(text) {
 
 function normalizeValue(value) {
   return (value || "").toString().trim();
+}
+
+function getVenueSyncKey(venue) {
+  return `${normalizeValue(venue.Name)}|${normalizeValue(venue.Area)}`;
+}
+
+function setMarkerHighlight(marker, active) {
+  if (!marker || !marker.__lnvBaseStyle) return;
+  const nextStyle = active ? marker.__lnvActiveStyle : marker.__lnvBaseStyle;
+  marker.setStyle(nextStyle);
+}
+
+function clearActiveVenueSync() {
+  if (!activeVenueKey) return;
+  const prevCard = cardByVenueKey.get(activeVenueKey);
+  if (prevCard) prevCard.classList.remove("sync-active");
+  const prevMarker = markerByVenueKey.get(activeVenueKey);
+  setMarkerHighlight(prevMarker, false);
+  activeVenueKey = "";
+}
+
+function ensureVenueCardRendered(venueKey) {
+  if (cardByVenueKey.has(venueKey)) return true;
+  const venueIndex = state.filtered.findIndex((venue) => getVenueSyncKey(venue) === venueKey);
+  if (venueIndex < 0) return false;
+  const requiredVisibleCount = venueIndex + 1;
+  if (requiredVisibleCount <= state.renderLimit) return true;
+
+  // Keep pagination behavior predictable by expanding in page-size increments.
+  state.renderLimit = Math.min(
+    state.filtered.length,
+    Math.ceil(requiredVisibleCount / PAGE_SIZE) * PAGE_SIZE
+  );
+  renderGrid();
+  updateLoadMore();
+  return cardByVenueKey.has(venueKey);
+}
+
+function setActiveVenueSync(venueKey, options) {
+  const opts = options || {};
+  if (!venueKey) {
+    clearActiveVenueSync();
+    return;
+  }
+  if (opts.ensureCardVisible) ensureVenueCardRendered(venueKey);
+  if (activeVenueKey === venueKey) {
+    const markerSame = markerByVenueKey.get(venueKey);
+    if (opts.openPopup && markerSame) markerSame.openPopup();
+    return;
+  }
+
+  clearActiveVenueSync();
+  activeVenueKey = venueKey;
+
+  const card = cardByVenueKey.get(venueKey);
+  if (card) {
+    card.classList.add("sync-active");
+    if (opts.scrollCard) card.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+
+  const marker = markerByVenueKey.get(venueKey);
+  if (marker) {
+    setMarkerHighlight(marker, true);
+    if (opts.openPopup) marker.openPopup();
+  }
 }
 
 function parseCSV(text) {
@@ -507,6 +593,8 @@ function showSkeletons() {
 }
 
 function renderGrid() {
+  cardByVenueKey.clear();
+  clearActiveVenueSync();
   elements.grid.innerHTML = "";
   if (!state.filtered.length) {
     const empty = document.createElement("div");
@@ -531,9 +619,13 @@ function renderGrid() {
     const attributeClasses = getAttributeClasses(tags);
     const isFav = state.favorites.has(nameText);
     const openPill = getOpenStatusPill(closingTime);
+    const viabilityBadges = (window.LNVFeatures && window.LNVFeatures.getViabilityBadges) ? window.LNVFeatures.getViabilityBadges(venue) : [];
+    const viabilityPills = viabilityBadges.slice(0, 2).map((b) => `<span class="pill ${b.class}">${b.label}</span>`).join("");
 
     const card = document.createElement("div");
+    const venueKey = getVenueSyncKey(venue);
     card.className = `venue-card ${attributeClasses}`;
+    card.dataset.venueKey = venueKey;
     card.innerHTML = `
       <button class="venue-fav ${isFav ? "active" : ""}" aria-label="Save venue" data-name="${nameText.replace(/"/g, "&quot;")}">
         ${isFav ? "♥" : "♡"}
@@ -544,6 +636,7 @@ function renderGrid() {
         <div class="venue-meta">${normalizeValue(venue.Area)} · ${normalizeValue(venue.Category)}</div>
         <div class="venue-pills">
           ${openPill}
+          ${viabilityPills}
           <span class="pill pill-closing">${closingTime || "Late"}</span>
           <span class="pill pill-distance">${normalizeValue(venue["Driving Distance"]) || "Distance TBD"}</span>
         </div>
@@ -564,12 +657,19 @@ function renderGrid() {
       if (e.target.closest(".venue-fav")) return;
       openDetail(venue);
     });
+    card.addEventListener("mouseenter", () => {
+      if (state.currentView === "map") setActiveVenueSync(venueKey, { openPopup: true });
+    });
+    card.addEventListener("mouseleave", () => {
+      if (state.currentView === "map") clearActiveVenueSync();
+    });
 
     // Staggered entrance animation
     card.style.animationDelay = `${Math.min(venueIdx, 30) * 30}ms`;
 
     card.style.cursor = "pointer";
     elements.grid.appendChild(card);
+    cardByVenueKey.set(venueKey, card);
 
     if (window.venuePhotos && window.venuePhotos.isEnabled()) {
       const posterEl = card.querySelector(".poster");
@@ -732,9 +832,10 @@ function setView(view) {
   }
   if (view === "grid") {
     elements.grid.style.display = "";
-    elements.mapContainer.style.display = "none";
+    if (elements.mapWrapper) elements.mapWrapper.style.display = "none";
   } else {
     elements.grid.style.display = "none";
+    if (elements.mapWrapper) elements.mapWrapper.style.display = "block";
     elements.mapContainer.style.display = "block";
     renderMap();
   }
@@ -807,7 +908,10 @@ function renderMap() {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>',
       maxZoom: 19,
     }).addTo(leafletMap);
+    leafletMap.on("click", () => clearActiveVenueSync());
   }
+  markerByVenueKey.clear();
+  clearActiveVenueSync();
   mapMarkers.forEach((m) => leafletMap.removeLayer(m));
   mapMarkers = [];
   const bounds = [];
@@ -821,14 +925,115 @@ function renderMap() {
     const marker = L.circleMarker([lat, lng], {
       radius: 7, fillColor: color, color: "#0b0d14", weight: 2, opacity: 1, fillOpacity: 0.85,
     }).addTo(leafletMap);
+    marker.__lnvBaseStyle = {
+      radius: 7, fillColor: color, color: "#0b0d14", weight: 2, opacity: 1, fillOpacity: 0.85,
+    };
+    marker.__lnvActiveStyle = {
+      radius: 10, fillColor: color, color: "#ffffff", weight: 3, opacity: 1, fillOpacity: 1,
+    };
     const isFav = state.favorites.has(normalizeValue(venue.Name));
     marker.bindPopup(`<div><strong>${normalizeValue(venue.Name)}</strong> ${isFav ? "♥" : ""}<br><span style="color:#8fa0c2">${normalizeValue(venue.Area)} · ${normalizeValue(venue.Category)}</span><br><span style="color:#93a1c6">${normalizeValue(venue["Typical Closing Time"]) || "Late"}</span></div>`);
-    marker.on("click", () => openDetail(venue));
+    const venueKey = getVenueSyncKey(venue);
+    marker.on("mouseover", () => setActiveVenueSync(venueKey));
+    marker.on("mouseout", () => clearActiveVenueSync());
+    marker.on("click", () => {
+      setActiveVenueSync(venueKey, { ensureCardVisible: true, scrollCard: true, openPopup: true });
+      openDetail(venue);
+    });
     mapMarkers.push(marker);
+    markerByVenueKey.set(venueKey, marker);
     bounds.push([lat, lng]);
   });
   if (bounds.length) leafletMap.fitBounds(bounds, { padding: [30, 30] });
   setTimeout(() => leafletMap.invalidateSize(), 200);
+  updateMomentumHint();
+}
+
+/* ─── 4. Neighborhood momentum hint ─── */
+function updateMomentumHint() {
+  const hint = $("momentumHint");
+  if (!hint || state.currentView !== "map") return;
+  const now = new Date();
+  const h = now.getHours();
+  const min = now.getMinutes();
+  const nowMin = h * 60 + min;
+  const isPeak = nowMin >= 23 * 60 || nowMin <= 2 * 60;
+  const topAreas = ["Capitol Hill", "Belltown", "Downtown"];
+  hint.textContent = isPeak
+    ? `Peak hours — ${topAreas.slice(0, 2).join(" & ")} typically busiest now`
+    : "Peak hours typically 11pm–1am in major neighborhoods";
+  hint.style.display = "block";
+}
+
+/* ─── 3. Intent-first onboarding ─── */
+function initOnboarding() {
+  try {
+    if (localStorage.getItem("lnv_onboarding_done")) return;
+  } catch (_) { return; }
+  const overlay = $("onboardingOverlay");
+  if (!overlay) return;
+  const steps = [$("onboardingStep1"), $("onboardingStep2"), $("onboardingStep3")];
+  const dismiss = $("onboardingDismiss");
+  let step = 0;
+  const answers = { who: "", energy: "", area: "" };
+
+  function applyOnboardingResults() {
+    try { localStorage.setItem("lnv_onboarding_done", "1"); } catch (_) {}
+    if (answers.area && elements.areaSelect) {
+      elements.areaSelect.value = answers.area;
+      if (elements.areaSelectMobile) elements.areaSelectMobile.value = answers.area;
+    }
+    if (answers.energy) {
+      const vibeMap = { chill: ["chill", "casual"], medium: ["social", "date-friendly"], high: ["high-energy", "dancey"] };
+      const vibes = vibeMap[answers.energy] || [];
+      vibes.forEach((v) => state.activeVibes.add(v));
+      syncVibeCheckboxes();
+    }
+    applyFilters();
+  }
+
+  function advance() {
+    steps[step].style.display = "none";
+    step++;
+    if (step >= steps.length) {
+      overlay.style.display = "none";
+      applyOnboardingResults();
+      return;
+    }
+    if (step === 2) {
+      const areas = Array.from(new Set(state.all.map((v) => normalizeValue(v.Area)).filter(Boolean))).sort().slice(0, 8);
+      const container = $("onboardingAreas");
+      if (container) {
+        container.innerHTML = areas.map((a) => `<button type="button" data-val="${a.replace(/"/g, "&quot;")}">${a}</button>`).join("");
+      }
+    }
+    steps[step].style.display = "block";
+  }
+
+  overlay.style.display = "flex";
+  steps[0].style.display = "block";
+  steps[1].style.display = "none";
+  steps[2].style.display = "none";
+
+  overlay.addEventListener("click", (e) => {
+    if (e.target === overlay) {
+      overlay.style.display = "none";
+      applyOnboardingResults();
+    }
+  });
+  if (dismiss) dismiss.addEventListener("click", () => { overlay.style.display = "none"; applyOnboardingResults(); });
+
+  steps.forEach((s, i) => {
+    if (!s) return;
+    s.querySelectorAll("button[data-val]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        if (i === 0) answers.who = btn.dataset.val;
+        else if (i === 1) answers.energy = btn.dataset.val;
+        else answers.area = btn.dataset.val;
+        advance();
+      });
+    });
+  });
 }
 
 /* ─── Init ─── */
@@ -850,6 +1055,7 @@ function loadFromText(text) {
   restoreFilterState();
   applyFilters();
   setStatus("Loaded " + state.all.length + " venues");
+  initOnboarding();
 }
 
 async function loadDefaultCSV() {

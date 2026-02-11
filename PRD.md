@@ -171,7 +171,7 @@ Results are sorted by score descending, capped at user-specified count (default 
 - [x] Deployed to Vercel + GitHub
 
 ### Planned (v1.1+)
-- [ ] Google Places Photos integration (venue images on cards)
+- [x] Google Places Photos integration (venue images on cards)
 - [ ] Night plan builder (2–5 stop itineraries with vibe escalation)
 - [ ] Neighborhood comparison view
 - [ ] "Open now" time-aware filtering
