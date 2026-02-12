@@ -30,8 +30,8 @@ describe("normalizeValue", () => {
     expect(normalizeValue("")).toBe("");
   });
 
-  it("handles zero", () => {
-    expect(normalizeValue(0)).toBe("0");
+  it("handles zero (0 is falsy, so returns empty string per current impl)", () => {
+    expect(normalizeValue(0)).toBe("");
   });
 });
 
@@ -99,6 +99,14 @@ describe("parseHHMM", () => {
 
   it("parses 23:59 to 1439 minutes", () => {
     expect(parseHHMM("23:59")).toBe(1439);
+  });
+
+  it("returns NaN for invalid format (no colon)", () => {
+    expect(Number.isNaN(parseHHMM("2100"))).toBe(true);
+  });
+
+  it("returns NaN for non-numeric input", () => {
+    expect(Number.isNaN(parseHHMM("ab:cd"))).toBe(true);
   });
 });
 

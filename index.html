@@ -84,6 +84,14 @@
             <span class="open-now-dot"></span>
             <span>Open Now Only</span>
           </label>
+          <label class="field" style="margin-top:14px">
+            Visited
+            <select id="visitedFilterMobile">
+              <option value="">All Venues</option>
+              <option value="visited">Been There</option>
+              <option value="new">Not Yet Visited</option>
+            </select>
+          </label>
         </div>
         <div class="drawer-section">
           <div class="drawer-section-title">Vibes</div>
@@ -124,6 +132,14 @@
             <span class="open-now-dot"></span>
             <span>Open Now Only</span>
           </label>
+          <label class="field" style="margin-top:14px">
+            Visited
+            <select id="visitedFilterDesktop">
+              <option value="">All Venues</option>
+              <option value="visited">Been There</option>
+              <option value="new">Not Yet Visited</option>
+            </select>
+          </label>
         </div>
         <div class="sidebar-section">
           <div class="sidebar-title">Vibes</div>
@@ -133,7 +149,10 @@
 
       <main class="content">
         <div class="content-toolbar">
-          <div id="resultSummary" class="result-summary"></div>
+          <div style="display:flex;align-items:center;gap:12px">
+            <div id="resultSummary" class="result-summary"></div>
+            <div id="crawlStats" class="crawl-stats" style="display:none"></div>
+          </div>
           <div class="toolbar-right">
             <button type="button" class="legend-toggle" id="legendToggle" title="Vibe color legend">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
@@ -234,6 +253,7 @@
       })();
     </script>
     <script src="lib/features.js"></script>
+    <script src="lib/crawl-history.js"></script>
     <script src="venue-photos.js"></script>
     <script src="app.js"></script>
   </body>

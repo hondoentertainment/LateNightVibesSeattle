@@ -8,6 +8,8 @@ const state = {
   vibes: new Set(),
   activeVibes: new Set(),
   favorites: new Set(),
+  crawlHistory: {},
+  visitedFilter: "", // "" | "visited" | "new"
   currentView: "grid", // "grid" or "map"
   showSavedOnly: false,
   openNowOnly: false,
@@ -40,6 +42,50 @@ function toggleFavorite(name) {
 }
 
 loadFavorites();
+
+/* ─── Crawl history ("Been There") persistence ─── */
+function loadCrawlHistory() {
+  if (window.LNVCrawl) {
+    state.crawlHistory = window.LNVCrawl.loadHistory();
+  }
+}
+
+function saveCrawlHistory() {
+  if (window.LNVCrawl) {
+    window.LNVCrawl.saveHistory(state.crawlHistory);
+  }
+}
+
+function toggleVisited(name) {
+  if (!window.LNVCrawl) return;
+  const result = window.LNVCrawl.toggleVisited(state.crawlHistory, name);
+  state.crawlHistory = result.history;
+  saveCrawlHistory();
+  return result.nowVisited;
+}
+
+function setVisitedRating(name, rating) {
+  if (!window.LNVCrawl) return;
+  window.LNVCrawl.setRating(state.crawlHistory, name, rating);
+  saveCrawlHistory();
+}
+
+function isVenueVisited(name) {
+  if (!window.LNVCrawl) return false;
+  return window.LNVCrawl.isVisited(state.crawlHistory, name);
+}
+
+function getVenueRating(name) {
+  if (!window.LNVCrawl) return 0;
+  return window.LNVCrawl.getRating(state.crawlHistory, name);
+}
+
+function getCrawlStats() {
+  if (!window.LNVCrawl) return { total: 0, liked: 0, disliked: 0, unrated: 0 };
+  return window.LNVCrawl.getStats(state.crawlHistory);
+}
+
+loadCrawlHistory();
 
 /* ─── Saved-only view via URL ─── */
 if (new URLSearchParams(window.location.search).get("view") === "saved") {
@@ -84,6 +130,10 @@ const elements = {
   // Open Now toggles
   openNowDesktop: $("openNowDesktop"),
   openNowMobile: $("openNowMobile"),
+  // Visited filter
+  visitedFilterDesktop: $("visitedFilterDesktop"),
+  visitedFilterMobile: $("visitedFilterMobile"),
+  crawlStats: $("crawlStats"),
   // Load more
   loadMoreWrap: $("loadMoreWrap"),
   loadMoreBtn: $("loadMoreBtn"),
@@ -147,6 +197,11 @@ function openDetail(venue) {
     catch (_) { websiteLink = `<a href="${website}" target="_blank" rel="noopener" style="color:#9fd6ff;text-decoration:none">${website}</a>`; }
   }
 
+  const detailVisited = isVenueVisited(normalizeValue(venue.Name));
+  const detailRating = getVenueRating(normalizeValue(venue.Name));
+  const visitedAt = detailVisited && window.LNVCrawl ? window.LNVCrawl.getVisitedAt(state.crawlHistory, normalizeValue(venue.Name)) : null;
+  const visitedDateStr = visitedAt ? new Date(visitedAt).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" }) : "";
+
   el.detailBody.innerHTML = `
     <div class="detail-poster ${posterClass}" id="detailPoster"></div>
     <div class="detail-name">${normalizeValue(venue.Name)}</div>
@@ -166,6 +221,15 @@ function openDetail(venue) {
       <a class="btn-secondary" href="${yelpSearch}" target="_blank" rel="noopener">Yelp</a>
       <button class="btn-secondary ${isFav ? "favorited" : ""}" id="detailFavBtn" type="button">${isFav ? "♥ Saved" : "♡ Save"}</button>
       <button class="btn-share" id="detailShareBtn" type="button">Share</button>
+    </div>
+    <div class="detail-crawl">
+      <button class="btn-visited ${detailVisited ? "active" : ""}" id="detailVisitedBtn" type="button">${detailVisited ? "✓ Been There" : "Mark as Visited"}</button>
+      <div class="detail-rating ${detailVisited ? "" : "hidden"}" id="detailRatingRow">
+        <span class="rating-label">How was it?</span>
+        <button class="rating-btn ${detailRating === 1 ? "active-up" : ""}" id="detailRateUp" type="button">&#128077;</button>
+        <button class="rating-btn ${detailRating === -1 ? "active-down" : ""}" id="detailRateDown" type="button">&#128078;</button>
+      </div>
+      ${visitedDateStr ? `<div class="detail-visit-date">Visited ${visitedDateStr}</div>` : ""}
     </div>
   `;
 
@@ -189,6 +253,40 @@ function openDetail(venue) {
   if (shareBtn) {
     shareBtn.addEventListener("click", () => {
       shareVenue(venue);
+    });
+  }
+
+  const visitedBtn = $("detailVisitedBtn");
+  if (visitedBtn) {
+    visitedBtn.addEventListener("click", () => {
+      const nowVisited = toggleVisited(normalizeValue(venue.Name));
+      visitedBtn.textContent = nowVisited ? "✓ Been There" : "Mark as Visited";
+      visitedBtn.classList.toggle("active", nowVisited);
+      const ratingRow = $("detailRatingRow");
+      if (ratingRow) ratingRow.classList.toggle("hidden", !nowVisited);
+      updateCrawlStats();
+      renderGrid();
+    });
+  }
+
+  const rateUp = $("detailRateUp");
+  const rateDown = $("detailRateDown");
+  if (rateUp) {
+    rateUp.addEventListener("click", () => {
+      const current = getVenueRating(normalizeValue(venue.Name));
+      const next = current === 1 ? 0 : 1;
+      setVisitedRating(normalizeValue(venue.Name), next);
+      rateUp.classList.toggle("active-up", next === 1);
+      if (rateDown) rateDown.classList.remove("active-down");
+    });
+  }
+  if (rateDown) {
+    rateDown.addEventListener("click", () => {
+      const current = getVenueRating(normalizeValue(venue.Name));
+      const next = current === -1 ? 0 : -1;
+      setVisitedRating(normalizeValue(venue.Name), next);
+      rateDown.classList.toggle("active-down", next === -1);
+      if (rateUp) rateUp.classList.remove("active-up");
     });
   }
 }
@@ -449,6 +547,7 @@ function updateFilterBadge() {
   if (getAreaValue()) count++;
   if (getCategoryValue()) count++;
   if (state.openNowOnly) count++;
+  if (state.visitedFilter) count++;
   count += state.activeVibes.size;
   let badge = elements.filterToggle.querySelector(".filter-badge");
   if (count > 0) {
@@ -488,12 +587,19 @@ function getSortValue() {
   return d || m || "name";
 }
 
+function getVisitedFilterValue() {
+  const d = elements.visitedFilterDesktop ? elements.visitedFilterDesktop.value : "";
+  const m = elements.visitedFilterMobile ? elements.visitedFilterMobile.value : "";
+  return d || m || "";
+}
+
 /* ─── Filter + Sort ─── */
 function applyFilters(keepRenderLimit) {
   const query = getSearchQuery();
   const area = getAreaValue();
   const category = getCategoryValue();
   const activeVibes = Array.from(state.activeVibes);
+  state.visitedFilter = getVisitedFilterValue();
 
   state.filtered = state.all.filter((venue) => {
     if (state.showSavedOnly && !state.favorites.has(normalizeValue(venue.Name))) return false;
@@ -501,6 +607,8 @@ function applyFilters(keepRenderLimit) {
       const open = isVenueOpen(normalizeValue(venue["Typical Closing Time"]));
       if (open !== true) return false;
     }
+    if (state.visitedFilter === "visited" && !isVenueVisited(normalizeValue(venue.Name))) return false;
+    if (state.visitedFilter === "new" && isVenueVisited(normalizeValue(venue.Name))) return false;
     if (area && normalizeValue(venue.Area) !== area) return false;
     if (category && normalizeValue(venue.Category) !== category) return false;
     if (query) {
@@ -618,6 +726,7 @@ function renderGrid() {
     const posterClass = `poster-general poster-${primaryTag.replace(/[^a-z0-9-]/g, "") || "general"}`;
     const attributeClasses = getAttributeClasses(tags);
     const isFav = state.favorites.has(nameText);
+    const visited = isVenueVisited(nameText);
     const openPill = getOpenStatusPill(closingTime);
     const viabilityBadges = (window.LNVFeatures && window.LNVFeatures.getViabilityBadges) ? window.LNVFeatures.getViabilityBadges(venue) : [];
     const viabilityPills = viabilityBadges.slice(0, 2).map((b) => `<span class="pill ${b.class}">${b.label}</span>`).join("");
@@ -627,6 +736,7 @@ function renderGrid() {
     card.className = `venue-card ${attributeClasses}`;
     card.dataset.venueKey = venueKey;
     card.innerHTML = `
+      <button class="venue-visited ${visited ? "active" : ""}" aria-label="Mark as visited">✓</button>
       <button class="venue-fav ${isFav ? "active" : ""}" aria-label="Save venue" data-name="${nameText.replace(/"/g, "&quot;")}">
         ${isFav ? "♥" : "♡"}
       </button>
@@ -636,6 +746,7 @@ function renderGrid() {
         <div class="venue-meta">${normalizeValue(venue.Area)} · ${normalizeValue(venue.Category)}</div>
         <div class="venue-pills">
           ${openPill}
+          ${visited ? '<span class="pill pill-visited">Been There</span>' : ""}
           ${viabilityPills}
           <span class="pill pill-closing">${closingTime || "Late"}</span>
           <span class="pill pill-distance">${normalizeValue(venue["Driving Distance"]) || "Distance TBD"}</span>
@@ -643,6 +754,26 @@ function renderGrid() {
         <div class="venue-vibes">${normalizeValue(venue["Vibe Tags"])}</div>
       </div>
     `;
+
+    const visitedBtn = card.querySelector(".venue-visited");
+    visitedBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const nowVisited = toggleVisited(nameText);
+      visitedBtn.classList.toggle("active", nowVisited);
+      // Refresh pill
+      const pillsEl = card.querySelector(".venue-pills");
+      const existingPill = pillsEl.querySelector(".pill-visited");
+      if (nowVisited && !existingPill) {
+        const pill = document.createElement("span");
+        pill.className = "pill pill-visited";
+        pill.textContent = "Been There";
+        pillsEl.insertBefore(pill, pillsEl.children[1] || null);
+      } else if (!nowVisited && existingPill) {
+        existingPill.remove();
+      }
+      updateCrawlStats();
+      if (state.visitedFilter) applyFilters(true);
+    });
 
     const favBtn = card.querySelector(".venue-fav");
     favBtn.addEventListener("click", (e) => {
@@ -682,6 +813,20 @@ function updateStats() {
   if (elements.venueCount) elements.venueCount.textContent = state.all.length;
   if (elements.filteredCount) elements.filteredCount.textContent = state.filtered.length;
   if (elements.activeVibes) elements.activeVibes.textContent = state.activeVibes.size;
+  updateCrawlStats();
+}
+
+function updateCrawlStats() {
+  if (!elements.crawlStats) return;
+  const stats = getCrawlStats();
+  if (stats.total === 0) {
+    elements.crawlStats.style.display = "none";
+    return;
+  }
+  elements.crawlStats.style.display = "";
+  const parts = [`${stats.total} visited`];
+  if (stats.liked) parts.push(`${stats.liked} liked`);
+  elements.crawlStats.textContent = parts.join(" · ");
 }
 
 /* ─── Autocomplete ─── */
@@ -1019,20 +1164,20 @@ function initOnboarding() {
     if (e.target === overlay) {
       overlay.style.display = "none";
       applyOnboardingResults();
+      return;
     }
-  });
-  if (dismiss) dismiss.addEventListener("click", () => { overlay.style.display = "none"; applyOnboardingResults(); });
-
-  steps.forEach((s, i) => {
-    if (!s) return;
-    s.querySelectorAll("button[data-val]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        if (i === 0) answers.who = btn.dataset.val;
-        else if (i === 1) answers.energy = btn.dataset.val;
-        else answers.area = btn.dataset.val;
-        advance();
-      });
-    });
+    const btn = e.target.closest("button[data-val], .onboarding-skip");
+    if (!btn) return;
+    e.stopPropagation();
+    if (btn.id === "onboardingDismiss") {
+      overlay.style.display = "none";
+      applyOnboardingResults();
+      return;
+    }
+    if (step === 0) answers.who = btn.dataset.val || "";
+    else if (step === 1) answers.energy = btn.dataset.val || "";
+    else answers.area = btn.dataset.val || "";
+    advance();
   });
 }
 
@@ -1080,6 +1225,7 @@ addListener(elements.searchInput, "input", () => {
 addListener(elements.areaSelect, "change", () => { syncSelect(elements.areaSelect, elements.areaSelectMobile); applyFilters(); });
 addListener(elements.categorySelect, "change", () => { syncSelect(elements.categorySelect, elements.categorySelectMobile); applyFilters(); });
 addListener(elements.sortSelect, "change", () => { syncSelect(elements.sortSelect, elements.sortSelectMobile); applyFilters(); });
+addListener(elements.visitedFilterDesktop, "change", () => { syncSelect(elements.visitedFilterDesktop, elements.visitedFilterMobile); applyFilters(); });
 
 /* ─── Event listeners (mobile) ─── */
 addListener(elements.searchInputMobile, "input", () => {
@@ -1089,6 +1235,7 @@ addListener(elements.searchInputMobile, "input", () => {
 addListener(elements.areaSelectMobile, "change", () => { syncSelect(elements.areaSelectMobile, elements.areaSelect); applyFilters(); });
 addListener(elements.categorySelectMobile, "change", () => { syncSelect(elements.categorySelectMobile, elements.categorySelect); applyFilters(); });
 addListener(elements.sortSelectMobile, "change", () => { syncSelect(elements.sortSelectMobile, elements.sortSelect); applyFilters(); });
+addListener(elements.visitedFilterMobile, "change", () => { syncSelect(elements.visitedFilterMobile, elements.visitedFilterDesktop); applyFilters(); });
 
 addListener(elements.csvFile, "change", (event) => {
   const file = event.target.files[0];
@@ -1149,6 +1296,7 @@ function saveFilterState() {
       vibes: Array.from(state.activeVibes),
       view: state.currentView,
       openNow: state.openNowOnly,
+      visitedFilter: getVisitedFilterValue(),
     };
     sessionStorage.setItem("lnv_filters", JSON.stringify(data));
   } catch (_) {}
@@ -1194,6 +1342,12 @@ function restoreFilterState() {
     if (data.openNow) {
       state.openNowOnly = true;
       syncOpenNow();
+    }
+
+    // Restore visited filter
+    if (data.visitedFilter) {
+      if (elements.visitedFilterDesktop) elements.visitedFilterDesktop.value = data.visitedFilter;
+      if (elements.visitedFilterMobile) elements.visitedFilterMobile.value = data.visitedFilter;
     }
 
     // Restore view

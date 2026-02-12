@@ -252,12 +252,12 @@ function swapStops(i, j) {
 /* ─── 6. Share itinerary (group planning link) ─── */
 function shareItinerary() {
   if (!lastItinerary.stops.length) return;
-  const payload = {
-    s: lastItinerary.stops.map((v) => ({ n: normalizeValue(v.Name), a: normalizeValue(v.Area), c: normalizeValue(v.Category), t: normalizeValue(v["Typical Closing Time"]), l: normalizeValue(v["Google Maps Driving Link"]) })),
-    start: lastItinerary.startMin,
-    dur: lastItinerary.slotDuration,
-  };
-  const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
+  const encoded = (window.LNVSharePlan && window.LNVSharePlan.encodeSharePlan)
+    ? window.LNVSharePlan.encodeSharePlan(lastItinerary.stops, lastItinerary.startMin, lastItinerary.slotDuration)
+    : (() => {
+        const payload = { s: lastItinerary.stops.map((v) => ({ n: normalizeValue(v.Name), a: normalizeValue(v.Area), c: normalizeValue(v.Category), t: normalizeValue(v["Typical Closing Time"]), l: normalizeValue(v["Google Maps Driving Link"]) })), start: lastItinerary.startMin, dur: lastItinerary.slotDuration };
+        return btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
+      })();
   const url = `${window.location.origin}${window.location.pathname}?plan=${encoded}`;
   const lines = lastItinerary.stops.map((venue, idx) => {
     const slotStart = lastItinerary.startMin + idx * lastItinerary.slotDuration;
@@ -417,8 +417,9 @@ function loadFromText(text) {
 /* ─── 6. Load shared plan from URL (group planning) ─── */
 function loadSharedPlan(encoded) {
   try {
-    const json = decodeURIComponent(escape(atob(encoded)));
-    const data = JSON.parse(json);
+    const data = (window.LNVSharePlan && window.LNVSharePlan.decodeSharePlan)
+      ? window.LNVSharePlan.decodeSharePlan(encoded)
+      : JSON.parse(decodeURIComponent(escape(atob(encoded))));
     const rawStops = data.s || [];
     const startMin = data.start || 22 * 60;
     const slotDuration = data.dur || 60;

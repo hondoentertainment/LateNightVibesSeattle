@@ -103,11 +103,17 @@ const CONTEXT_VIBES = {
   "post-game": ["sports", "rowdy", "high-energy"],
 };
 
+/* ─── Crawl history helpers ─── */
+function getCrawlHistory() {
+  return (window.LNVCrawl && window.LNVCrawl.loadHistory) ? window.LNVCrawl.loadHistory() : {};
+}
+
 /* ─── Recommendation engine ─── */
 function computeRecommendations(base, maxDist, maxResults, contextMode) {
   const baseDist = parseDistanceMiles(base["Driving Distance"]);
   const baseVibes = getVibeSet(base);
   const contextPreferred = (CONTEXT_VIBES[contextMode] || []).map((t) => t.toLowerCase());
+  const crawl = getCrawlHistory();
 
   return allVenues
     .filter((v) => v.Name && v.Name !== base.Name)
@@ -130,13 +136,27 @@ function computeRecommendations(base, maxDist, maxResults, contextMode) {
         const contextMatch = contextPreferred.filter((t) => candidateVibes.has(t)).length;
         contextBonus = Math.min(0.2, (contextMatch / contextPreferred.length) * 0.2);
       }
-      const score = Math.min(1, vibeScore * 0.5 + catScore * 0.2 + areaScore * 0.2 + distScore * 0.1 + contextBonus);
+
+      // Crawl history: boost unvisited, slight penalty for already-visited
+      const venueName = normalizeValue(venue.Name);
+      let crawlAdj = 0;
+      const entry = crawl[venueName];
+      if (entry) {
+        crawlAdj = -0.05; // slight deprioritize already-visited
+        if (entry.rating === -1) crawlAdj = -0.15; // stronger penalty for disliked
+      } else {
+        crawlAdj = 0.03; // small boost for new-to-you
+      }
+
+      const score = Math.max(0, Math.min(1, vibeScore * 0.5 + catScore * 0.2 + areaScore * 0.2 + distScore * 0.1 + contextBonus + crawlAdj));
       const sharedVibes = intersection.length ? intersection.join(", ") : "new vibe twist";
-      const reason = [
+      const reasonParts = [
         intersection.length ? `${intersection.length} shared vibe${intersection.length > 1 ? "s" : ""}: ${sharedVibes}` : "Different vibe mix",
         catScore ? "Same category" : "Different category",
         areaScore ? "Same neighborhood" : normalizeValue(venue.Area),
-      ].join(" · ");
+      ];
+      if (entry) reasonParts.push("Been there");
+      const reason = reasonParts.join(" · ");
       const breakdown = {
         vibe: Math.round(vibeScore * 100),
         category: Math.round(catScore * 100),
@@ -144,7 +164,7 @@ function computeRecommendations(base, maxDist, maxResults, contextMode) {
         distance: Math.round(distScore * 100),
         total: Math.round(score * 100),
       };
-      return { venue, score, reason, breakdown };
+      return { venue, score, reason, breakdown, visited: !!entry };
     })
     .filter(Boolean)
     .sort((a, b) => b.score - a.score)
@@ -196,7 +216,7 @@ function renderRecommendations() {
     return;
   }
 
-  recs.forEach(({ venue, reason, breakdown }) => {
+  recs.forEach(({ venue, reason, breakdown, visited }) => {
     const mapLink = normalizeValue(venue["Google Maps Driving Link"]);
     const tags = normalizeValue(venue["Vibe Tags"]).split(",").map((t) => normalizeValue(t).toLowerCase()).filter(Boolean);
     const primaryTag = tags[0] || "general";
@@ -220,6 +240,7 @@ function renderRecommendations() {
           <div class="score-total">Match: ${breakdown.total}%</div>
         </div>
         <div class="pills">
+          ${visited ? '<span class="pill pill-visited">Been There</span>' : ""}
           <span class="pill">${normalizeValue(venue["Typical Closing Time"]) || "Late"}</span>
           <span class="pill">${normalizeValue(venue["Driving Distance"]) || "Distance TBD"}</span>
         </div>

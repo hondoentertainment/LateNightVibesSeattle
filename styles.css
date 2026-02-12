@@ -899,6 +899,147 @@ button,
   color: #ff7a8a;
 }
 
+/* ─── "Been There" checkmark on card ─── */
+.venue-visited {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(4px);
+  border: none;
+  color: #6b7a9a;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  z-index: 2;
+  font-size: 14px;
+  font-weight: 700;
+  opacity: 0;
+  transition: opacity 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+
+.venue-card:hover .venue-visited,
+.venue-visited.active {
+  opacity: 1;
+}
+
+.venue-visited.active {
+  color: #2bff86;
+  background: rgba(43, 255, 134, 0.2);
+}
+
+.venue-visited:hover {
+  color: #2bff86;
+}
+
+/* ─── "Been There" pill on card ─── */
+.pill-visited {
+  background: rgba(43, 255, 134, 0.12);
+  border-color: rgba(43, 255, 134, 0.3);
+  color: #2bff86;
+}
+
+/* ─── Crawl stats counter ─── */
+.crawl-stats {
+  font-size: 12px;
+  color: #2bff86;
+  background: rgba(43, 255, 134, 0.08);
+  border: 1px solid rgba(43, 255, 134, 0.2);
+  padding: 4px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+/* ─── Detail drawer: Been There section ─── */
+.detail-crawl {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px 0 4px;
+  border-top: 1px solid #1c2436;
+}
+
+.btn-visited {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  font-size: 14px;
+  font-weight: 600;
+  min-height: 48px;
+  cursor: pointer;
+  background: #151a28;
+  color: #93a1c6;
+  border: 1px solid #2a334d;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.btn-visited:hover {
+  border-color: #2bff86;
+  color: #e8e8e8;
+}
+
+.btn-visited.active {
+  background: rgba(43, 255, 134, 0.12);
+  color: #2bff86;
+  border-color: #2bff86;
+}
+
+.detail-rating {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.detail-rating.hidden {
+  display: none;
+}
+
+.rating-label {
+  font-size: 13px;
+  color: #8fa0c2;
+  margin-right: auto;
+}
+
+.rating-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: #151a28;
+  border: 1px solid #2a334d;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  font-size: 20px;
+  padding: 0;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+}
+
+.rating-btn:hover {
+  border-color: #3a4560;
+  transform: scale(1.08);
+}
+
+.rating-btn.active-up {
+  background: rgba(43, 255, 134, 0.15);
+  border-color: #2bff86;
+}
+
+.rating-btn.active-down {
+  background: rgba(255, 91, 91, 0.15);
+  border-color: #ff5b5b;
+}
+
+.detail-visit-date {
+  font-size: 11px;
+  color: #6b7a9a;
+}
 
 /* ─── Map view ─── */
 .view-toggle {

@@ -132,6 +132,14 @@ describe("loadDataFromCSV", () => {
     expect(venues[0].Category).toBe("");
   });
 
+  it("handles rows with more columns than headers (extra columns dropped)", () => {
+    const text = "Name,Area\nFoo,Bar,Extra,Columns";
+    const venues = loadDataFromCSV(text);
+    expect(venues).toHaveLength(1);
+    expect(venues[0].Name).toBe("Foo");
+    expect(venues[0].Area).toBe("Bar");
+  });
+
   it("handles a realistic venue row with vibe tags", () => {
     const text =
       'Name,Area,Category,Vibe Tags,Driving Distance,Typical Closing Time\n' +

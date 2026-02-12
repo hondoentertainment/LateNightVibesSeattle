@@ -17,6 +17,8 @@ export default [
         FileReader: "readonly",
         URL: "readonly",
         URLSearchParams: "readonly",
+        btoa: "readonly",
+        atob: "readonly",
         MouseEvent: "readonly",
         HTMLElement: "readonly",
         Intl: "readonly",

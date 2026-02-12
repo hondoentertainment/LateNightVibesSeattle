@@ -199,6 +199,11 @@ describe("computeRecommendations", () => {
     expect(recs).toEqual([]);
   });
 
+  it("returns empty array when maxResults is 0", () => {
+    const recs = computeRecommendations(venues, baseVenue, null, 0);
+    expect(recs).toEqual([]);
+  });
+
   it("score weights sum to 1.0 (vibe=0.5 + cat=0.2 + area=0.2 + dist=0.1)", () => {
     // When everything matches perfectly, total should be 100%
     const perfectMatch = [
