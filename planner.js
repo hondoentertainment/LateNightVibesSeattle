@@ -484,4 +484,14 @@ addListener($("shufflePlanDesktop"), "click", shuffleItinerary);
 addListener($("sharePlan"), "click", shareItinerary);
 addListener($("sharePlanDesktop"), "click", shareItinerary);
 
+async function loadDefaultCSV() {
+  try {
+    const resp = await fetch(DEFAULT_CSV);
+    if (!resp.ok) throw new Error("Fetch failed");
+    loadFromText(await resp.text());
+  } catch (_) {
+    $("itinerary").innerHTML = '<div class="itinerary-empty">Unable to load venue data.</div>';
+  }
+}
+
 loadDefaultCSV();
