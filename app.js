@@ -460,7 +460,7 @@ function collectVibes(venues) {
   const vibeSet = new Set();
   venues.forEach((venue) => {
     normalizeValue(venue["Vibe Tags"]).split(",")
-      .map((t) => normalizeValue(t)).filter(Boolean)
+      .map((t) => normalizeValue(t).toLowerCase()).filter(Boolean)
       .forEach((t) => vibeSet.add(t));
   });
   return vibeSet;
@@ -617,8 +617,9 @@ function applyFilters(keepRenderLimit) {
       if (!haystack.includes(query)) return false;
     }
     if (activeVibes.length) {
-      const tags = normalizeValue(venue["Vibe Tags"]).split(",").map((t) => normalizeValue(t));
-      if (!activeVibes.every((t) => tags.includes(t))) return false;
+      const tags = normalizeValue(venue["Vibe Tags"]).split(",")
+        .map((t) => normalizeValue(t).toLowerCase()).filter(Boolean);
+      if (!activeVibes.every((t) => tags.includes(t.toLowerCase()))) return false;
     }
     return true;
   });
@@ -632,7 +633,6 @@ function applyFilters(keepRenderLimit) {
   updateResultSummary();
   saveFilterState();
   if (state.currentView === "map") renderMap();
-  if (!keepRenderLimit && elements.grid) elements.grid.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 function sortFiltered() {
@@ -841,7 +841,7 @@ function buildAutocompleteIndex() {
     items.push({ name: normalizeValue(v.Name), meta: `${normalizeValue(v.Area)} · ${normalizeValue(v.Category)}`, type: "venue", venue: v });
     const area = normalizeValue(v.Area);
     if (area && !seenAreas.has(area)) { seenAreas.add(area); items.push({ name: area, meta: "", type: "area" }); }
-    normalizeValue(v["Vibe Tags"]).split(",").map((t) => normalizeValue(t)).filter(Boolean).forEach((t) => {
+    normalizeValue(v["Vibe Tags"]).split(",").map((t) => normalizeValue(t).toLowerCase()).filter(Boolean).forEach((t) => {
       if (!seenVibes.has(t)) { seenVibes.add(t); items.push({ name: t, meta: "", type: "vibe" }); }
     });
   });
@@ -1332,9 +1332,9 @@ function restoreFilterState() {
       if (elements.sortSelectMobile) elements.sortSelectMobile.value = data.sort;
     }
 
-    // Restore vibes
+    // Restore vibes (lowercase to stay consistent with collectVibes)
     if (data.vibes && data.vibes.length) {
-      state.activeVibes = new Set(data.vibes);
+      state.activeVibes = new Set(data.vibes.map((v) => v.toLowerCase()));
       syncVibeCheckboxes();
     }
 
