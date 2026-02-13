@@ -1137,11 +1137,20 @@ function initOnboarding() {
     applyFilters();
   }
 
+  function updateProgressDots(idx) {
+    const dots = overlay.querySelectorAll(".progress-dot");
+    dots.forEach((d, i) => {
+      d.classList.toggle("active", i === idx);
+      d.classList.toggle("done", i < idx);
+    });
+  }
+
   function advance() {
     steps[step].style.display = "none";
     step++;
     if (step >= steps.length) {
-      overlay.style.display = "none";
+      overlay.classList.add("closing");
+      setTimeout(() => { overlay.style.display = "none"; overlay.classList.remove("closing"); }, 300);
       applyOnboardingResults();
       return;
     }
@@ -1152,6 +1161,7 @@ function initOnboarding() {
         container.innerHTML = areas.map((a) => `<button type="button" data-val="${a.replace(/"/g, "&quot;")}">${a}</button>`).join("");
       }
     }
+    updateProgressDots(step);
     steps[step].style.display = "block";
   }
 
@@ -1177,7 +1187,8 @@ function initOnboarding() {
     if (step === 0) answers.who = btn.dataset.val || "";
     else if (step === 1) answers.energy = btn.dataset.val || "";
     else answers.area = btn.dataset.val || "";
-    advance();
+    btn.classList.add("selected");
+    setTimeout(() => advance(), 180);
   });
 }
 

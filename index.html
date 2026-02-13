@@ -180,30 +180,36 @@
     <!-- Intent-first onboarding (first visit) -->
     <div id="onboardingOverlay" class="onboarding-overlay" style="display:none">
       <div class="onboarding-card">
-        <h2>Plan your night in 3 quick questions</h2>
+        <div class="onboarding-progress">
+          <span class="progress-dot active" data-step="0"></span>
+          <span class="progress-dot" data-step="1"></span>
+          <span class="progress-dot" data-step="2"></span>
+        </div>
+        <div class="onboarding-greeting">Seattle after dark</div>
+        <h2>Let's find your perfect night</h2>
         <div id="onboardingStep1" class="onboarding-step">
-          <p>Who are you with?</p>
+          <p>Who's coming along?</p>
           <div class="onboarding-options">
-            <button type="button" data-val="solo">Solo</button>
-            <button type="button" data-val="date">Date</button>
-            <button type="button" data-val="friends">Friends</button>
-            <button type="button" data-val="group">Group</button>
+            <button type="button" data-val="solo"><span class="ob-icon">&#x1F9D1;</span><span class="ob-label">Solo</span></button>
+            <button type="button" data-val="date"><span class="ob-icon">&#x1F496;</span><span class="ob-label">Date</span></button>
+            <button type="button" data-val="friends"><span class="ob-icon">&#x1F37B;</span><span class="ob-label">Friends</span></button>
+            <button type="button" data-val="group"><span class="ob-icon">&#x1F389;</span><span class="ob-label">Group</span></button>
           </div>
         </div>
         <div id="onboardingStep2" class="onboarding-step" style="display:none">
-          <p>What's your energy tonight?</p>
+          <p>What's the energy tonight?</p>
           <div class="onboarding-options">
-            <button type="button" data-val="chill">Chill</button>
-            <button type="button" data-val="medium">Medium</button>
-            <button type="button" data-val="high">High energy</button>
+            <button type="button" data-val="chill"><span class="ob-icon">&#x1F30A;</span><span class="ob-label">Chill</span></button>
+            <button type="button" data-val="medium"><span class="ob-icon">&#x2728;</span><span class="ob-label">Medium</span></button>
+            <button type="button" data-val="high"><span class="ob-icon">&#x1F525;</span><span class="ob-label">High energy</span></button>
           </div>
         </div>
         <div id="onboardingStep3" class="onboarding-step" style="display:none">
           <p>Any neighborhood in mind?</p>
           <div class="onboarding-options" id="onboardingAreas"></div>
-          <button type="button" class="onboarding-skip" data-val="">Any area</button>
+          <button type="button" class="onboarding-skip" data-val="">Surprise me &mdash; any area</button>
         </div>
-        <button type="button" id="onboardingDismiss" class="onboarding-dismiss">Skip</button>
+        <button type="button" id="onboardingDismiss" class="onboarding-dismiss">Skip &amp; browse everything</button>
       </div>
     </div>
 
