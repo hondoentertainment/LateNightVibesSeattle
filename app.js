@@ -1155,7 +1155,7 @@ function initOnboarding() {
       return;
     }
     if (step === 2) {
-      const areas = Array.from(new Set(state.all.map((v) => normalizeValue(v.Area)).filter(Boolean))).sort().slice(0, 8);
+      const areas = Array.from(new Set(state.all.map((v) => normalizeValue(v.Area)).filter(Boolean))).sort();
       const container = $("onboardingAreas");
       if (container) {
         container.innerHTML = areas.map((a) => `<button type="button" data-val="${a.replace(/"/g, "&quot;")}">${a}</button>`).join("");

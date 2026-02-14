@@ -10,6 +10,29 @@
     <link rel="manifest" href="manifest.json" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="styles.css" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="LateNightVibes Seattle">
+    <script>
+      // Mobile physics & haptics polyfill
+      window.LNV_HAPTICS = {
+        light: () => {
+          try {
+            (window.navigator.vibrate || window.navigator.webkitVibrate || window.navigator.mozVibrate || (() => {}))(3);
+          } catch {}
+        },
+        medium: () => {
+          try {
+            (window.navigator.vibrate || window.navigator.webkitVibrate || window.navigator.mozVibrate || (() => {}))(20);
+          } catch {}
+        },
+        confirm: () => {
+          try {
+            (window.navigator.vibrate || window.navigator.webkitVibrate || window.navigator.mozVibrate || (() => {}))([10, 50, 10]);
+          } catch {}
+        }
+      };
+    </script>
   </head>
   <body>
     <header class="topbar">
@@ -79,11 +102,11 @@
               <option value="closing">Closing Time</option>
             </select>
           </label>
-          <label class="open-now-toggle">
-            <input type="checkbox" id="openNowMobile" />
-            <span class="open-now-dot"></span>
-            <span>Open Now Only</span>
-          </label>
+          <div class="ios-toggle">
+            <label class="ios-toggle-label">Open Now Only</label>
+            <input type="checkbox" id="openNowMobile" class="ios-toggle-input" />
+            <label for="openNowMobile" class="ios-toggle-switch"></label>
+          </div>
           <label class="field" style="margin-top:14px">
             Visited
             <select id="visitedFilterMobile">

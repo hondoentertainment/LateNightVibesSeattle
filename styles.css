@@ -1638,18 +1638,39 @@ button,
   opacity: 1;
 }
 
-/* Neighborhood step: wrap more options */
+/* Neighborhood step: all areas, scrollable */
 #onboardingStep3 .onboarding-options {
   grid-template-columns: 1fr 1fr;
   gap: 8px;
+  max-height: 40vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-right: 4px;
+  margin-bottom: 8px;
+}
+
+#onboardingStep3 .onboarding-options::-webkit-scrollbar {
+  width: 6px;
+}
+
+#onboardingStep3 .onboarding-options::-webkit-scrollbar-thumb {
+  background: #2a334d;
+  border-radius: 3px;
+}
+
+#onboardingStep3 .onboarding-options::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 #onboardingStep3 .onboarding-options button {
   flex-direction: row;
-  min-height: 52px;
-  padding: 12px 16px;
+  min-height: 48px;
+  padding: 10px 14px;
   gap: 0;
+  font-size: 13px;
+  flex-shrink: 0;
 }
+
 
 /* Skip / any-area button */
 .onboarding-skip {
