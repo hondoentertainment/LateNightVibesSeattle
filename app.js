@@ -210,7 +210,7 @@ function openDetail(venue) {
     ${viabilityHtml ? `<div class="detail-viability">${viabilityHtml}</div>` : ""}
     ${trustHtml ? `<div class="detail-trust">${trustHtml}</div>` : ""}
     ${closingTime ? `<div class="detail-row"><span class="label">Closes</span>${closingTime}</div>` : ""}
-    ${distance ? `<div class="detail-row"><span class="label">Distance</span>${distance}</div>` : ""}
+    ${distance ? `<div class="detail-row"><span class="label">Distance</span>${mapLink ? `<a href="${mapLink}" target="_blank" rel="noopener" style="color:#9fd6ff;text-decoration:none">${distance} ↗</a>` : distance}</div>` : ""}
     ${address && address.toLowerCase() !== "click link" ? `<div class="detail-row"><span class="label">Address</span>${address}</div>` : ""}
     ${phone ? `<div class="detail-row"><span class="label">Phone</span><a href="tel:${phone}" style="color:#9fd6ff;text-decoration:none">${phone}</a></div>` : ""}
     ${website ? `<div class="detail-row"><span class="label">Website</span>${websiteLink}</div>` : ""}
@@ -749,7 +749,7 @@ function renderGrid() {
           ${visited ? '<span class="pill pill-visited">Been There</span>' : ""}
           ${viabilityPills}
           <span class="pill pill-closing">${closingTime || "Late"}</span>
-          <span class="pill pill-distance">${normalizeValue(venue["Driving Distance"]) || "Distance TBD"}</span>
+          ${mapLink ? `<a href="${mapLink}" target="_blank" rel="noopener" class="pill pill-distance pill-link" onclick="event.stopPropagation()">${normalizeValue(venue["Driving Distance"]) || "Directions"} ↗</a>` : `<span class="pill pill-distance">${normalizeValue(venue["Driving Distance"]) || "Distance TBD"}</span>`}
         </div>
         <div class="venue-vibes">${normalizeValue(venue["Vibe Tags"])}</div>
       </div>

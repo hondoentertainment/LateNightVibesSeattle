@@ -848,6 +848,24 @@ button,
   color: #9fd6ff;
 }
 
+a.pill-link {
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+}
+
+a.pill-link:hover,
+a.pill-link:focus-visible {
+  background: rgba(159, 214, 255, 0.12);
+  border-color: rgba(159, 214, 255, 0.35);
+  color: #c4e6ff;
+}
+
+a.pill-link:active {
+  transform: scale(0.95);
+  background: rgba(159, 214, 255, 0.18);
+}
+
 .venue-vibes {
   font-size: 10px;
   color: #93a1c6;
