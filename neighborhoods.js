@@ -3,71 +3,8 @@ let allVenues = [];
 
 const $ = (id) => document.getElementById(id);
 
-function normalizeValue(value) {
-  return (value || "").toString().trim();
-}
-
-function parseCSV(text) {
-  const rows = [];
-  let current = "";
-  let inQuotes = false;
-  const cells = [];
-  function pushCell() { cells.push(current); current = ""; }
-  function pushRow() { rows.push(cells.splice(0)); }
-  for (let i = 0; i < text.length; i++) {
-    const char = text[i];
-    if (char === "\"") {
-      const next = text[i + 1];
-      if (inQuotes && next === "\"") { current += "\""; i++; }
-      else inQuotes = !inQuotes;
-    } else if (char === "," && !inQuotes) {
-      pushCell();
-    } else if ((char === "\n" || char === "\r") && !inQuotes) {
-      if (char === "\r" && text[i + 1] === "\n") i++;
-      pushCell(); pushRow();
-    } else {
-      current += char;
-    }
-  }
-  if (current.length > 0 || cells.length > 0) { pushCell(); pushRow(); }
-  return rows;
-}
-
-function loadDataFromCSV(text) {
-  const rows = parseCSV(text);
-  if (!rows.length) return [];
-  const headers = rows[0].map((h) => normalizeValue(h));
-  return rows.slice(1)
-    .filter((row) => row.some((c) => c && c.trim()))
-    .map((row) => {
-      const r = {};
-      headers.forEach((h, i) => { r[h] = normalizeValue(row[i]); });
-      return r;
-    });
-}
-
-function parseTimeToMinutes(value) {
-  const text = normalizeValue(value).toLowerCase();
-  const match = text.match(/(\d{1,2})(?::(\d{2}))?\s*(am|pm)/);
-  if (!match) return null;
-  let hour = parseInt(match[1], 10);
-  const minute = match[2] ? parseInt(match[2], 10) : 0;
-  const meridiem = match[3];
-  if (meridiem === "pm" && hour !== 12) hour += 12;
-  if (meridiem === "am" && hour === 12) hour = 0;
-  return hour * 60 + minute;
-}
-
-function minutesToLabel(mins) {
-  if (mins >= 1440) mins -= 1440;
-  if (mins < 0) mins += 1440;
-  let h = Math.floor(mins / 60);
-  const m = mins % 60;
-  const meridiem = h >= 12 ? "PM" : "AM";
-  if (h === 0) h = 12;
-  else if (h > 12) h -= 12;
-  return `${h}:${m.toString().padStart(2, "0")} ${meridiem}`;
-}
+/* ─── Import shared helpers from LNVCore (loaded via lib/core.js) ─── */
+const { normalizeValue, loadDataFromCSV, parseTimeToMinutes, minutesToLabel } = window.LNVCore;
 
 /* ─── Analyze a neighborhood ─── */
 function analyzeArea(areaName) {

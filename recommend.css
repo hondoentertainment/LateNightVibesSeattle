@@ -277,3 +277,65 @@
   color: #93a1c6;
   font-size: 14px;
 }
+
+/* ─── Mobile UX polish ─── */
+@media (max-width: 859px) {
+  .rec-mobile-controls {
+    padding: 12px;
+    gap: 8px;
+    background: rgba(14, 17, 24, 0.97);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    position: sticky;
+    top: 57px;
+    z-index: 8;
+  }
+
+  .rec-layout {
+    padding: 8px 12px;
+    padding-bottom: calc(var(--bottom-nav-offset) + 8px);
+  }
+
+  .rec-grid {
+    gap: 10px;
+  }
+
+  .rec-card {
+    border-radius: 14px;
+    border-width: 1.5px;
+    grid-template-rows: 72px auto;
+  }
+
+  .rec-card:active {
+    transform: scale(0.97);
+    transition: transform 0.08s ease;
+  }
+
+  .rec-body {
+    padding: 10px 12px 12px;
+    gap: 5px;
+  }
+
+  .rec-body .name {
+    font-size: 13.5px;
+    font-weight: 700;
+  }
+
+  .rec-body .reason {
+    font-size: 12px;
+    padding: 8px 10px;
+    border-radius: 10px;
+  }
+
+  .score-bar-row {
+    grid-template-columns: 50px 1fr 32px;
+    gap: 6px;
+  }
+
+  .rec-empty {
+    padding: 48px 24px;
+    border-radius: 18px;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+}

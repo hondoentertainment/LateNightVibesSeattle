@@ -2,6 +2,9 @@ const DEFAULT_CSV = "venue_list_500plus.csv";
 
 const PAGE_SIZE = 40;
 
+/* ─── Import shared helpers from LNVCore (loaded via lib/core.js) ─── */
+const { normalizeValue, loadDataFromCSV, parseTimeToMinutes, collectVibes } = window.LNVCore;
+
 const state = {
   all: [],
   filtered: [],
@@ -144,6 +147,10 @@ const elements = {
   detailClose: $("detailClose"),
   detailTitle: $("detailTitle"),
   detailBody: $("detailBody"),
+  // Mobile UX enhancements
+  quickFilters: $("quickFilters"),
+  timeBanner: $("timeBanner"),
+  activeFiltersStrip: $("activeFiltersStrip"),
 };
 
 /* ─── Drawer toggle (filters) ─── */
@@ -310,7 +317,11 @@ function shareVenue(venue) {
   const text = `Check out ${name} — ${area}, ${category}. Vibes: ${vibes}.${mapLink ? ` Directions: ${mapLink}` : ""}`;
 
   if (navigator.share) {
-    navigator.share({ title: name, text: text }).catch(() => {});
+    navigator.share({ title: name, text: text }).catch((err) => {
+      if (err.name !== "AbortError") {
+        navigator.clipboard.writeText(text).then(() => showToast("Copied to clipboard!")).catch(() => {});
+      }
+    });
   } else {
     navigator.clipboard.writeText(text).then(() => {
       showToast("Copied to clipboard!");
@@ -319,6 +330,8 @@ function shareVenue(venue) {
 }
 
 function showToast(msg) {
+  const existing = document.querySelector(".share-toast");
+  if (existing) existing.remove();
   const toast = document.createElement("div");
   toast.className = "share-toast";
   toast.textContent = msg;
@@ -334,10 +347,6 @@ function syncSelect(source, target) {
 /* ─── Utilities ─── */
 function setStatus(text) {
   if (elements.statusText) elements.statusText.textContent = text;
-}
-
-function normalizeValue(value) {
-  return (value || "").toString().trim();
 }
 
 function getVenueSyncKey(venue) {
@@ -405,73 +414,8 @@ function setActiveVenueSync(venueKey, options) {
   }
 }
 
-function parseCSV(text) {
-  const rows = [];
-  let current = "";
-  let inQuotes = false;
-  const cells = [];
-  function pushCell() { cells.push(current); current = ""; }
-  function pushRow() { rows.push(cells.splice(0)); }
-  for (let i = 0; i < text.length; i++) {
-    const char = text[i];
-    if (char === "\"") {
-      const next = text[i + 1];
-      if (inQuotes && next === "\"") { current += "\""; i++; }
-      else inQuotes = !inQuotes;
-    } else if (char === "," && !inQuotes) {
-      pushCell();
-    } else if ((char === "\n" || char === "\r") && !inQuotes) {
-      if (char === "\r" && text[i + 1] === "\n") i++;
-      pushCell(); pushRow();
-    } else {
-      current += char;
-    }
-  }
-  if (current.length > 0 || cells.length > 0) { pushCell(); pushRow(); }
-  return rows;
-}
-
-function parseTimeToMinutes(value) {
-  const text = normalizeValue(value).toLowerCase();
-  const match = text.match(/(\d{1,2})(?::(\d{2}))?\s*(am|pm)/);
-  if (!match) return null;
-  let hour = parseInt(match[1], 10);
-  const minute = match[2] ? parseInt(match[2], 10) : 0;
-  const meridiem = match[3];
-  if (meridiem === "pm" && hour !== 12) hour += 12;
-  if (meridiem === "am" && hour === 12) hour = 0;
-  return hour * 60 + minute;
-}
-
-function loadDataFromCSV(text) {
-  const rows = parseCSV(text);
-  if (!rows.length) return [];
-  const headers = rows[0].map((h) => normalizeValue(h));
-  return rows.slice(1)
-    .filter((row) => row.some((c) => c && c.trim()))
-    .map((row) => {
-      const r = {};
-      headers.forEach((h, i) => { r[h] = normalizeValue(row[i]); });
-      return r;
-    });
-}
-
-function collectVibes(venues) {
-  const vibeSet = new Set();
-  venues.forEach((venue) => {
-    normalizeValue(venue["Vibe Tags"]).split(",")
-      .map((t) => normalizeValue(t).toLowerCase()).filter(Boolean)
-      .forEach((t) => vibeSet.add(t));
-  });
-  return vibeSet;
-}
-
-function getVibeSet(venue) {
-  return new Set(
-    normalizeValue(venue["Vibe Tags"]).split(",")
-      .map((t) => normalizeValue(t).toLowerCase()).filter(Boolean)
-  );
-}
+/* ─── parseCSV, parseTimeToMinutes, loadDataFromCSV, collectVibes, getVibeSet ─── */
+/* Imported from LNVCore at top of file */
 
 /* ─── Open now / closed logic ─── */
 function isVenueOpen(closingTimeStr) {
@@ -631,6 +575,8 @@ function applyFilters(keepRenderLimit) {
   updateStats();
   updateFilterBadge();
   updateResultSummary();
+  updateActiveFiltersStrip();
+  syncQuickChips();
   saveFilterState();
   if (state.currentView === "map") renderMap();
 }
@@ -708,9 +654,19 @@ function renderGrid() {
     const empty = document.createElement("div");
     empty.className = "empty-state";
     if (state.showSavedOnly) {
-      empty.innerHTML = "No saved venues yet. Tap the ♡ on any venue card to save it.";
+      empty.innerHTML = `
+        <div style="font-size:32px;margin-bottom:12px">♡</div>
+        <div style="font-size:16px;font-weight:600;margin-bottom:8px;color:#e8e8e8">No saved venues yet</div>
+        <div>Tap the heart on any venue to save it for later.</div>
+        <a href="index.html" style="display:inline-block;margin-top:16px;color:#2bff86;font-weight:600;text-decoration:none">Browse venues →</a>
+      `;
     } else {
-      empty.innerHTML = "No venues match this filter set. Try removing the <strong>area</strong> or <strong>vibe</strong> filter.";
+      const filterCount = (getAreaValue() ? 1 : 0) + (getCategoryValue() ? 1 : 0) + (state.openNowOnly ? 1 : 0) + state.activeVibes.size;
+      empty.innerHTML = `
+        <div style="font-size:32px;margin-bottom:12px">🔍</div>
+        <div style="font-size:16px;font-weight:600;margin-bottom:8px;color:#e8e8e8">No matches found</div>
+        <div>${filterCount > 1 ? `You have <strong>${filterCount} filters</strong> active. Try removing some.` : "Try broadening your search or removing a filter."}</div>
+      `;
     }
     elements.grid.appendChild(empty);
     return;
@@ -785,7 +741,7 @@ function renderGrid() {
     });
 
     card.addEventListener("click", (e) => {
-      if (e.target.closest(".venue-fav")) return;
+      if (e.target.closest(".venue-fav") || e.target.closest(".venue-visited")) return;
       openDetail(venue);
     });
     card.addEventListener("mouseenter", () => {
@@ -1192,6 +1148,138 @@ function initOnboarding() {
   });
 }
 
+/* ─── Quick-filter chips (mobile) ─── */
+(function initQuickFilters() {
+  const container = elements.quickFilters;
+  if (!container) return;
+
+  const QUICK_MAP = {
+    "open-now": { type: "openNow" },
+    "chill": { type: "vibe", vibe: "chill" },
+    "dancey": { type: "vibe", vibe: "dancey" },
+    "live-music": { type: "vibe", vibe: "live-music" },
+    "late-eats": { type: "vibe", vibe: "late-eats" },
+    "date-friendly": { type: "vibe", vibe: "date-friendly" },
+  };
+
+  container.addEventListener("click", (e) => {
+    const chip = e.target.closest(".quick-chip");
+    if (!chip) return;
+    const key = chip.dataset.quick;
+    const cfg = QUICK_MAP[key];
+    if (!cfg) return;
+
+    const wasActive = chip.classList.contains("active");
+
+    if (cfg.type === "openNow") {
+      state.openNowOnly = !wasActive;
+      syncOpenNow();
+    } else if (cfg.type === "vibe") {
+      if (wasActive) state.activeVibes.delete(cfg.vibe);
+      else state.activeVibes.add(cfg.vibe);
+      syncVibeCheckboxes();
+    }
+
+    chip.classList.toggle("active", !wasActive);
+    applyFilters();
+    updateActiveFiltersStrip();
+
+    if (window.LNV_HAPTICS) window.LNV_HAPTICS.light();
+  });
+})();
+
+function syncQuickChips() {
+  const container = elements.quickFilters;
+  if (!container) return;
+  container.querySelectorAll(".quick-chip").forEach((chip) => {
+    const key = chip.dataset.quick;
+    let active = false;
+    if (key === "open-now") active = state.openNowOnly;
+    else active = state.activeVibes.has(key);
+    chip.classList.toggle("active", active);
+  });
+}
+
+/* ─── Active filter strip (mobile) ─── */
+function updateActiveFiltersStrip() {
+  const strip = elements.activeFiltersStrip;
+  if (!strip) return;
+  strip.innerHTML = "";
+
+  const chips = [];
+  const area = getAreaValue();
+  if (area) chips.push({ label: area, clear: () => { [elements.areaSelect, elements.areaSelectMobile].forEach((s) => { if (s) s.value = ""; }); } });
+  const category = getCategoryValue();
+  if (category) chips.push({ label: category, clear: () => { [elements.categorySelect, elements.categorySelectMobile].forEach((s) => { if (s) s.value = ""; }); } });
+  if (state.openNowOnly) chips.push({ label: "Open Now", clear: () => { state.openNowOnly = false; syncOpenNow(); syncQuickChips(); } });
+  if (state.visitedFilter === "visited") chips.push({ label: "Been There", clear: () => { [elements.visitedFilterDesktop, elements.visitedFilterMobile].forEach((s) => { if (s) s.value = ""; }); } });
+  if (state.visitedFilter === "new") chips.push({ label: "Not Visited", clear: () => { [elements.visitedFilterDesktop, elements.visitedFilterMobile].forEach((s) => { if (s) s.value = ""; }); } });
+  state.activeVibes.forEach((v) => {
+    chips.push({ label: v, clear: () => { state.activeVibes.delete(v); syncVibeCheckboxes(); syncQuickChips(); } });
+  });
+
+  if (!chips.length) return;
+
+  chips.forEach((c) => {
+    const el = document.createElement("button");
+    el.type = "button";
+    el.className = "active-filter-chip";
+    el.innerHTML = `${c.label} <span class="chip-x">&times;</span>`;
+    el.addEventListener("click", () => {
+      c.clear();
+      applyFilters();
+      updateActiveFiltersStrip();
+      if (window.LNV_HAPTICS) window.LNV_HAPTICS.light();
+    });
+    strip.appendChild(el);
+  });
+}
+
+/* ─── Time-aware context banner ─── */
+function updateTimeBanner() {
+  const banner = elements.timeBanner;
+  if (!banner) return;
+  const hour = new Date().getHours();
+  let icon = "";
+  let text = "";
+  let action = "";
+
+  if (hour >= 21 || hour < 2) {
+    const openCount = state.all.filter((v) => isVenueOpen(normalizeValue(v["Typical Closing Time"])) === true).length;
+    icon = "🌙";
+    text = `<strong>${openCount} venues</strong> still open right now`;
+    action = "Show open →";
+    banner.onclick = () => {
+      state.openNowOnly = true;
+      syncOpenNow();
+      syncQuickChips();
+      applyFilters();
+      updateActiveFiltersStrip();
+      banner.style.display = "none";
+    };
+  } else if (hour >= 17 && hour < 21) {
+    icon = "🌆";
+    text = "Evening's starting — <strong>plan your night</strong>";
+    action = "Build plan →";
+    banner.onclick = () => { window.location.href = "planner.html"; };
+  } else if (hour >= 14 && hour < 17) {
+    icon = "☀️";
+    text = "Scope out <strong>tonight's options</strong> early";
+    action = "Get recs →";
+    banner.onclick = () => { window.location.href = "recommend.html"; };
+  } else {
+    banner.style.display = "none";
+    return;
+  }
+
+  banner.style.display = "";
+  banner.innerHTML = `
+    <span class="time-banner-icon">${icon}</span>
+    <span class="time-banner-text">${text}</span>
+    <span class="time-banner-action">${action}</span>
+  `;
+}
+
 /* ─── Init ─── */
 function initFilters() {
   const areas = Array.from(new Set(state.all.map((v) => normalizeValue(v.Area)).filter(Boolean))).sort();
@@ -1211,6 +1299,9 @@ function loadFromText(text) {
   restoreFilterState();
   applyFilters();
   setStatus("Loaded " + state.all.length + " venues");
+  updateTimeBanner();
+  updateActiveFiltersStrip();
+  syncQuickChips();
   initOnboarding();
 }
 

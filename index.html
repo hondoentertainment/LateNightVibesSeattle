@@ -61,7 +61,34 @@
       <button id="filterToggle" class="filter-toggle" type="button">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="20" y2="12"/><line x1="12" y1="18" x2="20" y2="18"/><circle cx="6" cy="12" r="2" fill="currentColor"/><circle cx="14" cy="18" r="2" fill="currentColor"/></svg>
       </button>
+      <!-- Quick-filter chips: one-tap access to most common nightlife queries -->
+      <div class="quick-filters" id="quickFilters">
+        <button type="button" class="quick-chip" data-quick="open-now">
+          <span class="quick-chip-dot dot-open"></span> Open Now
+        </button>
+        <button type="button" class="quick-chip" data-quick="chill">
+          <span class="quick-chip-dot dot-chill"></span> Chill
+        </button>
+        <button type="button" class="quick-chip" data-quick="dancey">
+          <span class="quick-chip-dot dot-dancey"></span> Dancey
+        </button>
+        <button type="button" class="quick-chip" data-quick="live-music">
+          <span class="quick-chip-dot dot-live"></span> Live Music
+        </button>
+        <button type="button" class="quick-chip" data-quick="late-eats">
+          <span class="quick-chip-dot dot-eats"></span> Late Eats
+        </button>
+        <button type="button" class="quick-chip" data-quick="date-friendly">
+          <span class="quick-chip-dot dot-date"></span> Date Night
+        </button>
+      </div>
     </div>
+
+    <!-- Time-aware context banner (JS populates based on current hour) -->
+    <div id="timeBanner" class="time-banner mobile-only" style="display:none"></div>
+
+    <!-- Active filter chips strip -->
+    <div id="activeFiltersStrip" class="active-filters-strip mobile-only"></div>
 
     <!-- Hidden elements for JS -->
     <div id="venueCount" style="display:none">0</div>
@@ -102,11 +129,11 @@
               <option value="closing">Closing Time</option>
             </select>
           </label>
-          <div class="ios-toggle">
-            <label class="ios-toggle-label">Open Now Only</label>
+          <label class="ios-toggle" for="openNowMobile">
+            <span class="ios-toggle-label">Open Now Only</span>
             <input type="checkbox" id="openNowMobile" class="ios-toggle-input" />
-            <label for="openNowMobile" class="ios-toggle-switch"></label>
-          </div>
+            <span class="ios-toggle-switch"></span>
+          </label>
           <label class="field" style="margin-top:14px">
             Visited
             <select id="visitedFilterMobile">
@@ -273,6 +300,7 @@
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="config.js"></script>
+    <script src="lib/core.js"></script>
     <script>
       (function () {
         const cfg = window.LNV_CONFIG || {};

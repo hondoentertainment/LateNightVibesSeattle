@@ -3,60 +3,8 @@ let allVenues = [];
 
 const $ = (id) => document.getElementById(id);
 
-function normalizeValue(value) {
-  return (value || "").toString().trim();
-}
-
-function parseCSV(text) {
-  const rows = [];
-  let current = "";
-  let inQuotes = false;
-  const cells = [];
-  function pushCell() { cells.push(current); current = ""; }
-  function pushRow() { rows.push(cells.splice(0)); }
-  for (let i = 0; i < text.length; i++) {
-    const char = text[i];
-    if (char === "\"") {
-      const next = text[i + 1];
-      if (inQuotes && next === "\"") { current += "\""; i++; }
-      else inQuotes = !inQuotes;
-    } else if (char === "," && !inQuotes) {
-      pushCell();
-    } else if ((char === "\n" || char === "\r") && !inQuotes) {
-      if (char === "\r" && text[i + 1] === "\n") i++;
-      pushCell(); pushRow();
-    } else {
-      current += char;
-    }
-  }
-  if (current.length > 0 || cells.length > 0) { pushCell(); pushRow(); }
-  return rows;
-}
-
-function loadDataFromCSV(text) {
-  const rows = parseCSV(text);
-  if (!rows.length) return [];
-  const headers = rows[0].map((h) => normalizeValue(h));
-  return rows.slice(1)
-    .filter((row) => row.some((c) => c && c.trim()))
-    .map((row) => {
-      const r = {};
-      headers.forEach((h, i) => { r[h] = normalizeValue(row[i]); });
-      return r;
-    });
-}
-
-function getVibeSet(venue) {
-  return new Set(
-    normalizeValue(venue["Vibe Tags"]).split(",")
-      .map((t) => normalizeValue(t).toLowerCase()).filter(Boolean)
-  );
-}
-
-function parseDistanceMiles(value) {
-  const m = normalizeValue(value).toLowerCase().match(/([\d.]+)\s*mi/);
-  return m ? parseFloat(m[1]) : null;
-}
+/* ─── Import shared helpers from LNVCore (loaded via lib/core.js) ─── */
+const { normalizeValue, loadDataFromCSV, getVibeSet, parseDistanceMiles } = window.LNVCore;
 
 /* ─── Dual controls ─── */
 const venueSelectMobile = $("venueSelect");

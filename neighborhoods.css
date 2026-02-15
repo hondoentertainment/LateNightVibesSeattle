@@ -192,3 +192,89 @@
 .hood-action:hover {
   background: rgba(43, 255, 134, 0.05);
 }
+
+/* ─── Mobile UX polish ─── */
+@media (max-width: 859px) {
+  .compare-header {
+    padding: 12px;
+    position: sticky;
+    top: 57px;
+    z-index: 8;
+    background: rgba(14, 17, 24, 0.97);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .compare-title {
+    font-size: 17px;
+    font-weight: 800;
+    margin-bottom: 4px;
+  }
+
+  .compare-desc {
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+
+  .compare-selects select {
+    min-height: 50px;
+    border-radius: 14px;
+    border-width: 1.5px;
+    font-size: 15px;
+  }
+
+  .comparison-grid {
+    padding: 8px 12px;
+    gap: 12px;
+    padding-bottom: calc(var(--bottom-nav-offset) + 8px);
+  }
+
+  .hood-card {
+    border-radius: 16px;
+    border-width: 1.5px;
+  }
+
+  .hood-card:active {
+    transform: scale(0.98);
+    transition: transform 0.08s ease;
+  }
+
+  .hood-header {
+    padding: 16px 16px 12px;
+  }
+
+  .hood-name {
+    font-size: 17px;
+    font-weight: 800;
+  }
+
+  .hood-stat {
+    padding: 12px 14px;
+  }
+
+  .hood-vibes {
+    padding: 14px 16px;
+  }
+
+  .hood-categories {
+    padding: 0 16px 14px;
+  }
+
+  .hood-action {
+    padding: 16px;
+    font-size: 14px;
+    border-radius: 0 0 14px 14px;
+  }
+
+  .hood-action:active {
+    background: rgba(43, 255, 134, 0.08);
+    transform: scale(0.98);
+  }
+
+  .compare-empty {
+    padding: 48px 24px;
+    border-radius: 18px;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+}
