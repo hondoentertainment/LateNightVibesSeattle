@@ -1247,6 +1247,54 @@ a.pill-link:active {
   color: #2bff86;
 }
 
+/* ─── "New to you" pill ─── */
+.pill-new {
+  background: rgba(26, 209, 255, 0.12);
+  border-color: rgba(26, 209, 255, 0.3);
+  color: #1ad1ff;
+}
+
+/* ─── Kitchen cutoff viability badge ─── */
+.pill.viability-kitchen-cutoff {
+  background: rgba(255, 184, 107, 0.15);
+  border-color: rgba(255, 184, 107, 0.35);
+  color: #ffb86b;
+}
+
+/* ─── Tonight highlights section ─── */
+.tonight-highlights {
+  padding: 12px 16px;
+  background: rgba(26, 209, 255, 0.06);
+  border-bottom: 1px solid rgba(26, 209, 255, 0.15);
+}
+.tonight-highlights-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #1ad1ff;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.tonight-highlights-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.tonight-highlight-item {
+  font-size: 13px;
+  color: #93a1c6;
+  text-decoration: none;
+  padding: 4px 10px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  border: 1px solid #1d2436;
+  transition: border-color 0.2s, color 0.2s;
+}
+a.tonight-highlight-item:hover {
+  border-color: #1ad1ff;
+  color: #1ad1ff;
+}
+
 /* ─── Crawl stats counter ─── */
 .crawl-stats {
   font-size: 12px;
@@ -2323,6 +2371,7 @@ a.pill-link:active {
   .quick-chip-dot.dot-live { background: #7afff4; }
   .quick-chip-dot.dot-eats { background: #ffb86b; }
   .quick-chip-dot.dot-date { background: #ffd36e; }
+  .quick-chip-dot.dot-divey { background: #8f8f8f; }
 }
 
 /* ─── Active filters strip ─── */

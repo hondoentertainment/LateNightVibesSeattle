@@ -71,6 +71,15 @@
         </select>
       </label>
       <label class="field">
+        Group size
+        <select id="groupSize">
+          <option value="1">1–2 people</option>
+          <option value="3" selected>3–4 people</option>
+          <option value="5">5–8 people</option>
+          <option value="9">9+ people</option>
+        </select>
+      </label>
+      <label class="field">
         Stops
         <select id="stopCount">
           <option value="2">2 stops</option>
@@ -134,6 +143,15 @@
             </select>
           </label>
           <label class="field">
+            Group size
+            <select id="groupSizeDesktop">
+              <option value="1">1–2 people</option>
+              <option value="3" selected>3–4 people</option>
+              <option value="5">5–8 people</option>
+              <option value="9">9+ people</option>
+            </select>
+          </label>
+          <label class="field">
             Stops
             <select id="stopCountDesktop">
               <option value="2">2 stops</option>
@@ -182,6 +200,8 @@
 
     <script src="config.js"></script>
     <script src="lib/core.js"></script>
+    <script src="lib/user-preferences.js"></script>
+    <script src="lib/geo.js"></script>
     <script src="lib/features.js"></script>
     <script src="lib/share-plan.js"></script>
     <script>

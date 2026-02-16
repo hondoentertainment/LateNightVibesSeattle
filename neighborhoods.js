@@ -42,6 +42,20 @@ function analyzeArea(areaName) {
   }).filter((d) => d !== null);
   const avgDistance = distances.length ? (distances.reduce((a, b) => a + b, 0) / distances.length).toFixed(1) : null;
 
+  const bestFor = (window.LNVFeatures && window.LNVFeatures.getBestForVerdict) ? window.LNVFeatures.getBestForVerdict(topVibes, topCategories) : "varied vibes";
+
+  let openNowCount = 0;
+  const now = new Date();
+  const nowMin = now.getHours() * 60 + now.getMinutes();
+  const nowAdj = nowMin < 540 ? nowMin + 1440 : nowMin;
+  venues.forEach(function (v) {
+    const m = parseTimeToMinutes(v["Typical Closing Time"]);
+    if (m !== null) {
+      const closeAdj = m <= 360 ? m + 1440 : m;
+      if (nowAdj >= 21 * 60 && nowAdj < closeAdj) openNowCount++;
+    }
+  });
+
   return {
     name: areaName,
     total: venues.length,
@@ -51,6 +65,8 @@ function analyzeArea(areaName) {
     earliestClose: earliestClose !== null ? minutesToLabel(earliestClose) : "Unknown",
     avgDistance: avgDistance ? `${avgDistance} mi` : "N/A",
     categoryCount: Object.keys(catCount).length,
+    bestFor,
+    openNowCount,
   };
 }
 
@@ -78,6 +94,8 @@ function renderComparison() {
       <div class="hood-header">
         <div class="hood-name">${data.name}</div>
         <div class="hood-subtitle">${data.total} venue${data.total !== 1 ? "s" : ""} · ${data.categoryCount} categories</div>
+        <div class="hood-best-for">Best for: ${data.bestFor || "varied vibes"}</div>
+        ${data.openNowCount !== undefined ? `<div class="hood-open-now">${data.openNowCount} open right now</div>` : ""}
       </div>
       <div class="hood-stats">
         <div class="hood-stat">
@@ -107,6 +125,7 @@ function renderComparison() {
         ${data.topCategories.map(([cat, count]) => `<div class="hood-cat-item"><span>${cat}</span><span class="hood-cat-count">${count}</span></div>`).join("")}
       </div>
       <a href="index.html" class="hood-action" onclick="localStorage.setItem('lnv_jumpArea','${data.name}')">Browse ${data.name} venues →</a>
+      <a href="planner.html?area=${encodeURIComponent(data.name)}" class="hood-action hood-action-plan">Build a night in ${data.name} →</a>
     `;
     grid.appendChild(card);
   });

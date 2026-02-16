@@ -293,16 +293,29 @@ function renderItinerary(stops, phases, startMin, slotDuration) {
     if (idx < stops.length - 1) {
     const conn = document.createElement("div");
     conn.className = "connector";
-    const nextArea = normalizeValue(stops[idx + 1].Area);
+    const nextVenue = stops[idx + 1];
+    const nextArea = normalizeValue(nextVenue.Area);
     const thisArea = normalizeValue(venue.Area);
     const travelNote = thisArea === nextArea ? "Same neighborhood" : `${thisArea} → ${nextArea}`;
-    const travelMin = (window.LNVFeatures && window.LNVFeatures.estimateTravelMinutes) ? window.LNVFeatures.estimateTravelMinutes(venue, stops[idx + 1]) : (thisArea === nextArea ? 5 : 15);
+    let travelMin = (window.LNVFeatures && window.LNVFeatures.estimateTravelMinutes) ? window.LNVFeatures.estimateTravelMinutes(venue, nextVenue) : (thisArea === nextArea ? 5 : 15);
+    let walkableHint = "";
+    if (window.LNVGeo) {
+      const miles = window.LNVGeo.venueToVenueDistanceMiles(venue, nextVenue);
+      if (miles != null) {
+        travelMin = Math.ceil(miles * 4 + 5);
+        if (window.LNVGeo.isWalkable && window.LNVGeo.isWalkable(venue, nextVenue)) {
+          walkableHint = " · Walkable (~" + Math.ceil(miles * 20) + " min)";
+        } else {
+          walkableHint = " · ~" + miles.toFixed(1) + " mi";
+        }
+      }
+    }
     const queueBuf = "~10 min buffer";
     conn.innerHTML = `
       <div class="connector-line"><div></div></div>
       <div class="connector-info">
         <button class="swap-btn" data-swap-a="${idx}" data-swap-b="${idx + 1}" title="Swap these two stops" type="button">⇅</button>
-        ${travelNote} · ~${travelMin} min travel · ${queueBuf} · ~${Math.floor(slotDuration)} min slot
+        ${travelNote} · ~${travelMin} min travel${walkableHint} · ${queueBuf} · ~${Math.floor(slotDuration)} min slot
       </div>
     `;
     const swapBtn = conn.querySelector(".swap-btn");
@@ -315,6 +328,7 @@ function renderItinerary(stops, phases, startMin, slotDuration) {
 /* ─── Init ─── */
 function buildAreaOptions() {
   const areas = Array.from(new Set(allVenues.map((v) => normalizeValue(v.Area)).filter(Boolean))).sort();
+  const areaParam = new URLSearchParams(window.location.search).get("area");
   [$("areaFilter"), $("areaFilterDesktop")].forEach((select) => {
     if (!select) return;
     select.innerHTML = `<option value="">Any area</option>`;
@@ -322,6 +336,7 @@ function buildAreaOptions() {
       const opt = document.createElement("option");
       opt.value = a;
       opt.textContent = a;
+      if (areaParam && a === areaParam) opt.selected = true;
       select.appendChild(opt);
     });
   });
@@ -331,8 +346,29 @@ function loadFromText(text) {
   allVenues = loadDataFromCSV(text);
   buildAreaOptions();
   const planParam = new URLSearchParams(window.location.search).get("plan");
+  const seedParam = new URLSearchParams(window.location.search).get("seed");
   if (planParam) {
     loadSharedPlan(planParam);
+  } else if (seedParam && window.LNVUserPrefs) {
+    const seed = window.LNVUserPrefs.loadPlanSeed();
+    if (seed) {
+      const venue = allVenues.find((v) => normalizeValue(v.Name) === seed.n && normalizeValue(v.Area) === seed.a)
+        || { Name: seed.n, Area: seed.a, Category: seed.c || "", "Typical Closing Time": seed.t || "", "Google Maps Driving Link": seed.l || "", "Vibe Tags": seed.v || "", "Driving Distance": seed.d || "" };
+      const arcKey = getVal("vibeArc", "vibeArcDesktop") || "chill-to-wild";
+      const stopCount = parseInt(getVal("stopCount", "stopCountDesktop") || "3", 10);
+      const arcPhases = VIBE_ARCS[arcKey] || VIBE_ARCS["chill-to-wild"];
+      const seedPhases = [];
+      for (let i = 0; i < stopCount; i++) {
+        const phaseIdx = Math.min(Math.floor(i * arcPhases.length / stopCount), arcPhases.length - 1);
+        seedPhases.push(i === 0 ? { label: "Start here", vibes: [] } : arcPhases[phaseIdx]);
+      }
+      lockedStops.add(0);
+      lastItinerary = { stops: [venue], phases: seedPhases, startMin: 22 * 60, slotDuration: 60 };
+      generateItinerary();
+      window.LNVUserPrefs.clearPlanSeed();
+    } else {
+      $("itinerary").innerHTML = `<div class="itinerary-empty">Choose your settings and tap <strong>Build my night</strong> to generate an itinerary with ${allVenues.length} venues.</div>`;
+    }
   } else {
     $("itinerary").innerHTML = `<div class="itinerary-empty">Choose your settings and tap <strong>Build my night</strong> to generate an itinerary with ${allVenues.length} venues.</div>`;
   }
@@ -393,6 +429,7 @@ const syncPairs = [
   ["endTime", "endTimeDesktop"],
   ["areaFilter", "areaFilterDesktop"],
   ["vibeArc", "vibeArcDesktop"],
+  ["groupSize", "groupSizeDesktop"],
   ["stopCount", "stopCountDesktop"],
 ];
 

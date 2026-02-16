@@ -5,6 +5,8 @@ import {
   parseHHMM,
   minutesToLabel,
   parseDistanceMiles,
+  haversineMiles,
+  WALKABLE_MILES,
   getVibeSet,
   collectVibes,
 } from "../lib/core.js";
@@ -226,5 +228,29 @@ describe("collectVibes", () => {
   it("returns empty set when venues have no tags", () => {
     const venues = [{ "Vibe Tags": "" }, { "Vibe Tags": "" }];
     expect(collectVibes(venues).size).toBe(0);
+  });
+});
+
+describe("haversineMiles", () => {
+  it("returns 0 for same point", () => {
+    expect(haversineMiles(47.6062, -122.3321, 47.6062, -122.3321)).toBeCloseTo(0, 2);
+  });
+
+  it("returns positive distance for different points", () => {
+    const d = haversineMiles(47.6062, -122.3321, 47.6253, -122.3222);
+    expect(d).toBeGreaterThan(0);
+    expect(d).toBeLessThan(5);
+  });
+
+  it("computes reasonable distance for Seattle to Eastside", () => {
+    const d = haversineMiles(47.6062, -122.3321, 47.6200, -122.1800);
+    expect(d).toBeGreaterThan(5);
+    expect(d).toBeLessThan(15);
+  });
+});
+
+describe("WALKABLE_MILES", () => {
+  it("is 0.5", () => {
+    expect(WALKABLE_MILES).toBe(0.5);
   });
 });

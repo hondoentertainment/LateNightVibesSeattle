@@ -81,8 +81,14 @@
         <button type="button" class="quick-chip" data-quick="date-friendly">
           <span class="quick-chip-dot dot-date"></span> Date Night
         </button>
+        <button type="button" class="quick-chip" data-quick="divey">
+          <span class="quick-chip-dot dot-divey"></span> Dive Bar
+        </button>
       </div>
     </div>
+
+    <!-- What's on tonight (events/special nights) -->
+    <div id="tonightHighlights" class="tonight-highlights" style="display:none"></div>
 
     <!-- Time-aware context banner (JS populates based on current hour) -->
     <div id="timeBanner" class="time-banner mobile-only" style="display:none"></div>
@@ -126,6 +132,7 @@
               <option value="area">Area</option>
               <option value="category">Category</option>
               <option value="distance">Distance</option>
+              <option value="near-me">Near me</option>
               <option value="closing">Closing Time</option>
             </select>
           </label>
@@ -174,6 +181,7 @@
               <option value="area">Area</option>
               <option value="category">Category</option>
               <option value="distance">Distance</option>
+              <option value="near-me">Near me</option>
               <option value="closing">Closing Time</option>
             </select>
           </label>
@@ -301,6 +309,9 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="config.js"></script>
     <script src="lib/core.js"></script>
+    <script src="lib/user-preferences.js"></script>
+    <script src="lib/events.js"></script>
+    <script src="lib/geo.js"></script>
     <script>
       (function () {
         const cfg = window.LNV_CONFIG || {};
@@ -315,6 +326,11 @@
     </script>
     <script src="lib/features.js"></script>
     <script src="lib/crawl-history.js"></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("sw.js").catch(function () {});
+      }
+    </script>
     <script src="venue-photos.js"></script>
     <script src="app.js"></script>
   </body>

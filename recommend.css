@@ -75,6 +75,35 @@
   font-weight: 600;
 }
 
+.btn-surprise {
+  padding: 10px 16px;
+  background: rgba(43, 255, 134, 0.12);
+  border: 1px solid rgba(43, 255, 134, 0.35);
+  color: #2bff86;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+.btn-surprise:hover {
+  background: rgba(43, 255, 134, 0.2);
+  border-color: #2bff86;
+}
+
+.pill-exclude {
+  background: transparent;
+  border: 1px dashed #5b5b5b;
+  color: #93a1c6;
+  font-size: 11px;
+  cursor: pointer;
+  padding: 2px 8px;
+}
+.pill-exclude:hover {
+  border-color: #ff5b5b;
+  color: #ff5b5b;
+}
+
 .rec-results {
   min-width: 0;
 }

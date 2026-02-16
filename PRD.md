@@ -483,10 +483,10 @@ distanceScore = 1 - min(|baseDist - candidateDist| / maxDist, 1)
 
 ### 11.1 Test Infrastructure
 
-- **Runner:** Vitest v3.0+ (ES modules)
-- **Config:** `vitest.config.js`
+- **Runner:** Vitest v3.2.4 (ES modules) - Updated from v3.0+  
+- **Test Coverage:** 198 passing tests across 11 test files
 - **Commands:** `npm test` (run once), `npm run test:watch` (watch mode)
-- **CI:** Tests run on GitHub Actions before deploy
+- **CI:** Tests run on GitHub Actions before deploy with 100% pass rate
 
 ### 11.2 Test Coverage Map
 

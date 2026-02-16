@@ -101,6 +101,19 @@
   color: #8fa0c2;
 }
 
+.hood-best-for {
+  font-size: 12px;
+  color: #1ad1ff;
+  margin-top: 6px;
+  font-weight: 600;
+}
+
+.hood-open-now {
+  font-size: 11px;
+  color: #2bff86;
+  margin-top: 4px;
+}
+
 .hood-stats {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -191,6 +204,14 @@
 
 .hood-action:hover {
   background: rgba(43, 255, 134, 0.05);
+}
+
+.hood-action-plan {
+  color: #1ad1ff;
+  border-top: none;
+}
+.hood-action-plan:hover {
+  background: rgba(26, 209, 255, 0.05);
 }
 
 /* ─── Mobile UX polish ─── */

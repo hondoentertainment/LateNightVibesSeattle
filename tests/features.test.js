@@ -4,6 +4,9 @@ import {
   getTrustBadge,
   estimateTravelMinutes,
   estimateTravelFromDistance,
+  isLateArrivalHour,
+  getPeakHintForArea,
+  getBestForVerdict,
   normalizeValue,
   parseTimeToMinutes,
   getVibeSet,
@@ -106,6 +109,17 @@ describe("getViabilityBadges", () => {
     expect(badges.some((b) => b.label === "Kitchen open")).toBe(true);
   });
 
+  it("adds Kitchen closes in ~X min when within 30 min of kitchen close", () => {
+    vi.setSystemTime(new Date("2026-02-08T01:20:00")); // 1:20 AM, 40 min before 2 AM close (kitchen ~30 min before)
+    const venue = {
+      Category: "Bar",
+      "Vibe Tags": "late-eats, chill",
+      "Typical Closing Time": "2:00 AM",
+    };
+    const badges = getViabilityBadges(venue);
+    expect(badges.some((b) => b.label && b.label.startsWith("Kitchen closes in"))).toBe(true);
+  });
+
   it("adds Likely busy for nightclub between 10pm–2am", () => {
     vi.setSystemTime(new Date("2026-02-08T23:30:00")); // 11:30 PM
     const venue = {
@@ -148,5 +162,65 @@ describe("getViabilityBadges", () => {
     };
     const badges = getViabilityBadges(venue);
     expect(badges.some((b) => b.label === "Likely busy")).toBe(true);
+  });
+});
+
+describe("isLateArrivalHour", () => {
+  beforeEach(() => {
+    vi.useFakeTimers();
+  });
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
+  it("returns true at 10 PM", () => {
+    vi.setSystemTime(new Date("2026-02-08T22:00:00"));
+    expect(isLateArrivalHour()).toBe(true);
+  });
+
+  it("returns true at 11:30 PM", () => {
+    vi.setSystemTime(new Date("2026-02-08T23:30:00"));
+    expect(isLateArrivalHour()).toBe(true);
+  });
+
+  it("returns false at 9 PM", () => {
+    vi.setSystemTime(new Date("2026-02-08T21:00:00"));
+    expect(isLateArrivalHour()).toBe(false);
+  });
+});
+
+describe("getPeakHintForArea", () => {
+  it("returns peak hint for Capitol Hill", () => {
+    expect(getPeakHintForArea("Capitol Hill")).toContain("Peak");
+  });
+
+  it("returns peak hint for Belltown", () => {
+    expect(getPeakHintForArea("Belltown")).toContain("Peak");
+  });
+
+  it("returns null for unknown area", () => {
+    expect(getPeakHintForArea("Random Area")).toBeNull();
+  });
+});
+
+describe("getBestForVerdict", () => {
+  it("returns late eats when food-focused or late-eats in top vibes", () => {
+    const verdict = getBestForVerdict([["late-eats", 5], ["chill", 3]], [["Restaurant", 2]]);
+    expect(verdict).toContain("late eats");
+  });
+
+  it("returns dive bars when divey in top vibes", () => {
+    const verdict = getBestForVerdict([["divey", 5], ["casual", 3]], []);
+    expect(verdict).toContain("dive bars");
+  });
+
+  it("returns date night when upscale in top vibes", () => {
+    const verdict = getBestForVerdict([["upscale", 5], ["date-friendly", 3]], []);
+    expect(verdict).toContain("date night");
+  });
+
+  it("returns varied vibes when no strong signal", () => {
+    const verdict = getBestForVerdict([["general", 1]], []);
+    expect(verdict).toBe("varied vibes");
   });
 });

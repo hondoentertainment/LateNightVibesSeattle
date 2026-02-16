@@ -17,6 +17,7 @@ const state = {
   showSavedOnly: false,
   openNowOnly: false,
   renderLimit: PAGE_SIZE,
+  userLocation: null, // { lat, lng } when geolocation available
 };
 
 // Map/list sync state
@@ -94,6 +95,9 @@ loadCrawlHistory();
 if (new URLSearchParams(window.location.search).get("view") === "saved") {
   state.showSavedOnly = true;
 }
+
+/* ─── Venue deep link (?venue=Name) ─── */
+const venueDeepLink = new URLSearchParams(window.location.search).get("venue");
 
 /* ─── Element refs ─── */
 const $ = (id) => document.getElementById(id);
@@ -227,6 +231,7 @@ function openDetail(venue) {
       <a class="btn-secondary" href="${googleSearch}" target="_blank" rel="noopener">Google</a>
       <a class="btn-secondary" href="${yelpSearch}" target="_blank" rel="noopener">Yelp</a>
       <button class="btn-secondary ${isFav ? "favorited" : ""}" id="detailFavBtn" type="button">${isFav ? "♥ Saved" : "♡ Save"}</button>
+      <button class="btn-secondary" id="detailAddToPlanBtn" type="button">Add to Plan</button>
       <button class="btn-share" id="detailShareBtn" type="button">Share</button>
     </div>
     <div class="detail-crawl">
@@ -260,6 +265,14 @@ function openDetail(venue) {
   if (shareBtn) {
     shareBtn.addEventListener("click", () => {
       shareVenue(venue);
+    });
+  }
+
+  const addToPlanBtn = $("detailAddToPlanBtn");
+  if (addToPlanBtn && window.LNVUserPrefs) {
+    addToPlanBtn.addEventListener("click", () => {
+      window.LNVUserPrefs.savePlanSeed(venue);
+      window.location.href = "planner.html?seed=1";
     });
   }
 
@@ -506,6 +519,31 @@ function updateFilterBadge() {
   }
 }
 
+/* ─── Geolocation for "Near me" sort ─── */
+function requestUserLocation() {
+  if (!navigator.geolocation) {
+    if (elements.sortSelect) elements.sortSelect.value = "name";
+    if (elements.sortSelectMobile) elements.sortSelectMobile.value = "name";
+    applyFilters(true);
+    return;
+  }
+  navigator.geolocation.getCurrentPosition(
+    (pos) => {
+      state.userLocation = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+      sortFiltered();
+      renderGrid();
+      updateLoadMore();
+      updateResultSummary();
+      if (state.currentView === "map") renderMap();
+    },
+    () => {
+      if (elements.sortSelect) elements.sortSelect.value = "name";
+      if (elements.sortSelectMobile) elements.sortSelectMobile.value = "name";
+      applyFilters(true);
+    }
+  );
+}
+
 /* ─── Get current filter values ─── */
 function getSearchQuery() {
   const desktop = elements.searchInput ? elements.searchInput.value : "";
@@ -569,7 +607,12 @@ function applyFilters(keepRenderLimit) {
   });
 
   if (!keepRenderLimit) state.renderLimit = PAGE_SIZE;
-  sortFiltered();
+  if (getSortValue() === "near-me" && !state.userLocation) {
+    requestUserLocation();
+    sortFiltered(); // fallback sort by name until location arrives
+  } else {
+    sortFiltered();
+  }
   renderGrid();
   updateLoadMore();
   updateStats();
@@ -585,6 +628,15 @@ function sortFiltered() {
   const sortBy = getSortValue();
   const collator = new Intl.Collator(undefined, { numeric: true, sensitivity: "base" });
   state.filtered.sort((a, b) => {
+    if (sortBy === "near-me" && state.userLocation) {
+      const coordsA = window.LNVGeo ? window.LNVGeo.getCoordsForVenue(a) : null;
+      const coordsB = window.LNVGeo ? window.LNVGeo.getCoordsForVenue(b) : null;
+      if (coordsA && coordsB && window.LNVCore && window.LNVCore.haversineMiles) {
+        const dA = window.LNVCore.haversineMiles(state.userLocation.lat, state.userLocation.lng, coordsA[0], coordsA[1]);
+        const dB = window.LNVCore.haversineMiles(state.userLocation.lat, state.userLocation.lng, coordsB[0], coordsB[1]);
+        return dA - dB;
+      }
+    }
     if (sortBy === "distance") {
       const aVal = parseFloat(normalizeValue(a["Driving Distance"]).replace(/[^\d.]/g, "")) || Infinity;
       const bVal = parseFloat(normalizeValue(b["Driving Distance"]).replace(/[^\d.]/g, "")) || Infinity;
@@ -702,7 +754,7 @@ function renderGrid() {
         <div class="venue-meta">${normalizeValue(venue.Area)} · ${normalizeValue(venue.Category)}</div>
         <div class="venue-pills">
           ${openPill}
-          ${visited ? '<span class="pill pill-visited">Been There</span>' : ""}
+          ${visited ? '<span class="pill pill-visited">Been There</span>' : '<span class="pill pill-new">New to you</span>'}
           ${viabilityPills}
           <span class="pill pill-closing">${closingTime || "Late"}</span>
           ${mapLink ? `<a href="${mapLink}" target="_blank" rel="noopener" class="pill pill-distance pill-link" onclick="event.stopPropagation()">${normalizeValue(venue["Driving Distance"]) || "Directions"} ↗</a>` : `<span class="pill pill-distance">${normalizeValue(venue["Driving Distance"]) || "Distance TBD"}</span>`}
@@ -1080,6 +1132,9 @@ function initOnboarding() {
 
   function applyOnboardingResults() {
     try { localStorage.setItem("lnv_onboarding_done", "1"); } catch (_) {}
+    if (window.LNVUserPrefs) {
+      window.LNVUserPrefs.saveOnboardingPrefs({ who: answers.who, energy: answers.energy, area: answers.area });
+    }
     if (answers.area && elements.areaSelect) {
       elements.areaSelect.value = answers.area;
       if (elements.areaSelectMobile) elements.areaSelectMobile.value = answers.area;
@@ -1160,6 +1215,7 @@ function initOnboarding() {
     "live-music": { type: "vibe", vibe: "live-music" },
     "late-eats": { type: "vibe", vibe: "late-eats" },
     "date-friendly": { type: "vibe", vibe: "date-friendly" },
+    "divey": { type: "vibe", vibe: "divey" },
   };
 
   container.addEventListener("click", (e) => {
@@ -1235,6 +1291,32 @@ function updateActiveFiltersStrip() {
   });
 }
 
+/* ─── Tonight highlights (events / special nights) ─── */
+function updateTonightHighlights() {
+  const section = $("tonightHighlights");
+  if (!section || !window.LNVEvents) return;
+  const highlights = window.LNVEvents.getTonightsHighlights(state.all, 5);
+  if (!highlights.length) {
+    section.style.display = "none";
+    return;
+  }
+  section.style.display = "block";
+  section.innerHTML = `
+    <div class="tonight-highlights-title">What's on tonight</div>
+    <div class="tonight-highlights-list">
+      ${highlights.map((h) => {
+        const link = normalizeValue(h.venue["Google Maps Driving Link"]);
+        const name = normalizeValue(h.venue.Name);
+        const area = normalizeValue(h.venue.Area);
+        const label = h.event.label + (h.event.detail ? ` — ${h.event.detail}` : "");
+        return link
+          ? `<a href="${link}" target="_blank" rel="noopener" class="tonight-highlight-item">${name} · ${label}</a>`
+          : `<span class="tonight-highlight-item">${name} · ${label}</span>`;
+      }).join("")}
+    </div>
+  `;
+}
+
 /* ─── Time-aware context banner ─── */
 function updateTimeBanner() {
   const banner = elements.timeBanner;
@@ -1302,7 +1384,12 @@ function loadFromText(text) {
   updateTimeBanner();
   updateActiveFiltersStrip();
   syncQuickChips();
+  updateTonightHighlights();
   initOnboarding();
+  if (venueDeepLink) {
+    const match = state.all.find((v) => normalizeValue(v.Name).toLowerCase() === venueDeepLink.toLowerCase());
+    if (match) setTimeout(() => openDetail(match), 300);
+  }
 }
 
 async function loadDefaultCSV() {
@@ -1407,8 +1494,32 @@ function saveFilterState() {
 function restoreFilterState() {
   try {
     const raw = sessionStorage.getItem("lnv_filters");
-    if (!raw) return false;
-    const data = JSON.parse(raw);
+    const isNewSession = !raw;
+    const data = raw ? JSON.parse(raw) : {};
+
+    if (isNewSession && window.LNVFeatures && window.LNVFeatures.isLateArrivalHour) {
+      if (window.LNVFeatures.isLateArrivalHour()) {
+        state.openNowOnly = true;
+        syncOpenNow();
+      }
+    }
+
+    if (isNewSession && window.LNVUserPrefs) {
+      const prefs = window.LNVUserPrefs.loadOnboardingPrefs();
+      if (prefs) {
+        if (prefs.area) {
+          if (elements.areaSelect) elements.areaSelect.value = prefs.area;
+          if (elements.areaSelectMobile) elements.areaSelectMobile.value = prefs.area;
+        }
+        if (prefs.energy) {
+          const vibeMap = { chill: ["chill", "casual"], medium: ["social", "date-friendly"], high: ["high-energy", "dancey"] };
+          (vibeMap[prefs.energy] || []).forEach((v) => state.activeVibes.add(v));
+          syncVibeCheckboxes();
+        }
+      }
+    }
+
+    if (!raw) return !!isNewSession;
 
     // Restore search
     if (data.search) {

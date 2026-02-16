@@ -62,9 +62,18 @@ function computeRecommendations(base, maxDist, maxResults, contextMode) {
   const baseVibes = getVibeSet(base);
   const contextPreferred = (CONTEXT_VIBES[contextMode] || []).map((t) => t.toLowerCase());
   const crawl = getCrawlHistory();
+  const excludedVibes = (window.LNVUserPrefs && window.LNVUserPrefs.loadExcludedVibes) ? window.LNVUserPrefs.loadExcludedVibes() : [];
 
   return allVenues
-    .filter((v) => v.Name && v.Name !== base.Name)
+    .filter((v) => {
+      if (!v.Name || v.Name === base.Name) return false;
+      if (excludedVibes.length) {
+        const vVibes = getVibeSet(v);
+        const hasExcluded = excludedVibes.some((ev) => vVibes.has(ev));
+        if (hasExcluded) return false;
+      }
+      return true;
+    })
     .map((venue) => {
       const dist = parseDistanceMiles(venue["Driving Distance"]);
       if (maxDist !== null && dist !== null && dist > maxDist) return null;
@@ -191,6 +200,7 @@ function renderRecommendations() {
           ${visited ? '<span class="pill pill-visited">Been There</span>' : ""}
           <span class="pill">${normalizeValue(venue["Typical Closing Time"]) || "Late"}</span>
           <span class="pill">${normalizeValue(venue["Driving Distance"]) || "Distance TBD"}</span>
+          ${tags[0] ? `<button type="button" class="pill pill-exclude" data-vibe="${(tags[0] || "").toLowerCase()}" title="Don't recommend more ${tags[0]} spots">Exclude ${tags[0]}</button>` : ""}
         </div>
         <div class="vibes">${normalizeValue(venue["Vibe Tags"])}</div>
         <div class="links">
@@ -198,6 +208,17 @@ function renderRecommendations() {
         </div>
       </div>
     `;
+    const excludeBtn = card.querySelector(".pill-exclude");
+    if (excludeBtn && window.LNVUserPrefs) {
+      excludeBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const vibe = excludeBtn.dataset.vibe;
+        if (vibe) {
+          window.LNVUserPrefs.excludeVibe(vibe);
+          renderRecommendations();
+        }
+      });
+    }
     grid.appendChild(card);
   });
 }
@@ -205,6 +226,16 @@ function renderRecommendations() {
 /* ─── Build venue select ─── */
 function buildVenueOptions() {
   const names = allVenues.map((v) => normalizeValue(v.Name)).filter(Boolean).sort();
+  let defaultName = "";
+  if (window.LNVUserPrefs) {
+    try {
+      const favs = JSON.parse(localStorage.getItem("lnv_favorites") || "[]");
+      if (favs && favs.length) {
+        const firstFav = favs[0];
+        if (names.includes(firstFav)) defaultName = firstFav;
+      }
+    } catch (_) {}
+  }
   [venueSelectMobile, venueSelectDesktop].forEach((select) => {
     if (!select) return;
     select.innerHTML = `<option value="">Pick a venue</option>`;
@@ -212,9 +243,11 @@ function buildVenueOptions() {
       const opt = document.createElement("option");
       opt.value = name;
       opt.textContent = name;
+      if (name === defaultName) opt.selected = true;
       select.appendChild(opt);
     });
   });
+  if (defaultName) renderRecommendations();
 }
 
 function loadFromText(text) {
@@ -268,5 +301,27 @@ addListener(contextDesktop, "change", () => {
   syncSelect(contextDesktop, contextMobile);
   renderRecommendations();
 });
+
+function handleSurpriseMe() {
+  const selectedName = getVenueSelectValue();
+  let pool = [];
+  if (selectedName) {
+    const base = allVenues.find((v) => normalizeValue(v.Name) === selectedName);
+    if (base) pool = computeRecommendations(base, getMaxDist(), 20, getContextMode());
+  }
+  if (!pool.length) pool = allVenues.filter((v) => normalizeValue(v.Name)).map((v) => ({ venue: v, score: 0.5, reason: "Random pick", breakdown: { total: 50 }, visited: false }));
+  if (pool.length) {
+    const pick = pool[Math.floor(Math.random() * pool.length)];
+    const venue = pick.venue || pick;
+    const name = normalizeValue(venue.Name);
+    [venueSelectMobile, venueSelectDesktop].forEach((sel) => { if (sel) sel.value = name; });
+    renderRecommendations();
+    const grid = $("recommendationGrid");
+    if (grid && grid.firstElementChild) grid.firstElementChild.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+}
+
+addListener($("surpriseMeBtn"), "click", handleSurpriseMe);
+addListener($("surpriseMeBtnDesktop"), "click", handleSurpriseMe);
 
 loadDefaultCSV();
