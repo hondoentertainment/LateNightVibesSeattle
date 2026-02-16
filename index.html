@@ -4,11 +4,20 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#0a0c12" />
-    <title>Late Night Vibes Seattle</title>
+    <title>Late Night Vibes Seattle — 500+ Nightlife Venues</title>
+    <meta name="description" content="Discover 500+ Seattle nightlife venues. Browse bars, clubs, and late-night spots by vibe, neighborhood, and hours. Plan your perfect night out." />
+    <meta property="og:title" content="Late Night Vibes Seattle — 500+ Nightlife Venues" />
+    <meta property="og:description" content="Discover 500+ Seattle nightlife venues. Browse bars, clubs, and late-night spots by vibe, neighborhood, and hours." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://late-night-vibes-seattle.vercel.app/" />
+    <meta property="og:image" content="https://late-night-vibes-seattle.vercel.app/favicon-512.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Late Night Vibes Seattle" />
+    <meta name="twitter:description" content="Discover 500+ Seattle nightlife venues. Browse by vibe, neighborhood, and hours." />
     <link rel="icon" type="image/png" href="favicon.png" />
-    <link rel="apple-touch-icon" href="favicon.png" />
+    <link rel="apple-touch-icon" href="favicon-512.png" />
     <link rel="manifest" href="manifest.json" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="canonical" href="https://late-night-vibes-seattle.vercel.app/" />
     <link rel="stylesheet" href="styles.css" />
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -43,6 +52,7 @@
       <nav class="top-actions desktop-only" aria-label="Main navigation">
         <div class="search-wrapper">
           <input id="searchInput" type="search" placeholder="Search venues, vibes, or areas…" autocomplete="off" aria-label="Search venues, vibes, or areas" />
+          <button type="button" id="searchClearDesktop" class="search-clear-btn" aria-label="Clear search">✕</button>
           <div id="autocompleteDesktop" class="autocomplete-dropdown" role="listbox" aria-label="Search suggestions"></div>
         </div>
         <a href="recommend.html" class="nav-pill">Recommendations</a>
@@ -57,6 +67,7 @@
     <div class="mobile-search mobile-only">
       <div class="search-wrapper" style="flex:1;min-width:0">
         <input id="searchInputMobile" type="search" placeholder="Search venues, vibes, or areas…" autocomplete="off" aria-label="Search venues, vibes, or areas" />
+        <button type="button" id="searchClearMobile" class="search-clear-btn" aria-label="Clear search">✕</button>
         <div id="autocompleteMobile" class="autocomplete-dropdown" role="listbox" aria-label="Search suggestions"></div>
       </div>
       <button id="filterToggle" class="filter-toggle" type="button" aria-label="Open filters">
@@ -312,7 +323,6 @@
       </a>
     </nav>
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="config.js"></script>
     <script src="lib/core.js"></script>
     <script src="lib/user-preferences.js"></script>

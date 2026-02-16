@@ -48,8 +48,43 @@ function getVal(mobileId, desktopId) {
   return (m ? m.value : "") || (d ? d.value : "");
 }
 
+/* ─── Time validation ─── */
+function validateTimes() {
+  const startStr = getVal("startTime", "startTimeDesktop");
+  const endStr = getVal("endTime", "endTimeDesktop");
+  let startMin = parseHHMM(startStr);
+  let endMin = parseHHMM(endStr);
+  if (endMin <= startMin) endMin += 1440;
+  const totalMin = endMin - startMin;
+
+  const errorEl = $("timeError");
+  const errorElDesktop = $("timeErrorDesktop");
+
+  if (totalMin < 30) {
+    const msg = "End time must be at least 30 minutes after start time.";
+    [errorEl, errorElDesktop].forEach((el) => {
+      if (el) { el.textContent = msg; el.classList.add("visible"); }
+    });
+    return false;
+  }
+
+  if (totalMin > 8 * 60) {
+    const msg = "Plan duration exceeds 8 hours. Consider a shorter window for a better experience.";
+    [errorEl, errorElDesktop].forEach((el) => {
+      if (el) { el.textContent = msg; el.classList.add("visible"); }
+    });
+    return false;
+  }
+
+  [errorEl, errorElDesktop].forEach((el) => {
+    if (el) { el.textContent = ""; el.classList.remove("visible"); }
+  });
+  return true;
+}
+
 /* ─── Build itinerary ─── */
 function buildItinerary() {
+  if (!validateTimes()) return;
   lockedStops.clear();
   generateItinerary();
 }
@@ -469,8 +504,8 @@ const syncPairs = [
 ];
 
 syncPairs.forEach(([mobileId, desktopId]) => {
-  addListener($(mobileId), "change", () => syncSelect($(mobileId), $(desktopId)));
-  addListener($(desktopId), "change", () => syncSelect($(desktopId), $(mobileId)));
+  addListener($(mobileId), "change", () => { syncSelect($(mobileId), $(desktopId)); validateTimes(); });
+  addListener($(desktopId), "change", () => { syncSelect($(desktopId), $(mobileId)); validateTimes(); });
 });
 
 addListener($("buildPlan"), "click", buildItinerary);

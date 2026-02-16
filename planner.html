@@ -5,9 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#0a0c12" />
     <title>Night Plan — Late Night Vibes Seattle</title>
+    <meta name="description" content="Build your perfect Seattle night out. Set your vibe arc, time window, and neighborhood — we'll create your personalized itinerary." />
+    <meta property="og:title" content="Night Plan Builder — Late Night Vibes Seattle" />
+    <meta property="og:description" content="Build your perfect Seattle night out with a personalized itinerary across 500+ venues." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://late-night-vibes-seattle.vercel.app/favicon-512.png" />
     <link rel="icon" type="image/png" href="favicon.png" />
-    <link rel="apple-touch-icon" href="favicon.png" />
+    <link rel="apple-touch-icon" href="favicon-512.png" />
     <link rel="manifest" href="manifest.json" />
+    <link rel="canonical" href="https://late-night-vibes-seattle.vercel.app/planner.html" />
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="planner.css" />
   </head>
@@ -90,6 +96,7 @@
           <option value="5">5 stops</option>
         </select>
       </label>
+      <div id="timeError" class="planner-time-error" role="alert"></div>
       <button id="buildPlan" class="btn-build" type="button">Build my night</button>
       <div class="planner-secondary-actions" id="mobileSecondaryActions" style="display:none">
         <button id="shufflePlan" class="btn-shuffle" type="button">Shuffle</button>
@@ -162,6 +169,7 @@
               <option value="5">5 stops</option>
             </select>
           </label>
+          <div id="timeErrorDesktop" class="planner-time-error" role="alert"></div>
           <button id="buildPlanDesktop" class="btn-build" type="button">Build my night</button>
           <div class="planner-secondary-actions" id="desktopSecondaryActions" style="display:none">
             <button id="shufflePlanDesktop" class="btn-shuffle" type="button">Shuffle</button>

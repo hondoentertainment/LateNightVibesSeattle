@@ -297,6 +297,7 @@ function openDetail(venue) {
       const nowFav = state.favorites.has(normalizeValue(venue.Name));
       favBtn.textContent = nowFav ? "♥ Saved" : "♡ Save";
       favBtn.classList.toggle("favorited", nowFav);
+      if (window.LNV_HAPTICS) window.LNV_HAPTICS.medium();
       renderGrid();
     });
   }
@@ -322,6 +323,7 @@ function openDetail(venue) {
       const nowVisited = toggleVisited(normalizeValue(venue.Name));
       visitedBtn.textContent = nowVisited ? "✓ Been There" : "Mark as Visited";
       visitedBtn.classList.toggle("active", nowVisited);
+      if (window.LNV_HAPTICS) window.LNV_HAPTICS.confirm();
       const ratingRow = $("detailRatingRow");
       if (ratingRow) ratingRow.classList.toggle("hidden", !nowVisited);
       updateCrawlStats();
@@ -770,12 +772,29 @@ function renderGrid() {
         <a href="index.html" style="display:inline-block;margin-top:16px;color:#2bff86;font-weight:600;text-decoration:none">Browse venues →</a>
       `;
     } else {
-      const filterCount = (getAreaValue() ? 1 : 0) + (getCategoryValue() ? 1 : 0) + (state.openNowOnly ? 1 : 0) + state.activeVibes.size;
+      const filterCount = (getAreaValue() ? 1 : 0) + (getCategoryValue() ? 1 : 0) + (state.openNowOnly ? 1 : 0) + (state.visitedFilter ? 1 : 0) + state.activeVibes.size;
+      const query = getSearchQuery();
+      const suggestions = [];
+      if (query) suggestions.push("Try a different search term");
+      if (state.activeVibes.size > 1) suggestions.push("Remove some vibe filters");
+      if (state.openNowOnly) suggestions.push("Turn off 'Open Now' to see all venues");
+      if (getAreaValue()) suggestions.push("Try a different neighborhood");
+      if (!suggestions.length) suggestions.push("Try broadening your search or removing a filter");
+
       empty.innerHTML = `
-        <div style="font-size:32px;margin-bottom:12px">🔍</div>
-        <div style="font-size:16px;font-weight:600;margin-bottom:8px;color:#e8e8e8">No matches found</div>
-        <div>${filterCount > 1 ? `You have <strong>${filterCount} filters</strong> active. Try removing some.` : "Try broadening your search or removing a filter."}</div>
-        ${filterCount > 0 ? '<button type="button" class="clear-all-filters" style="margin-top:16px" onclick="clearAllFilters()">Clear all filters</button>' : ""}
+        <div style="font-size:40px;margin-bottom:16px">🔍</div>
+        <div style="font-size:17px;font-weight:700;margin-bottom:10px;color:#e8e8e8">No venues match your filters</div>
+        <div style="margin-bottom:16px;line-height:1.6">${filterCount > 1
+          ? `You have <strong>${filterCount} filters</strong> active — here are some things to try:`
+          : "Here's what you can do:"}
+        </div>
+        <ul style="text-align:left;display:inline-block;margin:0 auto 16px;padding-left:20px;line-height:1.8;color:#b8c6e6">
+          ${suggestions.map((s) => `<li>${s}</li>`).join("")}
+        </ul>
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+          ${filterCount > 0 ? '<button type="button" class="clear-all-filters" onclick="clearAllFilters()">Clear all filters</button>' : ""}
+          <a href="recommend.html" style="display:inline-block;padding:10px 20px;color:#2bff86;border:1px solid rgba(43,255,134,0.25);border-radius:10px;font-weight:600;text-decoration:none;font-size:13px">Try Recommendations →</a>
+        </div>
       `;
     }
     elements.grid.appendChild(empty);
@@ -826,6 +845,7 @@ function renderGrid() {
       e.stopPropagation();
       const nowVisited = toggleVisited(nameText);
       visitedBtn.classList.toggle("active", nowVisited);
+      if (window.LNV_HAPTICS) window.LNV_HAPTICS.confirm();
       // Refresh pill
       const pillsEl = card.querySelector(".venue-pills");
       const existingPill = pillsEl.querySelector(".pill-visited");
@@ -847,11 +867,13 @@ function renderGrid() {
       toggleFavorite(nameText);
       favBtn.classList.toggle("active", state.favorites.has(nameText));
       favBtn.textContent = state.favorites.has(nameText) ? "♥" : "♡";
+      if (window.LNV_HAPTICS) window.LNV_HAPTICS.medium();
       if (state.showSavedOnly) applyFilters();
     });
 
     card.addEventListener("click", (e) => {
       if (e.target.closest(".venue-fav") || e.target.closest(".venue-visited")) return;
+      if (window.LNV_HAPTICS) window.LNV_HAPTICS.light();
       openDetail(venue);
     });
     card.addEventListener("mouseenter", () => {
@@ -1002,6 +1024,34 @@ function setupAutocomplete(input, dropdown) {
 setupAutocomplete(elements.searchInput, elements.autocompleteDesktop);
 setupAutocomplete(elements.searchInputMobile, elements.autocompleteMobile);
 
+/* ─── Search clear buttons ─── */
+function initSearchClearButton(inputEl, clearBtnId) {
+  const clearBtn = document.getElementById(clearBtnId);
+  if (!inputEl || !clearBtn) return;
+  function updateVisibility() {
+    clearBtn.classList.toggle("visible", inputEl.value.length > 0);
+  }
+  inputEl.addEventListener("input", updateVisibility);
+  inputEl.addEventListener("change", updateVisibility);
+  clearBtn.addEventListener("click", () => {
+    inputEl.value = "";
+    if (elements.searchInput) elements.searchInput.value = "";
+    if (elements.searchInputMobile) elements.searchInputMobile.value = "";
+    clearBtn.classList.remove("visible");
+    const otherBtn = clearBtnId === "searchClearDesktop"
+      ? document.getElementById("searchClearMobile")
+      : document.getElementById("searchClearDesktop");
+    if (otherBtn) otherBtn.classList.remove("visible");
+    inputEl.focus();
+    applyFilters();
+    if (window.LNV_HAPTICS) window.LNV_HAPTICS.light();
+  });
+  updateVisibility();
+}
+
+initSearchClearButton(elements.searchInput, "searchClearDesktop");
+initSearchClearButton(elements.searchInputMobile, "searchClearMobile");
+
 /* ─── Vibe legend ─── */
 const VIBE_COLORS = {
   "general": "#2bff86", "chill": "#4dd6ff", "dancey": "#ff7ad6",
@@ -1056,8 +1106,35 @@ function setView(view) {
 if (elements.viewToggle) {
   elements.viewToggle.addEventListener("click", (e) => {
     const btn = e.target.closest("button[data-view]");
-    if (btn) setView(btn.dataset.view);
+    if (btn) {
+      if (window.LNV_HAPTICS) window.LNV_HAPTICS.light();
+      setView(btn.dataset.view);
+    }
   });
+}
+
+/* ─── Leaflet lazy loader ─── */
+let _leafletLoaded = false;
+let leafletLoadPromise = null;
+
+function ensureLeaflet() {
+  if (typeof L !== "undefined") {
+    _leafletLoaded = true;
+    return Promise.resolve();
+  }
+  if (leafletLoadPromise) return leafletLoadPromise;
+  leafletLoadPromise = new Promise((resolve, reject) => {
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css";
+    document.head.appendChild(link);
+    const script = document.createElement("script");
+    script.src = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js";
+    script.onload = () => { _leafletLoaded = true; resolve(); };
+    script.onerror = () => reject(new Error("Failed to load Leaflet"));
+    document.head.appendChild(script);
+  });
+  return leafletLoadPromise;
 }
 
 /* ─── Map rendering (Leaflet) ─── */
@@ -1110,7 +1187,10 @@ function getVenueCoords(venue) {
 function renderMap() {
   if (!elements.mapContainer) return;
   if (typeof L === "undefined") {
-    elements.mapContainer.innerHTML = '<div style="padding:40px;text-align:center;color:#93a1c6">Map library loading…</div>';
+    elements.mapContainer.innerHTML = '<div class="loading-spinner"><div class="ptr-spinner"></div><span>Loading map…</span></div>';
+    ensureLeaflet().then(() => renderMap()).catch(() => {
+      elements.mapContainer.innerHTML = '<div style="padding:40px;text-align:center;color:#93a1c6">Unable to load map. Check your connection.</div>';
+    });
     return;
   }
   if (!leafletMap) {
@@ -1492,6 +1572,7 @@ function addListener(el, event, fn) { if (el) el.addEventListener(event, fn); }
 
 addListener(elements.searchInput, "input", () => {
   if (elements.searchInputMobile) elements.searchInputMobile.value = elements.searchInput.value;
+  syncSearchClearBtns();
   debouncedApplyFilters();
 });
 addListener(elements.areaSelect, "change", () => { syncSelect(elements.areaSelect, elements.areaSelectMobile); applyFilters(); });
@@ -1502,8 +1583,17 @@ addListener(elements.visitedFilterDesktop, "change", () => { syncSelect(elements
 /* ─── Event listeners (mobile) ─── */
 addListener(elements.searchInputMobile, "input", () => {
   if (elements.searchInput) elements.searchInput.value = elements.searchInputMobile.value;
+  syncSearchClearBtns();
   debouncedApplyFilters();
 });
+
+function syncSearchClearBtns() {
+  const val = getSearchQuery();
+  const dBtn = document.getElementById("searchClearDesktop");
+  const mBtn = document.getElementById("searchClearMobile");
+  if (dBtn) dBtn.classList.toggle("visible", val.length > 0);
+  if (mBtn) mBtn.classList.toggle("visible", val.length > 0);
+}
 addListener(elements.areaSelectMobile, "change", () => { syncSelect(elements.areaSelectMobile, elements.areaSelect); applyFilters(); });
 addListener(elements.categorySelectMobile, "change", () => { syncSelect(elements.categorySelectMobile, elements.categorySelect); applyFilters(); });
 addListener(elements.sortSelectMobile, "change", () => { syncSelect(elements.sortSelectMobile, elements.sortSelect); applyFilters(); });
@@ -1745,6 +1835,7 @@ if (state.showSavedOnly) {
       indicator.classList.remove("pulling");
       indicator.classList.add("refreshing");
       indicator.innerHTML = '<div class="ptr-spinner"></div><span>Refreshing…</span>';
+      if (window.LNV_HAPTICS) window.LNV_HAPTICS.medium();
       setTimeout(() => {
         applyFilters();
         indicator.classList.remove("refreshing");
@@ -1793,6 +1884,7 @@ document.addEventListener("keydown", (e) => {
     }
   }, { passive: true });
   btn.addEventListener("click", () => {
+    if (window.LNV_HAPTICS) window.LNV_HAPTICS.light();
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
 })();

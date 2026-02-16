@@ -115,14 +115,34 @@ function renderComparison() {
           <div class="hood-stat-value">${data.earliestClose}</div>
         </div>
       </div>
-      <div class="hood-vibes">
-        <div class="hood-vibes-title">Top Vibes</div>
-        <div class="hood-vibes-list">
-          ${data.topVibes.map(([v, c]) => `<span class="pill">${v} (${c})</span>`).join("")}
-        </div>
+      <div class="hood-chart">
+        <div class="hood-chart-title">Top Vibes</div>
+        ${(function () {
+          const maxVibe = data.topVibes.length ? data.topVibes[0][1] : 1;
+          const VIBE_COLORS = {
+            "chill": "#4dd6ff", "dancey": "#ff7ad6", "high-energy": "#ff9f5b",
+            "date-friendly": "#ffd36e", "upscale": "#b9c7ff", "divey": "#8f8f8f",
+            "live-music": "#7afff4", "karaoke": "#ff7ad6", "sports": "#2bff86",
+            "late-eats": "#ffb86b", "casual": "#4dd6ff", "social": "#ff9f5b",
+            "group-friendly": "#5bff9f", "rowdy": "#ff5b5b", "games": "#7afff4",
+            "views": "#7afff4", "rooftop": "#4dd6ff", "food-focused": "#ffd36e",
+          };
+          return data.topVibes.slice(0, 6).map(([v, c]) => {
+            const pct = Math.round((c / maxVibe) * 100);
+            const color = VIBE_COLORS[v.toLowerCase()] || "#2bff86";
+            return '<div class="hood-bar-row"><span class="hood-bar-label">' + v + '</span><div class="hood-bar-track"><div class="hood-bar-fill" style="width:' + pct + '%;background:' + color + '"></div></div><span class="hood-bar-count">' + c + '</span></div>';
+          }).join("");
+        })()}
       </div>
-      <div class="hood-categories">
-        ${data.topCategories.map(([cat, count]) => `<div class="hood-cat-item"><span>${cat}</span><span class="hood-cat-count">${count}</span></div>`).join("")}
+      <div class="hood-chart">
+        <div class="hood-chart-title">Categories</div>
+        ${(function () {
+          const maxCat = data.topCategories.length ? data.topCategories[0][1] : 1;
+          return data.topCategories.map(([cat, count]) => {
+            const pct = Math.round((count / maxCat) * 100);
+            return '<div class="hood-bar-row"><span class="hood-bar-label">' + cat + '</span><div class="hood-bar-track"><div class="hood-bar-fill" style="width:' + pct + '%;background:#2bff86"></div></div><span class="hood-bar-count">' + count + '</span></div>';
+          }).join("");
+        })()}
       </div>
       <a href="index.html" class="hood-action" onclick="localStorage.setItem('lnv_jumpArea','${data.name}')">Browse ${data.name} venues →</a>
       <a href="planner.html?area=${encodeURIComponent(data.name)}" class="hood-action hood-action-plan">Build a night in ${data.name} →</a>

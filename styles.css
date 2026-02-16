@@ -975,6 +975,18 @@ button,
 .poster-group-friendly { background: linear-gradient(135deg, #5bff9f 0%, #4dd6ff 100%); }
 .poster-interactive { background: linear-gradient(135deg, #7afff4 0%, #ff7ad6 100%); }
 
+/* ─── Venue card poster with photo support ─── */
+.poster {
+  position: relative;
+  overflow: hidden;
+}
+
+.poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 /* ─── Venue card content ─── */
 .venue-info {
   padding: 10px 12px 14px;
@@ -1396,8 +1408,8 @@ a.pill-link:active {
   position: absolute;
   top: 8px;
   left: 8px;
-  width: 32px;
-  height: 32px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   background: rgba(0, 0, 0, 0.45);
   backdrop-filter: blur(4px);
@@ -2001,6 +2013,7 @@ a.tonight-highlight-item:hover {
 
 .search-wrapper input[type="search"] {
   width: 100%;
+  padding-right: 44px;
 }
 
 .autocomplete-dropdown {
@@ -2711,20 +2724,20 @@ a.tonight-highlight-item:hover {
   /* Make visited button always visible on mobile (no hover state) */
   .venue-visited {
     opacity: 1;
-    width: 30px;
-    height: 30px;
-    font-size: 12px;
-    top: 6px;
-    left: 6px;
+    width: 44px;
+    height: 44px;
+    font-size: 14px;
+    top: 4px;
+    left: 4px;
     background: rgba(0, 0, 0, 0.55);
     backdrop-filter: blur(8px);
   }
 
   .venue-fav {
-    width: 34px;
-    height: 34px;
-    top: 6px;
-    right: 6px;
+    width: 44px;
+    height: 44px;
+    top: 4px;
+    right: 4px;
     font-size: 15px;
   }
 }
@@ -3112,4 +3125,146 @@ a.tonight-highlight-item:hover {
     background: #2bff86;
     box-shadow: 0 0 8px rgba(43, 255, 134, 0.5), 0 1px 3px rgba(0, 0, 0, 0.3);
   }
+}
+
+/* ─── Search clear button ─── */
+.search-clear-btn {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border: none;
+  background: transparent;
+  color: #6b7a9a;
+  font-size: 18px;
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border-radius: 50%;
+  transition: color 0.15s ease, background 0.15s ease;
+  z-index: 2;
+}
+
+.search-clear-btn:hover {
+  color: #e8e8e8;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.search-clear-btn.visible {
+  display: flex;
+}
+
+.search-wrapper input[type="search"]:not(:placeholder-shown) ~ .search-clear-btn {
+  display: flex;
+}
+
+/* ─── Loading overlay for async ops ─── */
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(11, 13, 20, 0.85);
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 16px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.loading-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.loading-overlay .ptr-spinner {
+  width: 32px;
+  height: 32px;
+  border-width: 3px;
+}
+
+.loading-overlay-text {
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Touch targets already fixed in mobile venue card section above */
+
+/* ─── Neighborhood bar charts ─── */
+.hood-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 0;
+}
+
+.hood-chart-title {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #6b7a9a;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.hood-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hood-bar-label {
+  font-size: 12px;
+  color: #93a1c6;
+  min-width: 80px;
+  flex-shrink: 0;
+  text-align: right;
+}
+
+.hood-bar-track {
+  flex: 1;
+  height: 20px;
+  background: rgba(42, 51, 77, 0.4);
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+}
+
+.hood-bar-fill {
+  height: 100%;
+  border-radius: 6px;
+  transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  min-width: 2px;
+}
+
+.hood-bar-count {
+  font-size: 11px;
+  color: #6b7a9a;
+  min-width: 28px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* ─── Planner time validation error ─── */
+.planner-time-error {
+  color: var(--color-danger);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 12px;
+  background: rgba(255, 91, 91, 0.08);
+  border: 1px solid rgba(255, 91, 91, 0.2);
+  border-radius: 10px;
+  display: none;
+  margin-bottom: 12px;
+}
+
+.planner-time-error.visible {
+  display: block;
 }

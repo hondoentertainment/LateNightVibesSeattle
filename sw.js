@@ -2,16 +2,49 @@
  * Late Night Vibes Seattle — Service Worker
  * Caches static assets and venue data for offline use.
  */
-const CACHE_NAME = "lnv-v1";
+const CACHE_NAME = "lnv-v2";
+
+const PRECACHE_URLS = [
+  "/",
+  "/index.html",
+  "/recommend.html",
+  "/planner.html",
+  "/neighborhoods.html",
+  "/styles.css",
+  "/recommend.css",
+  "/planner.css",
+  "/neighborhoods.css",
+  "/app.js",
+  "/recommend.js",
+  "/planner.js",
+  "/neighborhoods.js",
+  "/config.js",
+  "/lib/core.js",
+  "/lib/user-preferences.js",
+  "/lib/events.js",
+  "/lib/geo.js",
+  "/lib/features.js",
+  "/lib/crawl-history.js",
+  "/lib/share-plan.js",
+  "/venue_list_500plus.csv",
+  "/favicon.png",
+  "/favicon-512.png",
+  "/lnv-logo.png",
+  "/manifest.json",
+];
 
 self.addEventListener("install", (event) => {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(PRECACHE_URLS))
+  );
   self.skipWaiting();
 });
 
-
 self.addEventListener("activate", (event) => {
   event.waitUntil(
-    caches.keys().then((keys) => Promise.all(keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k))))
+    caches.keys().then((keys) =>
+      Promise.all(keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k)))
+    )
   );
   self.clients.claim();
 });
@@ -19,15 +52,45 @@ self.addEventListener("activate", (event) => {
 self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
   const url = new URL(event.request.url);
+
   if (url.origin !== self.location.origin) return;
+
+  const isCSV = url.pathname.endsWith(".csv");
+
+  if (isCSV) {
+    event.respondWith(
+      fetch(event.request)
+        .then((res) => {
+          if (res.ok) {
+            const clone = res.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
+          }
+          return res;
+        })
+        .catch(() => caches.match(event.request))
+    );
+    return;
+  }
+
   event.respondWith(
-    caches.open(CACHE_NAME).then((cache) =>
-      cache.match(event.request).then((cached) => cached || fetch(event.request).then((res) => {
-        if (res.ok && (url.pathname.endsWith(".html") || url.pathname.endsWith(".js") || url.pathname.endsWith(".css") || url.pathname.endsWith(".csv"))) {
-          cache.put(event.request, res.clone());
-        }
-        return res;
-      }))
-    ).catch(() => caches.match(event.request))
+    caches.match(event.request).then((cached) => {
+      const fetchPromise = fetch(event.request)
+        .then((res) => {
+          if (
+            res.ok &&
+            (url.pathname.endsWith(".html") ||
+              url.pathname.endsWith(".js") ||
+              url.pathname.endsWith(".css") ||
+              url.pathname.endsWith(".png") ||
+              url.pathname.endsWith(".json"))
+          ) {
+            const clone = res.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
+          }
+          return res;
+        })
+        .catch(() => cached);
+      return cached || fetchPromise;
+    })
   );
 });
