@@ -157,25 +157,63 @@ const elements = {
   activeFiltersStrip: $("activeFiltersStrip"),
 };
 
+/* ─── Focus trap utility (A2, A3) ─── */
+function getFocusableElements(container) {
+  return container.querySelectorAll(
+    'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+  );
+}
+
+function trapFocus(e, container) {
+  const focusable = getFocusableElements(container);
+  if (!focusable.length) return;
+  const first = focusable[0];
+  const last = focusable[focusable.length - 1];
+  if (e.key === "Tab") {
+    if (e.shiftKey) {
+      if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+    } else {
+      if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  }
+}
+
+let _filterDrawerTrigger = null;
+let _detailDrawerTrigger = null;
+
 /* ─── Drawer toggle (filters) ─── */
 function openDrawer() {
+  _filterDrawerTrigger = document.activeElement;
   elements.filterOverlay.classList.add("open");
   elements.filterDrawer.classList.add("open");
   document.body.style.overflow = "hidden";
+  const closeBtn = elements.filterClose;
+  if (closeBtn) setTimeout(() => closeBtn.focus(), 100);
 }
 
 function closeDrawer() {
   elements.filterOverlay.classList.remove("open");
   elements.filterDrawer.classList.remove("open");
   document.body.style.overflow = "";
+  if (_filterDrawerTrigger) { _filterDrawerTrigger.focus(); _filterDrawerTrigger = null; }
 }
 
 if (elements.filterToggle) elements.filterToggle.addEventListener("click", openDrawer);
 if (elements.filterOverlay) elements.filterOverlay.addEventListener("click", closeDrawer);
 if (elements.filterClose) elements.filterClose.addEventListener("click", closeDrawer);
 
+if (elements.filterDrawer) {
+  elements.filterDrawer.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") { closeDrawer(); return; }
+    trapFocus(e, elements.filterDrawer);
+  });
+}
+
 /* ─── Detail drawer ─── */
+let _detailScrollY = 0;
 function openDetail(venue) {
+  _detailDrawerTrigger = document.activeElement;
+  _detailScrollY = window.scrollY;
   const el = elements;
   el.detailOverlay.classList.add("open");
   el.detailDrawer.classList.add("open");
@@ -250,6 +288,8 @@ function openDetail(venue) {
     window.venuePhotos.applyVenuePhoto(posterEl, normalizeValue(venue.Name), area);
   }
 
+  if (el.detailClose) setTimeout(() => el.detailClose.focus(), 100);
+
   const favBtn = $("detailFavBtn");
   if (favBtn) {
     favBtn.addEventListener("click", () => {
@@ -315,10 +355,19 @@ function closeDetail() {
   elements.detailOverlay.classList.remove("open");
   elements.detailDrawer.classList.remove("open");
   document.body.style.overflow = "";
+  if (_detailDrawerTrigger) { _detailDrawerTrigger.focus(); _detailDrawerTrigger = null; }
+  if (_detailScrollY) { window.scrollTo(0, _detailScrollY); _detailScrollY = 0; }
 }
 
 if (elements.detailOverlay) elements.detailOverlay.addEventListener("click", closeDetail);
 if (elements.detailClose) elements.detailClose.addEventListener("click", closeDetail);
+
+if (elements.detailDrawer) {
+  elements.detailDrawer.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") { closeDetail(); return; }
+    trapFocus(e, elements.detailDrawer);
+  });
+}
 
 /* ─── Share venue ─── */
 function shareVenue(venue) {
@@ -342,14 +391,21 @@ function shareVenue(venue) {
   }
 }
 
-function showToast(msg) {
-  const existing = document.querySelector(".share-toast");
+function showToast(msg, type) {
+  const className = type === "error" ? "error-toast" : "share-toast";
+  const existing = document.querySelector("." + className);
   if (existing) existing.remove();
   const toast = document.createElement("div");
-  toast.className = "share-toast";
+  toast.className = className;
   toast.textContent = msg;
+  toast.setAttribute("role", "status");
+  toast.setAttribute("aria-live", "polite");
   document.body.appendChild(toast);
-  setTimeout(() => toast.remove(), 2000);
+  setTimeout(() => toast.remove(), type === "error" ? 3500 : 2000);
+}
+
+function showErrorToast(msg) {
+  showToast(msg, "error");
 }
 
 /* ─── Sync paired selects ─── */
@@ -540,6 +596,7 @@ function requestUserLocation() {
       if (elements.sortSelect) elements.sortSelect.value = "name";
       if (elements.sortSelectMobile) elements.sortSelectMobile.value = "name";
       applyFilters(true);
+      showErrorToast("Location unavailable — sorting by name instead");
     }
   );
 }
@@ -718,6 +775,7 @@ function renderGrid() {
         <div style="font-size:32px;margin-bottom:12px">🔍</div>
         <div style="font-size:16px;font-weight:600;margin-bottom:8px;color:#e8e8e8">No matches found</div>
         <div>${filterCount > 1 ? `You have <strong>${filterCount} filters</strong> active. Try removing some.` : "Try broadening your search or removing a filter."}</div>
+        ${filterCount > 0 ? '<button type="button" class="clear-all-filters" style="margin-top:16px" onclick="clearAllFilters()">Clear all filters</button>' : ""}
       `;
     }
     elements.grid.appendChild(empty);
@@ -1289,6 +1347,19 @@ function updateActiveFiltersStrip() {
     });
     strip.appendChild(el);
   });
+
+  if (chips.length > 1) {
+    const clearAll = document.createElement("button");
+    clearAll.type = "button";
+    clearAll.className = "active-filter-chip";
+    clearAll.style.cssText = "background:rgba(255,91,91,0.08);border-color:rgba(255,91,91,0.25);color:#ff5b5b";
+    clearAll.innerHTML = 'Clear all <span class="chip-x">&times;</span>';
+    clearAll.addEventListener("click", () => {
+      clearAllFilters();
+      if (window.LNV_HAPTICS) window.LNV_HAPTICS.medium();
+    });
+    strip.appendChild(clearAll);
+  }
 }
 
 /* ─── Tonight highlights (events / special nights) ─── */
@@ -1388,7 +1459,7 @@ function loadFromText(text) {
   initOnboarding();
   if (venueDeepLink) {
     const match = state.all.find((v) => normalizeValue(v.Name).toLowerCase() === venueDeepLink.toLowerCase());
-    if (match) setTimeout(() => openDetail(match), 300);
+    if (match) requestAnimationFrame(() => openDetail(match));
   }
 }
 
@@ -1400,16 +1471,28 @@ async function loadDefaultCSV() {
     loadFromText(await response.text());
   } catch (err) {
     setStatus("Unable to load default CSV. Use Load CSV to import.");
-    elements.grid.innerHTML = '<div class="empty-state">Unable to load venue data.</div>';
+    elements.grid.innerHTML = '<div class="empty-state"><div style="font-size:32px;margin-bottom:12px">⚠️</div><div style="font-size:16px;font-weight:600;margin-bottom:8px;color:#e8e8e8">Unable to load venue data</div><div>Check your connection and try refreshing the page.</div></div>';
+    showErrorToast("Failed to load venues — check your connection");
   }
 }
+
+/* ─── Debounce utility (F1) ─── */
+function debounce(fn, delay) {
+  let timer;
+  return function (...args) {
+    clearTimeout(timer);
+    timer = setTimeout(() => fn.apply(this, args), delay);
+  };
+}
+
+const debouncedApplyFilters = debounce(() => applyFilters(), 250);
 
 /* ─── Event listeners (desktop) ─── */
 function addListener(el, event, fn) { if (el) el.addEventListener(event, fn); }
 
 addListener(elements.searchInput, "input", () => {
   if (elements.searchInputMobile) elements.searchInputMobile.value = elements.searchInput.value;
-  applyFilters();
+  debouncedApplyFilters();
 });
 addListener(elements.areaSelect, "change", () => { syncSelect(elements.areaSelect, elements.areaSelectMobile); applyFilters(); });
 addListener(elements.categorySelect, "change", () => { syncSelect(elements.categorySelect, elements.categorySelectMobile); applyFilters(); });
@@ -1419,7 +1502,7 @@ addListener(elements.visitedFilterDesktop, "change", () => { syncSelect(elements
 /* ─── Event listeners (mobile) ─── */
 addListener(elements.searchInputMobile, "input", () => {
   if (elements.searchInput) elements.searchInput.value = elements.searchInputMobile.value;
-  applyFilters();
+  debouncedApplyFilters();
 });
 addListener(elements.areaSelectMobile, "change", () => { syncSelect(elements.areaSelectMobile, elements.areaSelect); applyFilters(); });
 addListener(elements.categorySelectMobile, "change", () => { syncSelect(elements.categorySelectMobile, elements.categorySelect); applyFilters(); });
@@ -1662,13 +1745,12 @@ if (state.showSavedOnly) {
       indicator.classList.remove("pulling");
       indicator.classList.add("refreshing");
       indicator.innerHTML = '<div class="ptr-spinner"></div><span>Refreshing…</span>';
-      // Re-render to update open/closed badges
       setTimeout(() => {
         applyFilters();
         indicator.classList.remove("refreshing");
         indicator.innerHTML = "<span>Pull to refresh</span>";
         showToast("Status badges updated");
-      }, 600);
+      }, 300);
     }
   }, { passive: true });
 })();
@@ -1687,12 +1769,52 @@ document.addEventListener("keydown", (e) => {
       input.scrollIntoView({ behavior: "smooth", block: "nearest" });
     }
   }
-  // Escape to close detail drawer
   if (e.key === "Escape") {
     if (elements.detailDrawer && elements.detailDrawer.classList.contains("open")) {
       closeDetail();
+    } else if (elements.filterDrawer && elements.filterDrawer.classList.contains("open")) {
+      closeDrawer();
     }
   }
 });
+
+/* ─── Scroll-to-top button (M5) ─── */
+(function initScrollToTop() {
+  const btn = document.getElementById("scrollToTop");
+  if (!btn) return;
+  let ticking = false;
+  window.addEventListener("scroll", () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        btn.classList.toggle("visible", window.scrollY > 400);
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
+  btn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+})();
+
+/* ─── Clear all filters (F2) ─── */
+function clearAllFilters() {
+  if (elements.searchInput) elements.searchInput.value = "";
+  if (elements.searchInputMobile) elements.searchInputMobile.value = "";
+  if (elements.areaSelect) elements.areaSelect.value = "";
+  if (elements.areaSelectMobile) elements.areaSelectMobile.value = "";
+  if (elements.categorySelect) elements.categorySelect.value = "";
+  if (elements.categorySelectMobile) elements.categorySelectMobile.value = "";
+  if (elements.sortSelect) elements.sortSelect.value = "name";
+  if (elements.sortSelectMobile) elements.sortSelectMobile.value = "name";
+  if (elements.visitedFilterDesktop) elements.visitedFilterDesktop.value = "";
+  if (elements.visitedFilterMobile) elements.visitedFilterMobile.value = "";
+  state.openNowOnly = false;
+  syncOpenNow();
+  state.activeVibes.clear();
+  syncVibeCheckboxes();
+  applyFilters();
+  showToast("Filters cleared");
+}
 
 loadDefaultCSV();

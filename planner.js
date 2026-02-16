@@ -147,9 +147,43 @@ function showSecondaryActions() {
   if (d) d.style.display = "flex";
 }
 
-/* ─── Shuffle (re-generate unlocked stops) ─── */
+/* ─── Shuffle (re-generate unlocked stops) with undo (F5) ─── */
+let _previousItinerary = null;
+
 function shuffleItinerary() {
+  _previousItinerary = {
+    stops: [...lastItinerary.stops],
+    phases: [...lastItinerary.phases],
+    startMin: lastItinerary.startMin,
+    slotDuration: lastItinerary.slotDuration,
+  };
   generateItinerary();
+  showPlannerToast("Shuffled! ", true);
+}
+
+function undoShuffle() {
+  if (!_previousItinerary) return;
+  lastItinerary = _previousItinerary;
+  _previousItinerary = null;
+  renderItinerary(lastItinerary.stops, lastItinerary.phases, lastItinerary.startMin, lastItinerary.slotDuration);
+  showPlannerToast("Shuffle undone");
+}
+
+function showPlannerToast(msg, showUndo) {
+  const existing = document.querySelector(".share-toast");
+  if (existing) existing.remove();
+  const toast = document.createElement("div");
+  toast.className = "share-toast";
+  toast.setAttribute("role", "status");
+  toast.setAttribute("aria-live", "polite");
+  if (showUndo) {
+    toast.innerHTML = msg + '<button type="button" style="margin-left:12px;background:rgba(0,0,0,0.3);color:#fff;border:none;padding:4px 10px;border-radius:8px;cursor:pointer;font-weight:600;font-size:12px" onclick="undoShuffle();this.parentElement.remove()">Undo</button>';
+    toast.style.pointerEvents = "auto";
+  } else {
+    toast.textContent = msg;
+  }
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), showUndo ? 5000 : 2000);
 }
 
 /* ─── 8. Reroute from here (recovery UX) ─── */
@@ -446,12 +480,14 @@ addListener($("sharePlan"), "click", shareItinerary);
 addListener($("sharePlanDesktop"), "click", shareItinerary);
 
 async function loadDefaultCSV() {
+  const itinerary = $("itinerary");
+  if (itinerary) itinerary.innerHTML = '<div class="loading-spinner"><div class="ptr-spinner"></div><span>Loading venues…</span></div>';
   try {
     const resp = await fetch(DEFAULT_CSV);
     if (!resp.ok) throw new Error("Fetch failed");
     loadFromText(await resp.text());
   } catch (_) {
-    $("itinerary").innerHTML = '<div class="itinerary-empty">Unable to load venue data.</div>';
+    if (itinerary) itinerary.innerHTML = '<div class="itinerary-empty"><div style="font-size:32px;margin-bottom:12px">⚠️</div>Unable to load venue data. Check your connection and refresh.</div>';
   }
 }
 

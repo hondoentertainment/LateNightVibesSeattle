@@ -257,12 +257,14 @@ function loadFromText(text) {
 }
 
 async function loadDefaultCSV() {
+  const grid = $("recommendationGrid");
+  if (grid) grid.innerHTML = '<div class="loading-spinner"><div class="ptr-spinner"></div><span>Loading venues…</span></div>';
   try {
     const resp = await fetch(DEFAULT_CSV);
     if (!resp.ok) throw new Error("Fetch failed");
     loadFromText(await resp.text());
   } catch (err) {
-    $("recommendationGrid").innerHTML = `<div class="rec-empty">Unable to load venue data.</div>`;
+    if (grid) grid.innerHTML = '<div class="rec-empty"><div style="font-size:32px;margin-bottom:12px">⚠️</div>Unable to load venue data. Check your connection and refresh.</div>';
   }
 }
 
