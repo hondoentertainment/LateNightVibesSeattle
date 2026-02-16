@@ -161,6 +161,7 @@ function shuffleItinerary() {
   showPlannerToast("Shuffled! ", true);
 }
 
+// eslint-disable-next-line no-unused-vars -- called from inline onclick in toast
 function undoShuffle() {
   if (!_previousItinerary) return;
   lastItinerary = _previousItinerary;
