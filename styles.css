@@ -78,8 +78,24 @@ textarea:focus-visible {
   transition: top 0.2s ease;
 }
 
-.skip-link:focus {
+.skip-link:focus,
+.skip-link:focus-visible {
   top: 0;
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ─── Screen reader only (A11y) ─── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* ─── Disabled & danger button states (V5, V6) ─── */
@@ -134,6 +150,62 @@ button[disabled],
 
 .scroll-to-top:active {
   transform: scale(0.9);
+}
+
+/* ─── PWA Install prompt ─── */
+.install-prompt {
+  position: fixed;
+  bottom: calc(var(--bottom-nav-offset) + 12px);
+  left: 16px;
+  right: 16px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  padding: 14px 16px;
+  z-index: 180;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+}
+.install-prompt-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.install-prompt-text {
+  font-size: 14px;
+  color: var(--color-text);
+  line-height: 1.4;
+}
+.install-prompt-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.install-prompt-btn {
+  background: var(--color-accent);
+  color: var(--color-bg);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.install-prompt-dismiss {
+  background: transparent;
+  color: var(--color-text-muted);
+  border: none;
+  padding: 10px 16px;
+  font-size: 13px;
+  cursor: pointer;
+}
+@media (min-width: 860px) {
+  .install-prompt {
+    left: 50%;
+    right: auto;
+    width: 360px;
+    margin-left: -180px;
+  }
 }
 
 /* ─── Error toast (F4) ─── */
@@ -201,6 +273,7 @@ body {
   font-family: "Inter", "Segoe UI", -apple-system, Arial, sans-serif;
   color: #e8e8e8;
   background: #0b0d14;
+  min-height: 100vh;
   min-height: 100dvh;
   padding-bottom: env(safe-area-inset-bottom, 0);
 }
@@ -274,7 +347,7 @@ body {
 }
 
 .nav-pill {
-  color: var(--color-text-secondary);
+  color: #7a8cb0;
   text-decoration: none;
   font-size: 13px;
   font-weight: 600;
@@ -286,11 +359,16 @@ body {
   min-height: 44px;
   display: inline-flex;
   align-items: center;
+  transition: transform 0.1s ease, color 0.15s ease, border-color 0.15s ease;
 }
 
 .nav-pill:hover {
   color: #e8e8e8;
   border-color: #3a4560;
+}
+
+.nav-pill:active {
+  transform: scale(0.98);
 }
 
 /* keep old class name working */
@@ -370,10 +448,16 @@ body {
 }
 
 @media (max-width: 859px) {
+  /* 16px minimum prevents iOS zoom on input focus (WCAG, mobile-first) */
+  input,
   input[type="search"],
   input[type="number"],
-  select {
-    font-size: 16px;
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  select,
+  textarea {
+    font-size: 16px !important;
   }
 }
 
@@ -399,6 +483,20 @@ body {
   border-color: rgba(43, 255, 134, 0.4);
   box-shadow: 0 0 12px rgba(43, 255, 134, 0.1);
   transition-duration: 0.06s;
+}
+
+/* ─── Touch manipulation (remove 300ms tap delay) ─── */
+.filter-toggle,
+.quick-chip,
+.bottom-nav-item,
+.venue-card,
+.btn-retrigger-onboarding,
+.ac-item,
+.active-filter-chip,
+.onboarding-options button,
+.onboarding-skip,
+.load-more-btn {
+  touch-action: manipulation;
 }
 
 /* ─── Filter drawer (bottom sheet on mobile) ─── */
@@ -499,6 +597,47 @@ body {
   margin-bottom: 14px;
 }
 
+.drawer-section-help,
+.sidebar-section-help {
+  margin-top: 8px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(43, 255, 134, 0.08);
+}
+
+.btn-retrigger-onboarding {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 16px;
+  background: rgba(43, 255, 134, 0.08);
+  border: 1px solid rgba(43, 255, 134, 0.25);
+  border-radius: 12px;
+  color: #2bff86;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn-retrigger-onboarding:hover {
+  background: rgba(43, 255, 134, 0.14);
+  border-color: rgba(43, 255, 134, 0.4);
+}
+
+.btn-retrigger-onboarding:active {
+  transform: scale(0.98);
+}
+
+.btn-retrigger-icon {
+  font-size: 14px;
+  opacity: 0.9;
+}
+
 @media (min-width: 860px) {
   .filter-drawer,
   .filter-overlay {
@@ -554,7 +693,7 @@ body {
   align-items: center;
   gap: 2px;
   text-decoration: none;
-  color: var(--color-text-muted);
+  color: #7a8cb0;
   font-size: 9.5px;
   font-weight: 600;
   letter-spacing: 0.03em;
@@ -810,6 +949,12 @@ button,
   height: 16px;
 }
 
+.vibe-chip:has(input:checked) {
+  background: rgba(43, 255, 134, 0.12);
+  border-color: #2bff86;
+  color: #2bff86;
+}
+
 /* Mobile: upgraded vibe chips as tappable pills */
 @media (max-width: 859px) {
   .vibes-list {
@@ -866,6 +1011,48 @@ button,
   color: #8fa0c2;
 }
 
+.result-summary.updating {
+  opacity: 0.7;
+  font-style: italic;
+}
+
+/* ─── Favorites backup bar (Saved view) ─── */
+.favorites-backup-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-backup {
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 8px;
+  background: rgba(43, 255, 134, 0.12);
+  border: 1px solid rgba(43, 255, 134, 0.3);
+  color: var(--color-accent);
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.btn-backup:hover {
+  background: rgba(43, 255, 134, 0.2);
+  border-color: var(--color-accent);
+}
+
+.btn-backup-import {
+  margin: 0;
+  cursor: pointer;
+}
+
+.btn-backup-import input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  overflow: hidden;
+}
+
 .venue-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
@@ -893,6 +1080,28 @@ button,
   border: 1px dashed #2a334d;
   border-radius: 16px;
   color: #93a1c6;
+}
+
+.error-state .error-state-icon {
+  margin-bottom: 12px;
+}
+.error-state .error-state-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #e8e8e8;
+  margin: 0 0 8px 0;
+}
+.error-state .error-state-desc {
+  margin: 0 0 8px 0;
+  color: var(--color-text-secondary);
+}
+.error-state .error-state-hint {
+  margin: 0 0 16px 0;
+  font-size: var(--font-sm);
+  color: var(--color-text-muted);
+}
+.error-retry-btn {
+  margin-top: 8px;
 }
 
 .recommendation-list .empty-state {
@@ -1003,13 +1212,18 @@ button,
 }
 
 .venue-name {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
   line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 @media (min-width: 860px) {
-  .venue-name { font-size: 15px; }
+  .venue-name { font-size: 16px; }
 }
 
 .venue-name a {
@@ -1024,6 +1238,9 @@ button,
 .venue-meta {
   font-size: 11px;
   color: #8fa0c2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .venue-pills {
@@ -1734,6 +1951,8 @@ a.tonight-highlight-item:hover {
   justify-content: center;
   padding: 0;
   animation: onboardingFadeIn 0.4s ease both;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .onboarding-overlay.closing .onboarding-card {
@@ -1752,12 +1971,20 @@ a.tonight-highlight-item:hover {
   border: 1px solid rgba(43, 255, 134, 0.1);
   border-bottom: none;
   border-radius: 28px 28px 0 0;
-  padding: 28px 24px calc(28px + env(safe-area-inset-bottom, 0));
+  padding: 24px 20px calc(24px + env(safe-area-inset-bottom, 0));
   max-width: 440px;
   width: 100%;
+  min-height: min-content;
+  flex-shrink: 0;
   animation: onboardingCardIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
   animation-delay: 0.15s;
   box-shadow: 0 -16px 60px rgba(43, 255, 134, 0.06), 0 -4px 20px rgba(0, 0, 0, 0.4);
+}
+
+@media (max-width: 400px) {
+  .onboarding-card {
+    padding: 20px 16px calc(20px + env(safe-area-inset-bottom, 0));
+  }
 }
 
 @media (min-width: 860px) {
@@ -1856,6 +2083,8 @@ a.tonight-highlight-item:hover {
   animation: obBtnIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
   backdrop-filter: blur(8px);
   overflow: hidden;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .onboarding-options button::before {
@@ -1923,11 +2152,17 @@ a.tonight-highlight-item:hover {
 #onboardingStep3 .onboarding-options {
   grid-template-columns: 1fr 1fr;
   gap: 8px;
-  max-height: 40vh;
+  max-height: min(40vh, 200px);
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   padding-right: 4px;
   margin-bottom: 8px;
+}
+
+@media (max-height: 500px) {
+  #onboardingStep3 .onboarding-options {
+    max-height: 140px;
+  }
 }
 
 #onboardingStep3 .onboarding-options::-webkit-scrollbar {
@@ -1957,6 +2192,7 @@ a.tonight-highlight-item:hover {
 .onboarding-skip {
   display: block;
   width: 100%;
+  min-height: 48px;
   padding: 14px 16px;
   background: transparent;
   border: 1.5px dashed #2a334d;
@@ -1968,6 +2204,8 @@ a.tonight-highlight-item:hover {
   text-align: center;
   transition: all 0.2s ease;
   margin-top: 4px;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .onboarding-skip:hover {
@@ -1985,6 +2223,7 @@ a.tonight-highlight-item:hover {
   display: block;
   width: 100%;
   margin-top: 20px;
+  min-height: 48px;
   padding: 12px;
   background: transparent;
   border: none;
@@ -1994,6 +2233,8 @@ a.tonight-highlight-item:hover {
   cursor: pointer;
   text-align: center;
   transition: color 0.2s ease;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .onboarding-dismiss:hover {

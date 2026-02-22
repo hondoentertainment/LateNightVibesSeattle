@@ -2,7 +2,8 @@
  * Venue Photos Module
  *
  * Configure your API key in config.js (see config.example.js).
- * Without a key, cards use the existing color gradient posters.
+ * With a key: uses Google Places API for real venue photos.
+ * Without a key: uses Picsum Photos for unique placeholder imagery (gradient-free).
  *
  * To get a key:
  *  1. Go to https://console.cloud.google.com/
@@ -12,6 +13,7 @@
  */
 const GOOGLE_PLACES_API_KEY = (window.LNV_CONFIG && window.LNV_CONFIG.googlePlacesApiKey) || "";
 const PHOTO_MAX_WIDTH = 400;
+const PICSUM_BASE = "https://picsum.photos/seed/";
 const CACHE_TTL_MS = 1000 * 60 * 60 * 24 * 14; // 14 days
 const MAX_CACHE_ENTRIES = 200;
 const CACHE_KEY = "lnv_photo_cache_v1";
@@ -112,24 +114,80 @@ async function fetchVenuePhoto(venueName, area) {
 }
 
 /**
- * Apply a photo to a card's poster element if available.
- * Call this after rendering each card.
+ * Simple string hash for Picsum seed (deterministic per venue).
+ */
+function simpleHash(str) {
+  let h = 0;
+  const s = String(str || "");
+  for (let i = 0; i < s.length; i++) {
+    h = ((h << 5) - h) + s.charCodeAt(i);
+    h = h & h;
+  }
+  return Math.abs(h).toString(36);
+}
+
+/**
+ * Get fallback placeholder image URL (Picsum) when no Places API key.
+ */
+function getPicsumFallbackUrl(venueName, area) {
+  const seed = simpleHash(`${venueName}|${area}`);
+  return `${PICSUM_BASE}${seed}/400/300`;
+}
+
+/**
+ * Apply a photo to a card's poster element.
+ * Uses Google Places when API key is set; otherwise uses Picsum placeholders.
  */
 async function applyVenuePhoto(posterEl, venueName, area) {
-  if (!GOOGLE_PLACES_API_KEY) return;
   if (!posterEl) return;
 
-  const url = await fetchVenuePhoto(venueName, area);
-  if (url) {
-    posterEl.style.backgroundImage = `url(${url})`;
-    posterEl.style.backgroundSize = "cover";
-    posterEl.style.backgroundPosition = "center";
+  if (GOOGLE_PLACES_API_KEY) {
+    const url = await fetchVenuePhoto(venueName, area);
+    if (url) {
+      posterEl.style.backgroundImage = `url(${url})`;
+      posterEl.style.backgroundSize = "cover";
+      posterEl.style.backgroundPosition = "center";
+      return;
+    }
   }
+
+  // Fallback: Picsum Photos for unique imagery per venue (no API key needed)
+  const fallbackUrl = getPicsumFallbackUrl(venueName, area);
+  posterEl.style.backgroundImage = `url(${fallbackUrl})`;
+  posterEl.style.backgroundSize = "cover";
+  posterEl.style.backgroundPosition = "center";
+}
+
+/**
+ * Lazy-load venue photo when poster enters viewport.
+ * Uses Intersection Observer to defer loading until near view.
+ */
+function applyVenuePhotoWhenVisible(posterEl, venueName, area) {
+  if (!posterEl || !venueName) return;
+
+  const io = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        io.unobserve(entry.target);
+        const el = entry.target;
+        const name = el.dataset.venueName;
+        const areaVal = el.dataset.venueArea || "";
+        applyVenuePhoto(el, name, areaVal);
+      }
+    },
+    { rootMargin: "100px", threshold: 0.01 }
+  );
+
+  posterEl.dataset.venueName = venueName;
+  posterEl.dataset.venueArea = area || "";
+  io.observe(posterEl);
 }
 
 // Expose globally
 window.venuePhotos = {
-  isEnabled: () => !!GOOGLE_PLACES_API_KEY,
+  isEnabled: () => true,
   applyVenuePhoto,
+  applyVenuePhotoWhenVisible,
   fetchVenuePhoto,
 };

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0a0c12" />
+    <title>Page not found — Late Night Vibes Seattle</title>
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="apple-touch-icon" href="favicon-512.png" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      .not-found { min-height: 60vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 32px; text-align: center; }
+      .not-found h1 { font-size: 72px; font-weight: 700; color: var(--color-accent); margin: 0 0 16px; line-height: 1; }
+      .not-found h2 { font-size: 20px; font-weight: 600; color: var(--color-text); margin: 0 0 12px; }
+      .not-found p { color: var(--color-text-secondary); margin: 0 0 24px; max-width: 320px; line-height: 1.6; }
+      .not-found .nav-links { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+      .not-found .nav-links a { display: inline-block; padding: 12px 20px; background: rgba(43, 255, 134, 0.12); color: var(--color-accent); border-radius: 12px; font-weight: 600; text-decoration: none; border: 1px solid rgba(43, 255, 134, 0.25); }
+      .not-found .nav-links a:hover { background: rgba(43, 255, 134, 0.2); }
+    </style>
+  </head>
+  <body>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <header class="topbar" role="banner">
+      <div class="brand">
+        <a href="index.html"><img src="lnv-logo.png" alt="Late Night Vibes" class="header-logo" /></a>
+      </div>
+      <nav class="top-actions desktop-only" aria-label="Main navigation">
+        <a href="index.html" class="nav-pill">Browse</a>
+        <a href="recommend.html" class="nav-pill">For You</a>
+        <a href="planner.html" class="nav-pill">Plan</a>
+        <a href="neighborhoods.html" class="nav-pill">Compare</a>
+      </nav>
+    </header>
+
+    <main class="not-found" id="main">
+      <h1>404</h1>
+      <h2>Page not found</h2>
+      <p>The page you're looking for doesn't exist or may have moved. Get back to exploring Seattle nightlife.</p>
+      <div class="nav-links">
+        <a href="index.html">Browse venues</a>
+        <a href="recommend.html">Recommendations</a>
+        <a href="planner.html">Night plan</a>
+      </div>
+    </main>
+
+    <script src="config.js"></script>
+  </body>
+</html>

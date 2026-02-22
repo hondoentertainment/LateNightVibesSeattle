@@ -10,18 +10,45 @@
     <meta property="og:description" content="Discover 500+ Seattle nightlife venues. Browse bars, clubs, and late-night spots by vibe, neighborhood, and hours." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://late-night-vibes-seattle.vercel.app/" />
-    <meta property="og:image" content="https://late-night-vibes-seattle.vercel.app/favicon-512.png" />
+    <meta property="og:image" content="https://late-night-vibes-seattle.vercel.app/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Late Night Vibes Seattle — 500+ nightlife venues to browse, plan, and explore" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Late Night Vibes Seattle" />
     <meta name="twitter:description" content="Discover 500+ Seattle nightlife venues. Browse by vibe, neighborhood, and hours." />
     <link rel="icon" type="image/png" href="favicon.png" />
     <link rel="apple-touch-icon" href="favicon-512.png" />
+    <link rel="apple-touch-startup-image" href="splash/splash-1170x2532.png" media="(device-width: 390px) and (device-height: 844px)" />
+    <link rel="apple-touch-startup-image" href="splash/splash-1290x2796.png" media="(device-width: 430px) and (device-height: 932px)" />
+    <link rel="apple-touch-startup-image" href="splash/splash-1242x2688.png" media="(device-width: 414px) and (device-height: 896px)" />
+    <link rel="apple-touch-startup-image" href="splash/splash-1284x2778.png" media="(device-width: 428px) and (device-height: 926px)" />
+    <link rel="apple-touch-startup-image" href="splash/splash-750x1334.png" media="(device-width: 375px) and (device-height: 667px)" />
     <link rel="manifest" href="manifest.json" />
     <link rel="canonical" href="https://late-night-vibes-seattle.vercel.app/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="LateNightVibes Seattle">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Late Night Vibes Seattle",
+  "description": "Discover 500+ Seattle nightlife venues. Browse bars, clubs, and late-night spots by vibe, neighborhood, and hours. Plan your perfect night out.",
+  "applicationCategory": "LifestyleApplication",
+  "operatingSystem": "Any",
+  "url": "https://late-night-vibes-seattle.vercel.app/",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+    </script>
     <script>
       // Mobile physics & haptics polyfill
       window.LNV_HAPTICS = {
@@ -51,7 +78,7 @@
       </div>
       <nav class="top-actions desktop-only" aria-label="Main navigation">
         <div class="search-wrapper">
-          <input id="searchInput" type="search" placeholder="Search venues, vibes, or areas…" autocomplete="off" aria-label="Search venues, vibes, or areas" />
+          <input id="searchInput" type="search" placeholder="Search venues, vibes, or areas… (press / to focus)" autocomplete="off" aria-label="Search venues, vibes, or areas" />
           <button type="button" id="searchClearDesktop" class="search-clear-btn" aria-label="Clear search">✕</button>
           <div id="autocompleteDesktop" class="autocomplete-dropdown" role="listbox" aria-label="Search suggestions"></div>
         </div>
@@ -59,14 +86,14 @@
         <a href="planner.html" class="nav-pill">Night Plan</a>
         <a href="neighborhoods.html" class="nav-pill">Compare</a>
         <a href="index.html?view=saved" class="nav-pill" id="savedLink">Saved</a>
-        <a href="admin.html" class="nav-pill">Admin</a>
+        <a href="admin.html" class="nav-pill nav-admin" id="adminNavLink">Admin</a>
       </nav>
     </header>
 
     <!-- Mobile search bar -->
     <div class="mobile-search mobile-only">
       <div class="search-wrapper" style="flex:1;min-width:0">
-        <input id="searchInputMobile" type="search" placeholder="Search venues, vibes, or areas…" autocomplete="off" aria-label="Search venues, vibes, or areas" />
+        <input id="searchInputMobile" type="search" placeholder="Search venues, vibes, or areas… (press / to focus)" autocomplete="off" aria-label="Search venues, vibes, or areas" />
         <button type="button" id="searchClearMobile" class="search-clear-btn" aria-label="Clear search">✕</button>
         <div id="autocompleteMobile" class="autocomplete-dropdown" role="listbox" aria-label="Search suggestions"></div>
       </div>
@@ -166,6 +193,12 @@
           <div class="drawer-section-title">Vibes</div>
           <div id="vibeList" class="vibes-list"></div>
         </div>
+        <div class="drawer-section drawer-section-help">
+          <button type="button" id="retriggerOnboardingBtn" class="btn-retrigger-onboarding" aria-label="Retake guided setup to find venues">
+            <span class="btn-retrigger-icon" aria-hidden="true">✦</span>
+            Find my night again
+          </button>
+        </div>
       </div>
     </div>
 
@@ -215,13 +248,27 @@
           <div class="sidebar-title">Vibes</div>
           <div id="vibeListDesktop" class="vibes-list"></div>
         </div>
+        <div class="sidebar-section sidebar-section-help">
+          <button type="button" id="retriggerOnboardingBtnDesktop" class="btn-retrigger-onboarding" aria-label="Retake guided setup to find venues">
+            <span class="btn-retrigger-icon" aria-hidden="true">✦</span>
+            Find my night again
+          </button>
+        </div>
       </aside>
 
       <main class="content" id="main">
         <div class="content-toolbar">
           <div style="display:flex;align-items:center;gap:12px">
             <div id="resultSummary" class="result-summary" aria-live="polite" aria-atomic="true"></div>
+            <div id="searchAnnouncer" class="sr-only" aria-live="polite" aria-atomic="true" role="status"></div>
             <div id="crawlStats" class="crawl-stats" style="display:none"></div>
+            <div id="favoritesBackupBar" class="favorites-backup-bar" style="display:none" aria-label="Backup and restore favorites">
+              <button type="button" id="exportFavoritesBtn" class="btn-backup">Export backup</button>
+              <label class="btn-backup btn-backup-import">
+                Import backup
+                <input type="file" id="importFavoritesInput" accept=".json,application/json" aria-label="Choose backup file to import" />
+              </label>
+            </div>
           </div>
           <div class="toolbar-right">
             <button type="button" class="legend-toggle" id="legendToggle" aria-label="Vibe color legend">
@@ -294,6 +341,23 @@
       <div id="detailBody" class="detail-body"></div>
     </div>
 
+    <!-- Initial load overlay -->
+    <div id="loadingOverlay" class="loading-overlay" role="status" aria-live="polite" aria-label="Loading venues">
+      <div class="ptr-spinner"></div>
+      <span class="loading-overlay-text">Loading Seattle venues…</span>
+    </div>
+
+    <!-- PWA install prompt -->
+    <div id="installPrompt" class="install-prompt" role="dialog" aria-label="Add to Home Screen" aria-hidden="true" style="display:none">
+      <div class="install-prompt-inner">
+        <span class="install-prompt-text">Add Late Night Vibes to your home screen for quick access</span>
+        <div class="install-prompt-actions">
+          <button type="button" id="installPromptBtn" class="install-prompt-btn">Add</button>
+          <button type="button" id="installPromptDismiss" class="install-prompt-dismiss" aria-label="Dismiss">Not now</button>
+        </div>
+      </div>
+    </div>
+
     <!-- Scroll-to-top button (M5) -->
     <button id="scrollToTop" class="scroll-to-top" type="button" aria-label="Scroll to top">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M18 15l-6-6-6 6"/></svg>
@@ -301,23 +365,23 @@
 
     <!-- Bottom nav (mobile) -->
     <nav class="bottom-nav mobile-only" aria-label="Main navigation">
-      <a href="index.html" class="bottom-nav-item active" aria-current="page">
+      <a href="index.html" class="bottom-nav-item active" aria-current="page" aria-label="Browse venues">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
         <span>Browse</span>
       </a>
-      <a href="recommend.html" class="bottom-nav-item">
+      <a href="recommend.html" class="bottom-nav-item" aria-label="For You recommendations">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01z"/></svg>
         <span>For You</span>
       </a>
-      <a href="planner.html" class="bottom-nav-item">
+      <a href="planner.html" class="bottom-nav-item" aria-label="Night plan builder">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/><path d="M12 6v6l4 2"/></svg>
         <span>Plan</span>
       </a>
-      <a href="index.html?view=saved" class="bottom-nav-item" id="savedNavItem">
+      <a href="index.html?view=saved" class="bottom-nav-item" id="savedNavItem" aria-label="Saved venues">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
         <span>Saved</span>
       </a>
-      <a href="neighborhoods.html" class="bottom-nav-item">
+      <a href="neighborhoods.html" class="bottom-nav-item" aria-label="Compare neighborhoods">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
         <span>Compare</span>
       </a>
@@ -325,6 +389,7 @@
 
     <script src="config.js"></script>
     <script src="lib/core.js"></script>
+    <script src="lib/mobile-haptics.js"></script>
     <script src="lib/user-preferences.js"></script>
     <script src="lib/events.js"></script>
     <script src="lib/geo.js"></script>
@@ -342,6 +407,7 @@
     </script>
     <script src="lib/features.js"></script>
     <script src="lib/crawl-history.js"></script>
+    <script src="lib/favorites-backup.js"></script>
     <script>
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker.register("sw.js").catch(function () {});

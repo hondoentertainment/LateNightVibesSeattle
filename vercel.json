@@ -1,4 +1,22 @@
 {
-  "buildCommand": "",
-  "outputDirectory": "."
+  "buildCommand": "cp config.example.js config.js 2>/dev/null || true",
+  "outputDirectory": ".",
+  "rewrites": [
+    { "source": "/planner", "destination": "/planner.html" },
+    { "source": "/recommend", "destination": "/recommend.html" },
+    { "source": "/neighborhoods", "destination": "/neighborhoods.html" },
+    { "source": "/admin", "destination": "/admin.html" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "X-XSS-Protection", "value": "1; mode=block" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "geolocation=(self)" }
+      ]
+    }
+  ]
 }

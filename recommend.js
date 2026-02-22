@@ -4,7 +4,7 @@ let allVenues = [];
 const $ = (id) => document.getElementById(id);
 
 /* ─── Import shared helpers from LNVCore (loaded via lib/core.js) ─── */
-const { normalizeValue, loadDataFromCSV, getVibeSet, parseDistanceMiles } = window.LNVCore;
+const { normalizeValue, loadDataFromCSV, getVibeSet, parseDistanceMiles, syncSelect, addListener, showToast, showErrorToast } = window.LNVCore;
 
 /* ─── Dual controls ─── */
 const venueSelectMobile = $("venueSelect");
@@ -36,10 +36,6 @@ function getContextMode() {
   const m = contextMobile ? contextMobile.value : "";
   const d = contextDesktop ? contextDesktop.value : "";
   return m || d || "";
-}
-
-function syncSelect(source, target) {
-  if (target) target.value = source.value;
 }
 
 /* ─── Context-aware vibes (2) ─── */
@@ -155,7 +151,14 @@ function renderRecommendations() {
 
   if (!selectedName) {
     renderSourceCard(null);
-    grid.innerHTML = `<div class="rec-empty">Pick a starting venue to get recommendations based on distance and shared vibes.</div>`;
+    grid.innerHTML = `
+      <div class="rec-empty">
+        <div style="font-size:28px;margin-bottom:12px">✨</div>
+        <p style="font-weight:600;margin-bottom:8px">Pick a starting venue</p>
+        <p>Choose a venue above to get personalized recommendations based on distance, vibes, and category. You can also add favorites from Browse — we'll use those to tailor results.</p>
+        <a href="index.html" style="display:inline-block;margin-top:16px;color:#2bff86;font-weight:600;text-decoration:none">Browse venues →</a>
+      </div>
+    `;
     return;
   }
 
@@ -169,7 +172,14 @@ function renderRecommendations() {
   const recs = computeRecommendations(base, Number.isFinite(maxDist) ? maxDist : null, count, context);
 
   if (!recs.length) {
-    grid.innerHTML = `<div class="rec-empty">No nearby matches. Try a wider distance.</div>`;
+    grid.innerHTML = `
+      <div class="rec-empty">
+        <div style="font-size:28px;margin-bottom:12px">🗺️</div>
+        <p style="font-weight:600;margin-bottom:8px">No nearby matches</p>
+        <p>Try increasing the max distance, or pick a different starting venue. You can also explore by neighborhood in Browse.</p>
+        <a href="index.html" style="display:inline-block;margin-top:16px;color:#2bff86;font-weight:600;text-decoration:none">Browse venues →</a>
+      </div>
+    `;
     return;
   }
 
@@ -256,20 +266,56 @@ function loadFromText(text) {
   renderRecommendations();
 }
 
+function renderLoadError(grid, retry) {
+  if (!grid) return;
+  const msg = !navigator.onLine
+    ? "You appear to be offline. Connect to the internet and try again."
+    : "Check your connection and try again.";
+  grid.innerHTML = `
+    <div class="rec-empty error-state" role="alert">
+      <div class="error-state-icon" style="font-size:32px;margin-bottom:12px" aria-hidden="true">⚠️</div>
+      <h3 class="error-state-title">Unable to load venue data</h3>
+      <p class="error-state-desc">${msg}</p>
+      ${retry ? '<button type="button" class="btn-primary error-retry-btn" onclick="loadDefaultCSV()">Try again</button>' : ""}
+    </div>
+  `;
+}
+
+function showRecSkeletons() {
+  const grid = $("recommendationGrid");
+  if (!grid) return;
+  grid.innerHTML = "";
+  for (let i = 0; i < 6; i++) {
+    const sk = document.createElement("div");
+    sk.className = "rec-skeleton-card";
+    sk.innerHTML = `
+      <div class="rec-skeleton-poster"></div>
+      <div class="rec-skeleton-body">
+        <div class="rec-skeleton-line rec-skeleton-w80"></div>
+        <div class="rec-skeleton-line rec-skeleton-w60"></div>
+        <div class="rec-skeleton-line rec-skeleton-w40"></div>
+        <div class="rec-skeleton-line rec-skeleton-w70"></div>
+      </div>
+    `;
+    grid.appendChild(sk);
+  }
+}
+
 async function loadDefaultCSV() {
   const grid = $("recommendationGrid");
-  if (grid) grid.innerHTML = '<div class="loading-spinner"><div class="ptr-spinner"></div><span>Loading venues…</span></div>';
+  if (grid) showRecSkeletons();
   try {
     const resp = await fetch(DEFAULT_CSV);
     if (!resp.ok) throw new Error("Fetch failed");
     loadFromText(await resp.text());
   } catch (err) {
-    if (grid) grid.innerHTML = '<div class="rec-empty"><div style="font-size:32px;margin-bottom:12px">⚠️</div>Unable to load venue data. Check your connection and refresh.</div>';
+    renderLoadError(grid, true);
+    const msg = !navigator.onLine ? "You appear to be offline. Connect and try again." : "Failed to load venues — check your connection.";
+    showErrorToast(msg);
   }
 }
 
 /* ─── Listeners ─── */
-function addListener(el, event, fn) { if (el) el.addEventListener(event, fn); }
 
 addListener(venueSelectMobile, "change", () => {
   syncSelect(venueSelectMobile, venueSelectDesktop);
@@ -327,3 +373,9 @@ addListener($("surpriseMeBtn"), "click", handleSurpriseMe);
 addListener($("surpriseMeBtnDesktop"), "click", handleSurpriseMe);
 
 loadDefaultCSV();
+
+window.addEventListener("offline", () => showErrorToast("You are offline. Some features may not work."));
+window.addEventListener("online", () => {
+  showToast("Back online!");
+  if (allVenues.length === 0) loadDefaultCSV();
+});

@@ -92,6 +92,77 @@
   gap: 0;
 }
 
+/* ─── Skeleton loading ─── */
+.planner-skeleton-stop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 18px;
+}
+
+.planner-skeleton-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: linear-gradient(90deg, #151d2e 25%, #1e2638 50%, #151d2e 75%);
+  background-size: 200px 100%;
+  animation: plannerShimmer 1.5s ease-in-out infinite;
+}
+
+.planner-skeleton-line {
+  width: 2px;
+  flex: 1;
+  min-height: 60px;
+  background: #1f2a40;
+}
+
+.planner-skeleton-content {
+  width: 100%;
+  max-width: 320px;
+  background: #101520;
+  border: 1px solid #1e2638;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.planner-skeleton-row {
+  height: 12px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #151d2e 25%, #1e2638 50%, #151d2e 75%);
+  background-size: 400px 100%;
+  animation: plannerShimmer 1.5s ease-in-out infinite;
+}
+
+.planner-skeleton-w70 { width: 70%; }
+.planner-skeleton-w50 { width: 50%; }
+.planner-skeleton-w90 { width: 90%; }
+
+.planner-skeleton-connector {
+  height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.planner-skeleton-connector div {
+  width: 2px;
+  height: 100%;
+  background: #1f2a40;
+}
+
+@keyframes plannerShimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .planner-skeleton-dot,
+  .planner-skeleton-row { animation: none; }
+}
+
 .itinerary-empty {
   padding: 40px 24px;
   text-align: center;
@@ -302,7 +373,36 @@
   color: #6b7a9a;
   display: flex;
   align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.travel-segment {
+  display: flex;
+  align-items: center;
   gap: 6px;
+  font-weight: 600;
+  color: #93a1c6;
+}
+
+.travel-icon {
+  font-size: 14px;
+  line-height: 1;
+}
+
+.travel-label {
+  color: #a0b0d0;
+}
+
+.travel-distance {
+  font-size: 10px;
+  color: #6b7a9a;
+  font-weight: 500;
+}
+
+.connector-meta {
+  font-size: 10px;
+  color: #6b7a9a;
 }
 
 /* ─── Secondary actions ─── */

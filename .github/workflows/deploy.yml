@@ -49,6 +49,9 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
+      - name: Create config from example
+        run: cp config.example.js config.js
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

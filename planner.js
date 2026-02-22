@@ -6,7 +6,7 @@ let lockedStops = new Set(); // indices of locked stops
 const $ = (id) => document.getElementById(id);
 
 /* ─── Import shared helpers from LNVCore (loaded via lib/core.js) ─── */
-const { normalizeValue, loadDataFromCSV, parseTimeToMinutes, parseHHMM, minutesToLabel, getVibeSet } = window.LNVCore;
+const { normalizeValue, loadDataFromCSV, parseTimeToMinutes, parseHHMM, minutesToLabel, getVibeSet, syncSelect, addListener, showToast, showErrorToast } = window.LNVCore;
 
 /* ─── Vibe arc definitions ─── */
 const VIBE_ARCS = {
@@ -37,10 +37,7 @@ const VIBE_ARCS = {
   ],
 };
 
-/* ─── Dual controls sync ─── */
-function syncSelect(source, target) {
-  if (target) target.value = source.value;
-}
+/* ─── Dual controls sync (syncSelect from LNVCore) ─── */
 
 function getVal(mobileId, desktopId) {
   const m = $(mobileId);
@@ -267,16 +264,6 @@ function shareItinerary() {
   }
 }
 
-function showToast(msg) {
-  const existing = document.querySelector(".share-toast");
-  if (existing) existing.remove();
-  const toast = document.createElement("div");
-  toast.className = "share-toast";
-  toast.textContent = msg;
-  document.body.appendChild(toast);
-  setTimeout(() => toast.remove(), 2000);
-}
-
 /* ─── Render ─── */
 function renderItinerary(stops, phases, startMin, slotDuration) {
   const container = $("itinerary");
@@ -368,24 +355,33 @@ function renderItinerary(stops, phases, startMin, slotDuration) {
     const thisArea = normalizeValue(venue.Area);
     const travelNote = thisArea === nextArea ? "Same neighborhood" : `${thisArea} → ${nextArea}`;
     let travelMin = (window.LNVFeatures && window.LNVFeatures.estimateTravelMinutes) ? window.LNVFeatures.estimateTravelMinutes(venue, nextVenue) : (thisArea === nextArea ? 5 : 15);
-    let walkableHint = "";
+    let isWalkable = false;
+    let distanceMiles = null;
     if (window.LNVGeo) {
       const miles = window.LNVGeo.venueToVenueDistanceMiles(venue, nextVenue);
       if (miles != null) {
-        travelMin = Math.ceil(miles * 4 + 5);
+        distanceMiles = miles;
         if (window.LNVGeo.isWalkable && window.LNVGeo.isWalkable(venue, nextVenue)) {
-          walkableHint = " · Walkable (~" + Math.ceil(miles * 20) + " min)";
+          isWalkable = true;
+          travelMin = Math.ceil(miles * 20);
         } else {
-          walkableHint = " · ~" + miles.toFixed(1) + " mi";
+          travelMin = Math.ceil(miles * 4 + 5);
         }
       }
     }
+    const travelIcon = isWalkable ? "🚶" : "🚗";
+    const travelLabel = isWalkable ? `~${travelMin} min walk` : `~${travelMin} min drive`;
     const queueBuf = "~10 min buffer";
     conn.innerHTML = `
       <div class="connector-line"><div></div></div>
       <div class="connector-info">
         <button class="swap-btn" data-swap-a="${idx}" data-swap-b="${idx + 1}" title="Swap these two stops" type="button">⇅</button>
-        ${travelNote} · ~${travelMin} min travel${walkableHint} · ${queueBuf} · ~${Math.floor(slotDuration)} min slot
+        <div class="travel-segment">
+          <span class="travel-icon" aria-hidden="true">${travelIcon}</span>
+          <span class="travel-label">${travelLabel}</span>
+          ${distanceMiles != null && !isWalkable ? `<span class="travel-distance">(~${distanceMiles.toFixed(1)} mi)</span>` : ""}
+        </div>
+        <span class="connector-meta">${travelNote} · ${queueBuf} · ~${Math.floor(slotDuration)} min at venue</span>
       </div>
     `;
     const swapBtn = conn.querySelector(".swap-btn");
@@ -492,7 +488,6 @@ function renderGroupVoteUI(stops) {
 }
 
 /* ─── Listeners ─── */
-function addListener(el, event, fn) { if (el) el.addEventListener(event, fn); }
 
 const syncPairs = [
   ["startTime", "startTimeDesktop"],
@@ -515,16 +510,60 @@ addListener($("shufflePlanDesktop"), "click", shuffleItinerary);
 addListener($("sharePlan"), "click", shareItinerary);
 addListener($("sharePlanDesktop"), "click", shareItinerary);
 
+function renderLoadError(container, retry) {
+  if (!container) return;
+  const msg = !navigator.onLine
+    ? "You appear to be offline. Connect to the internet and try again."
+    : "Check your connection and try again.";
+  container.innerHTML = `
+    <div class="itinerary-empty error-state" role="alert">
+      <div class="error-state-icon" style="font-size:32px;margin-bottom:12px" aria-hidden="true">⚠️</div>
+      <h3 class="error-state-title">Unable to load venue data</h3>
+      <p class="error-state-desc">${msg}</p>
+      ${retry ? '<button type="button" class="btn-primary error-retry-btn" onclick="loadDefaultCSV()">Try again</button>' : ""}
+    </div>
+  `;
+}
+
+function showPlannerSkeletons() {
+  const itinerary = $("itinerary");
+  if (!itinerary) return;
+  let html = "";
+  for (let i = 0; i < 3; i++) {
+    html += `
+      <div class="planner-skeleton-stop">
+        <div class="planner-skeleton-dot"></div>
+        <div class="planner-skeleton-line"></div>
+        <div class="planner-skeleton-content">
+          <div class="planner-skeleton-row planner-skeleton-w70"></div>
+          <div class="planner-skeleton-row planner-skeleton-w50"></div>
+          <div class="planner-skeleton-row planner-skeleton-w90"></div>
+        </div>
+      </div>
+      ${i < 2 ? '<div class="planner-skeleton-connector"><div></div></div>' : ""}
+    `;
+  }
+  itinerary.innerHTML = html;
+}
+
 async function loadDefaultCSV() {
   const itinerary = $("itinerary");
-  if (itinerary) itinerary.innerHTML = '<div class="loading-spinner"><div class="ptr-spinner"></div><span>Loading venues…</span></div>';
+  if (itinerary) showPlannerSkeletons();
   try {
     const resp = await fetch(DEFAULT_CSV);
     if (!resp.ok) throw new Error("Fetch failed");
     loadFromText(await resp.text());
   } catch (_) {
-    if (itinerary) itinerary.innerHTML = '<div class="itinerary-empty"><div style="font-size:32px;margin-bottom:12px">⚠️</div>Unable to load venue data. Check your connection and refresh.</div>';
+    renderLoadError(itinerary, true);
+    const msg = !navigator.onLine ? "You appear to be offline. Connect and try again." : "Failed to load venues — check your connection.";
+    showErrorToast(msg);
   }
 }
 
 loadDefaultCSV();
+
+window.addEventListener("offline", () => showErrorToast("You are offline. Some features may not work."));
+window.addEventListener("online", () => {
+  showToast("Back online!");
+  if (allVenues.length === 0) loadDefaultCSV();
+});

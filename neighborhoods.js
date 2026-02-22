@@ -170,7 +170,32 @@ function buildAreaOptions() {
 function loadFromText(text) {
   allVenues = loadDataFromCSV(text);
   buildAreaOptions();
+
+  const area1 = $("area1");
+  const area2 = $("area2");
+  const hasSelection = area1?.value || area2?.value || $("area3")?.value;
+  if (!hasSelection && area1 && area2) {
+    const areas = [...new Set(allVenues.map((v) => normalizeValue(v.Area)).filter(Boolean))].sort();
+    const capHill = areas.find((a) => /capitol\s*hill/i.test(a));
+    const ballard = areas.find((a) => /^ballard$/i.test(a));
+    if (capHill && ballard) {
+      area1.value = capHill;
+      area2.value = ballard;
+    }
+  }
   renderComparison();
+}
+
+function renderLoadError(grid, retry) {
+  if (!grid) return;
+  grid.innerHTML = `
+    <div class="compare-empty error-state" role="alert">
+      <div class="error-state-icon" style="font-size:32px;margin-bottom:12px" aria-hidden="true">⚠️</div>
+      <h3 class="error-state-title">Unable to load venue data</h3>
+      <p class="error-state-desc">Check your connection and try again.</p>
+      ${retry ? '<button type="button" class="btn-primary error-retry-btn" onclick="loadDefaultCSV()">Try again</button>' : ""}
+    </div>
+  `;
 }
 
 async function loadDefaultCSV() {
@@ -181,7 +206,7 @@ async function loadDefaultCSV() {
     if (!resp.ok) throw new Error("Fetch failed");
     loadFromText(await resp.text());
   } catch (err) {
-    if (grid) grid.innerHTML = '<div class="compare-empty"><div style="font-size:32px;margin-bottom:12px">⚠️</div>Unable to load venue data. Check your connection and refresh.</div>';
+    renderLoadError(grid, true);
   }
 }
 

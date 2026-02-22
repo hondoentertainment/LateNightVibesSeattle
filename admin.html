@@ -6,6 +6,9 @@
     <title>Admin — Late Night Vibes Seattle</title>
     <link rel="icon" type="image/png" href="favicon.png" />
     <link rel="apple-touch-icon" href="favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="admin.css" />
   </head>
@@ -15,63 +18,82 @@
       <div class="brand">
         <img src="lnv-logo.png" alt="Late Night Vibes" class="header-logo" />
       </div>
-      <div class="top-actions">
-        <button id="resetFilters" type="button">Reset Filters</button>
-        <a href="index.html" class="admin-link">Back to Site</a>
-      </div>
+      <nav class="admin-header-actions" aria-label="Admin actions">
+        <button id="reloadData" type="button" class="btn-reload" aria-label="Reload venue data from server">Reload data</button>
+        <a href="index.html" class="admin-link">← Back to site</a>
+      </nav>
     </header>
 
     <div class="admin-layout" id="main">
-      <section class="admin-card">
-        <h2>Dataset Stats</h2>
-        <div class="admin-stats">
-          <div class="stat">
-            <div class="stat-label">Total Venues</div>
-            <div id="venueCount" class="stat-value">0</div>
+      <section class="admin-card admin-hero" aria-labelledby="statsHeading">
+        <h2 id="statsHeading">Dataset Stats</h2>
+        <div class="admin-stats" role="group" aria-label="Venue dataset statistics">
+          <div class="stat stat-featured">
+            <div class="stat-icon" aria-hidden="true">📍</div>
+            <div class="stat-inner">
+              <div id="venueCount" class="stat-value">—</div>
+              <div class="stat-label">Total Venues</div>
+            </div>
           </div>
           <div class="stat">
-            <div class="stat-label">Areas</div>
-            <div id="areaCount" class="stat-value">0</div>
+            <div class="stat-icon" aria-hidden="true">🗺</div>
+            <div class="stat-inner">
+              <div id="areaCount" class="stat-value">—</div>
+              <div class="stat-label">Areas</div>
+            </div>
           </div>
           <div class="stat">
-            <div class="stat-label">Categories</div>
-            <div id="categoryCount" class="stat-value">0</div>
+            <div class="stat-icon" aria-hidden="true">🏷</div>
+            <div class="stat-inner">
+              <div id="categoryCount" class="stat-value">—</div>
+              <div class="stat-label">Categories</div>
+            </div>
           </div>
           <div class="stat">
-            <div class="stat-label">Unique Vibes</div>
-            <div id="vibeCount" class="stat-value">0</div>
+            <div class="stat-icon" aria-hidden="true">✨</div>
+            <div class="stat-inner">
+              <div id="vibeCount" class="stat-value">—</div>
+              <div class="stat-label">Unique Vibes</div>
+            </div>
           </div>
         </div>
-        <div class="status" id="statusText">Loading...</div>
+        <div id="statusText" class="admin-status" aria-live="polite" role="status">Loading venue data…</div>
       </section>
 
-      <section class="admin-card">
-        <h2>Import Dataset</h2>
-        <p class="admin-desc">Upload a CSV to replace the current venue dataset.</p>
-        <label class="file-input file-input-lg">
-          Choose CSV File
-          <input id="csvFile" type="file" accept=".csv" />
-        </label>
+      <section class="admin-card" aria-labelledby="importHeading">
+        <h2 id="importHeading">Import Dataset</h2>
+        <p class="admin-desc">Upload a CSV to replace the current venue dataset. Drag and drop or click to choose a file. Expected columns: Name, Area, Category, Vibe Tags, Typical Closing Time, etc.</p>
+        <div id="dropZone" class="admin-dropzone" role="button" tabindex="0" aria-label="Drop CSV file or click to browse">
+          <input id="csvFile" type="file" accept=".csv" aria-label="Choose CSV file" />
+          <div class="dropzone-content">
+            <div class="dropzone-icon" aria-hidden="true">📄</div>
+            <span class="dropzone-text">Drop CSV here or <strong>click to browse</strong></span>
+          </div>
+        </div>
+        <div id="importFeedback" class="admin-import-feedback" role="status" aria-live="polite"></div>
       </section>
 
-      <section class="admin-card">
-        <h2>Area Breakdown</h2>
+      <section class="admin-card admin-breakdown" aria-labelledby="areaBreakdownHeading">
+        <h2 id="areaBreakdownHeading">Area Breakdown</h2>
         <div id="areaBreakdown" class="breakdown-grid"></div>
       </section>
 
-      <section class="admin-card">
-        <h2>Category Breakdown</h2>
+      <section class="admin-card admin-breakdown" aria-labelledby="categoryBreakdownHeading">
+        <h2 id="categoryBreakdownHeading">Category Breakdown</h2>
         <div id="categoryBreakdown" class="breakdown-grid"></div>
       </section>
 
-      <section class="admin-card">
-        <h2>Vibe Breakdown</h2>
+      <section class="admin-card admin-breakdown" aria-labelledby="vibeBreakdownHeading">
+        <h2 id="vibeBreakdownHeading">Vibe Breakdown</h2>
         <div id="vibeBreakdown" class="breakdown-grid"></div>
       </section>
     </div>
 
     <script src="config.js"></script>
     <script src="lib/core.js"></script>
+    <script>
+      if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(function () {});
+    </script>
     <script>
       (function () {
         const cfg = window.LNV_CONFIG || {};

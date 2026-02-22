@@ -3,7 +3,7 @@ const DEFAULT_CSV = "venue_list_500plus.csv";
 const PAGE_SIZE = 40;
 
 /* ─── Import shared helpers from LNVCore (loaded via lib/core.js) ─── */
-const { normalizeValue, loadDataFromCSV, parseTimeToMinutes, collectVibes } = window.LNVCore;
+const { normalizeValue, loadDataFromCSV, parseTimeToMinutes, collectVibes, syncSelect, addListener, showToast, showErrorToast } = window.LNVCore;
 
 const state = {
   all: [],
@@ -103,6 +103,7 @@ const venueDeepLink = new URLSearchParams(window.location.search).get("venue");
 const $ = (id) => document.getElementById(id);
 
 const elements = {
+  loadingOverlay: $("loadingOverlay"),
   csvFile: $("csvFile"),
   venueCount: $("venueCount"),
   filteredCount: $("filteredCount"),
@@ -112,6 +113,8 @@ const elements = {
   mapWrapper: $("mapWrapper"),
   mapContainer: $("mapContainer"),
   resultSummary: $("resultSummary"),
+  searchAnnouncer: $("searchAnnouncer"),
+  favoritesBackupBar: $("favoritesBackupBar"),
   viewToggle: $("viewToggle"),
   vibeLegend: $("vibeLegend"),
   legendToggle: $("legendToggle"),
@@ -209,11 +212,84 @@ if (elements.filterDrawer) {
   });
 }
 
+function handleRetriggerOnboarding() {
+  closeDrawer();
+  if (typeof showOnboarding === "function") showOnboarding(true);
+  if (window.LNV_HAPTICS) window.LNV_HAPTICS.medium();
+}
+addListener(document.getElementById("retriggerOnboardingBtn"), "click", handleRetriggerOnboarding);
+addListener(document.getElementById("retriggerOnboardingBtnDesktop"), "click", handleRetriggerOnboarding);
+
+/* ─── Venue schema (LocalBusiness JSON-LD) for SEO ─── */
+const VENUE_SCHEMA_ID = "lnv-venue-schema";
+
+function parseClosingTimeToISO(closingTime) {
+  if (!closingTime || typeof closingTime !== "string") return null;
+  const m = closingTime.match(/(\d{1,2}):(\d{2})\s*(AM|PM)/i);
+  if (!m) return null;
+  let h = parseInt(m[1], 10);
+  const min = m[2];
+  if ((m[3] || "").toUpperCase() === "PM" && h !== 12) h += 12;
+  if ((m[3] || "").toUpperCase() === "AM" && h === 12) h = 0;
+  return `${String(h).padStart(2, "0")}:${min}`;
+}
+
+function injectVenueSchema(venue, area, closingTime, address, website) {
+  let el = document.getElementById(VENUE_SCHEMA_ID);
+  if (el) el.remove();
+
+  const name = normalizeValue(venue.Name);
+  const category = normalizeValue(venue.Category);
+  const mapLink = normalizeValue(venue["Google Maps Driving Link"]);
+
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": /bar|tavern|pub|brewery/i.test(category) ? "Bar" : "FoodEstablishment",
+    name,
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: area || "Seattle",
+      addressRegion: "WA",
+    },
+    areaServed: { "@type": "City", name: "Seattle" },
+  };
+
+  if (address && address.toLowerCase() !== "click link") {
+    schema.address.streetAddress = address;
+  }
+
+  const closes = parseClosingTimeToISO(closingTime);
+  if (closes) {
+    schema.openingHoursSpecification = {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+      closes,
+    };
+  }
+
+  if (website) schema.url = website;
+  else if (mapLink) schema.url = mapLink;
+
+  el = document.createElement("script");
+  el.id = VENUE_SCHEMA_ID;
+  el.type = "application/ld+json";
+  el.textContent = JSON.stringify(schema);
+  document.head.appendChild(el);
+}
+
 /* ─── Detail drawer ─── */
 let _detailScrollY = 0;
 function openDetail(venue) {
   _detailDrawerTrigger = document.activeElement;
   _detailScrollY = window.scrollY;
+  const venueName = normalizeValue(venue.Name);
+  const search = new URLSearchParams(window.location.search);
+  search.set("venue", venueName);
+  const qs = search.toString();
+  const base = window.location.pathname || "/index.html";
+  if (window.history && window.history.replaceState) {
+    window.history.replaceState({ venue: venueName }, "", base + (qs ? "?" + qs : ""));
+  }
   const el = elements;
   el.detailOverlay.classList.add("open");
   el.detailDrawer.classList.add("open");
@@ -288,6 +364,9 @@ function openDetail(venue) {
     window.venuePhotos.applyVenuePhoto(posterEl, normalizeValue(venue.Name), area);
   }
 
+  /* ─── LocalBusiness JSON-LD for SEO ─── */
+  injectVenueSchema(venue, area, closingTime, address, website);
+
   if (el.detailClose) setTimeout(() => el.detailClose.focus(), 100);
 
   const favBtn = $("detailFavBtn");
@@ -354,11 +433,21 @@ function openDetail(venue) {
 }
 
 function closeDetail() {
+  const schemaEl = document.getElementById(VENUE_SCHEMA_ID);
+  if (schemaEl) schemaEl.remove();
+
   elements.detailOverlay.classList.remove("open");
   elements.detailDrawer.classList.remove("open");
   document.body.style.overflow = "";
   if (_detailDrawerTrigger) { _detailDrawerTrigger.focus(); _detailDrawerTrigger = null; }
   if (_detailScrollY) { window.scrollTo(0, _detailScrollY); _detailScrollY = 0; }
+  if (window.history && window.history.replaceState) {
+    const base = window.location.pathname || "/index.html";
+    const search = new URLSearchParams(window.location.search);
+    search.delete("venue");
+    const qs = search.toString();
+    window.history.replaceState({}, "", base + (qs ? "?" + qs : ""));
+  }
 }
 
 if (elements.detailOverlay) elements.detailOverlay.addEventListener("click", closeDetail);
@@ -379,41 +468,24 @@ function shareVenue(venue) {
   const vibes = normalizeValue(venue["Vibe Tags"]);
   const mapLink = normalizeValue(venue["Google Maps Driving Link"]);
   const text = `Check out ${name} — ${area}, ${category}. Vibes: ${vibes}.${mapLink ? ` Directions: ${mapLink}` : ""}`;
+  const baseUrl = window.location.origin + (window.location.pathname || "/index.html").split("?")[0];
+  const sep = baseUrl.includes("?") ? "&" : "?";
+  const deepLinkUrl = `${baseUrl}${sep}venue=${encodeURIComponent(name)}`;
 
   if (navigator.share) {
-    navigator.share({ title: name, text: text }).catch((err) => {
+    navigator.share({ title: name, text: text, url: deepLinkUrl }).catch((err) => {
       if (err.name !== "AbortError") {
-        navigator.clipboard.writeText(text).then(() => showToast("Copied to clipboard!")).catch(() => {});
+        navigator.clipboard.writeText(deepLinkUrl).then(() => showToast("Link copied to clipboard!")).catch(() => {});
       }
     });
   } else {
-    navigator.clipboard.writeText(text).then(() => {
-      showToast("Copied to clipboard!");
+    navigator.clipboard.writeText(deepLinkUrl).then(() => {
+      showToast("Link copied to clipboard!");
     }).catch(() => {});
   }
 }
 
-function showToast(msg, type) {
-  const className = type === "error" ? "error-toast" : "share-toast";
-  const existing = document.querySelector("." + className);
-  if (existing) existing.remove();
-  const toast = document.createElement("div");
-  toast.className = className;
-  toast.textContent = msg;
-  toast.setAttribute("role", "status");
-  toast.setAttribute("aria-live", "polite");
-  document.body.appendChild(toast);
-  setTimeout(() => toast.remove(), type === "error" ? 3500 : 2000);
-}
-
-function showErrorToast(msg) {
-  showToast(msg, "error");
-}
-
-/* ─── Sync paired selects ─── */
-function syncSelect(source, target) {
-  if (target) target.value = source.value;
-}
+/* ─── Toast & syncSelect from LNVCore ─── */
 
 /* ─── Utilities ─── */
 function setStatus(text) {
@@ -598,7 +670,7 @@ function requestUserLocation() {
       if (elements.sortSelect) elements.sortSelect.value = "name";
       if (elements.sortSelectMobile) elements.sortSelectMobile.value = "name";
       applyFilters(true);
-      showErrorToast("Location unavailable — sorting by name instead");
+      showErrorToast("Location unavailable — sorting by name. Enable location in browser settings for distance-based sorting.");
     }
   );
 }
@@ -637,6 +709,10 @@ function getVisitedFilterValue() {
 /* ─── Filter + Sort ─── */
 function applyFilters(keepRenderLimit) {
   const query = getSearchQuery();
+  if (elements.resultSummary) {
+    elements.resultSummary.textContent = "Updating…";
+    elements.resultSummary.classList.add("updating");
+  }
   const area = getAreaValue();
   const category = getCategoryValue();
   const activeVibes = Array.from(state.activeVibes);
@@ -734,9 +810,18 @@ function getAttributeClasses(tags) {
 
 function updateResultSummary() {
   if (!elements.resultSummary) return;
+  elements.resultSummary.classList.remove("updating");
   const total = state.filtered.length;
   const label = state.showSavedOnly ? "saved venue" : "venue";
   elements.resultSummary.textContent = `${total} ${label}${total !== 1 ? "s" : ""}`;
+  if (elements.searchAnnouncer) {
+    elements.searchAnnouncer.textContent = total === 0
+      ? "No venues match your search"
+      : `Search results updated. Showing ${total} ${label}${total !== 1 ? "s" : ""}.`;
+  }
+  if (elements.favoritesBackupBar) {
+    elements.favoritesBackupBar.style.display = state.showSavedOnly ? "flex" : "none";
+  }
 }
 
 /* ─── Skeleton loading ─── */
@@ -812,6 +897,7 @@ function renderGrid() {
     const attributeClasses = getAttributeClasses(tags);
     const isFav = state.favorites.has(nameText);
     const visited = isVenueVisited(nameText);
+    const nameEsc = nameText.replace(/"/g, "&quot;");
     const openPill = getOpenStatusPill(closingTime);
     const viabilityBadges = (window.LNVFeatures && window.LNVFeatures.getViabilityBadges) ? window.LNVFeatures.getViabilityBadges(venue) : [];
     const viabilityPills = viabilityBadges.slice(0, 2).map((b) => `<span class="pill ${b.class}">${b.label}</span>`).join("");
@@ -821,8 +907,8 @@ function renderGrid() {
     card.className = `venue-card ${attributeClasses}`;
     card.dataset.venueKey = venueKey;
     card.innerHTML = `
-      <button class="venue-visited ${visited ? "active" : ""}" aria-label="Mark as visited">✓</button>
-      <button class="venue-fav ${isFav ? "active" : ""}" aria-label="Save venue" data-name="${nameText.replace(/"/g, "&quot;")}">
+      <button class="venue-visited ${visited ? "active" : ""}" aria-label="${visited ? "Remove " + nameEsc + " from visited" : "Mark " + nameEsc + " as visited"}">✓</button>
+      <button class="venue-fav ${isFav ? "active" : ""}" aria-label="${isFav ? "Remove " + nameEsc + " from favorites" : "Save " + nameEsc + " to favorites"}" data-name="${nameEsc}">
         ${isFav ? "♥" : "♡"}
       </button>
       <div class="poster ${posterClass}"></div>
@@ -892,7 +978,7 @@ function renderGrid() {
 
     if (window.venuePhotos && window.venuePhotos.isEnabled()) {
       const posterEl = card.querySelector(".poster");
-      window.venuePhotos.applyVenuePhoto(posterEl, nameText, normalizeValue(venue.Area));
+      window.venuePhotos.applyVenuePhotoWhenVisible(posterEl, nameText, normalizeValue(venue.Area));
     }
   });
 }
@@ -1140,6 +1226,7 @@ function ensureLeaflet() {
 /* ─── Map rendering (Leaflet) ─── */
 let leafletMap = null;
 let mapMarkers = [];
+let userLocationMarker = null;
 
 const NEIGHBORHOOD_COORDS = {
   "Capitol Hill": [47.6253, -122.3222], "Ballard": [47.6677, -122.3846],
@@ -1205,7 +1292,27 @@ function renderMap() {
   clearActiveVenueSync();
   mapMarkers.forEach((m) => leafletMap.removeLayer(m));
   mapMarkers = [];
+  if (userLocationMarker && leafletMap) {
+    leafletMap.removeLayer(userLocationMarker);
+    userLocationMarker = null;
+  }
   const bounds = [];
+  if (state.userLocation) {
+    bounds.push([state.userLocation.lat, state.userLocation.lng]);
+    userLocationMarker = L.circleMarker([state.userLocation.lat, state.userLocation.lng], {
+      radius: 10, fillColor: "#4dd6ff", color: "#ffffff", weight: 3, opacity: 1, fillOpacity: 0.9,
+    }).addTo(leafletMap);
+    userLocationMarker.bindPopup("<div><strong>You are here</strong></div>");
+  } else if (navigator.geolocation && state.currentView === "map") {
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        state.userLocation = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+        renderMap();
+      },
+      () => { /* User denied or unavailable */ },
+      { enableHighAccuracy: false, timeout: 5000, maximumAge: 60000 }
+    );
+  }
   state.filtered.forEach((venue) => {
     const coords = getVenueCoords(venue);
     if (!coords) return;
@@ -1235,7 +1342,7 @@ function renderMap() {
     markerByVenueKey.set(venueKey, marker);
     bounds.push([lat, lng]);
   });
-  if (bounds.length) leafletMap.fitBounds(bounds, { padding: [30, 30] });
+  if (bounds.length > 0) leafletMap.fitBounds(bounds, { padding: [30, 30] });
   setTimeout(() => leafletMap.invalidateSize(), 200);
   updateMomentumHint();
 }
@@ -1257,29 +1364,31 @@ function updateMomentumHint() {
 }
 
 /* ─── 3. Intent-first onboarding ─── */
-function initOnboarding() {
+let _onboardingInitialized = false;
+let _onboardingStep = 0;
+let _onboardingAnswers = { who: "", energy: "", area: "" };
+
+function showOnboarding(force) {
   try {
-    if (localStorage.getItem("lnv_onboarding_done")) return;
+    if (!force && localStorage.getItem("lnv_onboarding_done")) return;
   } catch (_) { return; }
   const overlay = $("onboardingOverlay");
   if (!overlay) return;
   const steps = [$("onboardingStep1"), $("onboardingStep2"), $("onboardingStep3")];
-  const dismiss = $("onboardingDismiss");
-  let step = 0;
-  const answers = { who: "", energy: "", area: "" };
+  if (!steps.every(Boolean)) return;
 
   function applyOnboardingResults() {
     try { localStorage.setItem("lnv_onboarding_done", "1"); } catch (_) {}
     if (window.LNVUserPrefs) {
-      window.LNVUserPrefs.saveOnboardingPrefs({ who: answers.who, energy: answers.energy, area: answers.area });
+      window.LNVUserPrefs.saveOnboardingPrefs({ who: _onboardingAnswers.who, energy: _onboardingAnswers.energy, area: _onboardingAnswers.area });
     }
-    if (answers.area && elements.areaSelect) {
-      elements.areaSelect.value = answers.area;
-      if (elements.areaSelectMobile) elements.areaSelectMobile.value = answers.area;
+    if (_onboardingAnswers.area && elements.areaSelect) {
+      elements.areaSelect.value = _onboardingAnswers.area;
+      if (elements.areaSelectMobile) elements.areaSelectMobile.value = _onboardingAnswers.area;
     }
-    if (answers.energy) {
+    if (_onboardingAnswers.energy) {
       const vibeMap = { chill: ["chill", "casual"], medium: ["social", "date-friendly"], high: ["high-energy", "dancey"] };
-      const vibes = vibeMap[answers.energy] || [];
+      const vibes = vibeMap[_onboardingAnswers.energy] || [];
       vibes.forEach((v) => state.activeVibes.add(v));
       syncVibeCheckboxes();
     }
@@ -1295,31 +1404,28 @@ function initOnboarding() {
   }
 
   function advance() {
-    steps[step].style.display = "none";
-    step++;
-    if (step >= steps.length) {
+    steps[_onboardingStep].style.display = "none";
+    _onboardingStep++;
+    if (_onboardingStep >= steps.length) {
       overlay.classList.add("closing");
       setTimeout(() => { overlay.style.display = "none"; overlay.classList.remove("closing"); }, 300);
       applyOnboardingResults();
+      if (window.LNV_HAPTICS) window.LNV_HAPTICS.confirm();
       return;
     }
-    if (step === 2) {
+    if (_onboardingStep === 2) {
       const areas = Array.from(new Set(state.all.map((v) => normalizeValue(v.Area)).filter(Boolean))).sort();
       const container = $("onboardingAreas");
       if (container) {
         container.innerHTML = areas.map((a) => `<button type="button" data-val="${a.replace(/"/g, "&quot;")}">${a}</button>`).join("");
       }
     }
-    updateProgressDots(step);
-    steps[step].style.display = "block";
+    updateProgressDots(_onboardingStep);
+    steps[_onboardingStep].style.display = "block";
+    if (window.LNV_HAPTICS) window.LNV_HAPTICS.light();
   }
 
-  overlay.style.display = "flex";
-  steps[0].style.display = "block";
-  steps[1].style.display = "none";
-  steps[2].style.display = "none";
-
-  overlay.addEventListener("click", (e) => {
+  function handleClick(e) {
     if (e.target === overlay) {
       overlay.style.display = "none";
       applyOnboardingResults();
@@ -1333,13 +1439,33 @@ function initOnboarding() {
       applyOnboardingResults();
       return;
     }
-    if (step === 0) answers.who = btn.dataset.val || "";
-    else if (step === 1) answers.energy = btn.dataset.val || "";
-    else answers.area = btn.dataset.val || "";
+    if (_onboardingStep === 0) _onboardingAnswers.who = btn.dataset.val || "";
+    else if (_onboardingStep === 1) _onboardingAnswers.energy = btn.dataset.val || "";
+    else _onboardingAnswers.area = btn.dataset.val || "";
     btn.classList.add("selected");
     setTimeout(() => advance(), 180);
-  });
+  }
+
+  if (!_onboardingInitialized) {
+    _onboardingInitialized = true;
+    overlay.addEventListener("click", handleClick);
+  }
+
+  _onboardingStep = 0;
+  _onboardingAnswers = { who: "", energy: "", area: "" };
+  overlay.querySelectorAll(".onboarding-options button").forEach((b) => b.classList.remove("selected"));
+  overlay.style.display = "flex";
+  steps[0].style.display = "block";
+  steps[1].style.display = "none";
+  steps[2].style.display = "none";
+  updateProgressDots(0);
 }
+
+function initOnboarding() {
+  showOnboarding(false);
+}
+
+window.showOnboarding = showOnboarding;
 
 /* ─── Quick-filter chips (mobile) ─── */
 (function initQuickFilters() {
@@ -1538,21 +1664,52 @@ function loadFromText(text) {
   updateTonightHighlights();
   initOnboarding();
   if (venueDeepLink) {
-    const match = state.all.find((v) => normalizeValue(v.Name).toLowerCase() === venueDeepLink.toLowerCase());
-    if (match) requestAnimationFrame(() => openDetail(match));
+    const decoded = decodeURIComponent(venueDeepLink).trim();
+    const match = state.all.find((v) => normalizeValue(v.Name).toLowerCase() === decoded.toLowerCase());
+    if (match) {
+      requestAnimationFrame(() => openDetail(match));
+    } else {
+      showErrorToast("Venue not found — it may have been renamed or removed");
+    }
   }
 }
 
+function renderLoadErrorState(message, showRetry) {
+  const retryBtn = showRetry
+    ? '<button type="button" class="btn-primary error-retry-btn" onclick="loadDefaultCSV()">Try again</button>'
+    : "";
+  elements.grid.innerHTML = `
+    <div class="empty-state error-state" role="alert">
+      <div class="error-state-icon" aria-hidden="true">⚠️</div>
+      <h3 class="error-state-title">Unable to load venue data</h3>
+      <p class="error-state-desc">${message}</p>
+      ${retryBtn}
+    </div>
+  `;
+}
+
 async function loadDefaultCSV() {
+  if (elements.loadingOverlay) elements.loadingOverlay.classList.add("active");
+  if (elements.loadingOverlay) {
+    elements.loadingOverlay.querySelector(".loading-overlay-text").textContent = "Loading Seattle venues…";
+  }
   showSkeletons();
   try {
     const response = await fetch(DEFAULT_CSV);
     if (!response.ok) throw new Error("Fetch failed");
     loadFromText(await response.text());
   } catch (err) {
-    setStatus("Unable to load default CSV. Use Load CSV to import.");
-    elements.grid.innerHTML = '<div class="empty-state"><div style="font-size:32px;margin-bottom:12px">⚠️</div><div style="font-size:16px;font-weight:600;margin-bottom:8px;color:#e8e8e8">Unable to load venue data</div><div>Check your connection and try refreshing the page.</div></div>';
+    setStatus("Unable to load default CSV.");
+    const isOffline = !navigator.onLine;
+    renderLoadErrorState(
+      isOffline
+        ? "You appear to be offline. Connect to the internet and try again."
+        : "Check your connection and try again.",
+      true
+    );
     showErrorToast("Failed to load venues — check your connection");
+  } finally {
+    if (elements.loadingOverlay) elements.loadingOverlay.classList.remove("active");
   }
 }
 
@@ -1567,8 +1724,7 @@ function debounce(fn, delay) {
 
 const debouncedApplyFilters = debounce(() => applyFilters(), 250);
 
-/* ─── Event listeners (desktop) ─── */
-function addListener(el, event, fn) { if (el) el.addEventListener(event, fn); }
+/* ─── Event listeners (desktop) ─── (addListener from LNVCore) */
 
 addListener(elements.searchInput, "input", () => {
   if (elements.searchInputMobile) elements.searchInputMobile.value = elements.searchInput.value;
@@ -1804,8 +1960,10 @@ if (state.showSavedOnly) {
   const indicator = $("ptrIndicator");
   if (!indicator) return;
 
+  const PTR_THRESHOLD = 40;
   let startY = 0;
   let isPulling = false;
+  let thresholdHapticFired = false;
 
   const content = document.querySelector(".content") || document.querySelector(".layout");
   if (!content) return;
@@ -1815,14 +1973,19 @@ if (state.showSavedOnly) {
     if (window.scrollY > 10) return;
     startY = e.touches[0].clientY;
     isPulling = true;
+    thresholdHapticFired = false;
   }, { passive: true });
 
   content.addEventListener("touchmove", (e) => {
     if (!isPulling) return;
     const dy = e.touches[0].clientY - startY;
-    if (dy > 40 && dy < 150 && window.scrollY <= 0) {
+    if (dy > PTR_THRESHOLD && dy < 150 && window.scrollY <= 0) {
       indicator.classList.add("pulling");
       indicator.innerHTML = "<span>Release to refresh</span>";
+      if (!thresholdHapticFired && window.LNV_HAPTICS) {
+        window.LNV_HAPTICS.light();
+        thresholdHapticFired = true;
+      }
     } else {
       indicator.classList.remove("pulling");
     }
@@ -1909,4 +2072,106 @@ function clearAllFilters() {
   showToast("Filters cleared");
 }
 
+/* ─── Favorites backup (export/import) ─── */
+addListener($("exportFavoritesBtn"), "click", () => {
+  if (window.LNVFavoritesBackup && window.LNVFavoritesBackup.exportFavorites()) {
+    showToast("Backup downloaded");
+    if (window.LNV_HAPTICS) window.LNV_HAPTICS.confirm();
+  } else {
+    showErrorToast("Export failed");
+  }
+});
+addListener($("importFavoritesInput"), "change", async (event) => {
+  const file = event.target.files && event.target.files[0];
+  if (!file || !window.LNVFavoritesBackup) return;
+  event.target.value = "";
+  const result = await window.LNVFavoritesBackup.importFavorites(file, { merge: true });
+  if (result.success) {
+    state.favorites.clear();
+    loadFavorites();
+    renderGrid();
+    updateResultSummary();
+    showToast(`Imported ${result.imported} venue${result.imported !== 1 ? "s" : ""}. ${result.total} saved total.`);
+    if (window.LNV_HAPTICS) window.LNV_HAPTICS.confirm();
+  } else {
+    showErrorToast(result.error || "Import failed");
+  }
+});
+
 loadDefaultCSV();
+
+/* ─── Network status: offline/online handlers ─── */
+window.addEventListener("offline", () => {
+  showErrorToast("You are offline. Some features may not work.");
+});
+window.addEventListener("online", () => {
+  showToast("Back online!");
+  if (state.all.length === 0) loadDefaultCSV();
+});
+
+/* ─── PWA install prompt ─── */
+(function initInstallPrompt() {
+  const DISMISS_KEY = "lnv_install_dismissed";
+  const DISMISS_DAYS = 14;
+  const VISIT_KEY = "lnv_install_visit";
+
+  let deferredPrompt = null;
+  const banner = document.getElementById("installPrompt");
+  const btn = document.getElementById("installPromptBtn");
+  const dismissBtn = document.getElementById("installPromptDismiss");
+
+  function shouldShow() {
+    if (!deferredPrompt || !banner) return false;
+    if (window.matchMedia("(display-mode: standalone)").matches) return false; // Already installed
+    const dismissed = parseInt(localStorage.getItem(DISMISS_KEY) || "0", 10);
+    if (dismissed && Date.now() - dismissed < DISMISS_DAYS * 864e5) return false;
+    return true;
+  }
+
+  function showBanner() {
+    if (!shouldShow()) return;
+    banner.style.display = "";
+    banner.setAttribute("aria-hidden", "false");
+  }
+
+  function hideBanner() {
+    if (banner) {
+      banner.style.display = "none";
+      banner.setAttribute("aria-hidden", "true");
+    }
+  }
+
+  window.addEventListener("beforeinstallprompt", (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    const visits = parseInt(localStorage.getItem(VISIT_KEY) || "0", 10) + 1;
+    localStorage.setItem(VISIT_KEY, String(visits));
+    if (visits >= 2) setTimeout(showBanner, 1500); // Show after 2nd visit
+  });
+
+  window.addEventListener("appinstalled", () => {
+    deferredPrompt = null;
+    hideBanner();
+  });
+
+  if (btn) {
+    btn.addEventListener("click", async () => {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      if (outcome === "accepted") hideBanner();
+      deferredPrompt = null;
+      if (window.LNV_HAPTICS) window.LNV_HAPTICS.confirm();
+    });
+  }
+
+  if (dismissBtn) {
+    dismissBtn.addEventListener("click", () => {
+      localStorage.setItem(DISMISS_KEY, String(Date.now()));
+      hideBanner();
+      if (window.LNV_HAPTICS) window.LNV_HAPTICS.light();
+    });
+  }
+})();
+
+

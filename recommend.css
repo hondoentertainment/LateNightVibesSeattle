@@ -1,3 +1,26 @@
+/* ─── Context info tooltip ─── */
+.info-tooltip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  margin-left: 4px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(43, 255, 134, 0.15);
+  color: #2bff86;
+  font-size: 11px;
+  cursor: help;
+  vertical-align: middle;
+}
+
+.info-tooltip:hover,
+.info-tooltip:focus-visible {
+  background: rgba(43, 255, 134, 0.25);
+}
+
 /* ─── Mobile controls ─── */
 .rec-mobile-controls {
   flex-direction: column;
@@ -120,6 +143,53 @@
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 18px;
   }
+}
+
+/* ─── Skeleton loading ─── */
+.rec-skeleton-card {
+  background: #101520;
+  border: 1px solid #1e2638;
+  border-radius: 16px;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: 80px auto;
+}
+
+.rec-skeleton-poster {
+  height: 80px;
+  background: linear-gradient(90deg, #151d2e 25%, #1e2638 50%, #151d2e 75%);
+  background-size: 400px 100%;
+  animation: recShimmer 1.5s ease-in-out infinite;
+}
+
+.rec-skeleton-body {
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.rec-skeleton-line {
+  height: 12px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #151d2e 25%, #1e2638 50%, #151d2e 75%);
+  background-size: 400px 100%;
+  animation: recShimmer 1.5s ease-in-out infinite;
+}
+
+.rec-skeleton-w80 { width: 80%; }
+.rec-skeleton-w70 { width: 70%; }
+.rec-skeleton-w60 { width: 60%; }
+.rec-skeleton-w40 { width: 40%; }
+
+@keyframes recShimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rec-skeleton-poster,
+  .rec-skeleton-line { animation: none; }
 }
 
 /* ─── Cards ─── */

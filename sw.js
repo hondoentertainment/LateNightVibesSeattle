@@ -2,7 +2,7 @@
  * Late Night Vibes Seattle — Service Worker
  * Caches static assets and venue data for offline use.
  */
-const CACHE_NAME = "lnv-v2";
+const CACHE_NAME = "lnv-v4";
 
 const PRECACHE_URLS = [
   "/",
@@ -14,28 +14,33 @@ const PRECACHE_URLS = [
   "/recommend.css",
   "/planner.css",
   "/neighborhoods.css",
+  "/admin.css",
   "/app.js",
   "/recommend.js",
   "/planner.js",
   "/neighborhoods.js",
-  "/config.js",
   "/lib/core.js",
   "/lib/user-preferences.js",
   "/lib/events.js",
   "/lib/geo.js",
   "/lib/features.js",
   "/lib/crawl-history.js",
+  "/lib/favorites-backup.js",
   "/lib/share-plan.js",
   "/venue_list_500plus.csv",
-  "/favicon.png",
-  "/favicon-512.png",
-  "/lnv-logo.png",
   "/manifest.json",
+  "/og-image.png",
+  "/splash/splash-1170x2532.png",
+  "/splash/splash-750x1334.png",
 ];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(PRECACHE_URLS))
+    caches.open(CACHE_NAME).then((cache) =>
+      Promise.all(
+        PRECACHE_URLS.map((url) => cache.add(url).catch(() => {}))
+      )
+    )
   );
   self.skipWaiting();
 });
