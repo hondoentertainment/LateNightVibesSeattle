@@ -115,6 +115,13 @@ function handleFile(file) {
     showImportFeedback("Please upload a CSV file.", false);
     return;
   }
+  const confirmed = window.confirm(
+    "This will replace the current venue dataset. Existing data cannot be recovered. Continue?"
+  );
+  if (!confirmed) {
+    showImportFeedback("Import cancelled.", false);
+    return;
+  }
   const reader = new FileReader();
   reader.onload = () => {
     try {

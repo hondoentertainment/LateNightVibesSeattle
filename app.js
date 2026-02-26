@@ -906,6 +906,9 @@ function renderGrid() {
     const venueKey = getVenueSyncKey(venue);
     card.className = `venue-card ${attributeClasses}`;
     card.dataset.venueKey = venueKey;
+    card.setAttribute("role", "button");
+    card.setAttribute("tabindex", "0");
+    card.setAttribute("aria-label", `View details for ${nameText}`);
     card.innerHTML = `
       <button class="venue-visited ${visited ? "active" : ""}" aria-label="${visited ? "Remove " + nameEsc + " from visited" : "Mark " + nameEsc + " as visited"}">✓</button>
       <button class="venue-fav ${isFav ? "active" : ""}" aria-label="${isFav ? "Remove " + nameEsc + " from favorites" : "Save " + nameEsc + " to favorites"}" data-name="${nameEsc}">
@@ -957,11 +960,15 @@ function renderGrid() {
       if (state.showSavedOnly) applyFilters();
     });
 
-    card.addEventListener("click", (e) => {
+    const handleCardActivate = (e) => {
       if (e.target.closest(".venue-fav") || e.target.closest(".venue-visited")) return;
+      if (e.type === "keydown" && e.key !== "Enter" && e.key !== " ") return;
+      if (e.type === "keydown") e.preventDefault();
       if (window.LNV_HAPTICS) window.LNV_HAPTICS.light();
       openDetail(venue);
-    });
+    };
+    card.addEventListener("click", handleCardActivate);
+    card.addEventListener("keydown", handleCardActivate);
     card.addEventListener("mouseenter", () => {
       if (state.currentView === "map") setActiveVenueSync(venueKey, { openPopup: true });
     });

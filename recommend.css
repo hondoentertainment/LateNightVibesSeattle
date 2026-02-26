@@ -3,17 +3,20 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 18px;
-  height: 18px;
+  min-width: 44px;
+  min-height: 44px;
+  width: 44px;
+  height: 44px;
   margin-left: 4px;
   padding: 0;
   border: none;
   border-radius: 50%;
   background: rgba(43, 255, 134, 0.15);
   color: #2bff86;
-  font-size: 11px;
+  font-size: 14px;
   cursor: help;
   vertical-align: middle;
+  touch-action: manipulation;
 }
 
 .info-tooltip:hover,
