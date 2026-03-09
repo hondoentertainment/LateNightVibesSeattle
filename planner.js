@@ -92,6 +92,7 @@ function generateItinerary() {
   const area = getVal("areaFilter", "areaFilterDesktop");
   const arcKey = getVal("vibeArc", "vibeArcDesktop");
   const stopCount = parseInt(getVal("stopCount", "stopCountDesktop") || "3", 10);
+  const groupSize = parseInt(getVal("groupSize", "groupSizeDesktop") || "4", 10);
 
   let startMin = parseHHMM(startStr);
   let endMin = parseHHMM(endStr);
@@ -151,7 +152,15 @@ function generateItinerary() {
         if (prevPick) {
           if (normalizeValue(v.Area) === normalizeValue(prevPick.Area)) proximityBonus = 0.3;
         }
-        const score = vibeScore + diversityBonus + proximityBonus + closePenalty;
+        let groupBonus = 0;
+        if (groupSize >= 4) {
+          const groupVibes = ["group-friendly", "group-fun", "social"];
+          groupBonus = groupVibes.filter(t => venueVibes.has(t)).length * 0.1;
+        } else if (groupSize <= 2) {
+          const intimateVibes = ["date-friendly", "chill", "intimate", "upscale"];
+          groupBonus = intimateVibes.filter(t => venueVibes.has(t)).length * 0.1;
+        }
+        const score = vibeScore + diversityBonus + proximityBonus + closePenalty + groupBonus;
         return { venue: v, score, matchedVibes: matched };
       })
       .sort((a, b) => b.score - a.score);
@@ -418,30 +427,24 @@ function buildAreaOptions() {
   });
 }
 
+const WHO_TO_ARC = { date: "date-night" };
+const ENERGY_TO_ARC = { high: "party", chill: "low-key", medium: "chill-to-wild" };
+
 function applyOnboardingVibeArc() {
   if (!window.LNVUserPrefs) return;
-  var prefs = window.LNVUserPrefs.loadOnboardingPrefs();
+  const prefs = window.LNVUserPrefs.loadOnboardingPrefs();
   if (!prefs) return;
-  // Map onboarding persona + energy to a vibe arc
-  var arcKey = "";
-  if (prefs.who === "date") {
-    arcKey = "date-night";
-  } else if (prefs.energy === "high") {
-    arcKey = "party";
-  } else if (prefs.energy === "chill") {
-    arcKey = "low-key";
-  } else if (prefs.energy === "medium") {
-    arcKey = "chill-to-wild";
-  }
+  const arcKey = WHO_TO_ARC[prefs.who] || ENERGY_TO_ARC[prefs.energy] || "";
   if (!arcKey) return;
-  [$("vibeArc"), $("vibeArcDesktop")].forEach(function (sel) {
-    if (sel) sel.value = arcKey;
-  });
-  // Also pre-select area if saved
+  const vibeArc = $("vibeArc");
+  const vibeArcDesktop = $("vibeArcDesktop");
+  if (vibeArc) vibeArc.value = arcKey;
+  syncSelect(vibeArc || { value: arcKey }, vibeArcDesktop);
   if (prefs.area) {
-    [$("areaFilter"), $("areaFilterDesktop")].forEach(function (sel) {
-      if (sel) sel.value = prefs.area;
-    });
+    const areaFilter = $("areaFilter");
+    const areaFilterDesktop = $("areaFilterDesktop");
+    if (areaFilter) areaFilter.value = prefs.area;
+    syncSelect(areaFilter || { value: prefs.area }, areaFilterDesktop);
   }
 }
 
@@ -518,12 +521,17 @@ function renderGroupVoteUI(stops) {
       ${stops.map((v, i) => `<button type="button" class="vote-btn" data-idx="${i}">${i + 1}. ${normalizeValue(v.Name)}</button>`).join("")}
     </div>
   `;
-  const votes = {};
+  const voteKey = "lnv_votes_" + stops.map(v => normalizeValue(v.Name)).join("|");
+  const votes = JSON.parse(localStorage.getItem(voteKey) || "{}");
   section.querySelectorAll(".vote-btn").forEach((btn) => {
+    const idx = btn.dataset.idx;
+    if (votes[idx]) {
+      btn.textContent = `${parseInt(idx, 10) + 1}. ${normalizeValue(stops[idx].Name)} (${votes[idx]})`;
+    }
     btn.addEventListener("click", () => {
-      const idx = btn.dataset.idx;
       votes[idx] = (votes[idx] || 0) + 1;
       btn.textContent = `${parseInt(idx, 10) + 1}. ${normalizeValue(stops[idx].Name)} (${votes[idx]})`;
+      localStorage.setItem(voteKey, JSON.stringify(votes));
       showToast("Vote counted!");
     });
   });

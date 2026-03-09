@@ -271,17 +271,16 @@ function buildVenueOptions() {
   if (defaultName) renderRecommendations();
 }
 
+const WHO_TO_CONTEXT = { solo: "solo", date: "date", friends: "friends", group: "friends" };
+
 function applyOnboardingContext() {
   if (!window.LNVUserPrefs) return;
-  var prefs = window.LNVUserPrefs.loadOnboardingPrefs();
+  const prefs = window.LNVUserPrefs.loadOnboardingPrefs();
   if (!prefs || !prefs.who) return;
-  // Map onboarding persona to context mode
-  var contextMap = { solo: "solo", date: "date", friends: "friends", group: "friends" };
-  var mode = contextMap[prefs.who] || "";
+  const mode = WHO_TO_CONTEXT[prefs.who] || "";
   if (!mode) return;
-  [contextMobile, contextDesktop].forEach(function (sel) {
-    if (sel) sel.value = mode;
-  });
+  if (contextMobile) contextMobile.value = mode;
+  syncSelect(contextMobile || { value: mode }, contextDesktop);
 }
 
 function loadFromText(text) {
