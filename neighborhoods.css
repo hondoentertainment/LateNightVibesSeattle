@@ -216,10 +216,18 @@
 }
 
 .hood-venue-list {
-  max-height: 320px;
-  overflow-y: auto;
+  max-height: 0;
+  overflow: hidden;
   padding: 0 16px;
   border-top: 1px solid #1c2436;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+}
+
+.hood-venue-list.expanded {
+  max-height: 400px;
+  overflow-y: auto;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 .hood-venue-item {
@@ -250,6 +258,27 @@
   font-size: 11px;
   color: #6b7a9a;
   margin-top: 2px;
+}
+
+.hood-venue-filter {
+  width: 100%;
+  padding: 8px 12px;
+  background: #0d111b;
+  color: #e8e8e8;
+  border: 1px solid #1c2436;
+  border-radius: 8px;
+  font-size: 12px;
+  outline: none;
+  margin-bottom: 8px;
+  transition: border-color 0.15s ease;
+}
+
+.hood-venue-filter:focus {
+  border-color: #2bff86;
+}
+
+.hood-venue-filter::placeholder {
+  color: #6b7a9a;
 }
 
 .hood-action-plan {

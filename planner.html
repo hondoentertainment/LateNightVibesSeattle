@@ -193,6 +193,9 @@
       <main class="planner-results" id="main">
         <h1 class="sr-only">Night Plan Builder — create your Seattle night out</h1>
         <div id="groupVoteSection" class="group-vote-section" style="display:none"></div>
+        <div class="planner-filter-bar" id="plannerFilterBar" style="display:none">
+          <input id="plannerSearchFilter" type="search" placeholder="Filter stops by name, area, or vibe…" autocomplete="off" aria-label="Filter itinerary stops" class="planner-search-input" />
+        </div>
         <div id="itinerary" class="itinerary" aria-live="polite"></div>
       </main>
     </div>
@@ -244,6 +247,7 @@
     <script src="lib/geo.js"></script>
     <script src="lib/features.js"></script>
     <script src="lib/share-plan.js"></script>
+    <script src="lib/detail-drawer.js"></script>
     <script>
       (function () {
         const cfg = window.LNV_CONFIG || {};

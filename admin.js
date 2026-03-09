@@ -1,4 +1,60 @@
 const DEFAULT_CSV = "venue_list_500plus.csv";
+const ADMIN_TOKEN = "lnv-admin-2024";
+const ADMIN_TOKEN_KEY = "lnv_admin_token";
+
+/* ─── Auth gate ─── */
+function checkAdminAuth() {
+  const params = new URLSearchParams(window.location.search);
+  const urlToken = params.get("token");
+  const storedToken = localStorage.getItem(ADMIN_TOKEN_KEY);
+
+  if (urlToken === ADMIN_TOKEN || storedToken === ADMIN_TOKEN) {
+    localStorage.setItem(ADMIN_TOKEN_KEY, ADMIN_TOKEN);
+    return true;
+  }
+  return false;
+}
+
+function showAuthGate() {
+  const main = document.getElementById("main");
+  if (main) main.style.display = "none";
+
+  const gate = document.createElement("div");
+  gate.id = "authGate";
+  gate.style.cssText =
+    "display:flex;align-items:center;justify-content:center;min-height:80vh;padding:2rem;";
+  gate.innerHTML =
+    '<form id="authForm" style="background:var(--card-bg,#1e1e2e);padding:2rem 2.5rem;border-radius:12px;' +
+    "box-shadow:0 4px 24px rgba(0,0,0,.4);text-align:center;max-width:360px;width:100%;\">" +
+    '<h2 style="margin:0 0 .5rem;color:var(--text-primary,#fff);font-size:1.25rem;">Admin Access</h2>' +
+    '<p style="margin:0 0 1.25rem;color:var(--text-secondary,#aaa);font-size:.9rem;">Enter the admin token to continue.</p>' +
+    '<input id="authTokenInput" type="password" placeholder="Admin token" autocomplete="off" ' +
+    'style="width:100%;padding:.6rem .75rem;border:1px solid var(--border,#333);border-radius:8px;' +
+    'background:var(--input-bg,#16161e);color:var(--text-primary,#fff);font-size:1rem;box-sizing:border-box;" />' +
+    '<p id="authError" style="color:#f87171;font-size:.85rem;margin:.75rem 0 0;display:none;">Invalid token. Please try again.</p>' +
+    '<button type="submit" style="margin-top:1rem;width:100%;padding:.6rem;border:none;border-radius:8px;' +
+    'background:var(--accent,#6366f1);color:#fff;font-size:1rem;font-weight:600;cursor:pointer;">Sign in</button>' +
+    "</form>";
+
+  const main2 = document.getElementById("main");
+  if (main2 && main2.parentNode) {
+    main2.parentNode.insertBefore(gate, main2);
+  } else {
+    document.body.appendChild(gate);
+  }
+
+  document.getElementById("authForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var value = document.getElementById("authTokenInput").value.trim();
+    if (value === ADMIN_TOKEN) {
+      localStorage.setItem(ADMIN_TOKEN_KEY, ADMIN_TOKEN);
+      window.location.reload();
+    } else {
+      var err = document.getElementById("authError");
+      if (err) err.style.display = "block";
+    }
+  });
+}
 
 /* ─── Import shared helpers from LNVCore (loaded via lib/core.js) ─── */
 const { normalizeValue, loadDataFromCSV } = window.LNVCore;
@@ -140,45 +196,52 @@ function handleFile(file) {
   reader.readAsText(file);
 }
 
-/* ─── Drop zone ─── */
-const dropZone = document.getElementById("dropZone");
-const csvInput = document.getElementById("csvFile");
+/* ─── Auth check & initialization ─── */
+if (checkAdminAuth()) {
+  /* ─── Drop zone ─── */
+  const dropZone = document.getElementById("dropZone");
+  const csvInput = document.getElementById("csvFile");
 
-if (dropZone && csvInput) {
-  dropZone.addEventListener("click", () => csvInput.click());
-  dropZone.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" || e.key === " ") {
+  if (dropZone && csvInput) {
+    dropZone.addEventListener("click", () => csvInput.click());
+    dropZone.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        csvInput.click();
+      }
+    });
+    dropZone.addEventListener("dragover", (e) => {
       e.preventDefault();
-      csvInput.click();
-    }
-  });
-  dropZone.addEventListener("dragover", (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    dropZone.classList.add("admin-dropzone-dragover");
-  });
-  dropZone.addEventListener("dragleave", () => {
-    dropZone.classList.remove("admin-dropzone-dragover");
-  });
-  dropZone.addEventListener("drop", (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    dropZone.classList.remove("admin-dropzone-dragover");
-    const file = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
-    handleFile(file);
-  });
+      e.stopPropagation();
+      dropZone.classList.add("admin-dropzone-dragover");
+    });
+    dropZone.addEventListener("dragleave", () => {
+      dropZone.classList.remove("admin-dropzone-dragover");
+    });
+    dropZone.addEventListener("drop", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      dropZone.classList.remove("admin-dropzone-dragover");
+      const file = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+      handleFile(file);
+    });
+  }
+
+  if (csvInput) {
+    csvInput.addEventListener("change", (e) => {
+      const file = e.target.files && e.target.files[0];
+      handleFile(file);
+      e.target.value = "";
+    });
+  }
+
+  /* ─── Reload button ─── */
+  const reloadBtn = document.getElementById("reloadData");
+  if (reloadBtn) {
+    reloadBtn.addEventListener("click", loadDefaultCSV);
+  }
+
+  loadDefaultCSV();
+} else {
+  showAuthGate();
 }
-
-csvInput.addEventListener("change", (e) => {
-  const file = e.target.files && e.target.files[0];
-  handleFile(file);
-  e.target.value = "";
-});
-
-/* ─── Reload button ─── */
-const reloadBtn = document.getElementById("reloadData");
-if (reloadBtn) {
-  reloadBtn.addEventListener("click", loadDefaultCSV);
-}
-
-loadDefaultCSV();
