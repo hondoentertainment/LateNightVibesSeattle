@@ -144,9 +144,41 @@ function renderComparison() {
           }).join("");
         })()}
       </div>
+      <button type="button" class="hood-action hood-expand-btn" aria-expanded="false">Show venues ▾</button>
+      <div class="hood-venue-list" style="display:none"></div>
       <a href="index.html" class="hood-action" onclick="localStorage.setItem('lnv_jumpArea','${data.name}')">Browse ${data.name} venues →</a>
       <a href="planner.html?area=${encodeURIComponent(data.name)}" class="hood-action hood-action-plan">Build a night in ${data.name} →</a>
     `;
+
+    // Expandable venue list
+    const expandBtn = card.querySelector(".hood-expand-btn");
+    const venueListEl = card.querySelector(".hood-venue-list");
+    expandBtn.addEventListener("click", () => {
+      const isOpen = expandBtn.getAttribute("aria-expanded") === "true";
+      if (isOpen) {
+        venueListEl.style.display = "none";
+        expandBtn.setAttribute("aria-expanded", "false");
+        expandBtn.textContent = "Show venues ▾";
+      } else {
+        if (!venueListEl.innerHTML) {
+          const venues = allVenues.filter((v) => normalizeValue(v.Area) === data.name);
+          venueListEl.innerHTML = venues.map((v) => {
+            const name = normalizeValue(v.Name);
+            const cat = normalizeValue(v.Category);
+            const closing = normalizeValue(v["Typical Closing Time"]) || "Late";
+            const mapLink = normalizeValue(v["Google Maps Driving Link"]);
+            return '<div class="hood-venue-item">' +
+              '<div class="hood-venue-name">' + (mapLink ? '<a href="' + mapLink + '" target="_blank" rel="noopener">' + name + '</a>' : name) + '</div>' +
+              '<div class="hood-venue-meta">' + cat + ' · ' + closing + '</div>' +
+              '</div>';
+          }).join("");
+        }
+        venueListEl.style.display = "block";
+        expandBtn.setAttribute("aria-expanded", "true");
+        expandBtn.textContent = "Hide venues ▴";
+      }
+    });
+
     grid.appendChild(card);
   });
 }
@@ -200,7 +232,30 @@ function renderLoadError(grid, retry) {
 
 async function loadDefaultCSV() {
   const grid = $("comparisonGrid");
-  if (grid) grid.innerHTML = '<div class="loading-spinner"><div class="ptr-spinner"></div><span>Loading venues…</span></div>';
+  if (grid) {
+    let skeletonHtml = "";
+    for (let i = 0; i < 2; i++) {
+      skeletonHtml += `
+        <div class="hood-skeleton-card">
+          <div class="hood-skeleton-header">
+            <div class="hood-skeleton-line hood-skeleton-w60"></div>
+            <div class="hood-skeleton-line hood-skeleton-w40"></div>
+          </div>
+          <div class="hood-skeleton-stats">
+            <div class="hood-skeleton-stat"></div>
+            <div class="hood-skeleton-stat"></div>
+            <div class="hood-skeleton-stat"></div>
+            <div class="hood-skeleton-stat"></div>
+          </div>
+          <div class="hood-skeleton-bars">
+            <div class="hood-skeleton-line hood-skeleton-w80"></div>
+            <div class="hood-skeleton-line hood-skeleton-w60"></div>
+            <div class="hood-skeleton-line hood-skeleton-w40"></div>
+          </div>
+        </div>`;
+    }
+    grid.innerHTML = skeletonHtml;
+  }
   try {
     const resp = await fetch(DEFAULT_CSV);
     if (!resp.ok) throw new Error("Fetch failed");

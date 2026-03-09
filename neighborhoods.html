@@ -38,6 +38,7 @@
         <a href="index.html" class="nav-pill">Browse Venues</a>
         <a href="recommend.html" class="nav-pill">Recommendations</a>
         <a href="planner.html" class="nav-pill">Night Plan</a>
+        <a href="index.html?view=saved" class="nav-pill">Saved</a>
         <a href="admin.html" class="nav-pill nav-admin">Admin</a>
       </nav>
     </header>
@@ -89,6 +90,8 @@
 
     <script src="config.js"></script>
     <script src="lib/core.js"></script>
+    <script src="lib/shared-nav.js"></script>
+    <script>LNVNav.init({ page: "neighborhoods" });</script>
     <script src="lib/mobile-haptics.js"></script>
     <script>
       if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(function () {});

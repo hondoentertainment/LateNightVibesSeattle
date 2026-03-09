@@ -3,10 +3,10 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 44px;
-  min-height: 44px;
-  width: 44px;
-  height: 44px;
+  min-width: var(--touch-target-min);
+  min-height: var(--touch-target-min);
+  width: var(--touch-target-min);
+  height: var(--touch-target-min);
   margin-left: 4px;
   padding: 0;
   border: none;
@@ -195,6 +195,31 @@
   .rec-skeleton-line { animation: none; }
 }
 
+/* ─── Filter bar ─── */
+.rec-filter-bar {
+  padding: 0 0 12px;
+}
+
+.rec-search-input {
+  width: 100%;
+  padding: 12px 16px;
+  background: #111827;
+  color: #e8e8e8;
+  border: 1px solid #2a334d;
+  border-radius: 12px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.rec-search-input:focus {
+  border-color: #2bff86;
+}
+
+.rec-search-input::placeholder {
+  color: #6b7a9a;
+}
+
 /* ─── Cards ─── */
 .rec-card {
   background: #101520;
@@ -204,6 +229,12 @@
   display: grid;
   grid-template-rows: 80px auto;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
+  cursor: pointer;
+}
+
+.rec-card:focus-visible {
+  outline: 2px solid #2bff86;
+  outline-offset: 2px;
 }
 
 @media (min-width: 860px) {

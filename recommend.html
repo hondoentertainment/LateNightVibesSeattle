@@ -38,6 +38,7 @@
         <a href="index.html" class="nav-pill">Browse Venues</a>
         <a href="planner.html" class="nav-pill">Night Plan</a>
         <a href="neighborhoods.html" class="nav-pill">Compare</a>
+        <a href="index.html?view=saved" class="nav-pill">Saved</a>
         <a href="admin.html" class="nav-pill nav-admin" id="adminNavLinkRec">Admin</a>
       </nav>
     </header>
@@ -120,6 +121,9 @@
 
       <main class="rec-results" id="main">
         <h1 class="sr-only">Get personalized venue recommendations</h1>
+        <div class="rec-filter-bar">
+          <input id="recSearchFilter" type="search" placeholder="Filter results by name, area, or vibe…" autocomplete="off" aria-label="Filter recommendation results" class="rec-search-input" />
+        </div>
         <div id="recommendationGrid" class="rec-grid" aria-live="polite"></div>
       </main>
     </div>
@@ -148,8 +152,21 @@
       </a>
     </nav>
 
+    <!-- Detail drawer (shared pattern from Browse) -->
+    <div id="recDetailOverlay" class="detail-overlay"></div>
+    <div id="recDetailDrawer" class="detail-drawer" role="dialog" aria-modal="true" aria-labelledby="recDetailTitle">
+      <div class="drawer-handle"></div>
+      <div class="drawer-header">
+        <span id="recDetailTitle" class="drawer-title"></span>
+        <button id="recDetailClose" class="drawer-close" type="button" aria-label="Close venue details">&times;</button>
+      </div>
+      <div id="recDetailBody" class="detail-body"></div>
+    </div>
+
     <script src="config.js"></script>
     <script src="lib/core.js"></script>
+    <script src="lib/shared-nav.js"></script>
+    <script>LNVNav.init({ page: "recommend", adminId: "adminNavLinkRec" });</script>
     <script src="lib/mobile-haptics.js"></script>
     <script>
       if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(function () {});
