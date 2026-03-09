@@ -418,9 +418,37 @@ function buildAreaOptions() {
   });
 }
 
+function applyOnboardingVibeArc() {
+  if (!window.LNVUserPrefs) return;
+  var prefs = window.LNVUserPrefs.loadOnboardingPrefs();
+  if (!prefs) return;
+  // Map onboarding persona + energy to a vibe arc
+  var arcKey = "";
+  if (prefs.who === "date") {
+    arcKey = "date-night";
+  } else if (prefs.energy === "high") {
+    arcKey = "party";
+  } else if (prefs.energy === "chill") {
+    arcKey = "low-key";
+  } else if (prefs.energy === "medium") {
+    arcKey = "chill-to-wild";
+  }
+  if (!arcKey) return;
+  [$("vibeArc"), $("vibeArcDesktop")].forEach(function (sel) {
+    if (sel) sel.value = arcKey;
+  });
+  // Also pre-select area if saved
+  if (prefs.area) {
+    [$("areaFilter"), $("areaFilterDesktop")].forEach(function (sel) {
+      if (sel) sel.value = prefs.area;
+    });
+  }
+}
+
 function loadFromText(text) {
   allVenues = loadDataFromCSV(text);
   buildAreaOptions();
+  applyOnboardingVibeArc();
   const planParam = new URLSearchParams(window.location.search).get("plan");
   const seedParam = new URLSearchParams(window.location.search).get("seed");
   if (planParam) {
@@ -447,6 +475,10 @@ function loadFromText(text) {
     }
   } else {
     $("itinerary").innerHTML = `<div class="itinerary-empty">Choose your settings and tap <strong>Build my night</strong> to generate an itinerary with ${allVenues.length} venues.</div>`;
+  }
+  // Deep-link: auto-open venue drawer if ?venue= param is present
+  if (window.LNVDetailDrawer && window.LNVDetailDrawer.openFromURL) {
+    window.LNVDetailDrawer.openFromURL(allVenues);
   }
 }
 

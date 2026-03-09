@@ -1,6 +1,8 @@
 {
+  "trailingSlash": false,
   "buildCommand": "cp config.example.js config.js 2>/dev/null || true",
   "outputDirectory": ".",
+  "cleanUrls": true,
   "rewrites": [
     { "source": "/planner", "destination": "/planner.html" },
     { "source": "/recommend", "destination": "/recommend.html" },
