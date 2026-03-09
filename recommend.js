@@ -383,161 +383,20 @@ function handleSurpriseMe() {
 addListener($("surpriseMeBtn"), "click", handleSurpriseMe);
 addListener($("surpriseMeBtnDesktop"), "click", handleSurpriseMe);
 
-/* ─── Detail drawer for recommendation cards ─── */
-const recDetailOverlay = $("recDetailOverlay");
-const recDetailDrawer = $("recDetailDrawer");
-const recDetailClose = $("recDetailClose");
-const recDetailTitle = $("recDetailTitle");
-const recDetailBody = $("recDetailBody");
-let _recDetailTrigger = null;
-
-function parseTimeToMinutes(str) {
-  if (!str) return null;
-  const m = str.match(/(\d{1,2}):(\d{2})\s*(am|pm)/i);
-  if (!m) return null;
-  let h = parseInt(m[1], 10);
-  const min = parseInt(m[2], 10);
-  const pm = m[3].toLowerCase() === "pm";
-  if (pm && h < 12) h += 12;
-  if (!pm && h === 12) h = 0;
-  return h * 60 + min;
-}
-
-function getOpenStatusPillRec(closingTimeStr) {
-  const minutes = parseTimeToMinutes(closingTimeStr);
-  if (minutes === null) return '<span class="pill">Hours unknown</span>';
-  const now = new Date();
-  const nowMinutes = now.getHours() * 60 + now.getMinutes();
-  const closingAdj = minutes <= 360 ? minutes + 1440 : minutes;
-  const nowAdj = nowMinutes < 540 ? nowMinutes + 1440 : nowMinutes;
-  if (nowAdj >= 17 * 60 && nowAdj < closingAdj) return '<span class="pill pill-open">Open now</span>';
-  return '<span class="pill pill-closed">Likely closed</span>';
+/* ─── Detail drawer (shared module) ─── */
+if (window.LNVDetailDrawer) {
+  window.LNVDetailDrawer.init({
+    overlay: $("recDetailOverlay"),
+    drawer: $("recDetailDrawer"),
+    close: $("recDetailClose"),
+    title: $("recDetailTitle"),
+    body: $("recDetailBody"),
+  });
 }
 
 function openRecDetail(venue) {
-  if (!recDetailDrawer || !recDetailOverlay) return;
-  _recDetailTrigger = document.activeElement;
-  const venueName = normalizeValue(venue.Name);
-  recDetailOverlay.classList.add("open");
-  recDetailDrawer.classList.add("open");
-  document.body.style.overflow = "hidden";
-  recDetailTitle.textContent = venueName;
-
-  const mapLink = normalizeValue(venue["Google Maps Driving Link"]);
-  const address = normalizeValue(venue.Address);
-  const phone = normalizeValue(venue.Phone);
-  const website = normalizeValue(venue.Website);
-  const closingTime = normalizeValue(venue["Typical Closing Time"]);
-  const distance = normalizeValue(venue["Driving Distance"]);
-  const area = normalizeValue(venue.Area);
-  const category = normalizeValue(venue.Category);
-  const tags = normalizeValue(venue["Vibe Tags"]).split(",").map((t) => normalizeValue(t)).filter(Boolean);
-  const primaryTag = (tags[0] || "general").toLowerCase().replace(/[^a-z0-9-]/g, "") || "general";
-  const posterClass = `poster-general poster-${primaryTag}`;
-  const statusPill = getOpenStatusPillRec(closingTime);
-  const googleSearch = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${venueName} ${area} Seattle`)}`;
-  const yelpSearch = `https://www.yelp.com/search?find_desc=${encodeURIComponent(venueName)}&find_loc=${encodeURIComponent(`${area}, Seattle`)}`;
-
-  let websiteLink = "";
-  if (website) {
-    try { websiteLink = `<a href="${website}" target="_blank" rel="noopener" style="color:#9fd6ff;text-decoration:none">${new URL(website).hostname}</a>`; }
-    catch (_) { websiteLink = `<a href="${website}" target="_blank" rel="noopener" style="color:#9fd6ff;text-decoration:none">${website}</a>`; }
-  }
-
-  const favs = JSON.parse(localStorage.getItem("lnv_favorites") || "[]");
-  const isFav = favs.includes(venueName);
-
-  recDetailBody.innerHTML = `
-    <div class="detail-poster ${posterClass}"></div>
-    <div class="detail-name">${venueName}</div>
-    <div class="detail-meta">${area} · ${category}</div>
-    <div class="detail-row"><span class="label">Status</span>${statusPill}</div>
-    ${closingTime ? `<div class="detail-row"><span class="label">Closes</span>${closingTime}</div>` : ""}
-    ${distance ? `<div class="detail-row"><span class="label">Distance</span>${mapLink ? `<a href="${mapLink}" target="_blank" rel="noopener" style="color:#9fd6ff;text-decoration:none">${distance} ↗</a>` : distance}</div>` : ""}
-    ${address && address.toLowerCase() !== "click link" ? `<div class="detail-row"><span class="label">Address</span>${address}</div>` : ""}
-    ${phone ? `<div class="detail-row"><span class="label">Phone</span><a href="tel:${phone}" style="color:#9fd6ff;text-decoration:none">${phone}</a></div>` : ""}
-    ${website ? `<div class="detail-row"><span class="label">Website</span>${websiteLink}</div>` : ""}
-    <div class="detail-vibes">${tags.map((t) => `<span class="pill">${t}</span>`).join("")}</div>
-    <div class="detail-actions">
-      ${mapLink ? `<a class="btn-primary" href="${mapLink}" target="_blank" rel="noopener">Directions</a>` : ""}
-      <a class="btn-secondary" href="${googleSearch}" target="_blank" rel="noopener">Google</a>
-      <a class="btn-secondary" href="${yelpSearch}" target="_blank" rel="noopener">Yelp</a>
-      <button class="btn-secondary ${isFav ? "favorited" : ""}" id="recDetailFavBtn" type="button">${isFav ? "♥ Saved" : "♡ Save"}</button>
-    </div>
-  `;
-
-  const favBtn = $("recDetailFavBtn");
-  if (favBtn) {
-    favBtn.addEventListener("click", () => {
-      let currentFavs = JSON.parse(localStorage.getItem("lnv_favorites") || "[]");
-      const idx = currentFavs.indexOf(venueName);
-      if (idx >= 0) currentFavs.splice(idx, 1);
-      else currentFavs.push(venueName);
-      localStorage.setItem("lnv_favorites", JSON.stringify(currentFavs));
-      const nowFav = currentFavs.includes(venueName);
-      favBtn.textContent = nowFav ? "♥ Saved" : "♡ Save";
-      favBtn.classList.toggle("favorited", nowFav);
-      if (window.LNV_HAPTICS) window.LNV_HAPTICS.medium();
-    });
-  }
-
-  if (recDetailClose) setTimeout(() => recDetailClose.focus(), 100);
+  if (window.LNVDetailDrawer) window.LNVDetailDrawer.open(venue);
 }
-
-function closeRecDetail() {
-  if (!recDetailDrawer || !recDetailOverlay) return;
-  recDetailOverlay.classList.remove("open");
-  recDetailDrawer.classList.remove("open");
-  document.body.style.overflow = "";
-  if (_recDetailTrigger && _recDetailTrigger.focus) {
-    _recDetailTrigger.focus();
-    _recDetailTrigger = null;
-  }
-}
-
-if (recDetailOverlay) recDetailOverlay.addEventListener("click", closeRecDetail);
-if (recDetailClose) recDetailClose.addEventListener("click", closeRecDetail);
-if (recDetailDrawer) {
-  recDetailDrawer.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") { closeRecDetail(); e.preventDefault(); }
-  });
-}
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape" && recDetailDrawer && recDetailDrawer.classList.contains("open")) closeRecDetail();
-});
-
-/* ─── Swipe-to-dismiss detail drawer (mobile) ─── */
-(function initRecSwipeToDismiss() {
-  if (!recDetailDrawer) return;
-  let startY = 0, currentY = 0, isDragging = false;
-  recDetailDrawer.addEventListener("touchstart", (e) => {
-    const touch = e.touches[0];
-    const rect = recDetailDrawer.getBoundingClientRect();
-    if (touch.clientY - rect.top > 60) return;
-    startY = touch.clientY;
-    currentY = startY;
-    isDragging = true;
-    recDetailDrawer.style.transition = "none";
-  }, { passive: true });
-  recDetailDrawer.addEventListener("touchmove", (e) => {
-    if (!isDragging) return;
-    currentY = e.touches[0].clientY;
-    const dy = Math.max(0, currentY - startY);
-    recDetailDrawer.style.transform = `translateY(${dy}px)`;
-    if (recDetailOverlay) recDetailOverlay.style.opacity = Math.max(0, 1 - dy / 300);
-  }, { passive: true });
-  recDetailDrawer.addEventListener("touchend", () => {
-    if (!isDragging) return;
-    isDragging = false;
-    recDetailDrawer.style.transition = "";
-    if (recDetailOverlay) recDetailOverlay.style.opacity = "";
-    if (currentY - startY > 80) {
-      closeRecDetail();
-    } else {
-      recDetailDrawer.style.transform = "";
-    }
-  }, { passive: true });
-})();
 
 /* ─── Search/filter within recommendation results ─── */
 const recSearchFilter = $("recSearchFilter");
@@ -576,6 +435,14 @@ if (recSearchFilter) {
     _filterDebounce = setTimeout(applyRecFilter, 150);
   });
 }
+
+/* ─── Keyboard shortcut: / to focus filter ─── */
+document.addEventListener("keydown", (e) => {
+  if (e.key === "/" && !e.ctrlKey && !e.metaKey && document.activeElement.tagName !== "INPUT" && document.activeElement.tagName !== "SELECT" && document.activeElement.tagName !== "TEXTAREA") {
+    e.preventDefault();
+    if (recSearchFilter) recSearchFilter.focus();
+  }
+});
 
 loadDefaultCSV();
 

@@ -145,7 +145,7 @@ function renderComparison() {
         })()}
       </div>
       <button type="button" class="hood-action hood-expand-btn" aria-expanded="false">Show venues ▾</button>
-      <div class="hood-venue-list" style="display:none"></div>
+      <div class="hood-venue-list"></div>
       <a href="index.html" class="hood-action" onclick="localStorage.setItem('lnv_jumpArea','${data.name}')">Browse ${data.name} venues →</a>
       <a href="planner.html?area=${encodeURIComponent(data.name)}" class="hood-action hood-action-plan">Build a night in ${data.name} →</a>
     `;
@@ -156,24 +156,40 @@ function renderComparison() {
     expandBtn.addEventListener("click", () => {
       const isOpen = expandBtn.getAttribute("aria-expanded") === "true";
       if (isOpen) {
-        venueListEl.style.display = "none";
+        venueListEl.classList.remove("expanded");
         expandBtn.setAttribute("aria-expanded", "false");
         expandBtn.textContent = "Show venues ▾";
       } else {
-        if (!venueListEl.innerHTML) {
+        if (!venueListEl.children.length) {
           const venues = allVenues.filter((v) => normalizeValue(v.Area) === data.name);
-          venueListEl.innerHTML = venues.map((v) => {
+          // Add filter input for large lists
+          if (venues.length > 10) {
+            const filterInput = document.createElement("input");
+            filterInput.type = "search";
+            filterInput.className = "hood-venue-filter";
+            filterInput.placeholder = "Filter venues…";
+            filterInput.setAttribute("aria-label", "Filter venues in " + data.name);
+            filterInput.addEventListener("input", () => {
+              const q = filterInput.value.toLowerCase().trim();
+              venueListEl.querySelectorAll(".hood-venue-item").forEach((item) => {
+                item.style.display = !q || item.textContent.toLowerCase().includes(q) ? "" : "none";
+              });
+            });
+            venueListEl.appendChild(filterInput);
+          }
+          venues.forEach((v) => {
             const name = normalizeValue(v.Name);
             const cat = normalizeValue(v.Category);
             const closing = normalizeValue(v["Typical Closing Time"]) || "Late";
             const mapLink = normalizeValue(v["Google Maps Driving Link"]);
-            return '<div class="hood-venue-item">' +
-              '<div class="hood-venue-name">' + (mapLink ? '<a href="' + mapLink + '" target="_blank" rel="noopener">' + name + '</a>' : name) + '</div>' +
-              '<div class="hood-venue-meta">' + cat + ' · ' + closing + '</div>' +
-              '</div>';
-          }).join("");
+            const item = document.createElement("div");
+            item.className = "hood-venue-item";
+            item.innerHTML = '<div class="hood-venue-name">' + (mapLink ? '<a href="' + mapLink + '" target="_blank" rel="noopener">' + name + '</a>' : name) + '</div>' +
+              '<div class="hood-venue-meta">' + cat + ' · ' + closing + '</div>';
+            venueListEl.appendChild(item);
+          });
         }
-        venueListEl.style.display = "block";
+        venueListEl.classList.add("expanded");
         expandBtn.setAttribute("aria-expanded", "true");
         expandBtn.textContent = "Hide venues ▴";
       }
