@@ -121,6 +121,9 @@
 
       <main class="rec-results" id="main">
         <h1 class="sr-only">Get personalized venue recommendations</h1>
+        <div class="rec-filter-bar">
+          <input id="recSearchFilter" type="search" placeholder="Filter results by name, area, or vibe…" autocomplete="off" aria-label="Filter recommendation results" class="rec-search-input" />
+        </div>
         <div id="recommendationGrid" class="rec-grid" aria-live="polite"></div>
       </main>
     </div>
@@ -162,6 +165,8 @@
 
     <script src="config.js"></script>
     <script src="lib/core.js"></script>
+    <script src="lib/shared-nav.js"></script>
+    <script>LNVNav.init({ page: "recommend", adminId: "adminNavLinkRec" });</script>
     <script src="lib/mobile-haptics.js"></script>
     <script>
       if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(function () {});

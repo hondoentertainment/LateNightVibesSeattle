@@ -195,6 +195,31 @@
   .rec-skeleton-line { animation: none; }
 }
 
+/* ─── Filter bar ─── */
+.rec-filter-bar {
+  padding: 0 0 12px;
+}
+
+.rec-search-input {
+  width: 100%;
+  padding: 12px 16px;
+  background: #111827;
+  color: #e8e8e8;
+  border: 1px solid #2a334d;
+  border-radius: 12px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.rec-search-input:focus {
+  border-color: #2bff86;
+}
+
+.rec-search-input::placeholder {
+  color: #6b7a9a;
+}
+
 /* ─── Cards ─── */
 .rec-card {
   background: #101520;

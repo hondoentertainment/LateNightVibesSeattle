@@ -506,6 +506,77 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "Escape" && recDetailDrawer && recDetailDrawer.classList.contains("open")) closeRecDetail();
 });
 
+/* ─── Swipe-to-dismiss detail drawer (mobile) ─── */
+(function initRecSwipeToDismiss() {
+  if (!recDetailDrawer) return;
+  let startY = 0, currentY = 0, isDragging = false;
+  recDetailDrawer.addEventListener("touchstart", (e) => {
+    const touch = e.touches[0];
+    const rect = recDetailDrawer.getBoundingClientRect();
+    if (touch.clientY - rect.top > 60) return;
+    startY = touch.clientY;
+    currentY = startY;
+    isDragging = true;
+    recDetailDrawer.style.transition = "none";
+  }, { passive: true });
+  recDetailDrawer.addEventListener("touchmove", (e) => {
+    if (!isDragging) return;
+    currentY = e.touches[0].clientY;
+    const dy = Math.max(0, currentY - startY);
+    recDetailDrawer.style.transform = `translateY(${dy}px)`;
+    if (recDetailOverlay) recDetailOverlay.style.opacity = Math.max(0, 1 - dy / 300);
+  }, { passive: true });
+  recDetailDrawer.addEventListener("touchend", () => {
+    if (!isDragging) return;
+    isDragging = false;
+    recDetailDrawer.style.transition = "";
+    if (recDetailOverlay) recDetailOverlay.style.opacity = "";
+    if (currentY - startY > 80) {
+      closeRecDetail();
+    } else {
+      recDetailDrawer.style.transform = "";
+    }
+  }, { passive: true });
+})();
+
+/* ─── Search/filter within recommendation results ─── */
+const recSearchFilter = $("recSearchFilter");
+let _filterDebounce = null;
+
+function applyRecFilter() {
+  const grid = $("recommendationGrid");
+  if (!grid) return;
+  const query = (recSearchFilter ? recSearchFilter.value : "").toLowerCase().trim();
+  const cards = grid.querySelectorAll(".rec-card");
+  let visible = 0;
+  cards.forEach((card) => {
+    if (!query) { card.style.display = ""; visible++; return; }
+    const text = card.textContent.toLowerCase();
+    const match = text.includes(query);
+    card.style.display = match ? "" : "none";
+    if (match) visible++;
+  });
+  // Show/hide "no matches" message
+  let noMatch = grid.querySelector(".rec-filter-empty");
+  if (visible === 0 && cards.length > 0 && query) {
+    if (!noMatch) {
+      noMatch = document.createElement("div");
+      noMatch.className = "rec-empty rec-filter-empty";
+      noMatch.innerHTML = '<p style="font-weight:600">No results match your filter</p><p>Try a different search term.</p>';
+      grid.appendChild(noMatch);
+    }
+  } else if (noMatch) {
+    noMatch.remove();
+  }
+}
+
+if (recSearchFilter) {
+  recSearchFilter.addEventListener("input", () => {
+    clearTimeout(_filterDebounce);
+    _filterDebounce = setTimeout(applyRecFilter, 150);
+  });
+}
+
 loadDefaultCSV();
 
 window.addEventListener("offline", () => showErrorToast("You are offline. Some features may not work."));

@@ -221,8 +221,21 @@
       </a>
     </nav>
 
+    <!-- Detail drawer (venue details from stop cards) -->
+    <div id="planDetailOverlay" class="detail-overlay"></div>
+    <div id="planDetailDrawer" class="detail-drawer" role="dialog" aria-modal="true" aria-labelledby="planDetailTitle">
+      <div class="drawer-handle"></div>
+      <div class="drawer-header">
+        <span id="planDetailTitle" class="drawer-title"></span>
+        <button id="planDetailClose" class="drawer-close" type="button" aria-label="Close venue details">&times;</button>
+      </div>
+      <div id="planDetailBody" class="detail-body"></div>
+    </div>
+
     <script src="config.js"></script>
     <script src="lib/core.js"></script>
+    <script src="lib/shared-nav.js"></script>
+    <script>LNVNav.init({ page: "planner" });</script>
     <script src="lib/mobile-haptics.js"></script>
     <script>
       if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(function () {});
