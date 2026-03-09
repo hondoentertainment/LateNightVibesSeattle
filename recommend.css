@@ -204,6 +204,12 @@
   display: grid;
   grid-template-rows: 80px auto;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
+  cursor: pointer;
+}
+
+.rec-card:focus-visible {
+  outline: 2px solid #2bff86;
+  outline-offset: 2px;
 }
 
 @media (min-width: 860px) {

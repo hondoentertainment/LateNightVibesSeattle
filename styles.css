@@ -3416,34 +3416,41 @@ a.tonight-highlight-item:hover {
 /* ─── Loading overlay for async ops ─── */
 .loading-overlay {
   position: fixed;
-  inset: 0;
-  background: rgba(11, 13, 20, 0.85);
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: transparent;
   z-index: 500;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 16px;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.25s ease;
+  overflow: hidden;
+}
+
+.loading-overlay::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -40%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, #2bff86, transparent);
+  animation: loading-bar 1.2s ease-in-out infinite;
+}
+
+@keyframes loading-bar {
+  0% { left: -40%; }
+  100% { left: 100%; }
 }
 
 .loading-overlay.active {
   opacity: 1;
-  pointer-events: auto;
 }
 
-.loading-overlay .ptr-spinner {
-  width: 32px;
-  height: 32px;
-  border-width: 3px;
-}
-
+.loading-overlay .ptr-spinner,
 .loading-overlay-text {
-  color: var(--color-text-secondary);
-  font-size: 14px;
-  font-weight: 500;
+  display: none;
 }
 
 /* Touch targets already fixed in mobile venue card section above */

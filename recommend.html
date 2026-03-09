@@ -38,6 +38,7 @@
         <a href="index.html" class="nav-pill">Browse Venues</a>
         <a href="planner.html" class="nav-pill">Night Plan</a>
         <a href="neighborhoods.html" class="nav-pill">Compare</a>
+        <a href="index.html?view=saved" class="nav-pill">Saved</a>
         <a href="admin.html" class="nav-pill nav-admin" id="adminNavLinkRec">Admin</a>
       </nav>
     </header>
@@ -147,6 +148,17 @@
         <span>Compare</span>
       </a>
     </nav>
+
+    <!-- Detail drawer (shared pattern from Browse) -->
+    <div id="recDetailOverlay" class="detail-overlay"></div>
+    <div id="recDetailDrawer" class="detail-drawer" role="dialog" aria-modal="true" aria-labelledby="recDetailTitle">
+      <div class="drawer-handle"></div>
+      <div class="drawer-header">
+        <span id="recDetailTitle" class="drawer-title"></span>
+        <button id="recDetailClose" class="drawer-close" type="button" aria-label="Close venue details">&times;</button>
+      </div>
+      <div id="recDetailBody" class="detail-body"></div>
+    </div>
 
     <script src="config.js"></script>
     <script src="lib/core.js"></script>
