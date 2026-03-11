@@ -32,7 +32,7 @@
     <link rel="stylesheet" href="styles.css" />
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="LateNightVibes Seattle">
+    <meta name="apple-mobile-web-app-title" content="LateNightVibes">
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -303,7 +303,7 @@
           <span class="progress-dot" data-step="1" aria-label="Step 2 of 3"></span>
           <span class="progress-dot" data-step="2" aria-label="Step 3 of 3"></span>
         </div>
-        <div class="onboarding-greeting">Seattle after dark</div>
+        <div class="onboarding-greeting" id="onboardingGreeting">Seattle after dark</div>
         <h2 id="onboardingHeading">Let's find your perfect night</h2>
         <div id="onboardingStep1" class="onboarding-step">
           <p>Who's coming along?</p>
@@ -345,7 +345,7 @@
     <!-- Initial load overlay -->
     <div id="loadingOverlay" class="loading-overlay" role="status" aria-live="polite" aria-label="Loading venues">
       <div class="ptr-spinner"></div>
-      <span class="loading-overlay-text">Loading Seattle venues…</span>
+      <span class="loading-overlay-text">Loading venues…</span>
     </div>
 
     <!-- PWA install prompt -->
