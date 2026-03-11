@@ -1,0 +1,4 @@
+Area,Name,Category,Typical Closing Time,Address,Phone,Website,Driving Distance,Google Maps Driving Link,Vibe Tags
+Gaslamp Quarter,Noble Experiment,Cocktail Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Gaslamp+Quarter+San+Diego&destination=Noble+Experiment+San+Diego&travelmode=driving,"date-friendly, drinks, upscale"
+North Park,Polite Provisions,Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Gaslamp+Quarter+San+Diego&destination=Polite+Provisions+San+Diego&travelmode=driving,"drinks, social, craft-cocktails"
+Ocean Beach,Pacific Shores,Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Gaslamp+Quarter+San+Diego&destination=Pacific+Shores+Ocean+Beach&travelmode=driving,"drinks, social, dive, casual"

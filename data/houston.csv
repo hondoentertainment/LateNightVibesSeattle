@@ -1,0 +1,4 @@
+Area,Name,Category,Typical Closing Time,Address,Phone,Website,Driving Distance,Google Maps Driving Link,Vibe Tags
+Montrose,Anvil Bar & Refuge,Cocktail Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Downtown+Houston&destination=Anvil+Bar+%26+Refuge+Houston&travelmode=driving,"date-friendly, drinks, upscale"
+Midtown,Poison Girl,Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Downtown+Houston&destination=Poison+Girl+Houston&travelmode=driving,"drinks, social, dive"
+Heights,Better Luck Tomorrow,Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Downtown+Houston&destination=Better+Luck+Tomorrow+Houston&travelmode=driving,"drinks, social, casual"

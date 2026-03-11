@@ -1,0 +1,4 @@
+Area,Name,Category,Typical Closing Time,Address,Phone,Website,Driving Distance,Google Maps Driving Link,Vibe Tags
+Southtown,The Modernist,Cocktail Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=The+Alamo+San+Antonio&destination=The+Modernist+San+Antonio&travelmode=driving,"date-friendly, drinks, upscale"
+Pearl District,Jazz TX,Bar,12:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=The+Alamo+San+Antonio&destination=Jazz+TX+San+Antonio&travelmode=driving,"drinks, social, live-music"
+St. Mary's Strip,Paper Tiger,Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=The+Alamo+San+Antonio&destination=Paper+Tiger+San+Antonio&travelmode=driving,"drinks, social, live-music, late-night"

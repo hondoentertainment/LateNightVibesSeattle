@@ -1,4 +1,4 @@
-const DEFAULT_CSV = "venue_list_500plus.csv";
+const DEFAULT_CSV = (window.LNVCities && window.LNVCities.getCurrentCity().csv) || "data/seattle.csv";
 const ADMIN_TOKEN = "lnv-admin-2024";
 const ADMIN_TOKEN_KEY = "lnv_admin_token";
 

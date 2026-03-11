@@ -1,0 +1,4 @@
+Area,Name,Category,Typical Closing Time,Address,Phone,Website,Driving Distance,Google Maps Driving Link,Vibe Tags
+Downtown,Bitter & Twisted,Cocktail Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Downtown+Phoenix&destination=Bitter+%26+Twisted+Phoenix&travelmode=driving,"date-friendly, drinks, upscale"
+Roosevelt Row,Valley Bar,Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Downtown+Phoenix&destination=Valley+Bar+Phoenix&travelmode=driving,"drinks, social, live-music"
+Old Town Scottsdale,Coach House,Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Downtown+Phoenix&destination=Coach+House+Scottsdale&travelmode=driving,"drinks, social, dive"

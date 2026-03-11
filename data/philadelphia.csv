@@ -1,0 +1,4 @@
+Area,Name,Category,Typical Closing Time,Address,Phone,Website,Driving Distance,Google Maps Driving Link,Vibe Tags
+Rittenhouse,The Franklin Bar,Cocktail Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=City+Hall+Philadelphia&destination=The+Franklin+Bar+Philadelphia&travelmode=driving,"date-friendly, drinks, upscale"
+Fishtown,Johnny Brenda's,Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=City+Hall+Philadelphia&destination=Johnny+Brenda's+Philadelphia&travelmode=driving,"drinks, social, live-music"
+Northern Liberties,Standard Tap,Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=City+Hall+Philadelphia&destination=Standard+Tap+Philadelphia&travelmode=driving,"drinks, social, craft-beer"

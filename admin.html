@@ -91,6 +91,8 @@
     </main>
 
     <script src="config.js"></script>
+    <script src="lib/cities.js"></script>
+    <script>(function(){var city=window.LNVCities?window.LNVCities.getCurrentCity():null;if(city)document.title=document.title.replace(/Seattle/g,city.name);})();</script>
     <script src="lib/core.js"></script>
     <script>
       if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(function () {});

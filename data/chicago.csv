@@ -1,0 +1,4 @@
+Area,Name,Category,Typical Closing Time,Address,Phone,Website,Driving Distance,Google Maps Driving Link,Vibe Tags
+Wicker Park,The Violet Hour,Cocktail Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Millennium+Park+Chicago&destination=The+Violet+Hour+Chicago&travelmode=driving,"date-friendly, drinks, upscale"
+Lincoln Park,The J. Parker,Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Millennium+Park+Chicago&destination=The+J.+Parker+Chicago&travelmode=driving,"drinks, social, rooftop"
+Logan Square,Lost Lake,Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Millennium+Park+Chicago&destination=Lost+Lake+Chicago&travelmode=driving,"drinks, social, tropical"

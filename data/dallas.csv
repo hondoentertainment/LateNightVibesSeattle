@@ -1,0 +1,4 @@
+Area,Name,Category,Typical Closing Time,Address,Phone,Website,Driving Distance,Google Maps Driving Link,Vibe Tags
+Deep Ellum,Midnight Rambler,Cocktail Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Downtown+Dallas&destination=Midnight+Rambler+Dallas&travelmode=driving,"date-friendly, drinks, upscale"
+Bishop Arts,The Foundry,Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Downtown+Dallas&destination=The+Foundry+Dallas&travelmode=driving,"drinks, social, casual"
+Uptown,The Grapevine Bar,Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Downtown+Dallas&destination=The+Grapevine+Bar+Dallas&travelmode=driving,"drinks, social, dive"

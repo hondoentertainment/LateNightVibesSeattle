@@ -1,0 +1,4 @@
+Area,Name,Category,Typical Closing Time,Address,Phone,Website,Driving Distance,Google Maps Driving Link,Vibe Tags
+Downtown,Paper Plane,Cocktail Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Downtown+San+Jose&destination=Paper+Plane+San+Jose&travelmode=driving,"date-friendly, drinks, upscale"
+San Pedro Square,O'Flaherty's Irish Pub,Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Downtown+San+Jose&destination=O'Flaherty's+Irish+Pub+San+Jose&travelmode=driving,"drinks, social, casual"
+Japantown,Minato,Bar,12:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Downtown+San+Jose&destination=Minato+San+Jose&travelmode=driving,"drinks, social, food"

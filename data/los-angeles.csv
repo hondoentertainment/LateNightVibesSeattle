@@ -1,0 +1,4 @@
+Area,Name,Category,Typical Closing Time,Address,Phone,Website,Driving Distance,Google Maps Driving Link,Vibe Tags
+Hollywood,Good Times at Davey Wayne's,Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Hollywood+Blvd+Los+Angeles&destination=Good+Times+at+Davey+Wayne's+Los+Angeles&travelmode=driving,"drinks, social, retro"
+Silver Lake,Cha Cha Lounge,Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Hollywood+Blvd+Los+Angeles&destination=Cha+Cha+Lounge+Silver+Lake&travelmode=driving,"drinks, social, late-night"
+Downtown,The Varnish,Cocktail Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Hollywood+Blvd+Los+Angeles&destination=The+Varnish+Los+Angeles&travelmode=driving,"date-friendly, drinks, upscale"

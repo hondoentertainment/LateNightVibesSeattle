@@ -1,0 +1,4 @@
+Area,Name,Category,Typical Closing Time,Address,Phone,Website,Driving Distance,Google Maps Driving Link,Vibe Tags
+East Village,Please Don't Tell,Cocktail Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Times+Square+New+York&destination=Please+Don't+Tell+New+York&travelmode=driving,"date-friendly, drinks, social, upscale"
+Williamsburg,The Shanty,Bar,4:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Times+Square+New+York&destination=The+Shanty+Brooklyn&travelmode=driving,"drinks, social, late-night"
+Lower East Side,Attaboy,Cocktail Bar,4:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Times+Square+New+York&destination=Attaboy+New+York&travelmode=driving,"date-friendly, drinks, upscale"

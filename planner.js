@@ -1,4 +1,4 @@
-const DEFAULT_CSV = "venue_list_500plus.csv";
+const DEFAULT_CSV = (window.LNVCities && window.LNVCities.getCurrentCity().csv) || "data/seattle.csv";
 let allVenues = [];
 let lastItinerary = { stops: [], phases: [], startMin: 0, slotDuration: 0 };
 let lockedStops = new Set(); // indices of locked stops
