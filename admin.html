@@ -92,7 +92,7 @@
 
     <script src="config.js"></script>
     <script src="lib/cities.js"></script>
-    <script>(function(){var city=window.LNVCities?window.LNVCities.getCurrentCity():null;if(city)document.title=document.title.replace(/Seattle/g,city.name);})();</script>
+    <script>(function(){var city=window.LNVCities?window.LNVCities.getCurrentCity():null;if(!city)return;var r=function(s){return s.replace(/Seattle/g,city.name);};document.title=r(document.title);var h1=document.querySelector('h1.sr-only');if(h1)h1.textContent=r(h1.textContent);})();</script>
     <script src="lib/core.js"></script>
     <script>
       if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(function () {});
