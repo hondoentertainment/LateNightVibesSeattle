@@ -75,8 +75,21 @@ describe("LNVGeo", () => {
   });
 
   describe("NEIGHBORHOOD_COORDS", () => {
-    it("has Capitol Hill", () => {
-      expect(NEIGHBORHOOD_COORDS["Capitol Hill"]).toBeDefined();
+    it("has Capitol Hill under seattle", () => {
+      expect(NEIGHBORHOOD_COORDS.seattle["Capitol Hill"]).toBeDefined();
+    });
+
+    it("has city keys for all supported cities", () => {
+      expect(NEIGHBORHOOD_COORDS["new-york"]).toBeDefined();
+      expect(NEIGHBORHOOD_COORDS["los-angeles"]).toBeDefined();
+      expect(NEIGHBORHOOD_COORDS.chicago).toBeDefined();
+      expect(NEIGHBORHOOD_COORDS.houston).toBeDefined();
+      expect(NEIGHBORHOOD_COORDS.phoenix).toBeDefined();
+      expect(NEIGHBORHOOD_COORDS.philadelphia).toBeDefined();
+      expect(NEIGHBORHOOD_COORDS["san-antonio"]).toBeDefined();
+      expect(NEIGHBORHOOD_COORDS["san-diego"]).toBeDefined();
+      expect(NEIGHBORHOOD_COORDS.dallas).toBeDefined();
+      expect(NEIGHBORHOOD_COORDS["san-jose"]).toBeDefined();
     });
   });
 });
