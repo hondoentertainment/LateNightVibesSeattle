@@ -186,6 +186,7 @@
               <option value="distance">Distance</option>
               <option value="near-me">Near me</option>
               <option value="closing">Closing Time</option>
+              <option value="random">Shuffle</option>
             </select>
           </label>
           <label class="ios-toggle" for="openNowMobile">
@@ -247,6 +248,7 @@
               <option value="distance">Distance</option>
               <option value="near-me">Near me</option>
               <option value="closing">Closing Time</option>
+              <option value="random">Shuffle</option>
             </select>
           </label>
           <label class="open-now-toggle">
@@ -310,9 +312,12 @@
             <span class="quick-chip-dot dot-upscale"></span> Upscale
           </button>
         </div>
+        <!-- Dynamic venue stats ticker -->
+        <div id="dynamicStatsTicker" class="dynamic-stats-ticker" aria-live="polite" style="display:none"></div>
         <div class="content-toolbar">
           <div style="display:flex;align-items:center;gap:12px">
             <div id="resultSummary" class="result-summary" aria-live="polite" aria-atomic="true"></div>
+            <button type="button" id="surpriseMeBtn" class="btn-surprise" aria-label="Pick a random venue">Surprise Me</button>
             <div id="searchAnnouncer" class="sr-only" aria-live="polite" aria-atomic="true" role="status"></div>
             <div id="crawlStats" class="crawl-stats" style="display:none"></div>
             <div id="favoritesBackupBar" class="favorites-backup-bar" style="display:none" aria-label="Backup and restore favorites">

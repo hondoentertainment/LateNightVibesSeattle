@@ -578,10 +578,34 @@ function isVenueOpen(closingTimeStr) {
   return false;
 }
 
+function getClosingCountdown(closingTimeStr) {
+  const minutes = parseTimeToMinutes(closingTimeStr);
+  if (minutes === null) return null;
+  const now = new Date();
+  const nowMinutes = now.getHours() * 60 + now.getMinutes();
+  const closingAdj = minutes <= 360 ? minutes + 1440 : minutes;
+  const nowAdj = nowMinutes < 540 ? nowMinutes + 1440 : nowMinutes;
+  const diff = closingAdj - nowAdj;
+  if (diff <= 0 || diff > 720) return null;
+  if (diff <= 60) return { text: `${diff}m left`, urgent: diff <= 30 };
+  const h = Math.floor(diff / 60);
+  const m = diff % 60;
+  return { text: `${h}h ${m}m left`, urgent: false };
+}
+
 function getOpenStatusPill(closingTimeStr) {
   const status = isVenueOpen(closingTimeStr);
   if (status === null) return '<span class="pill">Hours unknown</span>';
-  if (status) return '<span class="pill pill-open">Open now</span>';
+  if (status) {
+    const countdown = getClosingCountdown(closingTimeStr);
+    if (countdown && countdown.urgent) {
+      return `<span class="pill pill-closing-soon" data-countdown>${countdown.text}</span>`;
+    }
+    if (countdown) {
+      return `<span class="pill pill-open" data-countdown>${countdown.text}</span>`;
+    }
+    return '<span class="pill pill-open">Open now</span>';
+  }
   return '<span class="pill pill-closed">Likely closed</span>';
 }
 
@@ -760,6 +784,7 @@ function applyFilters(keepRenderLimit) {
   updateResultSummary();
   updateActiveFiltersStrip();
   syncQuickChips();
+  updateDynamicStatsTicker();
   saveFilterState();
   if (state.currentView === "map") renderMap();
 }
@@ -791,6 +816,7 @@ function sortFiltered() {
       if (bVal === null) return -1;
       return aVal - bVal;
     }
+    if (sortBy === "random") return Math.random() - 0.5;
     if (sortBy === "area") return collator.compare(a.Area, b.Area);
     if (sortBy === "category") return collator.compare(a.Category, b.Category);
     return collator.compare(a.Name, b.Name);
@@ -910,7 +936,9 @@ function renderGrid() {
 
     const card = document.createElement("div");
     const venueKey = getVenueSyncKey(venue);
-    card.className = `venue-card ${attributeClasses}`;
+    const closingSoon = getClosingCountdown(closingTime);
+    const closingSoonClass = closingSoon && closingSoon.urgent ? " closing-soon" : "";
+    card.className = `venue-card ${attributeClasses}${closingSoonClass}`;
     card.dataset.venueKey = venueKey;
     card.setAttribute("role", "button");
     card.setAttribute("tabindex", "0");
@@ -1649,6 +1677,7 @@ function loadFromText(text) {
   updateActiveFiltersStrip();
   syncQuickChips();
   updateTonightHighlights();
+  updateDynamicStatsTicker();
   initOnboarding();
   if (venueDeepLink) {
     const decoded = decodeURIComponent(venueDeepLink).trim();
@@ -2086,7 +2115,81 @@ addListener($("importFavoritesInput"), "change", async (event) => {
   }
 });
 
+/* ─── Surprise Me: random venue picker ─── */
+(function initSurpriseMe() {
+  const btn = document.getElementById("surpriseMeBtn");
+  if (!btn) return;
+  btn.addEventListener("click", () => {
+    const pool = state.filtered.length ? state.filtered : state.all;
+    if (!pool.length) { showErrorToast("No venues to pick from"); return; }
+    const venue = pool[Math.floor(Math.random() * pool.length)];
+    if (window.LNV_HAPTICS) window.LNV_HAPTICS.confirm();
+    btn.classList.add("spinning");
+    setTimeout(() => {
+      btn.classList.remove("spinning");
+      openDetail(venue);
+    }, 400);
+  });
+})();
+
+/* ─── Dynamic stats ticker ─── */
+function updateDynamicStatsTicker() {
+  const ticker = document.getElementById("dynamicStatsTicker");
+  if (!ticker || !state.all.length) return;
+
+  const openCount = state.all.filter((v) => isVenueOpen(normalizeValue(v["Typical Closing Time"])) === true).length;
+  const closingSoonCount = state.all.filter((v) => {
+    const cd = getClosingCountdown(normalizeValue(v["Typical Closing Time"]));
+    return cd && cd.urgent;
+  }).length;
+
+  // Trending vibe (most common among filtered)
+  const vibeCounts = {};
+  state.filtered.forEach((v) => {
+    normalizeValue(v["Vibe Tags"]).split(",").map((t) => normalizeValue(t).toLowerCase()).filter(Boolean).forEach((t) => {
+      vibeCounts[t] = (vibeCounts[t] || 0) + 1;
+    });
+  });
+  const trendingVibe = Object.entries(vibeCounts).sort((a, b) => b[1] - a[1])[0];
+
+  // Hottest area (most venues in filtered)
+  const areaCounts = {};
+  state.filtered.forEach((v) => {
+    const area = normalizeValue(v.Area);
+    if (area) areaCounts[area] = (areaCounts[area] || 0) + 1;
+  });
+  const hottestArea = Object.entries(areaCounts).sort((a, b) => b[1] - a[1])[0];
+
+  const items = [];
+  if (openCount > 0) items.push(`<span class="ticker-item ticker-open">${openCount} open now</span>`);
+  if (closingSoonCount > 0) items.push(`<span class="ticker-item ticker-closing-soon">${closingSoonCount} closing soon</span>`);
+  if (trendingVibe) items.push(`<span class="ticker-item ticker-vibe">Trending: ${trendingVibe[0]}</span>`);
+  if (hottestArea) items.push(`<span class="ticker-item ticker-area">Hottest: ${hottestArea[0]}</span>`);
+
+  if (items.length) {
+    ticker.innerHTML = items.join('<span class="ticker-sep">&middot;</span>');
+    ticker.style.display = "";
+  } else {
+    ticker.style.display = "none";
+  }
+}
+
+/* ─── Auto-refresh open/closed status every 60s ─── */
+let _autoRefreshTimer = null;
+function startAutoRefresh() {
+  if (_autoRefreshTimer) clearInterval(_autoRefreshTimer);
+  _autoRefreshTimer = setInterval(() => {
+    if (!state.all.length) return;
+    renderGrid();
+    updateLoadMore();
+    updateResultSummary();
+    updateDynamicStatsTicker();
+    if (state.openNowOnly) applyFilters(true);
+  }, 60000);
+}
+
 loadDefaultCSV();
+startAutoRefresh();
 
 /* ─── Per-city SEO meta tags & Open Graph ─── */
 (function updateCityMeta() {

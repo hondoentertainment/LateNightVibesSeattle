@@ -1582,6 +1582,88 @@ a.pill-link:active {
   color: #ff5b5b;
 }
 
+/* ─── Closing soon pill (pulsing urgency) ─── */
+.pill-closing-soon {
+  background: rgba(255, 159, 91, 0.18);
+  border-color: #ff9f5b;
+  color: #ff9f5b;
+  animation: closingPulse 2s ease-in-out infinite;
+}
+
+@keyframes closingPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+/* ─── Closing-soon card glow ─── */
+.venue-card.closing-soon {
+  box-shadow: 0 0 12px rgba(255, 159, 91, 0.2), inset 0 0 0 1px rgba(255, 159, 91, 0.15);
+}
+
+/* ─── Surprise Me button ─── */
+.btn-surprise {
+  background: linear-gradient(135deg, rgba(43, 255, 134, 0.12), rgba(77, 214, 255, 0.12));
+  border: 1px solid rgba(43, 255, 134, 0.3);
+  color: #2bff86;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-surprise:hover {
+  background: linear-gradient(135deg, rgba(43, 255, 134, 0.2), rgba(77, 214, 255, 0.2));
+  border-color: #2bff86;
+  transform: scale(1.03);
+}
+
+.btn-surprise.spinning {
+  animation: surpriseSpin 0.4s ease;
+}
+
+@keyframes surpriseSpin {
+  0% { transform: scale(1); }
+  30% { transform: scale(0.9) rotate(-5deg); }
+  60% { transform: scale(1.1) rotate(3deg); }
+  100% { transform: scale(1) rotate(0); }
+}
+
+/* ─── Dynamic stats ticker ─── */
+.dynamic-stats-ticker {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #93a1c6;
+  overflow-x: auto;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.dynamic-stats-ticker::-webkit-scrollbar { display: none; }
+
+.ticker-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ticker-open { color: #2bff86; }
+.ticker-closing-soon { color: #ff9f5b; }
+.ticker-vibe { color: #4dd6ff; }
+.ticker-area { color: #b9c7ff; }
+
+.ticker-sep {
+  color: #2a334d;
+  margin: 0 2px;
+}
+
 /* ─── Filter badge ─── */
 @keyframes badgePop {
   0%   { transform: scale(0); }
