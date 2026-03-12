@@ -1,4 +1,4 @@
-const DEFAULT_CSV = "venue_list_500plus.csv";
+const DEFAULT_CSV = (window.LNVCities && window.LNVCities.getCurrentCity().csv) || "data/seattle.csv";
 
 const PAGE_SIZE = 40;
 
@@ -156,8 +156,12 @@ const elements = {
   detailBody: $("detailBody"),
   // Mobile UX enhancements
   quickFilters: $("quickFilters"),
+  desktopQuickFilters: $("desktopQuickFilters"),
   timeBanner: $("timeBanner"),
   activeFiltersStrip: $("activeFiltersStrip"),
+  // City selectors
+  citySelectDesktop: $("citySelectDesktop"),
+  citySelectMobile: $("citySelectMobile"),
 };
 
 /* ─── Focus trap utility (A2, A3) ─── */
@@ -248,10 +252,10 @@ function injectVenueSchema(venue, area, closingTime, address, website) {
     name,
     address: {
       "@type": "PostalAddress",
-      addressLocality: area || "Seattle",
-      addressRegion: "WA",
+      addressLocality: area || ((window.LNVCities && window.LNVCities.getCurrentCity().name) || "Seattle"),
+      addressRegion: (window.LNVCities && window.LNVCities.getCurrentCity().state) || "WA",
     },
-    areaServed: { "@type": "City", name: "Seattle" },
+    areaServed: { "@type": "City", name: (window.LNVCities && window.LNVCities.getCurrentCity().name) || "Seattle" },
   };
 
   if (address && address.toLowerCase() !== "click link") {
@@ -313,8 +317,9 @@ function openDetail(venue) {
   const trustBadge = (window.LNVFeatures && window.LNVFeatures.getTrustBadge) ? window.LNVFeatures.getTrustBadge() : null;
   const viabilityHtml = viabilityBadges.length ? viabilityBadges.map((b) => `<span class="pill ${b.class}">${b.label}</span>`).join("") : "";
   const trustHtml = trustBadge ? `<span class="pill ${trustBadge.class}">${trustBadge.label}</span>` : "";
-  const googleSearch = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${normalizeValue(venue.Name)} ${area} Seattle`)}`;
-  const yelpSearch = `https://www.yelp.com/search?find_desc=${encodeURIComponent(normalizeValue(venue.Name))}&find_loc=${encodeURIComponent(`${area}, Seattle`)}`;
+  const _cityName = (window.LNVCities && window.LNVCities.getCurrentCity().name) || "Seattle";
+  const googleSearch = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${normalizeValue(venue.Name)} ${area} ${_cityName}`)}`;
+  const yelpSearch = `https://www.yelp.com/search?find_desc=${encodeURIComponent(normalizeValue(venue.Name))}&find_loc=${encodeURIComponent(`${area}, ${_cityName}`)}`;
 
   let websiteLink = "";
   if (website) {
@@ -573,10 +578,34 @@ function isVenueOpen(closingTimeStr) {
   return false;
 }
 
+function getClosingCountdown(closingTimeStr) {
+  const minutes = parseTimeToMinutes(closingTimeStr);
+  if (minutes === null) return null;
+  const now = new Date();
+  const nowMinutes = now.getHours() * 60 + now.getMinutes();
+  const closingAdj = minutes <= 360 ? minutes + 1440 : minutes;
+  const nowAdj = nowMinutes < 540 ? nowMinutes + 1440 : nowMinutes;
+  const diff = closingAdj - nowAdj;
+  if (diff <= 0 || diff > 720) return null;
+  if (diff <= 60) return { text: `${diff}m left`, urgent: diff <= 30 };
+  const h = Math.floor(diff / 60);
+  const m = diff % 60;
+  return { text: `${h}h ${m}m left`, urgent: false };
+}
+
 function getOpenStatusPill(closingTimeStr) {
   const status = isVenueOpen(closingTimeStr);
   if (status === null) return '<span class="pill">Hours unknown</span>';
-  if (status) return '<span class="pill pill-open">Open now</span>';
+  if (status) {
+    const countdown = getClosingCountdown(closingTimeStr);
+    if (countdown && countdown.urgent) {
+      return `<span class="pill pill-closing-soon" data-countdown>${countdown.text}</span>`;
+    }
+    if (countdown) {
+      return `<span class="pill pill-open" data-countdown>${countdown.text}</span>`;
+    }
+    return '<span class="pill pill-open">Open now</span>';
+  }
   return '<span class="pill pill-closed">Likely closed</span>';
 }
 
@@ -755,6 +784,7 @@ function applyFilters(keepRenderLimit) {
   updateResultSummary();
   updateActiveFiltersStrip();
   syncQuickChips();
+  updateDynamicStatsTicker();
   saveFilterState();
   if (state.currentView === "map") renderMap();
 }
@@ -764,8 +794,9 @@ function sortFiltered() {
   const collator = new Intl.Collator(undefined, { numeric: true, sensitivity: "base" });
   state.filtered.sort((a, b) => {
     if (sortBy === "near-me" && state.userLocation) {
-      const coordsA = window.LNVGeo ? window.LNVGeo.getCoordsForVenue(a) : null;
-      const coordsB = window.LNVGeo ? window.LNVGeo.getCoordsForVenue(b) : null;
+      const _citySlug = (window.LNVCities && window.LNVCities.getCurrentCitySlug) ? window.LNVCities.getCurrentCitySlug() : "seattle";
+      const coordsA = window.LNVGeo ? window.LNVGeo.getCoordsForVenue(a, _citySlug) : null;
+      const coordsB = window.LNVGeo ? window.LNVGeo.getCoordsForVenue(b, _citySlug) : null;
       if (coordsA && coordsB && window.LNVCore && window.LNVCore.haversineMiles) {
         const dA = window.LNVCore.haversineMiles(state.userLocation.lat, state.userLocation.lng, coordsA[0], coordsA[1]);
         const dB = window.LNVCore.haversineMiles(state.userLocation.lat, state.userLocation.lng, coordsB[0], coordsB[1]);
@@ -785,6 +816,7 @@ function sortFiltered() {
       if (bVal === null) return -1;
       return aVal - bVal;
     }
+    if (sortBy === "random") return Math.random() - 0.5;
     if (sortBy === "area") return collator.compare(a.Area, b.Area);
     if (sortBy === "category") return collator.compare(a.Category, b.Category);
     return collator.compare(a.Name, b.Name);
@@ -904,7 +936,9 @@ function renderGrid() {
 
     const card = document.createElement("div");
     const venueKey = getVenueSyncKey(venue);
-    card.className = `venue-card ${attributeClasses}`;
+    const closingSoon = getClosingCountdown(closingTime);
+    const closingSoonClass = closingSoon && closingSoon.urgent ? " closing-soon" : "";
+    card.className = `venue-card ${attributeClasses}${closingSoonClass}`;
     card.dataset.venueKey = venueKey;
     card.setAttribute("role", "button");
     card.setAttribute("tabindex", "0");
@@ -1235,46 +1269,14 @@ let leafletMap = null;
 let mapMarkers = [];
 let userLocationMarker = null;
 
-const NEIGHBORHOOD_COORDS = {
-  "Capitol Hill": [47.6253, -122.3222], "Ballard": [47.6677, -122.3846],
-  "Fremont": [47.6508, -122.3502], "Downtown": [47.6062, -122.3321],
-  "Belltown": [47.6145, -122.3450], "SLU": [47.6237, -122.3368],
-  "South Lake Union": [47.6237, -122.3368], "Queen Anne": [47.6372, -122.3571],
-  "Lower Queen Anne": [47.6255, -122.3565], "Chinatown-International District": [47.5982, -122.3252],
-  "International District": [47.5982, -122.3252], "University District": [47.6588, -122.3130],
-  "Wallingford": [47.6615, -122.3352], "West Seattle": [47.5607, -122.3870],
-  "Georgetown": [47.5436, -122.3157], "SoDo": [47.5680, -122.3340],
-  "SODO": [47.5680, -122.3340], "Greenwood": [47.6906, -122.3556],
-  "Green Lake": [47.6803, -122.3290], "Magnolia": [47.6395, -122.3990],
-  "Interbay": [47.6476, -122.3760], "White Center": [47.5169, -122.3530],
-  "Columbia City": [47.5594, -122.2870], "Beacon Hill": [47.5630, -122.3120],
-  "Central District": [47.6082, -122.2987], "First Hill": [47.6088, -122.3262],
-  "Rainier Valley": [47.5430, -122.2870], "Skyway": [47.4910, -122.2870],
-  "Shoreline": [47.7557, -122.3420], "Lake City": [47.7110, -122.2900],
-  "Northgate": [47.7069, -122.3278], "Burien": [47.4710, -122.3470],
-  "Renton": [47.4829, -122.2170], "Tukwila": [47.4740, -122.2850],
-  "Kent": [47.3809, -122.2348], "Auburn": [47.3073, -122.2285],
-  "Everett": [47.9790, -122.2021], "Bellevue": [47.6101, -122.2015],
-  "Kirkland": [47.6769, -122.2060], "Redmond": [47.6740, -122.1215],
-  "Issaquah": [47.5301, -122.0326], "Eastside": [47.6200, -122.1800],
-  "Pioneer Square": [47.6015, -122.3340], "Ravenna": [47.6774, -122.3020],
-  "Phinney Ridge": [47.6740, -122.3540], "Roosevelt": [47.6780, -122.3180],
-  "Maple Leaf": [47.6930, -122.3160], "Wedgwood": [47.6910, -122.2890],
-  "Leschi": [47.6010, -122.2880], "Madison Park": [47.6340, -122.2750],
-  "Montlake": [47.6380, -122.3010],
-};
-
 function getVenueCoords(venue) {
+  const citySlug = (window.LNVCities && window.LNVCities.getCurrentCitySlug) ? window.LNVCities.getCurrentCitySlug() : "seattle";
+  if (window.LNVGeo && window.LNVGeo.getCoordsForVenue) {
+    return window.LNVGeo.getCoordsForVenue(venue, citySlug);
+  }
   const lat = parseFloat(venue.Latitude);
   const lng = parseFloat(venue.Longitude);
   if (!isNaN(lat) && !isNaN(lng)) return [lat, lng];
-  const area = normalizeValue(venue.Area);
-  for (const [name, coords] of Object.entries(NEIGHBORHOOD_COORDS)) {
-    if (area.toLowerCase().includes(name.toLowerCase()) || name.toLowerCase().includes(area.toLowerCase())) {
-      const jitter = () => (Math.random() - 0.5) * 0.006;
-      return [coords[0] + jitter(), coords[1] + jitter()];
-    }
-  }
   return null;
 }
 
@@ -1288,7 +1290,8 @@ function renderMap() {
     return;
   }
   if (!leafletMap) {
-    leafletMap = L.map(elements.mapContainer).setView([47.6062, -122.3321], 12);
+    const currentCity = (window.LNVCities && window.LNVCities.getCurrentCity) ? window.LNVCities.getCurrentCity() : { lat: 47.6062, lng: -122.3321 };
+    leafletMap = L.map(elements.mapContainer).setView([currentCity.lat, currentCity.lng], 12);
     L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>',
       maxZoom: 19,
@@ -1474,56 +1477,61 @@ function initOnboarding() {
 
 window.showOnboarding = showOnboarding;
 
-/* ─── Quick-filter chips (mobile) ─── */
+/* ─── Quick-filter chips (mobile + desktop) ─── */
+const QUICK_MAP = {
+  "open-now": { type: "openNow" },
+  "chill": { type: "vibe", vibe: "chill" },
+  "dancey": { type: "vibe", vibe: "dancey" },
+  "live-music": { type: "vibe", vibe: "live-music" },
+  "late-eats": { type: "vibe", vibe: "late-eats" },
+  "date-friendly": { type: "vibe", vibe: "date-friendly" },
+  "divey": { type: "vibe", vibe: "divey" },
+  "high-energy": { type: "vibe", vibe: "high-energy" },
+  "food-focused": { type: "vibe", vibe: "food-focused" },
+  "upscale": { type: "vibe", vibe: "upscale" },
+};
+
+function handleQuickChipClick(e) {
+  const chip = e.target.closest(".quick-chip");
+  if (!chip) return;
+  const key = chip.dataset.quick;
+  const cfg = QUICK_MAP[key];
+  if (!cfg) return;
+
+  const wasActive = chip.classList.contains("active");
+
+  if (cfg.type === "openNow") {
+    state.openNowOnly = !wasActive;
+    syncOpenNow();
+  } else if (cfg.type === "vibe") {
+    if (wasActive) state.activeVibes.delete(cfg.vibe);
+    else state.activeVibes.add(cfg.vibe);
+    syncVibeCheckboxes();
+  }
+
+  applyFilters();
+  syncQuickChips();
+  updateActiveFiltersStrip();
+
+  if (window.LNV_HAPTICS) window.LNV_HAPTICS.light();
+}
+
 (function initQuickFilters() {
-  const container = elements.quickFilters;
-  if (!container) return;
-
-  const QUICK_MAP = {
-    "open-now": { type: "openNow" },
-    "chill": { type: "vibe", vibe: "chill" },
-    "dancey": { type: "vibe", vibe: "dancey" },
-    "live-music": { type: "vibe", vibe: "live-music" },
-    "late-eats": { type: "vibe", vibe: "late-eats" },
-    "date-friendly": { type: "vibe", vibe: "date-friendly" },
-    "divey": { type: "vibe", vibe: "divey" },
-  };
-
-  container.addEventListener("click", (e) => {
-    const chip = e.target.closest(".quick-chip");
-    if (!chip) return;
-    const key = chip.dataset.quick;
-    const cfg = QUICK_MAP[key];
-    if (!cfg) return;
-
-    const wasActive = chip.classList.contains("active");
-
-    if (cfg.type === "openNow") {
-      state.openNowOnly = !wasActive;
-      syncOpenNow();
-    } else if (cfg.type === "vibe") {
-      if (wasActive) state.activeVibes.delete(cfg.vibe);
-      else state.activeVibes.add(cfg.vibe);
-      syncVibeCheckboxes();
-    }
-
-    chip.classList.toggle("active", !wasActive);
-    applyFilters();
-    updateActiveFiltersStrip();
-
-    if (window.LNV_HAPTICS) window.LNV_HAPTICS.light();
+  [elements.quickFilters, elements.desktopQuickFilters].forEach((container) => {
+    if (container) container.addEventListener("click", handleQuickChipClick);
   });
 })();
 
 function syncQuickChips() {
-  const container = elements.quickFilters;
-  if (!container) return;
-  container.querySelectorAll(".quick-chip").forEach((chip) => {
-    const key = chip.dataset.quick;
-    let active = false;
-    if (key === "open-now") active = state.openNowOnly;
-    else active = state.activeVibes.has(key);
-    chip.classList.toggle("active", active);
+  [elements.quickFilters, elements.desktopQuickFilters].forEach((container) => {
+    if (!container) return;
+    container.querySelectorAll(".quick-chip").forEach((chip) => {
+      const key = chip.dataset.quick;
+      let active = false;
+      if (key === "open-now") active = state.openNowOnly;
+      else active = state.activeVibes.has(key);
+      chip.classList.toggle("active", active);
+    });
   });
 }
 
@@ -1669,6 +1677,7 @@ function loadFromText(text) {
   updateActiveFiltersStrip();
   syncQuickChips();
   updateTonightHighlights();
+  updateDynamicStatsTicker();
   initOnboarding();
   if (venueDeepLink) {
     const decoded = decodeURIComponent(venueDeepLink).trim();
@@ -1698,7 +1707,7 @@ function renderLoadErrorState(message, showRetry) {
 async function loadDefaultCSV() {
   if (elements.loadingOverlay) elements.loadingOverlay.classList.add("active");
   if (elements.loadingOverlay) {
-    elements.loadingOverlay.querySelector(".loading-overlay-text").textContent = "Loading Seattle venues…";
+    elements.loadingOverlay.querySelector(".loading-overlay-text").textContent = "Loading " + ((window.LNVCities && window.LNVCities.getCurrentCity().name) || "Seattle") + " venues…";
   }
   showSkeletons();
   try {
@@ -2075,6 +2084,7 @@ function clearAllFilters() {
   syncOpenNow();
   state.activeVibes.clear();
   syncVibeCheckboxes();
+  syncQuickChips();
   applyFilters();
   showToast("Filters cleared");
 }
@@ -2105,7 +2115,145 @@ addListener($("importFavoritesInput"), "change", async (event) => {
   }
 });
 
+/* ─── Surprise Me: random venue picker ─── */
+(function initSurpriseMe() {
+  const btn = document.getElementById("surpriseMeBtn");
+  if (!btn) return;
+  btn.addEventListener("click", () => {
+    const pool = state.filtered.length ? state.filtered : state.all;
+    if (!pool.length) { showErrorToast("No venues to pick from"); return; }
+    const venue = pool[Math.floor(Math.random() * pool.length)];
+    if (window.LNV_HAPTICS) window.LNV_HAPTICS.confirm();
+    btn.classList.add("spinning");
+    setTimeout(() => {
+      btn.classList.remove("spinning");
+      openDetail(venue);
+    }, 400);
+  });
+})();
+
+/* ─── Dynamic stats ticker ─── */
+function updateDynamicStatsTicker() {
+  const ticker = document.getElementById("dynamicStatsTicker");
+  if (!ticker || !state.all.length) return;
+
+  const openCount = state.all.filter((v) => isVenueOpen(normalizeValue(v["Typical Closing Time"])) === true).length;
+  const closingSoonCount = state.all.filter((v) => {
+    const cd = getClosingCountdown(normalizeValue(v["Typical Closing Time"]));
+    return cd && cd.urgent;
+  }).length;
+
+  // Trending vibe (most common among filtered)
+  const vibeCounts = {};
+  state.filtered.forEach((v) => {
+    normalizeValue(v["Vibe Tags"]).split(",").map((t) => normalizeValue(t).toLowerCase()).filter(Boolean).forEach((t) => {
+      vibeCounts[t] = (vibeCounts[t] || 0) + 1;
+    });
+  });
+  const trendingVibe = Object.entries(vibeCounts).sort((a, b) => b[1] - a[1])[0];
+
+  // Hottest area (most venues in filtered)
+  const areaCounts = {};
+  state.filtered.forEach((v) => {
+    const area = normalizeValue(v.Area);
+    if (area) areaCounts[area] = (areaCounts[area] || 0) + 1;
+  });
+  const hottestArea = Object.entries(areaCounts).sort((a, b) => b[1] - a[1])[0];
+
+  const items = [];
+  if (openCount > 0) items.push(`<span class="ticker-item ticker-open">${openCount} open now</span>`);
+  if (closingSoonCount > 0) items.push(`<span class="ticker-item ticker-closing-soon">${closingSoonCount} closing soon</span>`);
+  if (trendingVibe) items.push(`<span class="ticker-item ticker-vibe">Trending: ${trendingVibe[0]}</span>`);
+  if (hottestArea) items.push(`<span class="ticker-item ticker-area">Hottest: ${hottestArea[0]}</span>`);
+
+  if (items.length) {
+    ticker.innerHTML = items.join('<span class="ticker-sep">&middot;</span>');
+    ticker.style.display = "";
+  } else {
+    ticker.style.display = "none";
+  }
+}
+
+/* ─── Auto-refresh open/closed status every 60s ─── */
+let _autoRefreshTimer = null;
+function startAutoRefresh() {
+  if (_autoRefreshTimer) clearInterval(_autoRefreshTimer);
+  _autoRefreshTimer = setInterval(() => {
+    if (!state.all.length) return;
+    renderGrid();
+    updateLoadMore();
+    updateResultSummary();
+    updateDynamicStatsTicker();
+    if (state.openNowOnly) applyFilters(true);
+  }, 60000);
+}
+
 loadDefaultCSV();
+startAutoRefresh();
+
+/* ─── Per-city SEO meta tags & Open Graph ─── */
+(function updateCityMeta() {
+  if (!window.LNVCities || !window.LNVCities.getCurrentCity) return;
+  var city = window.LNVCities.getCurrentCity();
+  if (!city.description) return;
+  var pageTitle = "Late Night Vibes " + city.name + " — Nightlife Venues";
+
+  document.title = pageTitle;
+
+  function setMeta(attr, key, content) {
+    var el = document.querySelector("meta[" + attr + '="' + key + '"]');
+    if (el) el.setAttribute("content", content);
+  }
+
+  setMeta("name", "description", city.description);
+  setMeta("property", "og:title", pageTitle);
+  setMeta("property", "og:description", city.ogDescription || city.description);
+  setMeta("property", "og:url", window.location.href);
+  setMeta("name", "twitter:title", "Late Night Vibes " + city.name);
+  setMeta("name", "twitter:description", city.description);
+
+  var canonical = document.querySelector('link[rel="canonical"]');
+  if (canonical) canonical.setAttribute("href", window.location.href);
+})();
+
+/* ─── City selector (desktop + mobile) ─── */
+(function initCitySelectors() {
+  if (!window.LNVCities) return;
+  var allCities = window.LNVCities.getAllCities();
+  var currentSlug = window.LNVCities.getCurrentCitySlug();
+
+  function populateSelect(sel) {
+    if (!sel) return;
+    sel.innerHTML = "";
+    allCities.forEach(function (city) {
+      var opt = document.createElement("option");
+      opt.value = city.slug;
+      opt.textContent = city.label || city.name;
+      if (city.slug === currentSlug) opt.selected = true;
+      sel.appendChild(opt);
+    });
+  }
+
+  populateSelect(elements.citySelectDesktop);
+  populateSelect(elements.citySelectMobile);
+
+  function onCityChange(source) {
+    var slug = source.value;
+    if (!window.LNVCities.setCity(slug)) return;
+    // Sync the other selector
+    [elements.citySelectDesktop, elements.citySelectMobile].forEach(function (sel) {
+      if (sel && sel !== source) sel.value = slug;
+    });
+    // Reload with new city
+    var url = window.LNVCities.cityLink(window.location.pathname, slug);
+    window.location.href = url;
+  }
+
+  [elements.citySelectDesktop, elements.citySelectMobile].forEach(function (sel) {
+    if (!sel) return;
+    sel.addEventListener("change", function () { onCityChange(sel); });
+  });
+})();
 
 /* ─── Network status: offline/online handlers ─── */
 window.addEventListener("offline", () => {

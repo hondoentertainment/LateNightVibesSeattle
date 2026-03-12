@@ -1,8 +1,8 @@
 {
-  "name": "Late Night Vibes Seattle",
-  "short_name": "LNV Seattle",
-  "description": "500+ Seattle nightlife venues — browse, plan, and optimize your night out",
-  "start_url": "/index.html",
+  "name": "Late Night Vibes",
+  "short_name": "LNV",
+  "description": "Discover nightlife in America's biggest cities — browse venues, plan your night, and explore neighborhoods",
+  "start_url": "/cities.html",
   "display": "standalone",
   "background_color": "#0b0d14",
   "theme_color": "#0a0c12",

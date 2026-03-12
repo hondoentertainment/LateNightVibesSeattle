@@ -237,3 +237,22 @@
   flex-shrink: 0;
   margin-left: 8px;
 }
+
+/* ─── Pending submissions ─── */
+.submissions-list { display: flex; flex-direction: column; gap: 14px; }
+.submission-card { background: #0d111b; border: 1px solid #1c2436; border-radius: 14px; padding: 18px; }
+.submission-header { margin-bottom: 12px; }
+.submission-name { font-size: 15px; font-weight: 700; color: #e8e8e8; margin-bottom: 4px; }
+.submission-meta { font-size: 12px; color: #7a8aaa; }
+.submission-details { display: grid; grid-template-columns: 1fr; gap: 6px; margin-bottom: 14px; }
+@media (min-width: 520px) { .submission-details { grid-template-columns: 1fr 1fr; } }
+.submission-detail { font-size: 13px; color: #a0b0d0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.submission-detail a { color: #2bff86; text-decoration: none; }
+.submission-detail a:hover { text-decoration: underline; }
+.detail-label { font-weight: 600; color: #8fa0c2; }
+.submission-actions { display: flex; gap: 10px; }
+.btn-approve, .btn-reject { padding: 8px 20px; font-size: 13px; font-weight: 600; font-family: inherit; border-radius: 10px; border: 1px solid transparent; cursor: pointer; transition: background 0.15s ease, border-color 0.15s ease; }
+.btn-approve { background: rgba(43, 255, 134, 0.12); border-color: rgba(43, 255, 134, 0.35); color: #2bff86; }
+.btn-approve:hover { background: rgba(43, 255, 134, 0.22); border-color: #2bff86; }
+.btn-reject { background: rgba(255, 91, 91, 0.1); border-color: rgba(255, 91, 91, 0.3); color: #ff5b5b; }
+.btn-reject:hover { background: rgba(255, 91, 91, 0.2); border-color: #ff5b5b; }

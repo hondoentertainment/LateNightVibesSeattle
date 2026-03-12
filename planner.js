@@ -1,4 +1,4 @@
-const DEFAULT_CSV = "venue_list_500plus.csv";
+const DEFAULT_CSV = (window.LNVCities && window.LNVCities.getCurrentCity().csv) || "data/seattle.csv";
 let allVenues = [];
 let lastItinerary = { stops: [], phases: [], startMin: 0, slotDuration: 0 };
 let lockedStops = new Set(); // indices of locked stops
@@ -376,11 +376,12 @@ function renderItinerary(stops, phases, startMin, slotDuration) {
     let travelMin = (window.LNVFeatures && window.LNVFeatures.estimateTravelMinutes) ? window.LNVFeatures.estimateTravelMinutes(venue, nextVenue) : (thisArea === nextArea ? 5 : 15);
     let isWalkable = false;
     let distanceMiles = null;
+    const _citySlug = (window.LNVCities && window.LNVCities.getCurrentCitySlug) ? window.LNVCities.getCurrentCitySlug() : "seattle";
     if (window.LNVGeo) {
-      const miles = window.LNVGeo.venueToVenueDistanceMiles(venue, nextVenue);
+      const miles = window.LNVGeo.venueToVenueDistanceMiles(venue, nextVenue, _citySlug);
       if (miles != null) {
         distanceMiles = miles;
-        if (window.LNVGeo.isWalkable && window.LNVGeo.isWalkable(venue, nextVenue)) {
+        if (window.LNVGeo.isWalkable && window.LNVGeo.isWalkable(venue, nextVenue, _citySlug)) {
           isWalkable = true;
           travelMin = Math.ceil(miles * 20);
         } else {

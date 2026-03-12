@@ -48,5 +48,7 @@
     </main>
 
     <script src="config.js"></script>
+    <script src="lib/cities.js"></script>
+    <script>(function(){var city=window.LNVCities?window.LNVCities.getCurrentCity():null;if(!city)return;var r=function(s){return s.replace(/Seattle/g,city.name);};document.title=r(document.title);var p=document.querySelector('.not-found p');if(p)p.textContent=r(p.textContent);})();</script>
   </body>
 </html>

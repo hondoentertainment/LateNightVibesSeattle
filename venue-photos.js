@@ -76,7 +76,8 @@ async function fetchVenuePhoto(venueName, area) {
   if (cached !== undefined) return cached;
 
   try {
-    const query = `${venueName} ${area} Seattle`;
+    const cityName = (window.LNVCities && window.LNVCities.getCurrentCity()) ? window.LNVCities.getCurrentCity().name : "Seattle";
+    const query = `${venueName} ${area} ${cityName}`;
     const resp = await fetch("https://places.googleapis.com/v1/places:searchText", {
       method: "POST",
       headers: {

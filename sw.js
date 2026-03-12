@@ -2,7 +2,7 @@
  * Late Night Vibes Seattle — Service Worker
  * Caches static assets and venue data for offline use.
  */
-const CACHE_NAME = "lnv-v4";
+const CACHE_NAME = "lnv-v5";
 
 const PRECACHE_URLS = [
   "/",
@@ -27,7 +27,6 @@ const PRECACHE_URLS = [
   "/lib/crawl-history.js",
   "/lib/favorites-backup.js",
   "/lib/share-plan.js",
-  "/venue_list_500plus.csv",
   "/manifest.json",
   "/og-image.png",
   "/splash/splash-1170x2532.png",

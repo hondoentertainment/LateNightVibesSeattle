@@ -348,6 +348,22 @@ body {
   flex-wrap: wrap;
 }
 
+.nav-city-label {
+  color: #2bff86;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(43, 255, 134, 0.1);
+  margin-right: 4px;
+  white-space: nowrap;
+}
+
+.nav-city-label:hover {
+  background: rgba(43, 255, 134, 0.2);
+}
+
 .nav-pill {
   color: #7a8cb0;
   text-decoration: none;
@@ -1564,6 +1580,88 @@ a.pill-link:active {
   background: rgba(255, 91, 91, 0.12);
   border-color: #ff5b5b;
   color: #ff5b5b;
+}
+
+/* ─── Closing soon pill (pulsing urgency) ─── */
+.pill-closing-soon {
+  background: rgba(255, 159, 91, 0.18);
+  border-color: #ff9f5b;
+  color: #ff9f5b;
+  animation: closingPulse 2s ease-in-out infinite;
+}
+
+@keyframes closingPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+/* ─── Closing-soon card glow ─── */
+.venue-card.closing-soon {
+  box-shadow: 0 0 12px rgba(255, 159, 91, 0.2), inset 0 0 0 1px rgba(255, 159, 91, 0.15);
+}
+
+/* ─── Surprise Me button ─── */
+.btn-surprise {
+  background: linear-gradient(135deg, rgba(43, 255, 134, 0.12), rgba(77, 214, 255, 0.12));
+  border: 1px solid rgba(43, 255, 134, 0.3);
+  color: #2bff86;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-surprise:hover {
+  background: linear-gradient(135deg, rgba(43, 255, 134, 0.2), rgba(77, 214, 255, 0.2));
+  border-color: #2bff86;
+  transform: scale(1.03);
+}
+
+.btn-surprise.spinning {
+  animation: surpriseSpin 0.4s ease;
+}
+
+@keyframes surpriseSpin {
+  0% { transform: scale(1); }
+  30% { transform: scale(0.9) rotate(-5deg); }
+  60% { transform: scale(1.1) rotate(3deg); }
+  100% { transform: scale(1) rotate(0); }
+}
+
+/* ─── Dynamic stats ticker ─── */
+.dynamic-stats-ticker {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #93a1c6;
+  overflow-x: auto;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.dynamic-stats-ticker::-webkit-scrollbar { display: none; }
+
+.ticker-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ticker-open { color: #2bff86; }
+.ticker-closing-soon { color: #ff9f5b; }
+.ticker-vibe { color: #4dd6ff; }
+.ticker-area { color: #b9c7ff; }
+
+.ticker-sep {
+  color: #2a334d;
+  margin: 0 2px;
 }
 
 /* ─── Filter badge ─── */
@@ -2823,6 +2921,62 @@ a.tonight-highlight-item:hover {
   .quick-chip-dot.dot-eats { background: #ffb86b; }
   .quick-chip-dot.dot-date { background: #ffd36e; }
   .quick-chip-dot.dot-divey { background: #8f8f8f; }
+  .quick-chip-dot.dot-energy { background: #ff6b6b; }
+  .quick-chip-dot.dot-food { background: #ffb86b; }
+  .quick-chip-dot.dot-upscale { background: #c9a0ff; }
+}
+
+/* ─── Desktop quick-filter chips ─── */
+.desktop-quick-filters { display: none; }
+
+@media (min-width: 860px) {
+  .desktop-quick-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .desktop-quick-filters .quick-chip {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    border-radius: 20px;
+    background: rgba(21, 26, 40, 0.7);
+    border: 1.5px solid #252d44;
+    color: #93a1c6;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .desktop-quick-filters .quick-chip:hover {
+    background: rgba(43, 255, 134, 0.06);
+    border-color: rgba(43, 255, 134, 0.25);
+    color: #b8c6e6;
+  }
+  .desktop-quick-filters .quick-chip.active {
+    background: rgba(43, 255, 134, 0.12);
+    border-color: rgba(43, 255, 134, 0.45);
+    color: #2bff86;
+    box-shadow: 0 0 10px rgba(43, 255, 134, 0.1);
+  }
+  .desktop-quick-filters .quick-chip:active { transform: scale(0.95); transition-duration: 0.06s; }
+  .desktop-quick-filters .quick-chip-dot {
+    width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
+  }
+  .desktop-quick-filters .quick-chip-dot.dot-open { background: #2bff86; box-shadow: 0 0 6px rgba(43, 255, 134, 0.6); }
+  .desktop-quick-filters .quick-chip-dot.dot-chill { background: #4dd6ff; }
+  .desktop-quick-filters .quick-chip-dot.dot-dancey { background: #ff7ad6; }
+  .desktop-quick-filters .quick-chip-dot.dot-live { background: #7afff4; }
+  .desktop-quick-filters .quick-chip-dot.dot-eats { background: #ffb86b; }
+  .desktop-quick-filters .quick-chip-dot.dot-date { background: #ffd36e; }
+  .desktop-quick-filters .quick-chip-dot.dot-divey { background: #8f8f8f; }
+  .desktop-quick-filters .quick-chip-dot.dot-energy { background: #ff6b6b; }
+  .desktop-quick-filters .quick-chip-dot.dot-food { background: #ffb86b; }
+  .desktop-quick-filters .quick-chip-dot.dot-upscale { background: #c9a0ff; }
 }
 
 /* ─── Active filters strip ─── */

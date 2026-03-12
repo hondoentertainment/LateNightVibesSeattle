@@ -32,7 +32,7 @@
     <link rel="stylesheet" href="styles.css" />
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="LateNightVibes Seattle">
+    <meta name="apple-mobile-web-app-title" content="LateNightVibes">
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -123,6 +123,15 @@
         <button type="button" class="quick-chip" data-quick="divey">
           <span class="quick-chip-dot dot-divey"></span> Dive Bar
         </button>
+        <button type="button" class="quick-chip" data-quick="high-energy">
+          <span class="quick-chip-dot dot-energy"></span> High Energy
+        </button>
+        <button type="button" class="quick-chip" data-quick="food-focused">
+          <span class="quick-chip-dot dot-food"></span> Food
+        </button>
+        <button type="button" class="quick-chip" data-quick="upscale">
+          <span class="quick-chip-dot dot-upscale"></span> Upscale
+        </button>
       </div>
     </div>
 
@@ -153,6 +162,10 @@
       <div class="drawer-body">
         <div class="drawer-section">
           <label class="field">
+            City
+            <select id="citySelectMobile"></select>
+          </label>
+          <label class="field">
             Area
             <select id="areaSelect">
               <option value="">All Areas</option>
@@ -173,6 +186,7 @@
               <option value="distance">Distance</option>
               <option value="near-me">Near me</option>
               <option value="closing">Closing Time</option>
+              <option value="random">Shuffle</option>
             </select>
           </label>
           <label class="ios-toggle" for="openNowMobile">
@@ -206,6 +220,12 @@
     <div class="layout">
       <aside class="sidebar desktop-only">
         <div class="sidebar-section">
+          <div class="sidebar-title">City</div>
+          <label class="field">
+            <select id="citySelectDesktop"></select>
+          </label>
+        </div>
+        <div class="sidebar-section">
           <div class="sidebar-title">Filters</div>
           <label class="field">
             Area
@@ -228,6 +248,7 @@
               <option value="distance">Distance</option>
               <option value="near-me">Near me</option>
               <option value="closing">Closing Time</option>
+              <option value="random">Shuffle</option>
             </select>
           </label>
           <label class="open-now-toggle">
@@ -258,9 +279,45 @@
 
       <main class="content" id="main">
         <h1 class="sr-only">Browse 500+ Seattle nightlife venues</h1>
+        <!-- Desktop quick-filter vibe chips -->
+        <div class="desktop-quick-filters desktop-only" id="desktopQuickFilters">
+          <button type="button" class="quick-chip" data-quick="open-now">
+            <span class="quick-chip-dot dot-open"></span> Open Now
+          </button>
+          <button type="button" class="quick-chip" data-quick="chill">
+            <span class="quick-chip-dot dot-chill"></span> Chill
+          </button>
+          <button type="button" class="quick-chip" data-quick="dancey">
+            <span class="quick-chip-dot dot-dancey"></span> Dancey
+          </button>
+          <button type="button" class="quick-chip" data-quick="live-music">
+            <span class="quick-chip-dot dot-live"></span> Live Music
+          </button>
+          <button type="button" class="quick-chip" data-quick="late-eats">
+            <span class="quick-chip-dot dot-eats"></span> Late Eats
+          </button>
+          <button type="button" class="quick-chip" data-quick="date-friendly">
+            <span class="quick-chip-dot dot-date"></span> Date Night
+          </button>
+          <button type="button" class="quick-chip" data-quick="divey">
+            <span class="quick-chip-dot dot-divey"></span> Dive Bar
+          </button>
+          <button type="button" class="quick-chip" data-quick="high-energy">
+            <span class="quick-chip-dot dot-energy"></span> High Energy
+          </button>
+          <button type="button" class="quick-chip" data-quick="food-focused">
+            <span class="quick-chip-dot dot-food"></span> Food
+          </button>
+          <button type="button" class="quick-chip" data-quick="upscale">
+            <span class="quick-chip-dot dot-upscale"></span> Upscale
+          </button>
+        </div>
+        <!-- Dynamic venue stats ticker -->
+        <div id="dynamicStatsTicker" class="dynamic-stats-ticker" aria-live="polite" style="display:none"></div>
         <div class="content-toolbar">
           <div style="display:flex;align-items:center;gap:12px">
             <div id="resultSummary" class="result-summary" aria-live="polite" aria-atomic="true"></div>
+            <button type="button" id="surpriseMeBtn" class="btn-surprise" aria-label="Pick a random venue">Surprise Me</button>
             <div id="searchAnnouncer" class="sr-only" aria-live="polite" aria-atomic="true" role="status"></div>
             <div id="crawlStats" class="crawl-stats" style="display:none"></div>
             <div id="favoritesBackupBar" class="favorites-backup-bar" style="display:none" aria-label="Backup and restore favorites">
@@ -303,7 +360,7 @@
           <span class="progress-dot" data-step="1" aria-label="Step 2 of 3"></span>
           <span class="progress-dot" data-step="2" aria-label="Step 3 of 3"></span>
         </div>
-        <div class="onboarding-greeting">Seattle after dark</div>
+        <div class="onboarding-greeting" id="onboardingGreeting">Seattle after dark</div>
         <h2 id="onboardingHeading">Let's find your perfect night</h2>
         <div id="onboardingStep1" class="onboarding-step">
           <p>Who's coming along?</p>
@@ -345,7 +402,7 @@
     <!-- Initial load overlay -->
     <div id="loadingOverlay" class="loading-overlay" role="status" aria-live="polite" aria-label="Loading venues">
       <div class="ptr-spinner"></div>
-      <span class="loading-overlay-text">Loading Seattle venues…</span>
+      <span class="loading-overlay-text">Loading venues…</span>
     </div>
 
     <!-- PWA install prompt -->
@@ -389,6 +446,8 @@
     </nav>
 
     <script src="config.js"></script>
+    <script src="lib/cities.js"></script>
+    <script>(function(){var city=window.LNVCities?window.LNVCities.getCurrentCity():null;if(!city)return;var r=function(s){return s.replace(/Seattle/g,city.name);};document.title=r(document.title);var metas=[['meta[name="description"]','content'],['meta[property="og:title"]','content'],['meta[property="og:description"]','content'],['meta[property="og:image:alt"]','content'],['meta[name="twitter:title"]','content'],['meta[name="twitter:description"]','content']];metas.forEach(function(m){var el=document.querySelector(m[0]);if(el)el.setAttribute(m[1],r(el.getAttribute(m[1])));});var h1=document.querySelector('h1.sr-only');if(h1)h1.textContent=r(h1.textContent);var g=document.getElementById('onboardingGreeting');if(g)g.textContent=city.tagline||r(g.textContent);var ld=document.querySelector('script[type="application/ld+json"]');if(ld)try{var j=JSON.parse(ld.textContent);if(j.name)j.name=r(j.name);if(j.description)j.description=r(j.description);ld.textContent=JSON.stringify(j);}catch(e){}})();</script>
     <script src="lib/core.js"></script>
     <script src="lib/shared-nav.js"></script>
     <script>LNVNav.init({ page: "browse", adminId: "adminNavLink" });</script>

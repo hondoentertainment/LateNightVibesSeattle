@@ -8,3 +8,4 @@ Thumbs.db
 config.js
 test-results/
 playwright-report/
+.claude/

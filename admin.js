@@ -1,4 +1,4 @@
-const DEFAULT_CSV = "venue_list_500plus.csv";
+const DEFAULT_CSV = (window.LNVCities && window.LNVCities.getCurrentCity().csv) || "data/seattle.csv";
 const ADMIN_TOKEN = "lnv-admin-2024";
 const ADMIN_TOKEN_KEY = "lnv_admin_token";
 
@@ -196,6 +196,92 @@ function handleFile(file) {
   reader.readAsText(file);
 }
 
+/* ─── Pending submissions management ─── */
+const SUBMISSIONS_KEY = "lnv_pending_submissions";
+
+function getSubmissions() {
+  try {
+    return JSON.parse(localStorage.getItem(SUBMISSIONS_KEY)) || [];
+  } catch (_e) {
+    return [];
+  }
+}
+
+function saveSubmissions(list) {
+  localStorage.setItem(SUBMISSIONS_KEY, JSON.stringify(list));
+}
+
+function renderSubmissions() {
+  var list = getSubmissions().filter(function (s) { return s.status === "pending"; });
+  var container = document.getElementById("submissionsList");
+  var emptyMsg = document.getElementById("submissionsEmpty");
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  if (!list.length) {
+    if (emptyMsg) emptyMsg.style.display = "";
+    return;
+  }
+
+  if (emptyMsg) emptyMsg.style.display = "none";
+
+  list.forEach(function (sub) {
+    var card = document.createElement("div");
+    card.className = "submission-card";
+    card.setAttribute("data-id", sub.id);
+
+    var cityLabel = sub.city ? escapeHtml(sub.city) + " \u2014 " : "";
+    var areaLabel = escapeHtml((sub.area || "").replace(/_/g, " / "));
+
+    card.innerHTML =
+      '<div class="submission-header">' +
+        '<div class="submission-name">' + escapeHtml(sub.name) + '</div>' +
+        '<div class="submission-meta">' + cityLabel + areaLabel + ' \u00B7 ' + escapeHtml(sub.category) + '</div>' +
+      '</div>' +
+      '<div class="submission-details">' +
+        '<div class="submission-detail"><span class="detail-label">Closing:</span> ' + escapeHtml(sub.closingTime || "\u2014") + '</div>' +
+        '<div class="submission-detail"><span class="detail-label">Address:</span> ' + escapeHtml(sub.address || "\u2014") + '</div>' +
+        '<div class="submission-detail"><span class="detail-label">Website:</span> ' + (sub.website ? '<a href="' + escapeHtml(sub.website) + '" target="_blank" rel="noopener">' + escapeHtml(sub.website) + '</a>' : '\u2014') + '</div>' +
+        '<div class="submission-detail"><span class="detail-label">Rating:</span> ' + escapeHtml(sub.rating || "\u2014") + '</div>' +
+        '<div class="submission-detail"><span class="detail-label">Vibes:</span> ' + escapeHtml(sub.vibeTags || "\u2014") + '</div>' +
+        '<div class="submission-detail"><span class="detail-label">Submitted:</span> ' + escapeHtml(new Date(sub.submittedAt).toLocaleDateString()) + '</div>' +
+      '</div>' +
+      '<div class="submission-actions">' +
+        '<button type="button" class="btn-approve" data-id="' + escapeHtml(sub.id) + '">Approve</button>' +
+        '<button type="button" class="btn-reject" data-id="' + escapeHtml(sub.id) + '">Reject</button>' +
+      '</div>';
+
+    container.appendChild(card);
+  });
+
+  container.onclick = function (e) {
+    var btn = e.target.closest("[data-id]");
+    if (!btn) return;
+    var id = btn.getAttribute("data-id");
+    if (btn.classList.contains("btn-approve")) approveSubmission(id);
+    else if (btn.classList.contains("btn-reject")) rejectSubmission(id);
+  };
+}
+
+function approveSubmission(id) {
+  var all = getSubmissions();
+  var idx = all.findIndex(function (s) { return s.id === id; });
+  if (idx === -1) return;
+  all[idx].status = "approved";
+  saveSubmissions(all);
+  renderSubmissions();
+}
+
+function rejectSubmission(id) {
+  var all = getSubmissions();
+  var idx = all.findIndex(function (s) { return s.id === id; });
+  if (idx === -1) return;
+  all[idx].status = "rejected";
+  saveSubmissions(all);
+  renderSubmissions();
+}
+
 /* ─── Auth check & initialization ─── */
 if (checkAdminAuth()) {
   /* ─── Drop zone ─── */
@@ -242,6 +328,7 @@ if (checkAdminAuth()) {
   }
 
   loadDefaultCSV();
+  renderSubmissions();
 } else {
   showAuthGate();
 }

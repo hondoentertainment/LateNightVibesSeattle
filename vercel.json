@@ -7,7 +7,8 @@
     { "source": "/planner", "destination": "/planner.html" },
     { "source": "/recommend", "destination": "/recommend.html" },
     { "source": "/neighborhoods", "destination": "/neighborhoods.html" },
-    { "source": "/admin", "destination": "/admin.html" }
+    { "source": "/admin", "destination": "/admin.html" },
+    { "source": "/cities", "destination": "/cities.html" }
   ],
   "headers": [
     {

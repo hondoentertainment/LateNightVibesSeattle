@@ -164,6 +164,8 @@
     </div>
 
     <script src="config.js"></script>
+    <script src="lib/cities.js"></script>
+    <script>(function(){var city=window.LNVCities?window.LNVCities.getCurrentCity():null;if(!city)return;var r=function(s){return s.replace(/Seattle/g,city.name);};document.title=r(document.title);var metas=[['meta[name="description"]','content'],['meta[property="og:title"]','content'],['meta[property="og:description"]','content'],['meta[property="og:image:alt"]','content']];metas.forEach(function(m){var el=document.querySelector(m[0]);if(el)el.setAttribute(m[1],r(el.getAttribute(m[1])));});var h1=document.querySelector('h1.sr-only');if(h1)h1.textContent=r(h1.textContent);})();</script>
     <script src="lib/core.js"></script>
     <script src="lib/shared-nav.js"></script>
     <script>LNVNav.init({ page: "recommend", adminId: "adminNavLinkRec" });</script>
