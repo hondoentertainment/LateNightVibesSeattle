@@ -2078,6 +2078,31 @@ addListener($("importFavoritesInput"), "change", async (event) => {
 
 loadDefaultCSV();
 
+/* ─── Per-city SEO meta tags & Open Graph ─── */
+(function updateCityMeta() {
+  if (!window.LNVCities || !window.LNVCities.getCurrentCity) return;
+  var city = window.LNVCities.getCurrentCity();
+  if (!city.description) return;
+  var pageTitle = "Late Night Vibes " + city.name + " — Nightlife Venues";
+
+  document.title = pageTitle;
+
+  function setMeta(attr, key, content) {
+    var el = document.querySelector("meta[" + attr + '="' + key + '"]');
+    if (el) el.setAttribute("content", content);
+  }
+
+  setMeta("name", "description", city.description);
+  setMeta("property", "og:title", pageTitle);
+  setMeta("property", "og:description", city.ogDescription || city.description);
+  setMeta("property", "og:url", window.location.href);
+  setMeta("name", "twitter:title", "Late Night Vibes " + city.name);
+  setMeta("name", "twitter:description", city.description);
+
+  var canonical = document.querySelector('link[rel="canonical"]');
+  if (canonical) canonical.setAttribute("href", window.location.href);
+})();
+
 /* ─── Network status: offline/online handlers ─── */
 window.addEventListener("offline", () => {
   showErrorToast("You are offline. Some features may not work.");
