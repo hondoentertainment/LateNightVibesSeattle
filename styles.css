@@ -2839,6 +2839,62 @@ a.tonight-highlight-item:hover {
   .quick-chip-dot.dot-eats { background: #ffb86b; }
   .quick-chip-dot.dot-date { background: #ffd36e; }
   .quick-chip-dot.dot-divey { background: #8f8f8f; }
+  .quick-chip-dot.dot-energy { background: #ff6b6b; }
+  .quick-chip-dot.dot-food { background: #ffb86b; }
+  .quick-chip-dot.dot-upscale { background: #c9a0ff; }
+}
+
+/* ─── Desktop quick-filter chips ─── */
+.desktop-quick-filters { display: none; }
+
+@media (min-width: 860px) {
+  .desktop-quick-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .desktop-quick-filters .quick-chip {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    border-radius: 20px;
+    background: rgba(21, 26, 40, 0.7);
+    border: 1.5px solid #252d44;
+    color: #93a1c6;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .desktop-quick-filters .quick-chip:hover {
+    background: rgba(43, 255, 134, 0.06);
+    border-color: rgba(43, 255, 134, 0.25);
+    color: #b8c6e6;
+  }
+  .desktop-quick-filters .quick-chip.active {
+    background: rgba(43, 255, 134, 0.12);
+    border-color: rgba(43, 255, 134, 0.45);
+    color: #2bff86;
+    box-shadow: 0 0 10px rgba(43, 255, 134, 0.1);
+  }
+  .desktop-quick-filters .quick-chip:active { transform: scale(0.95); transition-duration: 0.06s; }
+  .desktop-quick-filters .quick-chip-dot {
+    width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
+  }
+  .desktop-quick-filters .quick-chip-dot.dot-open { background: #2bff86; box-shadow: 0 0 6px rgba(43, 255, 134, 0.6); }
+  .desktop-quick-filters .quick-chip-dot.dot-chill { background: #4dd6ff; }
+  .desktop-quick-filters .quick-chip-dot.dot-dancey { background: #ff7ad6; }
+  .desktop-quick-filters .quick-chip-dot.dot-live { background: #7afff4; }
+  .desktop-quick-filters .quick-chip-dot.dot-eats { background: #ffb86b; }
+  .desktop-quick-filters .quick-chip-dot.dot-date { background: #ffd36e; }
+  .desktop-quick-filters .quick-chip-dot.dot-divey { background: #8f8f8f; }
+  .desktop-quick-filters .quick-chip-dot.dot-energy { background: #ff6b6b; }
+  .desktop-quick-filters .quick-chip-dot.dot-food { background: #ffb86b; }
+  .desktop-quick-filters .quick-chip-dot.dot-upscale { background: #c9a0ff; }
 }
 
 /* ─── Active filters strip ─── */

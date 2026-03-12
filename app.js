@@ -156,8 +156,12 @@ const elements = {
   detailBody: $("detailBody"),
   // Mobile UX enhancements
   quickFilters: $("quickFilters"),
+  desktopQuickFilters: $("desktopQuickFilters"),
   timeBanner: $("timeBanner"),
   activeFiltersStrip: $("activeFiltersStrip"),
+  // City selectors
+  citySelectDesktop: $("citySelectDesktop"),
+  citySelectMobile: $("citySelectMobile"),
 };
 
 /* ─── Focus trap utility (A2, A3) ─── */
@@ -1445,56 +1449,61 @@ function initOnboarding() {
 
 window.showOnboarding = showOnboarding;
 
-/* ─── Quick-filter chips (mobile) ─── */
+/* ─── Quick-filter chips (mobile + desktop) ─── */
+const QUICK_MAP = {
+  "open-now": { type: "openNow" },
+  "chill": { type: "vibe", vibe: "chill" },
+  "dancey": { type: "vibe", vibe: "dancey" },
+  "live-music": { type: "vibe", vibe: "live-music" },
+  "late-eats": { type: "vibe", vibe: "late-eats" },
+  "date-friendly": { type: "vibe", vibe: "date-friendly" },
+  "divey": { type: "vibe", vibe: "divey" },
+  "high-energy": { type: "vibe", vibe: "high-energy" },
+  "food-focused": { type: "vibe", vibe: "food-focused" },
+  "upscale": { type: "vibe", vibe: "upscale" },
+};
+
+function handleQuickChipClick(e) {
+  const chip = e.target.closest(".quick-chip");
+  if (!chip) return;
+  const key = chip.dataset.quick;
+  const cfg = QUICK_MAP[key];
+  if (!cfg) return;
+
+  const wasActive = chip.classList.contains("active");
+
+  if (cfg.type === "openNow") {
+    state.openNowOnly = !wasActive;
+    syncOpenNow();
+  } else if (cfg.type === "vibe") {
+    if (wasActive) state.activeVibes.delete(cfg.vibe);
+    else state.activeVibes.add(cfg.vibe);
+    syncVibeCheckboxes();
+  }
+
+  applyFilters();
+  syncQuickChips();
+  updateActiveFiltersStrip();
+
+  if (window.LNV_HAPTICS) window.LNV_HAPTICS.light();
+}
+
 (function initQuickFilters() {
-  const container = elements.quickFilters;
-  if (!container) return;
-
-  const QUICK_MAP = {
-    "open-now": { type: "openNow" },
-    "chill": { type: "vibe", vibe: "chill" },
-    "dancey": { type: "vibe", vibe: "dancey" },
-    "live-music": { type: "vibe", vibe: "live-music" },
-    "late-eats": { type: "vibe", vibe: "late-eats" },
-    "date-friendly": { type: "vibe", vibe: "date-friendly" },
-    "divey": { type: "vibe", vibe: "divey" },
-  };
-
-  container.addEventListener("click", (e) => {
-    const chip = e.target.closest(".quick-chip");
-    if (!chip) return;
-    const key = chip.dataset.quick;
-    const cfg = QUICK_MAP[key];
-    if (!cfg) return;
-
-    const wasActive = chip.classList.contains("active");
-
-    if (cfg.type === "openNow") {
-      state.openNowOnly = !wasActive;
-      syncOpenNow();
-    } else if (cfg.type === "vibe") {
-      if (wasActive) state.activeVibes.delete(cfg.vibe);
-      else state.activeVibes.add(cfg.vibe);
-      syncVibeCheckboxes();
-    }
-
-    chip.classList.toggle("active", !wasActive);
-    applyFilters();
-    updateActiveFiltersStrip();
-
-    if (window.LNV_HAPTICS) window.LNV_HAPTICS.light();
+  [elements.quickFilters, elements.desktopQuickFilters].forEach((container) => {
+    if (container) container.addEventListener("click", handleQuickChipClick);
   });
 })();
 
 function syncQuickChips() {
-  const container = elements.quickFilters;
-  if (!container) return;
-  container.querySelectorAll(".quick-chip").forEach((chip) => {
-    const key = chip.dataset.quick;
-    let active = false;
-    if (key === "open-now") active = state.openNowOnly;
-    else active = state.activeVibes.has(key);
-    chip.classList.toggle("active", active);
+  [elements.quickFilters, elements.desktopQuickFilters].forEach((container) => {
+    if (!container) return;
+    container.querySelectorAll(".quick-chip").forEach((chip) => {
+      const key = chip.dataset.quick;
+      let active = false;
+      if (key === "open-now") active = state.openNowOnly;
+      else active = state.activeVibes.has(key);
+      chip.classList.toggle("active", active);
+    });
   });
 }
 
@@ -2046,6 +2055,7 @@ function clearAllFilters() {
   syncOpenNow();
   state.activeVibes.clear();
   syncVibeCheckboxes();
+  syncQuickChips();
   applyFilters();
   showToast("Filters cleared");
 }
@@ -2101,6 +2111,45 @@ loadDefaultCSV();
 
   var canonical = document.querySelector('link[rel="canonical"]');
   if (canonical) canonical.setAttribute("href", window.location.href);
+})();
+
+/* ─── City selector (desktop + mobile) ─── */
+(function initCitySelectors() {
+  if (!window.LNVCities) return;
+  var allCities = window.LNVCities.getAllCities();
+  var currentSlug = window.LNVCities.getCurrentCitySlug();
+
+  function populateSelect(sel) {
+    if (!sel) return;
+    sel.innerHTML = "";
+    allCities.forEach(function (city) {
+      var opt = document.createElement("option");
+      opt.value = city.slug;
+      opt.textContent = city.label || city.name;
+      if (city.slug === currentSlug) opt.selected = true;
+      sel.appendChild(opt);
+    });
+  }
+
+  populateSelect(elements.citySelectDesktop);
+  populateSelect(elements.citySelectMobile);
+
+  function onCityChange(source) {
+    var slug = source.value;
+    if (!window.LNVCities.setCity(slug)) return;
+    // Sync the other selector
+    [elements.citySelectDesktop, elements.citySelectMobile].forEach(function (sel) {
+      if (sel && sel !== source) sel.value = slug;
+    });
+    // Reload with new city
+    var url = window.LNVCities.cityLink(window.location.pathname, slug);
+    window.location.href = url;
+  }
+
+  [elements.citySelectDesktop, elements.citySelectMobile].forEach(function (sel) {
+    if (!sel) return;
+    sel.addEventListener("change", function () { onCityChange(sel); });
+  });
 })();
 
 /* ─── Network status: offline/online handlers ─── */
