@@ -20,7 +20,8 @@
       </div>
       <nav class="admin-header-actions" aria-label="Admin actions">
         <button id="reloadData" type="button" class="btn-reload" aria-label="Reload venue data from server">Reload data</button>
-        <a href="index.html" class="admin-link">← Back to site</a>
+        <a href="submit.html" class="admin-link">Submit a Venue</a>
+        <a href="index.html" class="admin-link">&larr; Back to site</a>
       </nav>
     </header>
 
@@ -74,6 +75,13 @@
         <div id="importFeedback" class="admin-import-feedback" role="status" aria-live="polite"></div>
       </section>
 
+      <section class="admin-card" aria-labelledby="submissionsHeading">
+        <h2 id="submissionsHeading">Pending Venue Submissions</h2>
+        <p class="admin-desc">User-submitted venues awaiting review. Approve to add to the directory or reject to discard.</p>
+        <div id="submissionsEmpty" class="admin-status">No pending submissions.</div>
+        <div id="submissionsList" class="submissions-list"></div>
+      </section>
+
       <section class="admin-card admin-breakdown" aria-labelledby="areaBreakdownHeading">
         <h2 id="areaBreakdownHeading">Area Breakdown</h2>
         <div id="areaBreakdown" class="breakdown-grid"></div>
@@ -109,6 +117,7 @@
         document.head.appendChild(s);
       })();
     </script>
+    <script src="lib/cities.js"></script>
     <script src="admin.js"></script>
   </body>
 </html>

@@ -1,0 +1,245 @@
+/* ─── Submit page layout ─── */
+.submit-layout {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 28px 20px 120px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+@media (min-width: 640px) {
+  .submit-layout {
+    padding: 36px 32px 80px;
+  }
+}
+
+/* ─── Cards ─── */
+.submit-card {
+  background: #101520;
+  border: 1px solid #1f2638;
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.submit-hero h1 {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 8px;
+  color: #e8e8e8;
+}
+
+.submit-desc {
+  font-size: 14px;
+  color: #93a1c6;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ─── Form layout ─── */
+.form-row {
+  margin-bottom: 18px;
+}
+
+.form-row-2col {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+
+@media (min-width: 520px) {
+  .form-row-2col {
+    grid-template-columns: 1fr 1fr;
+    margin-bottom: 18px;
+  }
+  .form-row-2col .field {
+    margin-bottom: 0;
+  }
+}
+
+/* ─── Fields (match existing site style) ─── */
+.submit-card .field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #c8d4f4;
+}
+
+.submit-card .field input,
+.submit-card .field select {
+  padding: 10px 12px;
+  font-size: 14px;
+  font-family: inherit;
+  border: 1px solid #2a334d;
+  border-radius: 10px;
+  background: #0b0d14;
+  color: #e8e8e8;
+  transition: border-color 0.15s ease;
+}
+
+.submit-card .field input::placeholder {
+  color: #5a6a8a;
+}
+
+.submit-card .field input:focus,
+.submit-card .field select:focus {
+  border-color: #2bff86;
+  outline: none;
+}
+
+.submit-card .field input:disabled,
+.submit-card .field select:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.field-hint {
+  font-size: 12px;
+  font-weight: 400;
+  color: #7a8aaa;
+}
+
+.required {
+  color: #ff5b5b;
+}
+
+/* ─── Vibe tags toggle buttons ─── */
+.vibe-tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.vibe-tag-btn {
+  padding: 7px 14px;
+  font-size: 13px;
+  font-family: inherit;
+  font-weight: 500;
+  border: 1px solid #2a334d;
+  border-radius: 20px;
+  background: #0b0d14;
+  color: #a0b0d0;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.vibe-tag-btn:hover {
+  border-color: rgba(43, 255, 134, 0.4);
+  color: #c8d4f4;
+}
+
+.vibe-tag-btn.active {
+  background: rgba(43, 255, 134, 0.12);
+  border-color: rgba(43, 255, 134, 0.5);
+  color: #2bff86;
+}
+
+/* ─── Form errors ─── */
+.form-errors {
+  font-size: 13px;
+  color: #ff5b5b;
+  line-height: 1.6;
+  min-height: 0;
+  overflow: hidden;
+  transition: min-height 0.2s ease;
+}
+
+.form-errors-visible {
+  min-height: 20px;
+  margin-bottom: 12px;
+}
+
+/* ─── Submit button ─── */
+.form-actions {
+  padding-top: 6px;
+}
+
+.btn-submit {
+  display: inline-block;
+  padding: 12px 32px;
+  font-size: 15px;
+  font-family: inherit;
+  font-weight: 700;
+  border: none;
+  border-radius: 12px;
+  background: #2bff86;
+  color: #0b0d14;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.btn-submit:hover {
+  background: #22e676;
+}
+
+.btn-submit:active {
+  transform: scale(0.97);
+}
+
+.btn-secondary {
+  display: inline-block;
+  padding: 12px 28px;
+  font-size: 14px;
+  font-family: inherit;
+  font-weight: 600;
+  border: 1px solid #2a334d;
+  border-radius: 12px;
+  background: transparent;
+  color: #a0b0d0;
+  text-decoration: none;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.btn-secondary:hover {
+  border-color: #2bff86;
+  color: #2bff86;
+}
+
+/* ─── Confirmation ─── */
+.submit-confirmation {
+  text-align: center;
+  padding: 40px 24px;
+}
+
+.confirm-icon {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(43, 255, 134, 0.12);
+  border: 2px solid rgba(43, 255, 134, 0.4);
+  font-size: 24px;
+  color: #2bff86;
+}
+
+.submit-confirmation h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #e8e8e8;
+  margin: 0 0 10px;
+}
+
+.submit-confirmation p {
+  font-size: 14px;
+  color: #93a1c6;
+  line-height: 1.6;
+  margin: 0 0 24px;
+  max-width: 420px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.confirm-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
