@@ -30,6 +30,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="vibe-check.css" />
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="LateNightVibes">
@@ -421,6 +422,12 @@
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M18 15l-6-6-6 6"/></svg>
     </button>
 
+    <!-- Vibe Check modal -->
+    <div id="vibeCheckOverlay" class="vibe-check-overlay" style="display:none"></div>
+    <div id="vibeCheckModal" class="vibe-check-modal" role="dialog" aria-modal="true" aria-labelledby="vibeCheckTitle" style="display:none">
+      <!-- JS populates -->
+    </div>
+
     <!-- Bottom nav (mobile) -->
     <nav class="bottom-nav mobile-only" aria-label="Main navigation">
       <a href="index.html" class="bottom-nav-item active" aria-current="page" aria-label="Browse venues">
@@ -468,6 +475,7 @@
       })();
     </script>
     <script src="lib/features.js"></script>
+    <script src="lib/vibe-check.js"></script>
     <script src="lib/crawl-history.js"></script>
     <script src="lib/favorites-backup.js"></script>
     <script>
@@ -475,6 +483,7 @@
         navigator.serviceWorker.register("sw.js").catch(function () {});
       }
     </script>
+    <script src="vibe-check-ui.js"></script>
     <script src="venue-photos.js"></script>
     <script src="app.js"></script>
   </body>

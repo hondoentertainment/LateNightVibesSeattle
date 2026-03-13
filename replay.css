@@ -1,0 +1,526 @@
+/* ─── Night Replay page styles ─── */
+
+/* ─── Page layout ─── */
+.replay-main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 24px 16px 100px;
+}
+
+.replay-page-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--color-text, #e8e8e8);
+  margin: 0 0 4px;
+}
+
+.replay-subtitle {
+  display: block;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--color-text-secondary, #a0b0d0);
+  margin-top: 4px;
+}
+
+/* ─── Controls ─── */
+.replay-controls {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  margin: 20px 0 24px;
+}
+
+.replay-controls .field {
+  flex: 1;
+  min-width: 0;
+}
+
+.replay-controls input[type="date"] {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--color-border, #2a334d);
+  background: var(--color-surface, #101520);
+  color: var(--color-text, #e8e8e8);
+  font-size: 14px;
+  font-family: inherit;
+  -webkit-appearance: none;
+}
+
+.replay-controls input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.8);
+}
+
+.btn-generate {
+  background: var(--color-accent, #2bff86);
+  color: var(--color-bg, #0b0d14);
+  border: none;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  min-height: 46px;
+  transition: background 0.15s ease;
+}
+
+.btn-generate:hover {
+  background: #22e676;
+}
+
+.btn-generate:active {
+  background: #1ad16a;
+}
+
+/* ─── Replay content area ─── */
+.replay-content {
+  min-height: 200px;
+}
+
+/* ─── Empty state ─── */
+.replay-empty {
+  text-align: center;
+  padding: 48px 16px;
+  color: var(--color-text-secondary, #a0b0d0);
+}
+
+.replay-empty-icon {
+  margin-bottom: 16px;
+  opacity: 0.4;
+}
+
+.replay-empty-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-text, #e8e8e8);
+  margin: 0 0 8px;
+}
+
+.replay-empty-desc {
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
+  max-width: 360px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ─── Replay card ─── */
+.replay-card {
+  background: var(--color-surface, #101520);
+  border: 1px solid transparent;
+  border-radius: 16px;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.replay-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--color-accent, #2bff86), #1a8f5a, var(--color-border, #2a334d));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.replay-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.replay-card-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-text, #e8e8e8);
+  margin: 0;
+}
+
+.replay-card-date {
+  font-size: 13px;
+  color: var(--color-text-secondary, #a0b0d0);
+}
+
+/* ─── Stats grid ─── */
+.replay-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.replay-stat {
+  background: rgba(43, 255, 134, 0.04);
+  border: 1px solid var(--color-border, #2a334d);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+}
+
+.replay-stat-number {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-accent, #2bff86);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.replay-stat-label {
+  font-size: 12px;
+  color: var(--color-text-secondary, #a0b0d0);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ─── Timeline ─── */
+.replay-timeline {
+  position: relative;
+  padding-left: 24px;
+  margin-bottom: 24px;
+}
+
+.replay-timeline::before {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--color-accent, #2bff86), var(--color-border, #2a334d));
+  border-radius: 1px;
+}
+
+.replay-timeline-stop {
+  position: relative;
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 10px;
+  transition: background 0.15s ease;
+}
+
+.replay-timeline-stop:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.replay-timeline-stop::before {
+  content: "";
+  position: absolute;
+  left: -22px;
+  top: 18px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-accent, #2bff86);
+  border: 2px solid var(--color-surface, #101520);
+  box-shadow: 0 0 0 2px var(--color-accent, #2bff86);
+}
+
+.replay-timeline-stop.negative::before {
+  background: var(--color-danger, #ff5b5b);
+  box-shadow: 0 0 0 2px var(--color-danger, #ff5b5b);
+}
+
+.replay-timeline-stop.neutral::before {
+  background: var(--color-text-secondary, #a0b0d0);
+  box-shadow: 0 0 0 2px var(--color-text-secondary, #a0b0d0);
+}
+
+.replay-stop-time {
+  font-size: 11px;
+  color: var(--color-text-secondary, #a0b0d0);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  margin-bottom: 2px;
+}
+
+.replay-stop-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-text, #e8e8e8);
+}
+
+.replay-stop-meta {
+  font-size: 12px;
+  color: var(--color-text-secondary, #a0b0d0);
+  margin-top: 2px;
+}
+
+.replay-stop-rating {
+  display: inline-block;
+  margin-left: 6px;
+}
+
+.replay-stop-rating.up {
+  color: var(--color-accent, #2bff86);
+}
+
+.replay-stop-rating.down {
+  color: var(--color-danger, #ff5b5b);
+}
+
+/* ─── Night score ─── */
+.replay-night-score {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.replay-score-ring {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+  margin-bottom: 8px;
+}
+
+.replay-score-ring svg {
+  transform: rotate(-90deg);
+}
+
+.replay-score-value {
+  position: absolute;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-accent, #2bff86);
+}
+
+.replay-score-label {
+  font-size: 13px;
+  color: var(--color-text-secondary, #a0b0d0);
+}
+
+/* ─── Vibe cloud ─── */
+.replay-section-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text, #e8e8e8);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 12px;
+}
+
+.replay-vibe-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.replay-vibe-tag {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  background: rgba(43, 255, 134, 0.08);
+  color: var(--color-accent, #2bff86);
+  border: 1px solid rgba(43, 255, 134, 0.15);
+  transition: transform 0.15s ease;
+}
+
+.replay-vibe-tag.size-1 {
+  font-size: 12px;
+  padding: 4px 10px;
+  opacity: 0.7;
+}
+
+.replay-vibe-tag.size-2 {
+  font-size: 13px;
+}
+
+.replay-vibe-tag.size-3 {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.replay-vibe-tag.size-4 {
+  font-size: 17px;
+  font-weight: 700;
+  background: rgba(43, 255, 134, 0.14);
+}
+
+/* ─── Share card ─── */
+.replay-share-card {
+  background: linear-gradient(135deg, #101520 0%, #0e1828 50%, #0b1420 100%);
+  border: 1px solid var(--color-border, #2a334d);
+  border-radius: 16px;
+  padding: 28px 24px;
+  text-align: center;
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.replay-share-card::after {
+  content: "";
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, rgba(43, 255, 134, 0.08), transparent 70%);
+  pointer-events: none;
+}
+
+.replay-share-card-brand {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--color-accent, #2bff86);
+  margin-bottom: 6px;
+  opacity: 0.7;
+}
+
+.replay-share-card-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-text, #e8e8e8);
+  margin: 0 0 16px;
+}
+
+.replay-share-stats {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 16px;
+}
+
+.replay-share-stat {
+  text-align: center;
+}
+
+.replay-share-stat-number {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--color-accent, #2bff86);
+  line-height: 1;
+}
+
+.replay-share-stat-label {
+  font-size: 11px;
+  color: var(--color-text-secondary, #a0b0d0);
+  margin-top: 2px;
+}
+
+.replay-share-vibes {
+  font-size: 13px;
+  color: var(--color-text-secondary, #a0b0d0);
+  margin-bottom: 0;
+}
+
+/* ─── Action buttons ─── */
+.replay-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.replay-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid var(--color-border, #2a334d);
+  background: var(--color-surface, #101520);
+  color: var(--color-text, #e8e8e8);
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.replay-btn:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: var(--color-accent, #2bff86);
+}
+
+.replay-btn:active {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.replay-btn svg {
+  flex-shrink: 0;
+}
+
+.replay-btn-primary {
+  background: rgba(43, 255, 134, 0.1);
+  border-color: rgba(43, 255, 134, 0.3);
+  color: var(--color-accent, #2bff86);
+}
+
+.replay-btn-primary:hover {
+  background: rgba(43, 255, 134, 0.16);
+}
+
+/* ─── Toast notification ─── */
+.replay-toast {
+  position: fixed;
+  bottom: 90px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--color-surface, #101520);
+  color: var(--color-accent, #2bff86);
+  border: 1px solid var(--color-accent, #2bff86);
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  opacity: 0;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.replay-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 600px) {
+  .replay-main {
+    padding: 16px 12px 100px;
+  }
+
+  .replay-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .replay-card {
+    padding: 18px;
+  }
+
+  .replay-stats-grid {
+    gap: 8px;
+  }
+
+  .replay-stat {
+    padding: 12px;
+  }
+
+  .replay-stat-number {
+    font-size: 24px;
+  }
+
+  .replay-share-stats {
+    gap: 16px;
+  }
+
+  .replay-actions {
+    flex-direction: column;
+  }
+}

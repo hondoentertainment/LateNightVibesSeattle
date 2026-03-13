@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0a0c12" />
+    <title>Squad Sync — Late Night Vibes Seattle</title>
+    <meta name="description" content="Coordinate your group night out. Friends swipe on venues, see what everyone agrees on, and plan the perfect night together." />
+    <meta property="og:title" content="Squad Sync — Late Night Vibes Seattle" />
+    <meta property="og:description" content="Coordinate your group night out. Swipe on venues together and find the spots everyone loves." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://late-night-vibes-seattle.vercel.app/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Late Night Vibes Seattle — Squad Sync group coordinator" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="apple-touch-icon" href="favicon-512.png" />
+    <link rel="apple-touch-startup-image" href="splash/splash-1170x2532.png" media="(device-width: 390px) and (device-height: 844px)" />
+    <link rel="apple-touch-startup-image" href="splash/splash-1290x2796.png" media="(device-width: 430px) and (device-height: 932px)" />
+    <link rel="apple-touch-startup-image" href="splash/splash-1242x2688.png" media="(device-width: 414px) and (device-height: 896px)" />
+    <link rel="apple-touch-startup-image" href="splash/splash-1284x2778.png" media="(device-width: 428px) and (device-height: 926px)" />
+    <link rel="apple-touch-startup-image" href="splash/splash-750x1334.png" media="(device-width: 375px) and (device-height: 667px)" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="canonical" href="https://late-night-vibes-seattle.vercel.app/squad.html" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="squad.css" />
+  </head>
+  <body>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <header class="topbar" role="banner">
+      <div class="brand">
+        <img src="lnv-logo.png" alt="Late Night Vibes" class="header-logo" />
+      </div>
+      <nav class="top-actions desktop-only" aria-label="Main navigation">
+        <a href="index.html" class="nav-pill">Browse Venues</a>
+        <a href="recommend.html" class="nav-pill">Recommendations</a>
+        <a href="planner.html" class="nav-pill">Night Plan</a>
+        <a href="neighborhoods.html" class="nav-pill">Compare</a>
+        <a href="index.html?view=saved" class="nav-pill">Saved</a>
+        <a href="admin.html" class="nav-pill nav-admin">Admin</a>
+      </nav>
+    </header>
+
+    <main id="main" class="squad-page" aria-live="polite">
+      <h1 class="sr-only">Squad Sync — coordinate your group night out</h1>
+
+      <!-- ─── Create View ─── -->
+      <div id="viewCreate" class="squad-view active">
+        <div class="squad-create">
+          <h2 class="squad-page-title">Start a Squad Session</h2>
+          <p class="squad-page-desc">Pick some filters, share the link with your crew, and everyone swipes on venues. Then reveal which spots the group agrees on.</p>
+
+          <div class="squad-field">
+            <label for="hostName">Your Name</label>
+            <input type="text" id="hostName" placeholder="e.g. Jordan" autocomplete="given-name" maxlength="30" />
+          </div>
+
+          <div class="squad-field">
+            <label for="areaFilter">Neighborhood</label>
+            <select id="areaFilter">
+              <option value="">Any area</option>
+            </select>
+          </div>
+
+          <div class="squad-field">
+            <label for="categoryFilter">Category</label>
+            <select id="categoryFilter">
+              <option value="">Any category</option>
+            </select>
+          </div>
+
+          <div class="squad-field">
+            <label>Vibes</label>
+            <div id="vibeGrid" class="squad-vibe-grid"></div>
+          </div>
+
+          <div class="squad-field">
+            <label for="maxVenues">Max Venues</label>
+            <div class="squad-slider-row">
+              <input type="range" id="maxVenues" min="5" max="15" value="10" />
+              <span id="maxVenuesVal" class="squad-slider-val">10</span>
+            </div>
+          </div>
+
+          <button type="button" id="btnCreate" class="squad-btn-primary" disabled>Create Session</button>
+        </div>
+      </div>
+
+      <!-- ─── Host View ─── -->
+      <div id="viewHost" class="squad-view">
+        <div class="squad-create">
+          <h2 class="squad-page-title">Your Session</h2>
+
+          <div class="squad-session-code">
+            <div class="squad-session-code-label">Session Code</div>
+            <div id="hostSessionCode" class="squad-session-code-value"></div>
+          </div>
+
+          <div class="squad-action-row">
+            <button type="button" id="btnShareLink" class="squad-btn-secondary">Share Link</button>
+            <button type="button" id="btnCopyCode" class="squad-btn-secondary">Copy Code</button>
+          </div>
+
+          <div class="squad-section-title">Members</div>
+          <div id="hostMemberList" class="squad-member-list"></div>
+
+          <!-- Host also votes from here -->
+          <div id="hostVoteSection" style="display:none">
+            <div class="squad-section-title">Your Votes</div>
+            <div id="hostProgress" class="squad-progress">
+              <div class="squad-progress-bar"><div id="hostProgressFill" class="squad-progress-fill" style="width:0"></div></div>
+              <div id="hostProgressLabel" class="squad-progress-label"></div>
+            </div>
+            <div id="hostSwipeContainer" class="squad-swipe-container"></div>
+            <div id="hostVoteBtns" class="squad-vote-btns">
+              <button type="button" class="squad-btn-nope" data-vote="no"><span class="vote-icon">&#x2716;</span> Nope</button>
+              <button type="button" class="squad-btn-maybe" data-vote="maybe"><span class="vote-icon">&#x2753;</span> Maybe</button>
+              <button type="button" class="squad-btn-yes" data-vote="yes"><span class="vote-icon">&#x2714;</span> Yes!</button>
+            </div>
+          </div>
+
+          <div class="squad-divider"></div>
+          <button type="button" id="btnShowResults" class="squad-btn-primary">Show Results</button>
+          <button type="button" id="btnExportText" class="squad-btn-secondary" style="width:100%">Export as Text</button>
+        </div>
+      </div>
+
+      <!-- ─── Join / Voting View ─── -->
+      <div id="viewVote" class="squad-view">
+        <!-- Name prompt -->
+        <div id="namePrompt" class="squad-name-prompt">
+          <div class="squad-name-prompt-title">Join the Squad</div>
+          <div id="namePromptSub" class="squad-name-prompt-sub">Enter your name to start voting</div>
+          <div class="squad-name-input-row">
+            <input type="text" id="joinName" placeholder="Your name" autocomplete="given-name" maxlength="30" />
+            <button type="button" id="btnJoinVote" class="squad-btn-primary" style="width:auto" disabled>Join</button>
+          </div>
+        </div>
+
+        <!-- Voting UI (hidden until name entered) -->
+        <div id="votingUI" style="display:none">
+          <h2 class="squad-page-title">Swipe on Venues</h2>
+          <div id="voteProgress" class="squad-progress">
+            <div class="squad-progress-bar"><div id="voteProgressFill" class="squad-progress-fill" style="width:0"></div></div>
+            <div id="voteProgressLabel" class="squad-progress-label"></div>
+          </div>
+          <div id="swipeContainer" class="squad-swipe-container"></div>
+          <div id="voteBtns" class="squad-vote-btns">
+            <button type="button" class="squad-btn-nope" data-vote="no"><span class="vote-icon">&#x2716;</span> Nope</button>
+            <button type="button" class="squad-btn-maybe" data-vote="maybe"><span class="vote-icon">&#x2753;</span> Maybe</button>
+            <button type="button" class="squad-btn-yes" data-vote="yes"><span class="vote-icon">&#x2714;</span> Yes!</button>
+          </div>
+
+          <!-- Done voting state -->
+          <div id="voteDone" class="squad-waiting" style="display:none">
+            <div class="squad-waiting-pulse"></div>
+            <div class="squad-waiting-text">All voted! Waiting for the host to show results...</div>
+            <button type="button" id="btnGoResults" class="squad-btn-secondary" style="display:none">View Results</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── Results View ─── -->
+      <div id="viewResults" class="squad-view">
+        <h2 class="squad-page-title">Squad Results</h2>
+        <div id="resultsMatchBanner"></div>
+        <div id="resultsSummary" class="squad-results-summary"></div>
+        <div class="squad-section-title">All Venues Ranked</div>
+        <div id="resultsList" class="squad-results"></div>
+        <div id="resultsPlanLink" class="squad-plan-link"></div>
+        <div class="squad-divider" style="margin-top:16px"></div>
+        <div class="squad-action-row" style="margin-top:8px">
+          <button type="button" id="btnExportResults" class="squad-btn-secondary">Export as Text</button>
+          <button type="button" id="btnNewSession" class="squad-btn-secondary">New Session</button>
+        </div>
+      </div>
+    </main>
+
+    <!-- Bottom nav (mobile) -->
+    <nav class="bottom-nav mobile-only" aria-label="Main navigation">
+      <a href="index.html" class="bottom-nav-item" aria-label="Browse venues">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        <span>Browse</span>
+      </a>
+      <a href="recommend.html" class="bottom-nav-item" aria-label="For You recommendations">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01z"/></svg>
+        <span>For You</span>
+      </a>
+      <a href="planner.html" class="bottom-nav-item" aria-label="Night plan builder">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/><path d="M12 6v6l4 2"/></svg>
+        <span>Plan</span>
+      </a>
+      <a href="index.html?view=saved" class="bottom-nav-item" id="savedNavItem" aria-label="Saved venues">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        <span>Saved</span>
+      </a>
+      <a href="submit.html" class="bottom-nav-item" aria-label="Submit a venue">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+        <span>Submit</span>
+      </a>
+      <a href="neighborhoods.html" class="bottom-nav-item" aria-label="Compare neighborhoods">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span>Compare</span>
+      </a>
+    </nav>
+
+    <script src="config.js"></script>
+    <script src="lib/cities.js"></script>
+    <script>(function(){var city=window.LNVCities?window.LNVCities.getCurrentCity():null;if(!city)return;var r=function(s){return s.replace(/Seattle/g,city.name);};document.title=r(document.title);var metas=[['meta[name="description"]','content'],['meta[property="og:title"]','content'],['meta[property="og:description"]','content'],['meta[property="og:image:alt"]','content']];metas.forEach(function(m){var el=document.querySelector(m[0]);if(el)el.setAttribute(m[1],r(el.getAttribute(m[1])));});var h1=document.querySelector('h1.sr-only');if(h1)h1.textContent=r(h1.textContent);})();</script>
+    <script src="lib/core.js"></script>
+    <script src="lib/shared-nav.js"></script>
+    <script>LNVNav.init({ page: "squad" });</script>
+    <script src="lib/mobile-haptics.js"></script>
+    <script>
+      if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(function () {});
+    </script>
+    <script src="lib/squad-sync.js"></script>
+    <script>
+      (function () {
+        const cfg = window.LNV_CONFIG || {};
+        const domain = cfg.plausibleDomain || "";
+        if (!domain) return;
+        const s = document.createElement("script");
+        s.defer = true;
+        s.dataset.domain = domain;
+        s.src = "https://plausible.io/js/script.js";
+        document.head.appendChild(s);
+      })();
+    </script>
+    <script src="squad.js"></script>
+  </body>
+</html>

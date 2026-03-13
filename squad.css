@@ -1,0 +1,954 @@
+/* ─── Squad Sync — group night coordination ─── */
+
+/* ─── Page wrapper ─── */
+.squad-page {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 16px;
+  padding-bottom: calc(var(--bottom-nav-offset) + 24px);
+}
+
+/* ─── View transitions ─── */
+.squad-view {
+  display: none;
+}
+
+.squad-view.active {
+  display: block;
+  animation: squadFadeIn 0.3s ease;
+}
+
+@keyframes squadFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Create form ─── */
+.squad-create {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.squad-page-title {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.squad-page-desc {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.squad-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.squad-field label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.squad-field input,
+.squad-field select {
+  width: 100%;
+  padding: 12px 14px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.squad-field input:focus,
+.squad-field select:focus {
+  border-color: var(--color-accent);
+}
+
+.squad-field input::placeholder {
+  color: var(--color-text-muted);
+}
+
+/* ─── Max venues slider ─── */
+.squad-slider-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.squad-slider-row input[type="range"] {
+  flex: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  background: var(--color-border);
+  border-radius: 3px;
+  border: none;
+  padding: 0;
+  outline: none;
+}
+
+.squad-slider-row input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  cursor: pointer;
+  border: 3px solid var(--color-bg);
+  box-shadow: 0 2px 8px rgba(43, 255, 134, 0.3);
+}
+
+.squad-slider-row input[type="range"]::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  cursor: pointer;
+  border: 3px solid var(--color-bg);
+  box-shadow: 0 2px 8px rgba(43, 255, 134, 0.3);
+}
+
+.squad-slider-val {
+  min-width: 28px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+/* ─── Vibe checkboxes ─── */
+.squad-vibe-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.squad-vibe-chip {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.squad-vibe-chip input[type="checkbox"] {
+  display: none;
+}
+
+.squad-vibe-chip.checked {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  background: rgba(43, 255, 134, 0.08);
+}
+
+/* ─── Primary button ─── */
+.squad-btn-primary {
+  background: var(--color-accent);
+  color: var(--color-bg);
+  border: none;
+  padding: 14px 24px;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  min-height: 52px;
+  width: 100%;
+  transition: background 0.15s ease, transform 0.06s ease;
+}
+
+.squad-btn-primary:hover {
+  background: #22e676;
+}
+
+.squad-btn-primary:active {
+  transform: scale(0.97);
+  background: #1ad16a;
+}
+
+.squad-btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ─── Session code display ─── */
+.squad-session-code {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 24px;
+  background: var(--color-surface);
+  border: 2px solid var(--color-accent);
+  border-radius: 20px;
+  text-align: center;
+}
+
+.squad-session-code-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-secondary);
+  font-weight: 600;
+}
+
+.squad-session-code-value {
+  font-size: 42px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  color: var(--color-accent);
+  font-family: monospace, 'Inter', sans-serif;
+  line-height: 1;
+}
+
+/* ─── Share + action row ─── */
+.squad-action-row {
+  display: flex;
+  gap: 10px;
+}
+
+.squad-action-row button {
+  flex: 1;
+}
+
+.squad-btn-secondary {
+  background: #151a28;
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  padding: 12px 16px;
+  border-radius: 14px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  min-height: 48px;
+  transition: border-color 0.15s ease, transform 0.06s ease;
+}
+
+.squad-btn-secondary:hover {
+  border-color: #3a4560;
+}
+
+.squad-btn-secondary:active {
+  transform: scale(0.97);
+}
+
+/* ─── Member list ─── */
+.squad-member-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0;
+}
+
+.squad-member-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  font-size: 13px;
+  color: var(--color-text);
+}
+
+.squad-member-chip .squad-member-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: var(--color-bg);
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.squad-member-chip.voted {
+  border-color: var(--color-accent);
+}
+
+.squad-member-chip.voted::after {
+  content: "voted";
+  font-size: 10px;
+  color: var(--color-accent);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.squad-member-chip.host::before {
+  content: "host";
+  font-size: 10px;
+  color: var(--color-text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-right: 2px;
+}
+
+/* ─── Section headers ─── */
+.squad-section-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 16px 0 8px;
+}
+
+/* ─── Swipe container ─── */
+.squad-swipe-container {
+  position: relative;
+  width: 100%;
+  height: 380px;
+  perspective: 1000px;
+  margin: 16px 0;
+}
+
+/* ─── Swipe card ─── */
+.squad-swipe-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  border-radius: 20px;
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, opacity;
+  touch-action: pan-y;
+  user-select: none;
+  cursor: grab;
+  z-index: 2;
+}
+
+.squad-swipe-card:active {
+  cursor: grabbing;
+}
+
+.squad-swipe-card.behind {
+  z-index: 1;
+  transform: scale(0.95) translateY(8px);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Swipe animations */
+.squad-swipe-card.swiping-left {
+  transform: translateX(-120%) rotate(-15deg);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.squad-swipe-card.swiping-right {
+  transform: translateX(120%) rotate(15deg);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.squad-swipe-card.swiping-up {
+  transform: translateY(-120%) scale(0.9);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Card content */
+.squad-card-name {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--color-text);
+  line-height: 1.2;
+}
+
+.squad-card-meta {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+
+.squad-card-meta-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--color-text-muted);
+  flex-shrink: 0;
+}
+
+.squad-card-vibes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.squad-card-vibe-pill {
+  padding: 5px 10px;
+  background: rgba(43, 255, 134, 0.06);
+  border: 1px solid rgba(43, 255, 134, 0.15);
+  border-radius: 16px;
+  font-size: 11px;
+  color: var(--color-accent);
+  font-weight: 500;
+}
+
+.squad-card-closing {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  margin-top: auto;
+  padding-top: 8px;
+  border-top: 1px solid var(--color-border);
+}
+
+.squad-card-closing-icon {
+  font-size: 16px;
+  line-height: 1;
+}
+
+.squad-card-address {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  line-height: 1.4;
+}
+
+/* Vote overlay indicators on card */
+.squad-card-vote-indicator {
+  position: absolute;
+  top: 20px;
+  font-size: 20px;
+  font-weight: 800;
+  padding: 6px 16px;
+  border-radius: 10px;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  pointer-events: none;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.squad-card-vote-indicator.left {
+  left: 16px;
+  color: #ff5b5b;
+  border: 3px solid #ff5b5b;
+  transform: rotate(-15deg);
+}
+
+.squad-card-vote-indicator.right {
+  right: 16px;
+  color: var(--color-accent);
+  border: 3px solid var(--color-accent);
+  transform: rotate(15deg);
+}
+
+/* ─── Vote buttons ─── */
+.squad-vote-btns {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  padding: 8px 0;
+}
+
+.squad-vote-btns button {
+  flex: 1;
+  max-width: 120px;
+  min-height: 56px;
+  border: none;
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  transition: transform 0.1s ease, box-shadow 0.15s ease;
+}
+
+.squad-vote-btns button:active {
+  transform: scale(0.92);
+}
+
+.squad-vote-btns button .vote-icon {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.squad-btn-nope {
+  background: rgba(255, 91, 91, 0.12);
+  color: #ff5b5b;
+  border: 1.5px solid rgba(255, 91, 91, 0.25) !important;
+}
+
+.squad-btn-nope:hover {
+  background: rgba(255, 91, 91, 0.2);
+  box-shadow: 0 4px 16px rgba(255, 91, 91, 0.15);
+}
+
+.squad-btn-maybe {
+  background: rgba(255, 200, 60, 0.12);
+  color: #ffc83c;
+  border: 1.5px solid rgba(255, 200, 60, 0.25) !important;
+}
+
+.squad-btn-maybe:hover {
+  background: rgba(255, 200, 60, 0.2);
+  box-shadow: 0 4px 16px rgba(255, 200, 60, 0.15);
+}
+
+.squad-btn-yes {
+  background: rgba(43, 255, 134, 0.12);
+  color: var(--color-accent);
+  border: 1.5px solid rgba(43, 255, 134, 0.25) !important;
+}
+
+.squad-btn-yes:hover {
+  background: rgba(43, 255, 134, 0.2);
+  box-shadow: 0 4px 16px rgba(43, 255, 134, 0.15);
+}
+
+/* ─── Progress bar ─── */
+.squad-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.squad-progress-bar {
+  width: 100%;
+  height: 6px;
+  background: var(--color-border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.squad-progress-fill {
+  height: 100%;
+  background: var(--color-accent);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.squad-progress-label {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+/* ─── Waiting state ─── */
+.squad-waiting {
+  text-align: center;
+  padding: 48px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.squad-waiting-pulse {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(43, 255, 134, 0.15);
+  animation: squadPulse 2s ease-in-out infinite;
+}
+
+@keyframes squadPulse {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.2); opacity: 1; }
+}
+
+.squad-waiting-text {
+  font-size: 15px;
+  color: var(--color-text-secondary);
+  font-weight: 600;
+}
+
+/* ─── Results ─── */
+.squad-results {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.squad-match-banner {
+  background: linear-gradient(135deg, rgba(43, 255, 134, 0.15) 0%, rgba(26, 209, 255, 0.1) 100%);
+  border: 1.5px solid rgba(43, 255, 134, 0.3);
+  border-radius: 18px;
+  padding: 20px;
+  text-align: center;
+}
+
+.squad-match-banner-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--color-accent);
+  margin-bottom: 4px;
+}
+
+.squad-match-banner-sub {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  margin-bottom: 12px;
+}
+
+.squad-match-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.squad-match-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: rgba(43, 255, 134, 0.06);
+  border: 1px solid rgba(43, 255, 134, 0.15);
+  border-radius: 12px;
+}
+
+.squad-match-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.squad-match-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.squad-match-area {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+/* ─── Result rows ─── */
+.squad-result-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.squad-result-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.squad-result-rank {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-accent);
+  min-width: 24px;
+}
+
+.squad-result-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-text);
+  flex: 1;
+}
+
+.squad-result-score {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-accent);
+  white-space: nowrap;
+}
+
+.squad-result-area {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+/* ─── Vote breakdown ─── */
+.squad-vote-breakdown {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.squad-vote-tag {
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.squad-vote-tag.yes {
+  background: rgba(43, 255, 134, 0.1);
+  color: var(--color-accent);
+}
+
+.squad-vote-tag.maybe {
+  background: rgba(255, 200, 60, 0.1);
+  color: #ffc83c;
+}
+
+.squad-vote-tag.no {
+  background: rgba(255, 91, 91, 0.1);
+  color: #ff5b5b;
+}
+
+.squad-vote-tag.no-vote {
+  background: rgba(122, 138, 170, 0.1);
+  color: var(--color-text-muted);
+}
+
+/* ─── Score bar mini ─── */
+.squad-score-bar {
+  display: flex;
+  height: 6px;
+  border-radius: 3px;
+  overflow: hidden;
+  background: var(--color-border);
+}
+
+.squad-score-bar-yes {
+  background: var(--color-accent);
+}
+
+.squad-score-bar-maybe {
+  background: #ffc83c;
+}
+
+.squad-score-bar-no {
+  background: #ff5b5b;
+}
+
+/* ─── Name input prompt ─── */
+.squad-name-prompt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 32px 16px;
+  text-align: center;
+}
+
+.squad-name-prompt-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--color-text);
+}
+
+.squad-name-prompt-sub {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+.squad-name-input-row {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  max-width: 360px;
+}
+
+.squad-name-input-row input {
+  flex: 1;
+  padding: 12px 14px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  font-size: 14px;
+  outline: none;
+}
+
+.squad-name-input-row input:focus {
+  border-color: var(--color-accent);
+}
+
+.squad-name-input-row button {
+  padding: 12px 20px;
+  border-radius: 12px;
+  white-space: nowrap;
+}
+
+/* ─── Plan link ─── */
+.squad-plan-link {
+  display: block;
+  margin-top: 8px;
+}
+
+.squad-plan-link a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, var(--color-accent) 0%, #1ad1ff 100%);
+  color: var(--color-bg);
+  padding: 12px 20px;
+  border-radius: 14px;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 0.1s ease;
+}
+
+.squad-plan-link a:hover {
+  transform: translateY(-1px);
+}
+
+.squad-plan-link a:active {
+  transform: scale(0.97);
+}
+
+/* ─── No matches message ─── */
+.squad-no-matches {
+  text-align: center;
+  padding: 16px;
+  font-size: 13px;
+  color: var(--color-text-muted);
+  background: var(--color-surface);
+  border: 1px dashed var(--color-border);
+  border-radius: 14px;
+}
+
+/* ─── Divider ─── */
+.squad-divider {
+  height: 1px;
+  background: var(--color-border);
+  margin: 8px 0;
+}
+
+/* ─── Results header area ─── */
+.squad-results-summary {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  text-align: center;
+  padding: 4px 0;
+}
+
+/* ─── Mobile polish ─── */
+@media (max-width: 859px) {
+  .squad-page {
+    padding: 12px;
+    padding-bottom: calc(var(--bottom-nav-offset) + 16px);
+  }
+
+  .squad-page-title {
+    font-size: 20px;
+  }
+
+  .squad-swipe-container {
+    height: 340px;
+  }
+
+  .squad-swipe-card {
+    padding: 22px 18px;
+  }
+
+  .squad-card-name {
+    font-size: 19px;
+  }
+
+  .squad-session-code-value {
+    font-size: 36px;
+  }
+
+  .squad-btn-primary {
+    min-height: 54px;
+    font-size: 16px;
+    font-weight: 800;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #2bff86 0%, #1ad1ff 100%);
+    box-shadow: 0 6px 20px rgba(43, 255, 134, 0.2);
+  }
+
+  .squad-btn-primary:active {
+    transform: scale(0.96);
+    box-shadow: 0 2px 8px rgba(43, 255, 134, 0.15);
+  }
+
+  .squad-vote-btns button {
+    min-height: 60px;
+    border-radius: 18px;
+  }
+
+  .squad-vote-btns button:active {
+    transform: scale(0.88);
+  }
+}
+
+/* ─── Desktop ─── */
+@media (min-width: 860px) {
+  .squad-page {
+    padding: 32px 24px;
+    max-width: 620px;
+  }
+
+  .squad-swipe-container {
+    height: 420px;
+  }
+
+  .squad-swipe-card {
+    padding: 32px 28px;
+  }
+}
+
+/* ─── Reduced motion ─── */
+@media (prefers-reduced-motion: reduce) {
+  .squad-swipe-card {
+    transition: none;
+  }
+
+  .squad-swipe-card.swiping-left,
+  .squad-swipe-card.swiping-right,
+  .squad-swipe-card.swiping-up {
+    transition: none;
+  }
+
+  .squad-waiting-pulse {
+    animation: none;
+  }
+
+  .squad-view.active {
+    animation: none;
+  }
+
+  .squad-progress-fill {
+    transition: none;
+  }
+}
