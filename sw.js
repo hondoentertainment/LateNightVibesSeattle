@@ -1,5 +1,5 @@
 /**
- * Late Night Vibes Seattle — Service Worker
+ * Late Night Vibes — Service Worker
  * Caches static assets and venue data for offline use.
  *
  * Caching strategies:
