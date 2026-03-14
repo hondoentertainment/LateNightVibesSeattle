@@ -1,25 +1,25 @@
-Area,Name,Category,Typical Closing Time,Address,Phone,Website,Driving Distance,Google Maps Driving Link,Vibe Tags
-Third Ward,The Wicked Hop,Bar / Restaurant,2:00 AM,345 N Broadway,,,,,"drinks, food-focused, social"
-Third Ward,Merriment Social,Cocktail Bar,2:00 AM,240 E Pittsburgh Ave,,,,,"date-friendly, drinks, upscale"
-Brady Street,Nomad World Pub,Bar,2:30 AM,1401 E Brady St,,,,,"drinks, social"
-Brady Street,At Random,Cocktail Bar,2:00 AM,2501 S Delaware Ave,,,,,"date-friendly, drinks, upscale"
-Brady Street,Roman's Pub,Dive Bar,2:00 AM,3475 S Kinnickinnic Ave,,,,,"chill, drinks, social"
-Walker's Point,Boone & Crockett,Cocktail Bar,2:00 AM,818 S Water St,,,,,"date-friendly, drinks, upscale"
-Walker's Point,Fuel Cafe,Bar,2:00 AM,818 E Center St,,,,,"chill, drinks, social"
-Walker's Point,Company Brewing,Brewery,12:00 AM,735 E Center St,,,,,"chill, drinks, social"
-East Side,Landmark Lanes,Bar,2:30 AM,2220 N Farwell Ave,,,,,"drinks, group-fun, social"
-East Side,Hi-Hat Lounge,Lounge,2:00 AM,E Brady St,,,,,"chill, drinks, social"
-Bay View,Sugar Maple,Bar,2:00 AM,441 E Lincoln Ave,,,,,"drinks, social"
-Bay View,Odd Duck,Bar / Restaurant,10:00 PM,2352 S Kinnickinnic Ave,,,,,"date-friendly, drinks, food-focused"
-Bay View,Blackbird Bar,Bar,2:00 AM,3007 S Kinnickinnic Ave,,,,,"drinks, social"
-Downtown,The Safe House,Bar,2:00 AM,779 N Front St,,,,,"drinks, group-fun, social"
-Downtown,This Is It!,Bar,2:00 AM,418 E Wells St,,,,,"drinks, social"
-Riverwest,Linneman's Riverwest Inn,Music Venue / Bar,2:00 AM,1001 E Locust St,,,,,"drinks, live-music, social"
-Brewer's Hill,Lakefront Brewery,Brewery,9:00 PM,1872 N Commerce St,,,,,"chill, drinks, social"
-Cathedral Square,The Newsroom,Lounge,2:00 AM,770 N Jefferson St,,,,,"drinks, social"
-Water Street,Buck Bradley's,Sports Bar,2:30 AM,1019 N Old World 3rd St,,,,,"drinks, social, sports"
-Water Street,Trinity Three Irish Pubs,Bar,2:30 AM,125 E Juneau Ave,,,,,"drinks, social"
-Walker's Point,Mad Planet,Nightclub,2:30 AM,533 E Center St,,,,,"dancey, high-energy, late-night"
-Bay View,Karaoke at Burnhearts,Karaoke,2:00 AM,2599 S Logan Ave,,,,,"group-fun, interactive"
-Third Ward,Drink Wisconsinbly Pub,Bar,2:00 AM,135 E National Ave,,,,,"drinks, social"
-East Side,Wolski's Tavern,Dive Bar,2:30 AM,1836 N Pulaski St,,,,,"chill, drinks, social"
+Area,Name,Category,Typical Closing Time,Address,Phone,Website,Driving Distance,Google Maps Driving Link,Vibe Tags,Latitude,Longitude
+Third Ward,The Wicked Hop,Bar / Restaurant,2:00 AM,345 N Broadway,,,,,"drinks, food-focused, social",43.0329,-87.901
+Third Ward,Merriment Social,Cocktail Bar,2:00 AM,240 E Pittsburgh Ave,,,,,"date-friendly, drinks, upscale, craft-cocktails",43.0364,-87.902
+Brady Street,Nomad World Pub,Bar,2:30 AM,1401 E Brady St,,,,,"drinks, social, casual",43.0429,-87.898
+Brady Street,At Random,Cocktail Bar,2:00 AM,2501 S Delaware Ave,,,,,"date-friendly, drinks, upscale, craft-cocktails",43.0464,-87.899
+Brady Street,Roman's Pub,Dive Bar,2:00 AM,3475 S Kinnickinnic Ave,,,,,"chill, dive, neighborhood-gem",43.0444,-87.9
+Walker's Point,Boone & Crockett,Cocktail Bar,2:00 AM,818 S Water St,,,,,"date-friendly, upscale, craft-cocktails, hipster, lgbtq-friendly",43.0299,-87.906
+Walker's Point,Fuel Cafe,Bar,2:00 AM,818 E Center St,,,,,"chill, hipster, trendy, lgbtq-friendly",43.0334,-87.907
+Walker's Point,Company Brewing,Brewery,12:00 AM,735 E Center St,,,,,"chill, brewery, hipster, trendy, lgbtq-friendly",43.0314,-87.908
+East Side,Landmark Lanes,Bar,2:30 AM,2220 N Farwell Ave,,,,,"drinks, group-fun, social",43.0479,-87.898
+East Side,Hi-Hat Lounge,Lounge,2:00 AM,E Brady St,,,,,"chill, drinks, social, date-friendly",43.0514,-87.899
+Bay View,Sugar Maple,Bar,2:00 AM,441 E Lincoln Ave,,,,,"drinks, social, hipster, trendy",43.0229,-87.896
+Bay View,Odd Duck,Bar / Restaurant,10:00 PM,2352 S Kinnickinnic Ave,,,,,"date-friendly, drinks, food-focused, hipster, trendy",43.0264,-87.897
+Bay View,Blackbird Bar,Bar,2:00 AM,3007 S Kinnickinnic Ave,,,,,"drinks, social, hipster, trendy",43.0244,-87.898
+Downtown,The Safe House,Bar,2:00 AM,779 N Front St,,,,,"drinks, group-fun, social",43.0379,-87.906
+Downtown,This Is It!,Bar,2:00 AM,418 E Wells St,,,,,"drinks, social, casual",43.0414,-87.907
+Riverwest,Linneman's Riverwest Inn,Music Venue / Bar,2:00 AM,1001 E Locust St,,,,,"drinks, live-music, social",43.0479,-87.901
+Brewer's Hill,Lakefront Brewery,Brewery,9:00 PM,1872 N Commerce St,,,,,"chill, drinks, social, brewery, casual",43.0459,-87.903
+Cathedral Square,The Newsroom,Lounge,2:00 AM,770 N Jefferson St,,,,,"drinks, social, chill, date-friendly",43.0409,-87.903
+Water Street,Buck Bradley's,Sports Bar,2:30 AM,1019 N Old World 3rd St,,,,,"drinks, social, sports, sports-bar, casual",43.0399,-87.906
+Water Street,Trinity Three Irish Pubs,Bar,2:30 AM,125 E Juneau Ave,,,,,"drinks, social, casual",43.0434,-87.907
+Walker's Point,Mad Planet,Nightclub,2:30 AM,533 E Center St,,,,,"dancey, high-energy, late-night, hipster, trendy",43.0294,-87.909
+Bay View,Karaoke at Burnhearts,Karaoke,2:00 AM,2599 S Logan Ave,,,,,"group-fun, interactive, karaoke, hipster, trendy",43.0224,-87.899
+Third Ward,Drink Wisconsinbly Pub,Bar,2:00 AM,135 E National Ave,,,,,"drinks, social, casual",43.0344,-87.903
+East Side,Wolski's Tavern,Dive Bar,2:30 AM,1836 N Pulaski St,,,,,"chill, dive, neighborhood-gem",43.0494,-87.9

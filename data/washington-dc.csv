@@ -1,27 +1,27 @@
-Area,Name,Category,Typical Closing Time,Address,Phone,Website,Driving Distance,Google Maps Driving Link,Vibe Tags
-Adams Morgan,Madam's Organ,Music Venue / Bar,2:00 AM,2461 18th St NW,,,,,"drinks, live-music, social"
-Adams Morgan,Dan's Cafe,Dive Bar,2:00 AM,2315 18th St NW,,,,,"chill, drinks, social"
-Adams Morgan,Jack Rose Dining Saloon,Cocktail Bar,2:00 AM,2007 18th St NW,,,,,"date-friendly, drinks, upscale"
-U Street,9:30 Club,Music Venue / Bar,Late,815 V St NW,,,,,"drinks, live-music, loud"
-U Street,Nellie's Sports Bar,Sports Bar,2:00 AM,900 U St NW,,,,,"drinks, social, sports"
-U Street,Duffy's Irish Pub,Bar,2:00 AM,2106 Vermont Ave NW,,,,,"chill, drinks, social"
-Georgetown,The Tombs,Bar,2:00 AM,1226 36th St NW,,,,,"drinks, social"
-Georgetown,Blues Alley,Music Venue / Bar,12:00 AM,1073 Wisconsin Ave NW,,,,,"drinks, live-music, chill, date-friendly"
-Dupont Circle,Board Room,Bar,2:00 AM,1737 Connecticut Ave NW,,,,,"drinks, group-fun, social"
-Dupont Circle,Eighteenth Street Lounge,Lounge,2:00 AM,1212 18th St NW,,,,,"dancey, drinks, chill"
-H Street NE,The Pug,Dive Bar,2:00 AM,1234 H St NE,,,,,"chill, drinks, social"
-H Street NE,Rock & Roll Hotel,Music Venue / Bar,2:00 AM,1353 H St NE,,,,,"drinks, live-music, loud"
-H Street NE,Copycat Co.,Cocktail Bar,2:00 AM,1110 H St NE,,,,,"date-friendly, drinks, upscale"
-Shaw,The Shay,Lounge,2:00 AM,1924 8th St NW,,,,,"date-friendly, drinks, upscale"
-Shaw,Dacha Beer Garden,Brewery,12:00 AM,1600 7th St NW,,,,,"chill, drinks, social"
-Capitol Hill,Tune Inn,Dive Bar,2:00 AM,331 Pennsylvania Ave SE,,,,,"chill, drinks, social"
-Capitol Hill,Barrel,Cocktail Bar,2:00 AM,613 Pennsylvania Ave SE,,,,,"date-friendly, drinks, upscale"
-Navy Yard,The Salt Line,Bar / Restaurant,12:00 AM,79 Potomac Ave SE,,,,,"drinks, food-focused, social"
-Penn Quarter,Rocket Bar,Bar,2:00 AM,714 7th St NW,,,,,"drinks, social"
-Columbia Heights,Wonderland Ballroom,Bar,2:00 AM,1101 Kenyon St NW,,,,,"drinks, social, dancey"
-Logan Circle,Churchkey,Bar,2:00 AM,1337 14th St NW,,,,,"drinks, social"
-14th Street,Karaoke at Muzette,Karaoke,2:00 AM,901 K St NW,,,,,"group-fun, interactive"
-U Street,U Street Music Hall,Nightclub,2:00 AM,1115 U St NW,,,,,"dancey, high-energy, late-night"
-Georgetown,Rhino Bar,Sports Bar,2:00 AM,3295 M St NW,,,,,"drinks, social, sports"
-Shaw,Right Proper Brewing,Brewery,11:00 PM,624 T St NW,,,,,"chill, drinks, social"
-14th Street,Bar Charley,Cocktail Bar,2:00 AM,1825 18th St NW,,,,,"date-friendly, drinks, upscale"
+Area,Name,Category,Typical Closing Time,Address,Phone,Website,Driving Distance,Google Maps Driving Link,Vibe Tags,Latitude,Longitude
+Adams Morgan,Madam's Organ,Music Venue / Bar,2:00 AM,2461 18th St NW,,,,,"drinks, live-music, social, hipster, trendy",38.9162,-77.0414
+Adams Morgan,Dan's Cafe,Dive Bar,2:00 AM,2315 18th St NW,,,,,"chill, dive, neighborhood-gem, hipster, trendy",38.9197,-77.0424
+Adams Morgan,Jack Rose Dining Saloon,Cocktail Bar,2:00 AM,2007 18th St NW,,,,,"date-friendly, drinks, upscale, craft-cocktails, hipster",38.9177,-77.0434
+U Street,9:30 Club,Music Venue / Bar,Late,815 V St NW,,,,,"drinks, live-music, loud, hipster, trendy",38.9142,-77.0394
+U Street,Nellie's Sports Bar,Sports Bar,2:00 AM,900 U St NW,,,,,"sports, sports-bar, hipster, trendy",38.9177,-77.0404
+U Street,Duffy's Irish Pub,Bar,2:00 AM,2106 Vermont Ave NW,,,,,"chill, drinks, social, hipster, trendy",38.9157,-77.0414
+Georgetown,The Tombs,Bar,2:00 AM,1226 36th St NW,,,,,"drinks, social, trendy",38.9112,-77.0514
+Georgetown,Blues Alley,Music Venue / Bar,12:00 AM,1073 Wisconsin Ave NW,,,,,"drinks, live-music, chill, date-friendly, trendy",38.9147,-77.0524
+Dupont Circle,Board Room,Bar,2:00 AM,1737 Connecticut Ave NW,,,,,"drinks, group-fun, social, trendy",38.9112,-77.0444
+Dupont Circle,Eighteenth Street Lounge,Lounge,2:00 AM,1212 18th St NW,,,,,"dancey, drinks, chill, date-friendly, trendy",38.9147,-77.0454
+H Street NE,The Pug,Dive Bar,2:00 AM,1234 H St NE,,,,,"chill, dive, neighborhood-gem, hipster, trendy",38.9092,-77.0264
+H Street NE,Rock & Roll Hotel,Music Venue / Bar,2:00 AM,1353 H St NE,,,,,"drinks, live-music, loud, hipster, trendy",38.9127,-77.0274
+H Street NE,Copycat Co.,Cocktail Bar,2:00 AM,1110 H St NE,,,,,"date-friendly, drinks, upscale, craft-cocktails, hipster",38.9107,-77.0284
+Shaw,The Shay,Lounge,2:00 AM,1924 8th St NW,,,,,"date-friendly, drinks, upscale, chill",38.9132,-77.0364
+Shaw,Dacha Beer Garden,Brewery,12:00 AM,1600 7th St NW,,,,,"chill, drinks, social, brewery, casual",38.9167,-77.0374
+Capitol Hill,Tune Inn,Dive Bar,2:00 AM,331 Pennsylvania Ave SE,,,,,"chill, dive, neighborhood-gem, hipster, trendy",38.9062,-77.0264
+Capitol Hill,Barrel,Cocktail Bar,2:00 AM,613 Pennsylvania Ave SE,,,,,"date-friendly, upscale, craft-cocktails, hipster, lgbtq-friendly",38.9097,-77.0274
+Navy Yard,The Salt Line,Bar / Restaurant,12:00 AM,79 Potomac Ave SE,,,,,"drinks, food-focused, social",38.9012,-77.0284
+Penn Quarter,Rocket Bar,Bar,2:00 AM,714 7th St NW,,,,,"drinks, social, casual",38.9082,-77.0334
+Columbia Heights,Wonderland Ballroom,Bar,2:00 AM,1101 Kenyon St NW,,,,,"drinks, social, dancey",38.9182,-77.0394
+Logan Circle,Churchkey,Bar,2:00 AM,1337 14th St NW,,,,,"drinks, social, casual",38.9122,-77.0414
+14th Street,Karaoke at Muzette,Karaoke,2:00 AM,901 K St NW,,,,,"group-fun, interactive, karaoke, hipster, trendy",38.9122,-77.0404
+U Street,U Street Music Hall,Nightclub,2:00 AM,1115 U St NW,,,,,"dancey, high-energy, late-night, hipster, trendy",38.9137,-77.0424
+Georgetown,Rhino Bar,Sports Bar,2:00 AM,3295 M St NW,,,,,"drinks, social, sports, sports-bar, casual",38.9127,-77.0534
+Shaw,Right Proper Brewing,Brewery,11:00 PM,624 T St NW,,,,,"chill, drinks, social, brewery, casual",38.9147,-77.0384
+14th Street,Bar Charley,Cocktail Bar,2:00 AM,1825 18th St NW,,,,,"date-friendly, drinks, upscale, craft-cocktails, hipster",38.9157,-77.0414

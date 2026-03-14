@@ -1,25 +1,25 @@
-Area,Name,Category,Typical Closing Time,Address,Phone,Website,Driving Distance,Google Maps Driving Link,Vibe Tags
-Mass Ave,Ball & Biscuit,Cocktail Bar,2:00 AM,331 Massachusetts Ave,,,,,"date-friendly, drinks, upscale"
-Mass Ave,The Rathskeller,Music Venue / Bar,2:00 AM,401 E Michigan St,,,,,"drinks, live-music, social"
-Mass Ave,Chatham Tap,Bar / Restaurant,12:00 AM,719 Massachusetts Ave,,,,,"drinks, food-focused, social"
-Broad Ripple,Broad Ripple Brewpub,Brewery,11:00 PM,842 E 65th St,,,,,"chill, drinks, social"
-Broad Ripple,The Vogue,Music Venue / Bar,3:00 AM,6259 N College Ave,,,,,"drinks, live-music, dancey"
-Broad Ripple,Kilroy's Bar & Grill,Sports Bar,3:00 AM,6115 N College Ave,,,,,"drinks, social, sports"
-Broad Ripple,Average Joe's,Dive Bar,3:00 AM,816 Broad Ripple Ave,,,,,"chill, drinks, social"
-Fountain Square,Thunderbird,Cocktail Bar,2:00 AM,1127 Shelby St,,,,,"date-friendly, drinks, upscale"
-Fountain Square,Pioneer,Bar,3:00 AM,1110 Prospect St,,,,,"chill, drinks, social"
-Fountain Square,White Rabbit Cabaret,Music Venue / Bar,3:00 AM,1116 Prospect St,,,,,"drinks, live-music, social"
-Downtown,Slippery Noodle Inn,Music Venue / Bar,3:00 AM,372 S Meridian St,,,,,"drinks, live-music, social"
-Downtown,Tiki Bob's Cantina,Nightclub,3:00 AM,231 S Meridian St,,,,,"dancey, high-energy, late-night"
-Downtown,Plat 99,Cocktail Bar,2:00 AM,99 N Meridian St,,,,,"date-friendly, drinks, upscale"
-Fletcher Place,Bluebeard,Bar / Restaurant,11:00 PM,653 Virginia Ave,,,,,"date-friendly, drinks, food-focused, upscale"
-Fletcher Place,Hotel Tango Distillery,Lounge,11:00 PM,702 Virginia Ave,,,,,"chill, date-friendly, drinks"
-Irvington,Black Acre Brewing,Brewery,10:00 PM,5632 E Washington St,,,,,"chill, drinks, social"
-Wholesale District,Sun King Brewing,Brewery,9:00 PM,135 N College Ave,,,,,"chill, drinks, social"
-Lockerbie Square,The Jazz Kitchen,Music Venue / Bar,12:00 AM,5377 N College Ave,,,,,"drinks, live-music, chill"
-Mass Ave,Tin Roof,Bar,3:00 AM,36 N Pennsylvania St,,,,,"drinks, live-music, social"
-Broad Ripple,Karaoke at Rock Lobster,Karaoke,3:00 AM,6246 N College Ave,,,,,"group-fun, interactive"
-Downtown,Howl at the Moon,Bar,3:00 AM,20 E Georgia St,,,,,"group-fun, interactive, live-music"
-Fountain Square,Garage Brewing,Brewery,11:00 PM,906 Shelby St,,,,,"chill, drinks, social"
-Mass Ave,Bakersfield OTR,Bar / Restaurant,12:00 AM,334 Massachusetts Ave,,,,,"drinks, food-focused, social"
-SoBro,Upland Brewing,Brewery,10:00 PM,820 E 65th St,,,,,"chill, drinks, social"
+Area,Name,Category,Typical Closing Time,Address,Phone,Website,Driving Distance,Google Maps Driving Link,Vibe Tags,Latitude,Longitude
+Mass Ave,Ball & Biscuit,Cocktail Bar,2:00 AM,331 Massachusetts Ave,,,,,"date-friendly, drinks, upscale, craft-cocktails",39.7704,-86.1526
+Mass Ave,The Rathskeller,Music Venue / Bar,2:00 AM,401 E Michigan St,,,,,"drinks, live-music, social",39.7739,-86.1536
+Mass Ave,Chatham Tap,Bar / Restaurant,12:00 AM,719 Massachusetts Ave,,,,,"drinks, food-focused, social",39.7719,-86.1546
+Broad Ripple,Broad Ripple Brewpub,Brewery,11:00 PM,842 E 65th St,,,,,"chill, brewery, hipster, trendy",39.8074,-86.1526
+Broad Ripple,The Vogue,Music Venue / Bar,3:00 AM,6259 N College Ave,,,,,"drinks, live-music, dancey, hipster, trendy",39.8109,-86.1536
+Broad Ripple,Kilroy's Bar & Grill,Sports Bar,3:00 AM,6115 N College Ave,,,,,"sports, sports-bar, hipster, trendy",39.8089,-86.1546
+Broad Ripple,Average Joe's,Dive Bar,3:00 AM,816 Broad Ripple Ave,,,,,"chill, dive, neighborhood-gem, hipster, trendy",39.8069,-86.1556
+Fountain Square,Thunderbird,Cocktail Bar,2:00 AM,1127 Shelby St,,,,,"date-friendly, drinks, upscale, craft-cocktails, hipster",39.7574,-86.1526
+Fountain Square,Pioneer,Bar,3:00 AM,1110 Prospect St,,,,,"chill, drinks, social, hipster, trendy",39.7609,-86.1536
+Fountain Square,White Rabbit Cabaret,Music Venue / Bar,3:00 AM,1116 Prospect St,,,,,"drinks, live-music, social, hipster, trendy",39.7589,-86.1546
+Downtown,Slippery Noodle Inn,Music Venue / Bar,3:00 AM,372 S Meridian St,,,,,"drinks, live-music, social",39.7674,-86.1576
+Downtown,Tiki Bob's Cantina,Nightclub,3:00 AM,231 S Meridian St,,,,,"dancey, high-energy, late-night",39.7709,-86.1586
+Downtown,Plat 99,Cocktail Bar,2:00 AM,99 N Meridian St,,,,,"date-friendly, drinks, upscale, craft-cocktails",39.7689,-86.1596
+Fletcher Place,Bluebeard,Bar / Restaurant,11:00 PM,653 Virginia Ave,,,,,"date-friendly, drinks, food-focused, upscale",39.7594,-86.1546
+Fletcher Place,Hotel Tango Distillery,Lounge,11:00 PM,702 Virginia Ave,,,,,"chill, date-friendly, drinks",39.7629,-86.1556
+Irvington,Black Acre Brewing,Brewery,10:00 PM,5632 E Washington St,,,,,"chill, drinks, social, brewery, casual",39.7624,-86.1276
+Wholesale District,Sun King Brewing,Brewery,9:00 PM,135 N College Ave,,,,,"chill, drinks, social, brewery, casual",39.7644,-86.1606
+Lockerbie Square,The Jazz Kitchen,Music Venue / Bar,12:00 AM,5377 N College Ave,,,,,"drinks, live-music, chill",39.7724,-86.1546
+Mass Ave,Tin Roof,Bar,3:00 AM,36 N Pennsylvania St,,,,,"drinks, live-music, social",39.7699,-86.1556
+Broad Ripple,Karaoke at Rock Lobster,Karaoke,3:00 AM,6246 N College Ave,,,,,"group-fun, interactive, karaoke, hipster, trendy",39.8104,-86.1501
+Downtown,Howl at the Moon,Bar,3:00 AM,20 E Georgia St,,,,,"group-fun, interactive, live-music",39.7669,-86.1606
+Fountain Square,Garage Brewing,Brewery,11:00 PM,906 Shelby St,,,,,"chill, brewery, hipster, trendy",39.7569,-86.1556
+Mass Ave,Bakersfield OTR,Bar / Restaurant,12:00 AM,334 Massachusetts Ave,,,,,"drinks, food-focused, social",39.7734,-86.1501
+SoBro,Upland Brewing,Brewery,10:00 PM,820 E 65th St,,,,,"chill, drinks, social, brewery, casual",39.8024,-86.1526

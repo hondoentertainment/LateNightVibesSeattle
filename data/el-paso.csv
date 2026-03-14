@@ -1,23 +1,23 @@
-Area,Name,Category,Typical Closing Time,Address,Phone,Website,Driving Distance,Google Maps Driving Link,Vibe Tags
-Downtown,Craft & Social,Cocktail Bar,2:00 AM,313 E San Antonio Ave,,,,,"date-friendly, drinks, upscale"
-Downtown,Later Later,Bar,2:00 AM,207 E San Antonio Ave,,,,,"drinks, social, late-night"
-Downtown,Monarch,Bar,2:00 AM,204 E Rio Grande Ave,,,,,"drinks, social"
-Cincinnati Avenue,Cincinnati Bar,Dive Bar,2:00 AM,207 Cincinnati Ave,,,,,"chill, drinks, social"
-Cincinnati Avenue,The Lowbrow Palace,Music Venue / Bar,2:00 AM,111 Robinson St,,,,,"drinks, live-music, loud"
-Kern Place,Hillside Coffee & Donuts,Lounge,12:00 AM,2711 N Stanton St,,,,,"chill, drinks, social"
-Kern Place,Circa 1963,Cocktail Bar,12:00 AM,2600 N Mesa St,,,,,"date-friendly, drinks, upscale"
-Sunset Heights,Ode Brewing,Brewery,10:00 PM,1700 N Stanton St,,,,,"chill, drinks, social"
-Sunset Heights,Rosa's Cantina,Bar,2:00 AM,3454 Doniphan Dr,,,,,"drinks, social, live-music"
-Westside,Thirty 5ive Tavern,Sports Bar,2:00 AM,5901 N Mesa St,,,,,"drinks, social, sports"
-Central,Alamo Drafthouse Bar,Bar / Restaurant,12:00 AM,250 E Montecillo Blvd,,,,,"drinks, food-focused, social"
-UTEP Area,The Hoppy Monk,Brewery / Restaurant,12:00 AM,4141 N Mesa St,,,,,"drinks, food-focused, social"
-Montecillo,Toro Loco Sports Bar,Sports Bar,2:00 AM,303 E Missouri Ave,,,,,"drinks, social, sports"
-Downtown,Rubiks Arcade Bar,Bar,2:00 AM,301 E Main St,,,,,"drinks, group-fun, social"
-East Side,Cabo Joe's,Bar / Restaurant,12:00 AM,10750 Kenworthy St,,,,,"drinks, food-focused, social"
-Downtown,Lost & Found,Cocktail Bar,2:00 AM,212 E Overland Ave,,,,,"date-friendly, drinks, upscale"
-Cincinnati Avenue,Vinyl Revival,Bar,2:00 AM,209 Cincinnati Ave,,,,,"chill, drinks, social"
-Downtown,Neon Desert Lounge,Nightclub,2:00 AM,310 E San Antonio Ave,,,,,"dancey, high-energy, late-night"
-Kern Place,Cafe Mayapan,Bar / Restaurant,11:00 PM,2000 N Piedras St,,,,,"chill, drinks, food-focused"
-Segundo Barrio,Elemi Wine Bar,Wine Bar,11:00 PM,313 E Missouri Ave,,,,,"chill, date-friendly, drinks"
-Downtown,Karaoke at Aceituna's,Karaoke,2:00 AM,5532 N Mesa St,,,,,"group-fun, interactive"
-Central,DeadBeach Brewery,Brewery,10:00 PM,406 Durango St,,,,,"chill, drinks, social"
+Area,Name,Category,Typical Closing Time,Address,Phone,Website,Driving Distance,Google Maps Driving Link,Vibe Tags,Latitude,Longitude
+Downtown,Craft & Social,Cocktail Bar,2:00 AM,313 E San Antonio Ave,,,,,"date-friendly, drinks, upscale, craft-cocktails",31.7609,-106.4845
+Downtown,Later Later,Bar,2:00 AM,207 E San Antonio Ave,,,,,"drinks, social, late-night",31.7644,-106.4855
+Downtown,Monarch,Bar,2:00 AM,204 E Rio Grande Ave,,,,,"drinks, social, casual",31.7624,-106.4865
+Cincinnati Avenue,Cincinnati Bar,Dive Bar,2:00 AM,207 Cincinnati Ave,,,,,"chill, dive, neighborhood-gem",31.7639,-106.4815
+Cincinnati Avenue,The Lowbrow Palace,Music Venue / Bar,2:00 AM,111 Robinson St,,,,,"drinks, live-music, loud",31.7674,-106.4825
+Kern Place,Hillside Coffee & Donuts,Lounge,12:00 AM,2711 N Stanton St,,,,,"chill, drinks, social, date-friendly",31.7709,-106.4895
+Kern Place,Circa 1963,Cocktail Bar,12:00 AM,2600 N Mesa St,,,,,"date-friendly, drinks, upscale, craft-cocktails",31.7744,-106.4905
+Sunset Heights,Ode Brewing,Brewery,10:00 PM,1700 N Stanton St,,,,,"chill, drinks, social, brewery, casual",31.7689,-106.4875
+Sunset Heights,Rosa's Cantina,Bar,2:00 AM,3454 Doniphan Dr,,,,,"drinks, social, live-music",31.7724,-106.4885
+Westside,Thirty 5ive Tavern,Sports Bar,2:00 AM,5901 N Mesa St,,,,,"drinks, social, sports, sports-bar, casual",31.7759,-106.5045
+Central,Alamo Drafthouse Bar,Bar / Restaurant,12:00 AM,250 E Montecillo Blvd,,,,,"drinks, food-focused, social",31.7659,-106.4795
+UTEP Area,The Hoppy Monk,Brewery / Restaurant,12:00 AM,4141 N Mesa St,,,,,"food-focused, brewery, chill, college",31.7729,-106.4925
+Montecillo,Toro Loco Sports Bar,Sports Bar,2:00 AM,303 E Missouri Ave,,,,,"drinks, social, sports, sports-bar, casual",31.7659,-106.4945
+Downtown,Rubiks Arcade Bar,Bar,2:00 AM,301 E Main St,,,,,"drinks, group-fun, social",31.7604,-106.4875
+East Side,Cabo Joe's,Bar / Restaurant,12:00 AM,10750 Kenworthy St,,,,,"drinks, food-focused, social",31.7559,-106.4545
+Downtown,Lost & Found,Cocktail Bar,2:00 AM,212 E Overland Ave,,,,,"date-friendly, drinks, upscale, craft-cocktails",31.7639,-106.482
+Cincinnati Avenue,Vinyl Revival,Bar,2:00 AM,209 Cincinnati Ave,,,,,"chill, drinks, social",31.7654,-106.4835
+Downtown,Neon Desert Lounge,Nightclub,2:00 AM,310 E San Antonio Ave,,,,,"dancey, high-energy, late-night",31.7619,-106.483
+Kern Place,Cafe Mayapan,Bar / Restaurant,11:00 PM,2000 N Piedras St,,,,,"chill, drinks, food-focused",31.7724,-106.4915
+Segundo Barrio,Elemi Wine Bar,Wine Bar,11:00 PM,313 E Missouri Ave,,,,,"chill, date-friendly, drinks, wine-bar",31.7579,-106.4825
+Downtown,Karaoke at Aceituna's,Karaoke,2:00 AM,5532 N Mesa St,,,,,"group-fun, interactive, karaoke",31.7599,-106.484
+Central,DeadBeach Brewery,Brewery,10:00 PM,406 Durango St,,,,,"chill, drinks, social, brewery, casual",31.7694,-106.4805

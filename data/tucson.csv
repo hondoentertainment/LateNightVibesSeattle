@@ -1,23 +1,23 @@
-Area,Name,Category,Typical Closing Time,Address,Phone,Website,Driving Distance,Google Maps Driving Link,Vibe Tags
-Downtown,Hotel Congress,Music Venue / Bar,1:00 AM,311 E Congress St,,,,,"drinks, live-music, social"
-Downtown,Playground Bar & Lounge,Cocktail Bar,2:00 AM,278 E Congress St,,,,,"date-friendly, drinks, upscale"
-Downtown,Sky Bar,Lounge,2:00 AM,536 N 4th Ave,,,,,"chill, drinks, social"
-Fourth Avenue,Che's Lounge,Dive Bar,2:00 AM,350 N 4th Ave,,,,,"chill, drinks, social"
-Fourth Avenue,The Surly Wench,Bar,2:00 AM,424 N 4th Ave,,,,,"drinks, social"
-Fourth Avenue,IBT's,Nightclub,2:00 AM,616 N 4th Ave,,,,,"dancey, high-energy, late-night"
-Main Gate Square,Gentle Ben's Brewing,Brewery,2:00 AM,865 E University Blvd,,,,,"drinks, social"
-Main Gate Square,Frog & Firkin,Bar,2:00 AM,874 E University Blvd,,,,,"drinks, social"
-Congress Street,Rialto Theatre Bar,Music Venue / Bar,Late,318 E Congress St,,,,,"drinks, live-music, loud"
-Congress Street,Owl's Club,Cocktail Bar,2:00 AM,236 S Scott Ave,,,,,"date-friendly, drinks, upscale"
-Armory Park,Tap + Bottle,Wine Bar,11:00 PM,403 N 6th Ave,,,,,"chill, date-friendly, drinks"
-Barrio Viejo,Barrio Brewing,Brewery,10:00 PM,800 E 16th St,,,,,"chill, drinks, social"
-Sam Hughes,The Hut,Dive Bar,2:00 AM,305 N Herbert Ave,,,,,"chill, drinks, social"
-Iron Horse,Public Brewhouse,Brewery,10:00 PM,209 N Hoff Ave,,,,,"chill, drinks, social"
-Lost Barrio,Crooked Tooth Brewing,Brewery,10:00 PM,228 E 6th St,,,,,"chill, drinks, social"
-Downtown,Club Congress,Nightclub,1:00 AM,311 E Congress St,,,,,"dancey, drinks, live-music"
-Fourth Avenue,Karaoke at Plush,Karaoke,2:00 AM,340 E 6th St,,,,,"group-fun, interactive"
-Oracle Road,The Maverick,Sports Bar,2:00 AM,6622 E Tanque Verde Rd,,,,,"drinks, social, sports"
-Main Gate Square,No Anchovies,Bar / Restaurant,2:00 AM,870 E University Blvd,,,,,"drinks, food-focused, social"
-Downtown,Thunder Canyon Brewery,Brewery / Restaurant,11:00 PM,220 E Broadway Blvd,,,,,"drinks, food-focused, social"
-Armory Park,Ermanos Craft Beer & Wine,Wine Bar,10:00 PM,220 N 4th Ave,,,,,"chill, date-friendly, drinks"
-Congress Street,The Screening Room,Lounge,12:00 AM,127 E Congress St,,,,,"chill, drinks, social"
+Area,Name,Category,Typical Closing Time,Address,Phone,Website,Driving Distance,Google Maps Driving Link,Vibe Tags,Latitude,Longitude
+Downtown,Hotel Congress,Music Venue / Bar,1:00 AM,311 E Congress St,,,,,"drinks, live-music, social",32.2216,-110.9742
+Downtown,Playground Bar & Lounge,Cocktail Bar,2:00 AM,278 E Congress St,,,,,"date-friendly, drinks, upscale, craft-cocktails",32.2251,-110.9752
+Downtown,Sky Bar,Lounge,2:00 AM,536 N 4th Ave,,,,,"chill, drinks, social, date-friendly",32.2231,-110.9762
+Fourth Avenue,Che's Lounge,Dive Bar,2:00 AM,350 N 4th Ave,,,,,"chill, dive, neighborhood-gem, hipster, trendy",32.2266,-110.9762
+Fourth Avenue,The Surly Wench,Bar,2:00 AM,424 N 4th Ave,,,,,"drinks, social, hipster, trendy",32.2301,-110.9772
+Fourth Avenue,IBT's,Nightclub,2:00 AM,616 N 4th Ave,,,,,"dancey, high-energy, late-night, hipster, trendy",32.2281,-110.9782
+Main Gate Square,Gentle Ben's Brewing,Brewery,2:00 AM,865 E University Blvd,,,,,"brewery, chill, college",32.2296,-110.9772
+Main Gate Square,Frog & Firkin,Bar,2:00 AM,874 E University Blvd,,,,,"drinks, social, college, casual",32.2331,-110.9782
+Congress Street,Rialto Theatre Bar,Music Venue / Bar,Late,318 E Congress St,,,,,"drinks, live-music, loud",32.2216,-110.9712
+Congress Street,Owl's Club,Cocktail Bar,2:00 AM,236 S Scott Ave,,,,,"date-friendly, drinks, upscale, craft-cocktails",32.2251,-110.9722
+Armory Park,Tap + Bottle,Wine Bar,11:00 PM,403 N 6th Ave,,,,,"chill, date-friendly, drinks, wine-bar",32.2186,-110.9722
+Barrio Viejo,Barrio Brewing,Brewery,10:00 PM,800 E 16th St,,,,,"chill, drinks, social, brewery, casual",32.2166,-110.9762
+Sam Hughes,The Hut,Dive Bar,2:00 AM,305 N Herbert Ave,,,,,"chill, dive, neighborhood-gem",32.2266,-110.9662
+Iron Horse,Public Brewhouse,Brewery,10:00 PM,209 N Hoff Ave,,,,,"chill, drinks, social, brewery, casual",32.2196,-110.9692
+Lost Barrio,Crooked Tooth Brewing,Brewery,10:00 PM,228 E 6th St,,,,,"chill, drinks, social, brewery, casual",32.2166,-110.9692
+Downtown,Club Congress,Nightclub,1:00 AM,311 E Congress St,,,,,"dancey, drinks, live-music, high-energy",32.2211,-110.9772
+Fourth Avenue,Karaoke at Plush,Karaoke,2:00 AM,340 E 6th St,,,,,"group-fun, interactive, karaoke, hipster, trendy",32.2261,-110.9792
+Oracle Road,The Maverick,Sports Bar,2:00 AM,6622 E Tanque Verde Rd,,,,,"drinks, social, sports, sports-bar, casual",32.2416,-110.9692
+Main Gate Square,No Anchovies,Bar / Restaurant,2:00 AM,870 E University Blvd,,,,,"drinks, food-focused, social, college, casual",32.2311,-110.9792
+Downtown,Thunder Canyon Brewery,Brewery / Restaurant,11:00 PM,220 E Broadway Blvd,,,,,"food-focused, brewery, chill",32.2246,-110.9717
+Armory Park,Ermanos Craft Beer & Wine,Wine Bar,10:00 PM,220 N 4th Ave,,,,,"chill, date-friendly, drinks, wine-bar",32.2221,-110.9732
+Congress Street,The Screening Room,Lounge,12:00 AM,127 E Congress St,,,,,"chill, drinks, social, date-friendly",32.2231,-110.9732

@@ -1,25 +1,25 @@
-Area,Name,Category,Typical Closing Time,Address,Phone,Website,Driving Distance,Google Maps Driving Link,Vibe Tags
-Short North,Sidebar,Cocktail Bar,2:00 AM,20 E Lincoln St,,,,,"date-friendly, drinks, upscale"
-Short North,Ace of Cups,Music Venue / Bar,2:00 AM,2619 N High St,,,,,"drinks, live-music, social"
-Short North,The Light of Seven Matchsticks,Cocktail Bar,2:00 AM,694 N High St,,,,,"date-friendly, drinks, upscale"
-German Village,Schmidt's Sausage Haus,Bar / Restaurant,11:00 PM,240 E Kossuth St,,,,,"drinks, food-focused, social"
-German Village,Book Loft Courtyard Bar,Wine Bar,10:00 PM,631 S 3rd St,,,,,"chill, drinks, social"
-Arena District,Mezcal,Nightclub,2:00 AM,30 W Nationwide Blvd,,,,,"dancey, high-energy, late-night"
-Arena District,Brothers Bar & Grill,Sports Bar,2:00 AM,41 N Front St,,,,,"drinks, social, sports"
-Downtown,Oddfellows Liquor Bar,Cocktail Bar,2:00 AM,543 S 3rd St,,,,,"date-friendly, drinks, upscale"
-Downtown,Dick's Den,Music Venue / Bar,2:00 AM,2417 N High St,,,,,"chill, drinks, live-music"
-Grandview Heights,Stauf's Grandview,Lounge,11:00 PM,1277 Grandview Ave,,,,,"chill, drinks, social"
-Clintonville,Crest Gastropub,Bar / Restaurant,12:00 AM,621 N High St,,,,,"drinks, food-focused, social"
-Italian Village,Novak's Tavern,Dive Bar,2:00 AM,867 N 4th St,,,,,"chill, drinks, social"
-Italian Village,Seventh Son Brewing,Brewery,11:00 PM,1101 N 4th St,,,,,"chill, drinks, social"
-Franklinton,Land-Grant Brewing,Brewery,11:00 PM,424 W Town St,,,,,"chill, drinks, social"
-Old Town East,Olde Towne Tavern,Dive Bar,2:00 AM,940 E Main St,,,,,"chill, drinks, social"
-Brewery District,Elevator Brewing,Brewery / Restaurant,12:00 AM,161 N High St,,,,,"drinks, food-focused, social"
-Short North,Skully's Music-Diner,Music Venue / Bar,2:00 AM,1151 N High St,,,,,"dancey, drinks, live-music"
-Arena District,Park Street Cantina,Nightclub,2:00 AM,491 Park St,,,,,"dancey, high-energy, late-night"
-German Village,Hey Hey Bar & Grill,Dive Bar,2:00 AM,1 E Russell St,,,,,"chill, drinks, social"
-Clintonville,Woodlands Tavern,Music Venue / Bar,2:00 AM,1200 W 3rd Ave,,,,,"drinks, live-music, social"
-Downtown,Karaoke at Ethyl & Tank,Karaoke,2:00 AM,19 E 13th Ave,,,,,"group-fun, interactive"
-Short North,Union Cafe,Lounge,2:00 AM,782 N High St,,,,,"drinks, social, dancey"
-Italian Village,Natalie's Music Hall,Music Venue / Bar,12:00 AM,945 King Ave,,,,,"drinks, live-music, chill"
-Grandview Heights,Grandview Cafe,Sports Bar,2:00 AM,1455 W 3rd Ave,,,,,"drinks, social, sports"
+Area,Name,Category,Typical Closing Time,Address,Phone,Website,Driving Distance,Google Maps Driving Link,Vibe Tags,Latitude,Longitude
+Short North,Sidebar,Cocktail Bar,2:00 AM,20 E Lincoln St,,,,,"date-friendly, drinks, upscale, craft-cocktails",39.9652,-82.9983
+Short North,Ace of Cups,Music Venue / Bar,2:00 AM,2619 N High St,,,,,"drinks, live-music, social",39.9687,-82.9993
+Short North,The Light of Seven Matchsticks,Cocktail Bar,2:00 AM,694 N High St,,,,,"date-friendly, drinks, upscale, craft-cocktails",39.9667,-83.0003
+German Village,Schmidt's Sausage Haus,Bar / Restaurant,11:00 PM,240 E Kossuth St,,,,,"drinks, food-focused, social",39.9522,-82.9953
+German Village,Book Loft Courtyard Bar,Wine Bar,10:00 PM,631 S 3rd St,,,,,"chill, drinks, social, wine-bar, date-friendly",39.9557,-82.9963
+Arena District,Mezcal,Nightclub,2:00 AM,30 W Nationwide Blvd,,,,,"dancey, high-energy, late-night",39.9632,-83.0033
+Arena District,Brothers Bar & Grill,Sports Bar,2:00 AM,41 N Front St,,,,,"drinks, social, sports, sports-bar, casual",39.9667,-83.0043
+Downtown,Oddfellows Liquor Bar,Cocktail Bar,2:00 AM,543 S 3rd St,,,,,"date-friendly, drinks, upscale, craft-cocktails",39.9602,-82.9983
+Downtown,Dick's Den,Music Venue / Bar,2:00 AM,2417 N High St,,,,,"chill, drinks, live-music",39.9637,-82.9993
+Grandview Heights,Stauf's Grandview,Lounge,11:00 PM,1277 Grandview Ave,,,,,"chill, drinks, social, date-friendly",39.9652,-83.0183
+Clintonville,Crest Gastropub,Bar / Restaurant,12:00 AM,621 N High St,,,,,"drinks, food-focused, social",39.9802,-82.9983
+Italian Village,Novak's Tavern,Dive Bar,2:00 AM,867 N 4th St,,,,,"chill, dive, neighborhood-gem",39.9682,-82.9953
+Italian Village,Seventh Son Brewing,Brewery,11:00 PM,1101 N 4th St,,,,,"chill, drinks, social, brewery, casual",39.9717,-82.9963
+Franklinton,Land-Grant Brewing,Brewery,11:00 PM,424 W Town St,,,,,"chill, drinks, social, brewery, casual",39.9582,-83.0133
+Old Town East,Olde Towne Tavern,Dive Bar,2:00 AM,940 E Main St,,,,,"chill, dive, neighborhood-gem",39.9552,-82.9883
+Brewery District,Elevator Brewing,Brewery / Restaurant,12:00 AM,161 N High St,,,,,"food-focused, brewery, chill",39.9572,-83.0013
+Short North,Skully's Music-Diner,Music Venue / Bar,2:00 AM,1151 N High St,,,,,"dancey, drinks, live-music",39.9647,-83.0013
+Arena District,Park Street Cantina,Nightclub,2:00 AM,491 Park St,,,,,"dancey, high-energy, late-night",39.9647,-83.0053
+German Village,Hey Hey Bar & Grill,Dive Bar,2:00 AM,1 E Russell St,,,,,"chill, dive, neighborhood-gem",39.9537,-82.9973
+Clintonville,Woodlands Tavern,Music Venue / Bar,2:00 AM,1200 W 3rd Ave,,,,,"drinks, live-music, social",39.9837,-82.9993
+Downtown,Karaoke at Ethyl & Tank,Karaoke,2:00 AM,19 E 13th Ave,,,,,"group-fun, interactive, karaoke",39.9617,-83.0003
+Short North,Union Cafe,Lounge,2:00 AM,782 N High St,,,,,"drinks, social, dancey, chill, date-friendly",39.9682,-82.9958
+Italian Village,Natalie's Music Hall,Music Venue / Bar,12:00 AM,945 King Ave,,,,,"drinks, live-music, chill",39.9697,-82.9973
+Grandview Heights,Grandview Cafe,Sports Bar,2:00 AM,1455 W 3rd Ave,,,,,"drinks, social, sports, sports-bar, casual",39.9687,-83.0193

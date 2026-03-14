@@ -1,25 +1,25 @@
-Area,Name,Category,Typical Closing Time,Address,Phone,Website,Driving Distance,Google Maps Driving Link,Vibe Tags
-Bardstown Road,Holy Grale,Bar,12:00 AM,1034 Bardstown Rd,,,,,"drinks, social"
-Bardstown Road,Nachbar,Dive Bar,2:00 AM,969 Charles St,,,,,"chill, drinks, social"
-Bardstown Road,The Back Door,Bar,4:00 AM,1250 Bardstown Rd,,,,,"chill, drinks, late-night, social"
-NuLu,Galaxie,Cocktail Bar,2:00 AM,732 E Market St,,,,,"date-friendly, drinks, upscale"
-NuLu,Rabbit Hole Distillery,Lounge,10:00 PM,711 E Jefferson St,,,,,"date-friendly, drinks, upscale"
-NuLu,Against the Grain Brewery,Brewery / Restaurant,12:00 AM,401 E Main St,,,,,"drinks, food-focused, social"
-Fourth Street Live,Tin Roof,Bar,4:00 AM,333 E Main St,,,,,"drinks, live-music, social"
-Fourth Street Live,Howl at the Moon,Bar,3:00 AM,434 S 4th St,,,,,"group-fun, interactive, live-music"
-Germantown,Monnik Beer Company,Brewery / Restaurant,11:00 PM,1036 E Burnett Ave,,,,,"drinks, food-focused, social"
-Germantown,Garage Bar,Bar / Restaurant,12:00 AM,700 E Market St,,,,,"drinks, food-focused, social"
-Butchertown,Copper & Kings Rooftop,Lounge,10:00 PM,1121 E Washington St,,,,,"chill, date-friendly, drinks"
-Butchertown,Apocalypse Brew Works,Brewery,10:00 PM,1612 Mellwood Ave,,,,,"chill, drinks, social"
-Downtown,Proof on Main,Cocktail Bar,12:00 AM,702 W Main St,,,,,"date-friendly, drinks, upscale"
-Downtown,Old Forester Distillery Bar,Lounge,6:00 PM,119 W Main St,,,,,"date-friendly, drinks, upscale"
-Irish Hill,Falls City Beer,Brewery,10:00 PM,901 E Liberty St,,,,,"chill, drinks, social"
-Shelby Park,The Pearl of Germantown,Cocktail Bar,12:00 AM,1100 E Washington St,,,,,"date-friendly, drinks, upscale"
-Portland,New Albanian Brewing,Brewery,10:00 PM,3312 Plaza Dr,,,,,"chill, drinks, social"
-Clifton,Kaelin's,Bar / Restaurant,12:00 AM,1801 Newburg Rd,,,,,"drinks, food-focused, social"
-Bardstown Road,Zanzabar,Music Venue / Bar,2:00 AM,2100 S Preston St,,,,,"drinks, live-music, social"
-NuLu,Play Louisville,Nightclub,4:00 AM,1101 E Washington St,,,,,"dancey, high-energy, late-night"
-Germantown,Karaoke at The Bard's Town,Karaoke,12:00 AM,1801 Bardstown Rd,,,,,"group-fun, interactive"
-Downtown,Meta,Bar,4:00 AM,425 W Chestnut St,,,,,"drinks, social, late-night"
-Clifton,Hilltop Tavern,Sports Bar,2:00 AM,2500 Frankfort Ave,,,,,"drinks, social, sports"
-Butchertown,Logan Street Market Bar,Wine Bar,10:00 PM,1001 Logan St,,,,,"chill, date-friendly, drinks"
+Area,Name,Category,Typical Closing Time,Address,Phone,Website,Driving Distance,Google Maps Driving Link,Vibe Tags,Latitude,Longitude
+Bardstown Road,Holy Grale,Bar,12:00 AM,1034 Bardstown Rd,,,,,"drinks, social, hipster, trendy",38.2417,-85.743
+Bardstown Road,Nachbar,Dive Bar,2:00 AM,969 Charles St,,,,,"chill, dive, neighborhood-gem, hipster, trendy",38.2452,-85.744
+Bardstown Road,The Back Door,Bar,4:00 AM,1250 Bardstown Rd,,,,,"chill, late-night, hipster, trendy",38.2432,-85.745
+NuLu,Galaxie,Cocktail Bar,2:00 AM,732 E Market St,,,,,"date-friendly, drinks, upscale, craft-cocktails, hipster",38.2547,-85.753
+NuLu,Rabbit Hole Distillery,Lounge,10:00 PM,711 E Jefferson St,,,,,"date-friendly, drinks, upscale, chill, hipster",38.2582,-85.754
+NuLu,Against the Grain Brewery,Brewery / Restaurant,12:00 AM,401 E Main St,,,,,"food-focused, brewery, chill, hipster, trendy",38.2562,-85.755
+Fourth Street Live,Tin Roof,Bar,4:00 AM,333 E Main St,,,,,"drinks, live-music, social, hipster, trendy",38.2517,-85.758
+Fourth Street Live,Howl at the Moon,Bar,3:00 AM,434 S 4th St,,,,,"group-fun, interactive, live-music, hipster, trendy",38.2552,-85.759
+Germantown,Monnik Beer Company,Brewery / Restaurant,11:00 PM,1036 E Burnett Ave,,,,,"food-focused, brewery, chill",38.2467,-85.75
+Germantown,Garage Bar,Bar / Restaurant,12:00 AM,700 E Market St,,,,,"drinks, food-focused, social",38.2502,-85.751
+Butchertown,Copper & Kings Rooftop,Lounge,10:00 PM,1121 E Washington St,,,,,"chill, date-friendly, drinks",38.2567,-85.75
+Butchertown,Apocalypse Brew Works,Brewery,10:00 PM,1612 Mellwood Ave,,,,,"chill, drinks, social, brewery, casual",38.2602,-85.751
+Downtown,Proof on Main,Cocktail Bar,12:00 AM,702 W Main St,,,,,"date-friendly, drinks, upscale, craft-cocktails",38.2517,-85.761
+Downtown,Old Forester Distillery Bar,Lounge,6:00 PM,119 W Main St,,,,,"date-friendly, drinks, upscale, chill",38.2552,-85.762
+Irish Hill,Falls City Beer,Brewery,10:00 PM,901 E Liberty St,,,,,"chill, drinks, social, brewery, casual",38.2547,-85.748
+Shelby Park,The Pearl of Germantown,Cocktail Bar,12:00 AM,1100 E Washington St,,,,,"date-friendly, drinks, upscale, craft-cocktails",38.2467,-85.746
+Portland,New Albanian Brewing,Brewery,10:00 PM,3312 Plaza Dr,,,,,"chill, drinks, social, brewery, casual",38.2617,-85.766
+Clifton,Kaelin's,Bar / Restaurant,12:00 AM,1801 Newburg Rd,,,,,"drinks, food-focused, social",38.2617,-85.753
+Bardstown Road,Zanzabar,Music Venue / Bar,2:00 AM,2100 S Preston St,,,,,"drinks, live-music, social, hipster, trendy",38.2412,-85.746
+NuLu,Play Louisville,Nightclub,4:00 AM,1101 E Washington St,,,,,"dancey, high-energy, late-night, hipster, trendy",38.2542,-85.756
+Germantown,Karaoke at The Bard's Town,Karaoke,12:00 AM,1801 Bardstown Rd,,,,,"group-fun, interactive, karaoke",38.2482,-85.752
+Downtown,Meta,Bar,4:00 AM,425 W Chestnut St,,,,,"drinks, social, late-night",38.2532,-85.763
+Clifton,Hilltop Tavern,Sports Bar,2:00 AM,2500 Frankfort Ave,,,,,"drinks, social, sports, sports-bar, casual",38.2652,-85.754
+Butchertown,Logan Street Market Bar,Wine Bar,10:00 PM,1001 Logan St,,,,,"chill, date-friendly, drinks, wine-bar",38.2582,-85.752

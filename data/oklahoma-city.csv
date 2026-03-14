@@ -1,25 +1,25 @@
-Area,Name,Category,Typical Closing Time,Address,Phone,Website,Driving Distance,Google Maps Driving Link,Vibe Tags
-Bricktown,Skinny Slim's,Bar,2:00 AM,200 S Oklahoma Ave,,,,,"drinks, social"
-Bricktown,Tapwerks Ale House,Bar,2:00 AM,121 E Sheridan Ave,,,,,"drinks, social"
-Bricktown,Bricktown Comedy Club,Music Venue / Bar,11:00 PM,409 E California Ave,,,,,"drinks, group-fun, social"
-Automobile Alley,The R&J Lounge,Cocktail Bar,2:00 AM,320 NW 10th St,,,,,"date-friendly, drinks, upscale"
-Automobile Alley,Ponyboy,Bar,2:00 AM,423 NW 23rd St,,,,,"drinks, live-music, social"
-Midtown,The Pump Bar,Bar,2:00 AM,2425 N Walker Ave,,,,,"drinks, social"
-Midtown,Fassler Hall,Brewery / Restaurant,12:00 AM,421 NW 10th St,,,,,"drinks, food-focused, social"
-Plaza District,The Mule,Bar / Restaurant,12:00 AM,1630 N Blackwelder Ave,,,,,"drinks, food-focused, social"
-Plaza District,Saints,Bar,2:00 AM,1715 NW 16th St,,,,,"chill, drinks, social"
-Paseo Arts District,Guestroom Records & Bar,Bar,12:00 AM,3009 Paseo St,,,,,"chill, drinks, social"
-Downtown,Flashback RetroPub,Bar,2:00 AM,200 NW 11th St,,,,,"drinks, social, group-fun"
-Downtown,Jones Assembly,Music Venue / Bar,2:00 AM,901 W Sheridan Ave,,,,,"drinks, food-focused, live-music"
-Classen Curve,The Press,Cocktail Bar,12:00 AM,1612 N Classen Blvd,,,,,"date-friendly, drinks, upscale"
-Deep Deuce,Anchor Down,Bar,2:00 AM,316 NE 2nd St,,,,,"drinks, social"
-Deep Deuce,Vast,Lounge,12:00 AM,333 W Sheridan Ave,,,,,"date-friendly, drinks, upscale"
-Film Row,Stonecloud Brewing,Brewery,10:00 PM,1012 NW 1st St,,,,,"chill, drinks, social"
-Film Row,The Blue Note,Music Venue / Bar,2:00 AM,2408 N Robinson Ave,,,,,"drinks, live-music, social"
-Western Avenue,McNellie's,Bar / Restaurant,2:00 AM,1100 Classen Dr,,,,,"drinks, food-focused, social"
-Bricktown,Cowboys OKC,Nightclub,2:00 AM,226 E Sheridan Ave,,,,,"dancey, high-energy, late-night"
-Midtown,Edna's Lunchbox,Dive Bar,2:00 AM,3 NW 9th St,,,,,"chill, drinks, social"
-Plaza District,Karaoke at Sauced,Karaoke,12:00 AM,1553 NW 16th St,,,,,"group-fun, interactive"
-Downtown,Colcord Hotel Bar,Lounge,12:00 AM,15 N Robinson Ave,,,,,"date-friendly, drinks, upscale"
-Automobile Alley,Prairie Artisan Ales,Brewery,9:00 PM,3 NE 8th St,,,,,"chill, drinks, social"
-Bricktown,Whiskey Chicks,Bar,2:00 AM,116 E California Ave,,,,,"drinks, social"
+Area,Name,Category,Typical Closing Time,Address,Phone,Website,Driving Distance,Google Maps Driving Link,Vibe Tags,Latitude,Longitude
+Bricktown,Skinny Slim's,Bar,2:00 AM,200 S Oklahoma Ave,,,,,"drinks, social, casual",35.4636,-97.5109
+Bricktown,Tapwerks Ale House,Bar,2:00 AM,121 E Sheridan Ave,,,,,"drinks, social, casual",35.4671,-97.5119
+Bricktown,Bricktown Comedy Club,Music Venue / Bar,11:00 PM,409 E California Ave,,,,,"drinks, group-fun, social, live-music",35.4651,-97.5129
+Automobile Alley,The R&J Lounge,Cocktail Bar,2:00 AM,320 NW 10th St,,,,,"date-friendly, drinks, upscale, craft-cocktails",35.4696,-97.5189
+Automobile Alley,Ponyboy,Bar,2:00 AM,423 NW 23rd St,,,,,"drinks, live-music, social",35.4731,-97.5199
+Midtown,The Pump Bar,Bar,2:00 AM,2425 N Walker Ave,,,,,"drinks, social, casual",35.4746,-97.5209
+Midtown,Fassler Hall,Brewery / Restaurant,12:00 AM,421 NW 10th St,,,,,"food-focused, brewery, chill",35.4781,-97.5219
+Plaza District,The Mule,Bar / Restaurant,12:00 AM,1630 N Blackwelder Ave,,,,,"drinks, food-focused, social",35.4816,-97.5239
+Plaza District,Saints,Bar,2:00 AM,1715 NW 16th St,,,,,"chill, drinks, social",35.4851,-97.5249
+Paseo Arts District,Guestroom Records & Bar,Bar,12:00 AM,3009 Paseo St,,,,,"chill, drinks, social, hipster, trendy",35.4786,-97.5209
+Downtown,Flashback RetroPub,Bar,2:00 AM,200 NW 11th St,,,,,"drinks, social, group-fun",35.4666,-97.5159
+Downtown,Jones Assembly,Music Venue / Bar,2:00 AM,901 W Sheridan Ave,,,,,"drinks, food-focused, live-music",35.4701,-97.5169
+Classen Curve,The Press,Cocktail Bar,12:00 AM,1612 N Classen Blvd,,,,,"date-friendly, drinks, upscale, craft-cocktails",35.4766,-97.5259
+Deep Deuce,Anchor Down,Bar,2:00 AM,316 NE 2nd St,,,,,"drinks, social, casual",35.4686,-97.5129
+Deep Deuce,Vast,Lounge,12:00 AM,333 W Sheridan Ave,,,,,"date-friendly, drinks, upscale, chill",35.4721,-97.5139
+Film Row,Stonecloud Brewing,Brewery,10:00 PM,1012 NW 1st St,,,,,"chill, drinks, social, brewery, casual",35.4666,-97.5209
+Film Row,The Blue Note,Music Venue / Bar,2:00 AM,2408 N Robinson Ave,,,,,"drinks, live-music, social",35.4701,-97.5219
+Western Avenue,McNellie's,Bar / Restaurant,2:00 AM,1100 Classen Dr,,,,,"drinks, food-focused, social",35.4746,-97.5279
+Bricktown,Cowboys OKC,Nightclub,2:00 AM,226 E Sheridan Ave,,,,,"dancey, high-energy, late-night",35.4631,-97.5139
+Midtown,Edna's Lunchbox,Dive Bar,2:00 AM,3 NW 9th St,,,,,"chill, dive, neighborhood-gem",35.4761,-97.5229
+Plaza District,Karaoke at Sauced,Karaoke,12:00 AM,1553 NW 16th St,,,,,"group-fun, interactive, karaoke",35.4831,-97.5259
+Downtown,Colcord Hotel Bar,Lounge,12:00 AM,15 N Robinson Ave,,,,,"date-friendly, drinks, upscale, chill",35.4681,-97.5179
+Automobile Alley,Prairie Artisan Ales,Brewery,9:00 PM,3 NE 8th St,,,,,"chill, drinks, social, brewery, casual",35.4711,-97.5209
+Bricktown,Whiskey Chicks,Bar,2:00 AM,116 E California Ave,,,,,"drinks, social, casual",35.4666,-97.5084

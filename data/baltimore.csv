@@ -1,25 +1,25 @@
-Area,Name,Category,Typical Closing Time,Address,Phone,Website,Driving Distance,Google Maps Driving Link,Vibe Tags
-Fells Point,The Horse You Came In On,Bar,2:00 AM,1626 Thames St,,,,,"drinks, live-music, social"
-Fells Point,Max's Taphouse,Bar,2:00 AM,737 S Broadway,,,,,"drinks, social"
-Fells Point,Cat's Eye Pub,Music Venue / Bar,2:00 AM,1730 Thames St,,,,,"drinks, live-music, social"
-Federal Hill,Cross Street Market,Bar / Restaurant,12:00 AM,1065 S Charles St,,,,,"drinks, food-focused, social"
-Federal Hill,Bookmakers Cocktail Club,Cocktail Bar,2:00 AM,31 E Cross St,,,,,"date-friendly, drinks, upscale"
-Federal Hill,Mother's Federal Hill Grille,Sports Bar,2:00 AM,1113 S Charles St,,,,,"drinks, social, sports"
-Canton,Nacho Mama's,Bar / Restaurant,2:00 AM,2907 O'Donnell St,,,,,"drinks, food-focused, social"
-Canton,The Chasseur,Bar,2:00 AM,3328 Foster Ave,,,,,"chill, drinks, social"
-Mount Vernon,The Brewer's Art,Brewery,2:00 AM,1106 N Charles St,,,,,"drinks, social, chill"
-Mount Vernon,Club Charles,Dive Bar,2:00 AM,1724 N Charles St,,,,,"chill, drinks, social"
-Inner Harbor,Power Plant Live,Nightclub,2:00 AM,34 Market Pl,,,,,"dancey, high-energy, late-night"
-Hampden,Frazier's on the Avenue,Bar,2:00 AM,3600 Falls Rd,,,,,"drinks, social"
-Hampden,Waverly Brewing Company,Brewery,10:00 PM,1625 Union Ave,,,,,"chill, drinks, social"
-Station North,The Crown Baltimore,Music Venue / Bar,2:00 AM,1910 N Charles St,,,,,"drinks, live-music, social"
-Station North,Metro Gallery,Music Venue / Bar,2:00 AM,1700 N Charles St,,,,,"drinks, live-music, social"
-Harbor East,Wit & Wisdom,Lounge,12:00 AM,200 International Dr,,,,,"date-friendly, drinks, upscale"
-Locust Point,Locust Point Steam,Bar,2:00 AM,1305 Hull St,,,,,"chill, drinks, social"
-Remington,Ministry of Brewing,Brewery,10:00 PM,1900 E Eager St,,,,,"chill, drinks, social"
-Fells Point,The Wharf Rat,Bar,2:00 AM,801 S Ann St,,,,,"drinks, social"
-Canton,Lighthouse Liquors,Dive Bar,2:00 AM,2300 Fait Ave,,,,,"chill, drinks, social"
-Mount Vernon,Karaoke at Ottobar,Karaoke,2:00 AM,2549 N Howard St,,,,,"group-fun, interactive"
-Federal Hill,Rye,Cocktail Bar,2:00 AM,807 S Broadway,,,,,"date-friendly, drinks, upscale"
-Hampden,De Kleine Duivel,Wine Bar,12:00 AM,3602 Hickory Ave,,,,,"chill, date-friendly, drinks"
-Station North,Joe Squared,Bar / Restaurant,2:00 AM,33 W North Ave,,,,,"drinks, food-focused, live-music"
+Area,Name,Category,Typical Closing Time,Address,Phone,Website,Driving Distance,Google Maps Driving Link,Vibe Tags,Latitude,Longitude
+Fells Point,The Horse You Came In On,Bar,2:00 AM,1626 Thames St,,,,,"drinks, live-music, social",39.2864,-76.6017
+Fells Point,Max's Taphouse,Bar,2:00 AM,737 S Broadway,,,,,"drinks, social, casual",39.2899,-76.6027
+Fells Point,Cat's Eye Pub,Music Venue / Bar,2:00 AM,1730 Thames St,,,,,"drinks, live-music, social",39.2879,-76.6037
+Federal Hill,Cross Street Market,Bar / Restaurant,12:00 AM,1065 S Charles St,,,,,"drinks, food-focused, social",39.2814,-76.6087
+Federal Hill,Bookmakers Cocktail Club,Cocktail Bar,2:00 AM,31 E Cross St,,,,,"date-friendly, drinks, upscale, craft-cocktails",39.2849,-76.6097
+Federal Hill,Mother's Federal Hill Grille,Sports Bar,2:00 AM,1113 S Charles St,,,,,"drinks, social, sports, sports-bar, casual",39.2829,-76.6107
+Canton,Nacho Mama's,Bar / Restaurant,2:00 AM,2907 O'Donnell St,,,,,"drinks, food-focused, social",39.2844,-76.5967
+Canton,The Chasseur,Bar,2:00 AM,3328 Foster Ave,,,,,"chill, drinks, social",39.2879,-76.5977
+Mount Vernon,The Brewer's Art,Brewery,2:00 AM,1106 N Charles St,,,,,"drinks, social, chill, brewery, casual",39.2944,-76.6087
+Mount Vernon,Club Charles,Dive Bar,2:00 AM,1724 N Charles St,,,,,"chill, dive, neighborhood-gem",39.2979,-76.6097
+Inner Harbor,Power Plant Live,Nightclub,2:00 AM,34 Market Pl,,,,,"dancey, high-energy, late-night",39.2894,-76.6067
+Hampden,Frazier's on the Avenue,Bar,2:00 AM,3600 Falls Rd,,,,,"drinks, social, casual",39.3044,-76.6167
+Hampden,Waverly Brewing Company,Brewery,10:00 PM,1625 Union Ave,,,,,"chill, drinks, social, brewery, casual",39.3079,-76.6177
+Station North,The Crown Baltimore,Music Venue / Bar,2:00 AM,1910 N Charles St,,,,,"drinks, live-music, social",39.2974,-76.6117
+Station North,Metro Gallery,Music Venue / Bar,2:00 AM,1700 N Charles St,,,,,"drinks, live-music, social",39.3009,-76.6127
+Harbor East,Wit & Wisdom,Lounge,12:00 AM,200 International Dr,,,,,"date-friendly, drinks, upscale, chill, trendy",39.2874,-76.6037
+Locust Point,Locust Point Steam,Bar,2:00 AM,1305 Hull St,,,,,"chill, drinks, social",39.2794,-76.6067
+Remington,Ministry of Brewing,Brewery,10:00 PM,1900 E Eager St,,,,,"chill, drinks, social, brewery, casual",39.2994,-76.6087
+Fells Point,The Wharf Rat,Bar,2:00 AM,801 S Ann St,,,,,"drinks, social, casual",39.2859,-76.6047
+Canton,Lighthouse Liquors,Dive Bar,2:00 AM,2300 Fait Ave,,,,,"chill, dive, neighborhood-gem",39.2859,-76.5987
+Mount Vernon,Karaoke at Ottobar,Karaoke,2:00 AM,2549 N Howard St,,,,,"group-fun, interactive, karaoke",39.2959,-76.6107
+Federal Hill,Rye,Cocktail Bar,2:00 AM,807 S Broadway,,,,,"date-friendly, drinks, upscale, craft-cocktails",39.2809,-76.6117
+Hampden,De Kleine Duivel,Wine Bar,12:00 AM,3602 Hickory Ave,,,,,"chill, date-friendly, drinks, wine-bar",39.3059,-76.6187
+Station North,Joe Squared,Bar / Restaurant,2:00 AM,33 W North Ave,,,,,"drinks, food-focused, live-music",39.2989,-76.6137
