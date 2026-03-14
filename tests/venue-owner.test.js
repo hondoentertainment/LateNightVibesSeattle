@@ -441,11 +441,11 @@ describe("getVenueResponses", () => {
 
   it("returns all responses for a venue", () => {
     addVenueResponse("Bar X", { text: "Response 1", author: "A" });
-    // Manually adjust timestamp to bypass rate limit
-    const key = STORAGE_KEY + "_responses";
-    const data = JSON.parse(store[key]);
+    // Find the actual storage key used (may be city-scoped)
+    const storeKey = Object.keys(store).find(k => k.includes("responses"));
+    const data = JSON.parse(store[storeKey]);
     data["Bar X"][0].timestamp = "2020-01-01T00:00:00Z";
-    store[key] = JSON.stringify(data);
+    store[storeKey] = JSON.stringify(data);
     addVenueResponse("Bar X", { text: "Response 2", author: "B" });
     const responses = getVenueResponses("Bar X");
     expect(responses).toHaveLength(2);
