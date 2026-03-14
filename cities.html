@@ -214,6 +214,36 @@
         border-radius: 50%;
         opacity: 0.5;
       }
+
+      /* Region sections */
+      .region-section {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 0 1rem;
+      }
+
+      .region-heading {
+        font-size: 1.35rem;
+        font-weight: 700;
+        color: #2bff86;
+        margin: 2rem 0 0.75rem;
+        padding-bottom: 0.4rem;
+        border-bottom: 1px solid rgba(43, 255, 134, 0.12);
+        letter-spacing: -0.01em;
+      }
+
+      .region-section .city-grid {
+        padding: 0.5rem 0 1.5rem;
+      }
+
+      @media (min-width: 520px) {
+        .region-section {
+          padding: 0 1.5rem;
+        }
+        .region-section .city-grid {
+          padding: 0.5rem 0 2rem;
+        }
+      }
     </style>
   </head>
   <body>
@@ -226,20 +256,29 @@
       <p class="hero-subtitle">Discover nightlife in America's biggest cities</p>
     </section>
 
-    <div class="city-grid" id="cityGrid"></div>
+    <div id="regionContainer"></div>
 
     <script src="lib/cities.js"></script>
     <script>
       (function () {
         var ACTIVE_CITIES = { seattle: true };
-        var grid = document.getElementById('cityGrid');
-        var cities = LNVCities.getAllCities();
+
+        var REGIONS = [
+          { name: 'West Coast', slugs: ['seattle', 'san-francisco', 'san-jose', 'los-angeles', 'san-diego', 'portland', 'las-vegas', 'fresno'] },
+          { name: 'Southwest', slugs: ['phoenix', 'tucson', 'mesa', 'albuquerque', 'denver'] },
+          { name: 'Texas', slugs: ['houston', 'dallas', 'fort-worth', 'san-antonio', 'austin', 'el-paso'] },
+          { name: 'Midwest', slugs: ['chicago', 'columbus', 'indianapolis', 'milwaukee', 'oklahoma-city', 'louisville'] },
+          { name: 'Southeast', slugs: ['jacksonville', 'charlotte', 'nashville', 'memphis'] },
+          { name: 'Northeast', slugs: ['new-york', 'philadelphia'] }
+        ];
+
+        var container = document.getElementById('regionContainer');
 
         function formatPop(n) {
           return n.toLocaleString('en-US');
         }
 
-        cities.forEach(function (city) {
+        function buildCard(city) {
           var isActive = !!ACTIVE_CITIES[city.slug];
           var card = document.createElement('div');
           card.className = 'city-card' + (isActive ? ' active' : ' coming-soon');
@@ -269,7 +308,30 @@
             });
           }
 
-          grid.appendChild(card);
+          return card;
+        }
+
+        REGIONS.forEach(function (region) {
+          var section = document.createElement('div');
+          section.className = 'region-section';
+
+          var heading = document.createElement('h2');
+          heading.className = 'region-heading';
+          heading.textContent = region.name;
+          section.appendChild(heading);
+
+          var grid = document.createElement('div');
+          grid.className = 'city-grid';
+
+          region.slugs.forEach(function (slug) {
+            var city = LNVCities.getCityBySlug(slug);
+            if (city) {
+              grid.appendChild(buildCard(city));
+            }
+          });
+
+          section.appendChild(grid);
+          container.appendChild(section);
         });
       })();
     </script>
