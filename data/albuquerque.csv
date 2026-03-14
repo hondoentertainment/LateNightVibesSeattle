@@ -1,25 +1,25 @@
-Area,Name,Category,Typical Closing Time,Address,Phone,Website,Driving Distance,Google Maps Driving Link,Vibe Tags
-Downtown,Apothecary Lounge,Cocktail Bar,12:00 AM,806 Central Ave SE,,,,,"date-friendly, drinks, upscale"
-Downtown,Sister Bar,Music Venue / Bar,2:00 AM,407 Central Ave NW,,,,,"drinks, live-music, social"
-Downtown,Anodyne,Bar,2:00 AM,409 Central Ave NW,,,,,"drinks, social"
-Nob Hill,Gecko's Bar & Tapas,Bar / Restaurant,12:00 AM,3500 Central Ave SE,,,,,"drinks, food-focused, social"
-Nob Hill,Dialogue Brewing,Brewery,10:00 PM,1501 1st St NW,,,,,"chill, drinks, social"
-Nob Hill,Kelly's Brew Pub,Brewery,11:00 PM,3222 Central Ave SE,,,,,"chill, drinks, social"
-Old Town,High Noon Restaurant Saloon,Music Venue / Bar,2:00 AM,425 San Felipe NW,,,,,"drinks, live-music, social"
-EDo,Tractor Brewing,Brewery,10:00 PM,118 Tulane Dr SE,,,,,"chill, drinks, social"
-EDo,Steel Bender Brewyard,Brewery,10:00 PM,8305 2nd St NW,,,,,"chill, drinks, social"
-Barelas,Red Door Brewing,Brewery,10:00 PM,400 Gold Ave SW,,,,,"chill, drinks, social"
-North Valley,Canteen Brewhouse,Brewery,10:00 PM,2381 Aztec Rd NE,,,,,"chill, drinks, social"
-Uptown,Dirty Bourbon Dance Hall,Nightclub,2:00 AM,9800 Montgomery Blvd NE,,,,,"dancey, high-energy, late-night"
-Wells Park,Marble Brewery,Brewery,10:00 PM,111 Marble Ave NW,,,,,"chill, drinks, social"
-Huning Highland,Brixens,Bar / Restaurant,12:00 AM,400 Central Ave SE,,,,,"drinks, food-focused, social"
-Downtown,Launchpad,Music Venue / Bar,2:00 AM,618 Central Ave SW,,,,,"drinks, live-music, loud"
-Nob Hill,Zinc Wine Bar & Bistro,Wine Bar,11:00 PM,3009 Central Ave NE,,,,,"chill, date-friendly, drinks"
-Old Town,Church Street Cafe Cantina,Lounge,10:00 PM,2111 Church St NW,,,,,"chill, drinks, social"
-Downtown,Effex Nightclub,Nightclub,2:00 AM,420 Central Ave SW,,,,,"dancey, high-energy, late-night"
-Sawmill District,Boxing Bear Brewing,Brewery,10:00 PM,10200 Corrales Rd NW,,,,,"chill, drinks, social"
-Nob Hill,Karaoke at O'Niell's,Karaoke,2:00 AM,3301 Juan Tabo Blvd NE,,,,,"group-fun, interactive"
-Downtown,Moonlight Lounge,Dive Bar,2:00 AM,120 Central Ave SW,,,,,"chill, drinks, social"
-EDo,Tin Can Alley,Bar,12:00 AM,115 Harvard Dr SE,,,,,"drinks, social"
-Wells Park,Draft Station,Sports Bar,2:00 AM,1100 San Mateo Blvd NE,,,,,"drinks, social, sports"
-Nob Hill,Monte Vista Fire Station,Bar / Restaurant,12:00 AM,3201 Central Ave NE,,,,,"drinks, food-focused, social"
+Area,Name,Category,Typical Closing Time,Address,Phone,Website,Driving Distance,Google Maps Driving Link,Vibe Tags,Latitude,Longitude
+Downtown,Apothecary Lounge,Cocktail Bar,12:00 AM,806 Central Ave SE,,,,,"date-friendly, drinks, upscale, craft-cocktails",35.0834,-106.6499
+Downtown,Sister Bar,Music Venue / Bar,2:00 AM,407 Central Ave NW,,,,,"drinks, live-music, social",35.0869,-106.6509
+Downtown,Anodyne,Bar,2:00 AM,409 Central Ave NW,,,,,"drinks, social, casual",35.0849,-106.6519
+Nob Hill,Gecko's Bar & Tapas,Bar / Restaurant,12:00 AM,3500 Central Ave SE,,,,,"drinks, food-focused, social, hipster, trendy",35.0784,-106.6299
+Nob Hill,Dialogue Brewing,Brewery,10:00 PM,1501 1st St NW,,,,,"chill, brewery, hipster, trendy",35.0819,-106.6309
+Nob Hill,Kelly's Brew Pub,Brewery,11:00 PM,3222 Central Ave SE,,,,,"chill, brewery, hipster, trendy",35.0799,-106.6319
+Old Town,High Noon Restaurant Saloon,Music Venue / Bar,2:00 AM,425 San Felipe NW,,,,,"drinks, live-music, social",35.0884,-106.6599
+EDo,Tractor Brewing,Brewery,10:00 PM,118 Tulane Dr SE,,,,,"chill, drinks, social, brewery, casual",35.0804,-106.6449
+EDo,Steel Bender Brewyard,Brewery,10:00 PM,8305 2nd St NW,,,,,"chill, drinks, social, brewery, casual",35.0839,-106.6459
+Barelas,Red Door Brewing,Brewery,10:00 PM,400 Gold Ave SW,,,,,"chill, drinks, social, brewery, casual",35.0784,-106.6529
+North Valley,Canteen Brewhouse,Brewery,10:00 PM,2381 Aztec Rd NE,,,,,"chill, drinks, social, brewery, casual",35.1034,-106.6549
+Uptown,Dirty Bourbon Dance Hall,Nightclub,2:00 AM,9800 Montgomery Blvd NE,,,,,"dancey, high-energy, late-night, trendy",35.0884,-106.6199
+Wells Park,Marble Brewery,Brewery,10:00 PM,111 Marble Ave NW,,,,,"chill, drinks, social, brewery, casual",35.0884,-106.6529
+Huning Highland,Brixens,Bar / Restaurant,12:00 AM,400 Central Ave SE,,,,,"drinks, food-focused, social",35.0814,-106.6469
+Downtown,Launchpad,Music Venue / Bar,2:00 AM,618 Central Ave SW,,,,,"drinks, live-music, loud",35.0829,-106.6529
+Nob Hill,Zinc Wine Bar & Bistro,Wine Bar,11:00 PM,3009 Central Ave NE,,,,,"chill, date-friendly, wine-bar, hipster, trendy",35.0779,-106.6329
+Old Town,Church Street Cafe Cantina,Lounge,10:00 PM,2111 Church St NW,,,,,"chill, drinks, social, date-friendly",35.0919,-106.6609
+Downtown,Effex Nightclub,Nightclub,2:00 AM,420 Central Ave SW,,,,,"dancey, high-energy, late-night",35.0864,-106.6474
+Sawmill District,Boxing Bear Brewing,Brewery,10:00 PM,10200 Corrales Rd NW,,,,,"chill, drinks, social, brewery, casual",35.0884,-106.6579
+Nob Hill,Karaoke at O'Niell's,Karaoke,2:00 AM,3301 Juan Tabo Blvd NE,,,,,"group-fun, interactive, karaoke, hipster, trendy",35.0814,-106.6274
+Downtown,Moonlight Lounge,Dive Bar,2:00 AM,120 Central Ave SW,,,,,"chill, dive, neighborhood-gem",35.0844,-106.6484
+EDo,Tin Can Alley,Bar,12:00 AM,115 Harvard Dr SE,,,,,"drinks, social, casual",35.0819,-106.6469
+Wells Park,Draft Station,Sports Bar,2:00 AM,1100 San Mateo Blvd NE,,,,,"drinks, social, sports, sports-bar, casual",35.0919,-106.6539
+Nob Hill,Monte Vista Fire Station,Bar / Restaurant,12:00 AM,3201 Central Ave NE,,,,,"drinks, food-focused, social, hipster, trendy",35.0794,-106.6284

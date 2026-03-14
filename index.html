@@ -4,19 +4,19 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#0a0c12" />
-    <title>Late Night Vibes Seattle — 500+ Nightlife Venues</title>
-    <meta name="description" content="Discover 500+ Seattle nightlife venues. Browse bars, clubs, and late-night spots by vibe, neighborhood, and hours. Plan your perfect night out." />
-    <meta property="og:title" content="Late Night Vibes Seattle — 500+ Nightlife Venues" />
-    <meta property="og:description" content="Discover 500+ Seattle nightlife venues. Browse bars, clubs, and late-night spots by vibe, neighborhood, and hours." />
+    <title>Late Night Vibes — Nightlife Venues</title>
+    <meta name="description" content="Discover nightlife venues in your city. Browse bars, clubs, and late-night spots by vibe, neighborhood, and hours. Plan your perfect night out." />
+    <meta property="og:title" content="Late Night Vibes — Nightlife Venues" />
+    <meta property="og:description" content="Discover nightlife venues in your city. Browse bars, clubs, and late-night spots by vibe, neighborhood, and hours." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://late-night-vibes-seattle.vercel.app/" />
     <meta property="og:image" content="https://late-night-vibes-seattle.vercel.app/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Late Night Vibes Seattle — 500+ nightlife venues to browse, plan, and explore" />
+    <meta property="og:image:alt" content="Late Night Vibes — nightlife venues to browse, plan, and explore" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Late Night Vibes Seattle" />
-    <meta name="twitter:description" content="Discover 500+ Seattle nightlife venues. Browse by vibe, neighborhood, and hours." />
+    <meta name="twitter:title" content="Late Night Vibes" />
+    <meta name="twitter:description" content="Discover nightlife venues in your city. Browse by vibe, neighborhood, and hours." />
     <link rel="icon" type="image/png" href="favicon.png" />
     <link rel="apple-touch-icon" href="favicon-512.png" />
     <link rel="apple-touch-startup-image" href="splash/splash-1170x2532.png" media="(device-width: 390px) and (device-height: 844px)" />
@@ -30,6 +30,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="vibe-check.css" />
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="LateNightVibes">
@@ -37,8 +38,8 @@
 {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  "name": "Late Night Vibes Seattle",
-  "description": "Discover 500+ Seattle nightlife venues. Browse bars, clubs, and late-night spots by vibe, neighborhood, and hours. Plan your perfect night out.",
+  "name": "Late Night Vibes",
+  "description": "Discover nightlife venues in your city. Browse bars, clubs, and late-night spots by vibe, neighborhood, and hours. Plan your perfect night out.",
   "applicationCategory": "LifestyleApplication",
   "operatingSystem": "Any",
   "url": "https://late-night-vibes-seattle.vercel.app/",
@@ -278,7 +279,7 @@
       </aside>
 
       <main class="content" id="main">
-        <h1 class="sr-only">Browse 500+ Seattle nightlife venues</h1>
+        <h1 class="sr-only">Browse nightlife venues</h1>
         <!-- Desktop quick-filter vibe chips -->
         <div class="desktop-quick-filters desktop-only" id="desktopQuickFilters">
           <button type="button" class="quick-chip" data-quick="open-now">
@@ -360,7 +361,7 @@
           <span class="progress-dot" data-step="1" aria-label="Step 2 of 3"></span>
           <span class="progress-dot" data-step="2" aria-label="Step 3 of 3"></span>
         </div>
-        <div class="onboarding-greeting" id="onboardingGreeting">Seattle after dark</div>
+        <div class="onboarding-greeting" id="onboardingGreeting">Your city after dark</div>
         <h2 id="onboardingHeading">Let's find your perfect night</h2>
         <div id="onboardingStep1" class="onboarding-step">
           <p>Who's coming along?</p>
@@ -421,6 +422,12 @@
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M18 15l-6-6-6 6"/></svg>
     </button>
 
+    <!-- Vibe Check modal -->
+    <div id="vibeCheckOverlay" class="vibe-check-overlay" style="display:none"></div>
+    <div id="vibeCheckModal" class="vibe-check-modal" role="dialog" aria-modal="true" aria-labelledby="vibeCheckTitle" style="display:none">
+      <!-- JS populates -->
+    </div>
+
     <!-- Bottom nav (mobile) -->
     <nav class="bottom-nav mobile-only" aria-label="Main navigation">
       <a href="index.html" class="bottom-nav-item active" aria-current="page" aria-label="Browse venues">
@@ -447,7 +454,7 @@
 
     <script src="config.js"></script>
     <script src="lib/cities.js"></script>
-    <script>(function(){var city=window.LNVCities?window.LNVCities.getCurrentCity():null;if(!city)return;var r=function(s){return s.replace(/Seattle/g,city.name);};document.title=r(document.title);var metas=[['meta[name="description"]','content'],['meta[property="og:title"]','content'],['meta[property="og:description"]','content'],['meta[property="og:image:alt"]','content'],['meta[name="twitter:title"]','content'],['meta[name="twitter:description"]','content']];metas.forEach(function(m){var el=document.querySelector(m[0]);if(el)el.setAttribute(m[1],r(el.getAttribute(m[1])));});var h1=document.querySelector('h1.sr-only');if(h1)h1.textContent=r(h1.textContent);var g=document.getElementById('onboardingGreeting');if(g)g.textContent=city.tagline||r(g.textContent);var ld=document.querySelector('script[type="application/ld+json"]');if(ld)try{var j=JSON.parse(ld.textContent);if(j.name)j.name=r(j.name);if(j.description)j.description=r(j.description);ld.textContent=JSON.stringify(j);}catch(e){}})();</script>
+    <script>(function(){var city=window.LNVCities?window.LNVCities.getCurrentCity():null;if(!city)return;var cn=city.name;document.title="Late Night Vibes "+cn+" \u2014 Nightlife Venues";var metas={"description":"Discover "+cn+" nightlife venues. Browse bars, clubs, and late-night spots by vibe, neighborhood, and hours. Plan your perfect night out.","og:title":"Late Night Vibes "+cn+" \u2014 Nightlife Venues","og:description":"Discover "+cn+" nightlife venues. Browse bars, clubs, and late-night spots by vibe, neighborhood, and hours.","og:image:alt":"Late Night Vibes "+cn+" \u2014 nightlife venues to browse, plan, and explore","twitter:title":"Late Night Vibes "+cn,"twitter:description":"Discover "+cn+" nightlife venues. Browse by vibe, neighborhood, and hours."};Object.keys(metas).forEach(function(k){var sel=k.indexOf("og:")===0||k.indexOf("twitter:")===0?'meta[property="'+k+'"]':'meta[name="'+k+'"]';var el=document.querySelector(sel);if(!el){sel='meta[name="'+k+'"]';el=document.querySelector(sel);}if(el)el.setAttribute("content",metas[k]);});var h1=document.querySelector('h1.sr-only');if(h1)h1.textContent="Browse "+cn+" nightlife venues";var g=document.getElementById('onboardingGreeting');if(g)g.textContent=city.tagline||(cn+" after dark");var ld=document.querySelector('script[type="application/ld+json"]');if(ld)try{var j=JSON.parse(ld.textContent);j.name="Late Night Vibes "+cn;j.description="Discover "+cn+" nightlife venues. Browse bars, clubs, and late-night spots by vibe, neighborhood, and hours. Plan your perfect night out.";ld.textContent=JSON.stringify(j);}catch(e){}})();</script>
     <script src="lib/core.js"></script>
     <script src="lib/shared-nav.js"></script>
     <script>LNVNav.init({ page: "browse", adminId: "adminNavLink" });</script>
@@ -468,6 +475,7 @@
       })();
     </script>
     <script src="lib/features.js"></script>
+    <script src="lib/vibe-check.js"></script>
     <script src="lib/crawl-history.js"></script>
     <script src="lib/favorites-backup.js"></script>
     <script>
@@ -475,6 +483,7 @@
         navigator.serviceWorker.register("sw.js").catch(function () {});
       }
     </script>
+    <script src="vibe-check-ui.js"></script>
     <script src="venue-photos.js"></script>
     <script src="app.js"></script>
   </body>

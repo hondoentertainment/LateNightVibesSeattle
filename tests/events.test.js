@@ -18,7 +18,9 @@ import {
 
 describe("LNVEvents", () => {
   beforeEach(() => {
+    // Clear both the legacy key and the city-scoped key (default: seattle)
     delete store.lnv_venue_events;
+    delete store.lnv_venue_events_seattle;
   });
 
   it("returns empty array for venue with no events", () => {

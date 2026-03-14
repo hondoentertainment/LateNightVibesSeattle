@@ -1,5 +1,5 @@
 /**
- * Shared Playwright fixtures and helpers for Late Night Vibes Seattle E2E tests.
+ * Shared Playwright fixtures and helpers for Late Night Vibes E2E tests.
  */
 const { test: base } = require("@playwright/test");
 

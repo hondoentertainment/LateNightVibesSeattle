@@ -1,27 +1,27 @@
-Area,Name,Category,Typical Closing Time,Address,Phone,Website,Driving Distance,Google Maps Driving Link,Vibe Tags
-Pearl District,Teardrop Cocktail Lounge,Cocktail Bar,2:00 AM,1015 NW Everett St,,,,,"date-friendly, drinks, upscale"
-Pearl District,Deschutes Brewery Portland,Brewery / Restaurant,11:00 PM,210 NW 11th Ave,,,,,"drinks, food-focused, social"
-Alberta Arts District,Radio Room,Bar,2:00 AM,1101 NE Alberta St,,,,,"drinks, social"
-Alberta Arts District,The Know,Music Venue / Bar,2:00 AM,2026 NE Alberta St,,,,,"drinks, live-music, social"
-Alberta Arts District,Bye and Bye,Bar,2:00 AM,1011 NE Alberta St,,,,,"chill, drinks, social"
-Hawthorne,Baghdad Theater & Pub,Bar / Restaurant,12:00 AM,3702 SE Hawthorne Blvd,,,,,"drinks, food-focused, social"
-Hawthorne,Space Room,Dive Bar,2:30 AM,4800 SE Hawthorne Blvd,,,,,"chill, drinks, social"
-Division,Prost!,Bar,12:00 AM,4237 SE Division St,,,,,"drinks, social"
-Mississippi,Mississippi Studios,Music Venue / Bar,Late,3939 N Mississippi Ave,,,,,"drinks, live-music, chill"
-Mississippi,StormBreaker Brewing,Brewery,10:00 PM,832 N Beech St,,,,,"chill, drinks, social"
-Downtown,Departure Restaurant + Lounge,Lounge,12:00 AM,525 SW Morrison St,,,,,"date-friendly, drinks, upscale"
-Downtown,Kelly's Olympian,Dive Bar,2:30 AM,426 SW Washington St,,,,,"chill, drinks, social"
-Sellwood,Bird + Bear,Wine Bar,10:00 PM,1621 SE Bybee Blvd,,,,,"chill, date-friendly, drinks"
-Inner Southeast,Dig A Pony,Bar,2:30 AM,736 SE Grand Ave,,,,,"drinks, social"
-Inner Southeast,Loyal Legion,Bar,12:00 AM,710 SE 6th Ave,,,,,"drinks, social"
-Hollywood,Horse Brass Pub,Bar,2:30 AM,4534 SE Belmont St,,,,,"drinks, social"
-Belmont,Aalto Lounge,Lounge,2:00 AM,3356 SE Belmont St,,,,,"chill, date-friendly, drinks"
-NW 23rd,Breakside Brewery,Brewery,10:00 PM,820 NE Dekum St,,,,,"chill, drinks, social"
-Downtown,Dante's,Music Venue / Bar,2:30 AM,350 W Burnside St,,,,,"drinks, live-music, loud"
-Alberta Arts District,Karaoke at Voicebox NE,Karaoke,2:00 AM,2112 NE Alberta St,,,,,"group-fun, interactive"
-Pearl District,Multnomah Whiskey Library,Cocktail Bar,12:00 AM,1124 SW Alder St,,,,,"date-friendly, drinks, upscale"
-Division,Apex Bar,Bar,12:00 AM,1216 SE Division St,,,,,"chill, drinks, social"
-Inner Southeast,Revolution Hall,Music Venue / Bar,Late,1300 SE Stark St,,,,,"drinks, live-music, social"
-Mississippi,Bar Bar,Bar,2:30 AM,3939 N Mississippi Ave,,,,,"chill, drinks, social"
-Downtown,Ground Kontrol,Bar,2:30 AM,115 NW 5th Ave,,,,,"drinks, group-fun, social"
-St. Johns,The Fixin' To,Dive Bar,2:30 AM,8218 N Lombard St,,,,,"chill, drinks, social"
+Area,Name,Category,Typical Closing Time,Address,Phone,Website,Driving Distance,Google Maps Driving Link,Vibe Tags,Latitude,Longitude
+Pearl District,Teardrop Cocktail Lounge,Cocktail Bar,2:00 AM,1015 NW Everett St,,,,,"date-friendly, drinks, upscale, craft-cocktails, trendy",45.5192,-122.6809
+Pearl District,Deschutes Brewery Portland,Brewery / Restaurant,11:00 PM,210 NW 11th Ave,,,,,"food-focused, brewery, chill",45.5227,-122.6819
+Alberta Arts District,Radio Room,Bar,2:00 AM,1101 NE Alberta St,,,,,"drinks, social, hipster, trendy",45.5342,-122.6729
+Alberta Arts District,The Know,Music Venue / Bar,2:00 AM,2026 NE Alberta St,,,,,"drinks, live-music, social, hipster, trendy",45.5377,-122.6739
+Alberta Arts District,Bye and Bye,Bar,2:00 AM,1011 NE Alberta St,,,,,"chill, drinks, social, hipster, trendy",45.5357,-122.6749
+Hawthorne,Baghdad Theater & Pub,Bar / Restaurant,12:00 AM,3702 SE Hawthorne Blvd,,,,,"drinks, food-focused, social, hipster, trendy",45.5062,-122.6679
+Hawthorne,Space Room,Dive Bar,2:30 AM,4800 SE Hawthorne Blvd,,,,,"chill, dive, neighborhood-gem, hipster, trendy",45.5097,-122.6689
+Division,Prost!,Bar,12:00 AM,4237 SE Division St,,,,,"drinks, social, casual",45.5042,-122.6629
+Mississippi,Mississippi Studios,Music Venue / Bar,Late,3939 N Mississippi Ave,,,,,"drinks, live-music, chill",45.5292,-122.6779
+Mississippi,StormBreaker Brewing,Brewery,10:00 PM,832 N Beech St,,,,,"chill, drinks, social, brewery, casual",45.5327,-122.6789
+Downtown,Departure Restaurant + Lounge,Lounge,12:00 AM,525 SW Morrison St,,,,,"date-friendly, drinks, upscale, chill",45.5142,-122.6779
+Downtown,Kelly's Olympian,Dive Bar,2:30 AM,426 SW Washington St,,,,,"chill, dive, neighborhood-gem",45.5177,-122.6789
+Sellwood,Bird + Bear,Wine Bar,10:00 PM,1621 SE Bybee Blvd,,,,,"chill, date-friendly, drinks, wine-bar",45.4942,-122.6679
+Inner Southeast,Dig A Pony,Bar,2:30 AM,736 SE Grand Ave,,,,,"drinks, social, casual",45.5092,-122.6699
+Inner Southeast,Loyal Legion,Bar,12:00 AM,710 SE 6th Ave,,,,,"drinks, social, casual",45.5127,-122.6709
+Hollywood,Horse Brass Pub,Bar,2:30 AM,4534 SE Belmont St,,,,,"drinks, social, casual",45.5092,-122.6579
+Belmont,Aalto Lounge,Lounge,2:00 AM,3356 SE Belmont St,,,,,"chill, date-friendly, drinks",45.5092,-122.6659
+NW 23rd,Breakside Brewery,Brewery,10:00 PM,820 NE Dekum St,,,,,"chill, drinks, social, brewery, casual",45.5222,-122.6829
+Downtown,Dante's,Music Venue / Bar,2:30 AM,350 W Burnside St,,,,,"drinks, live-music, loud",45.5157,-122.6799
+Alberta Arts District,Karaoke at Voicebox NE,Karaoke,2:00 AM,2112 NE Alberta St,,,,,"group-fun, interactive, karaoke, hipster, trendy",45.5337,-122.6759
+Pearl District,Multnomah Whiskey Library,Cocktail Bar,12:00 AM,1124 SW Alder St,,,,,"date-friendly, drinks, upscale, craft-cocktails, trendy",45.5207,-122.6829
+Division,Apex Bar,Bar,12:00 AM,1216 SE Division St,,,,,"chill, drinks, social",45.5077,-122.6639
+Inner Southeast,Revolution Hall,Music Venue / Bar,Late,1300 SE Stark St,,,,,"drinks, live-music, social",45.5107,-122.6719
+Mississippi,Bar Bar,Bar,2:30 AM,3939 N Mississippi Ave,,,,,"chill, drinks, social",45.5307,-122.6799
+Downtown,Ground Kontrol,Bar,2:30 AM,115 NW 5th Ave,,,,,"drinks, group-fun, social",45.5137,-122.6809
+St. Johns,The Fixin' To,Dive Bar,2:30 AM,8218 N Lombard St,,,,,"chill, dive, neighborhood-gem",45.5442,-122.6829

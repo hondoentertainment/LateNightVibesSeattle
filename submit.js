@@ -25,6 +25,14 @@
     citySelect.appendChild(opt);
   });
 
+  /* ─── Pre-select current city ─── */
+  var currentCity = cities.getCurrentCity ? cities.getCurrentCity() : null;
+  if (currentCity && currentCity.slug) {
+    citySelect.value = currentCity.slug;
+    // Trigger change to populate neighborhoods
+    citySelect.dispatchEvent(new Event("change"));
+  }
+
   /* ─── Update neighborhood on city change ─── */
   citySelect.addEventListener("change", function () {
     var slug = citySelect.value;

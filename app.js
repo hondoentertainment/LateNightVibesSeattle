@@ -252,10 +252,10 @@ function injectVenueSchema(venue, area, closingTime, address, website) {
     name,
     address: {
       "@type": "PostalAddress",
-      addressLocality: area || ((window.LNVCities && window.LNVCities.getCurrentCity().name) || "Seattle"),
-      addressRegion: (window.LNVCities && window.LNVCities.getCurrentCity().state) || "WA",
+      addressLocality: area || ((window.LNVCities && window.LNVCities.getCurrentCity().name) || ""),
+      addressRegion: (window.LNVCities && window.LNVCities.getCurrentCity().state) || "",
     },
-    areaServed: { "@type": "City", name: (window.LNVCities && window.LNVCities.getCurrentCity().name) || "Seattle" },
+    areaServed: { "@type": "City", name: (window.LNVCities && window.LNVCities.getCurrentCity().name) || "" },
   };
 
   if (address && address.toLowerCase() !== "click link") {
@@ -317,7 +317,7 @@ function openDetail(venue) {
   const trustBadge = (window.LNVFeatures && window.LNVFeatures.getTrustBadge) ? window.LNVFeatures.getTrustBadge() : null;
   const viabilityHtml = viabilityBadges.length ? viabilityBadges.map((b) => `<span class="pill ${b.class}">${b.label}</span>`).join("") : "";
   const trustHtml = trustBadge ? `<span class="pill ${trustBadge.class}">${trustBadge.label}</span>` : "";
-  const _cityName = (window.LNVCities && window.LNVCities.getCurrentCity().name) || "Seattle";
+  const _cityName = (window.LNVCities && window.LNVCities.getCurrentCity().name) || "";
   const googleSearch = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${normalizeValue(venue.Name)} ${area} ${_cityName}`)}`;
   const yelpSearch = `https://www.yelp.com/search?find_desc=${encodeURIComponent(normalizeValue(venue.Name))}&find_loc=${encodeURIComponent(`${area}, ${_cityName}`)}`;
 
@@ -1599,7 +1599,7 @@ function updateTonightHighlights() {
       ${highlights.map((h) => {
         const link = normalizeValue(h.venue["Google Maps Driving Link"]);
         const name = normalizeValue(h.venue.Name);
-        const area = normalizeValue(h.venue.Area);
+        const _area = normalizeValue(h.venue.Area);
         const label = h.event.label + (h.event.detail ? ` — ${h.event.detail}` : "");
         return link
           ? `<a href="${link}" target="_blank" rel="noopener" class="tonight-highlight-item">${name} · ${label}</a>`
@@ -1707,14 +1707,14 @@ function renderLoadErrorState(message, showRetry) {
 async function loadDefaultCSV() {
   if (elements.loadingOverlay) elements.loadingOverlay.classList.add("active");
   if (elements.loadingOverlay) {
-    elements.loadingOverlay.querySelector(".loading-overlay-text").textContent = "Loading " + ((window.LNVCities && window.LNVCities.getCurrentCity().name) || "Seattle") + " venues…";
+    elements.loadingOverlay.querySelector(".loading-overlay-text").textContent = "Loading " + ((window.LNVCities && window.LNVCities.getCurrentCity().name) || "") + " venues\u2026";
   }
   showSkeletons();
   try {
     const response = await fetch(DEFAULT_CSV);
     if (!response.ok) throw new Error("Fetch failed");
     loadFromText(await response.text());
-  } catch (err) {
+  } catch (_err) {
     setStatus("Unable to load default CSV.");
     const isOffline = !navigator.onLine;
     renderLoadErrorState(

@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0a0c12" />
+    <title>Safe Night — Late Night Vibes</title>
+    <meta name="description" content="Your safety toolkit for a night out. Emergency contacts, fake call, buddy system, rideshare links, and safety tips." />
+    <meta property="og:title" content="Safe Night — Late Night Vibes" />
+    <meta property="og:description" content="Stay safe on your night out. Emergency contacts, fake call, buddy system, and more." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://late-night-vibes-seattle.vercel.app/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Late Night Vibes — Safe Night toolkit" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="apple-touch-icon" href="favicon-512.png" />
+    <link rel="apple-touch-startup-image" href="splash/splash-1170x2532.png" media="(device-width: 390px) and (device-height: 844px)" />
+    <link rel="apple-touch-startup-image" href="splash/splash-1290x2796.png" media="(device-width: 430px) and (device-height: 932px)" />
+    <link rel="apple-touch-startup-image" href="splash/splash-1242x2688.png" media="(device-width: 414px) and (device-height: 896px)" />
+    <link rel="apple-touch-startup-image" href="splash/splash-1284x2778.png" media="(device-width: 428px) and (device-height: 926px)" />
+    <link rel="apple-touch-startup-image" href="splash/splash-750x1334.png" media="(device-width: 375px) and (device-height: 667px)" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="canonical" href="https://late-night-vibes-seattle.vercel.app/safety.html" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="safety.css" />
+  </head>
+  <body>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <header class="topbar" role="banner">
+      <div class="brand">
+        <img src="lnv-logo.png" alt="Late Night Vibes" class="header-logo" />
+      </div>
+      <nav class="top-actions desktop-only" aria-label="Main navigation">
+        <a href="index.html" class="nav-pill">Browse Venues</a>
+        <a href="recommend.html" class="nav-pill">Recommendations</a>
+        <a href="planner.html" class="nav-pill">Night Plan</a>
+        <a href="neighborhoods.html" class="nav-pill">Compare</a>
+        <a href="index.html?view=saved" class="nav-pill">Saved</a>
+      </nav>
+    </header>
+
+    <main class="safety-dashboard" id="main">
+
+      <!-- Header -->
+      <div class="safety-header">
+        <div class="safety-header-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+        <h1>Safe Night</h1>
+        <p>Your safety toolkit for the night</p>
+        <div id="lateHourBanner" class="safety-late-hour-banner" style="display:none">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          <span>It's late — stay safe out there. Your safety tools are ready.</span>
+        </div>
+      </div>
+
+      <!-- Section 1: Emergency Contacts -->
+      <section class="safety-section" aria-labelledby="safety-contacts-title">
+        <h2 class="safety-section-title" id="safety-contacts-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2A19.79 19.79 0 013.07 4.18 2 2 0 015 2h3a2 2 0 012 1.72 11.6 11.6 0 00.59 3.63 2 2 0 01-.45 2.11L8.09 11.5a16 16 0 006.41 6.41l2.04-2.04a2 2 0 012.11-.45 11.6 11.6 0 003.63.59 2 2 0 011.72 2z"/></svg>
+          Emergency Contacts
+        </h2>
+        <div id="contactsList" class="safety-contacts-list">
+          <div class="safety-contacts-empty">No emergency contacts yet. Add up to 3 below.</div>
+        </div>
+        <form id="addContactForm" class="safety-add-contact-form" autocomplete="off">
+          <input type="text" id="contactNameInput" placeholder="Name" required aria-label="Contact name" />
+          <input type="tel" id="contactPhoneInput" placeholder="Phone number" required aria-label="Phone number" />
+          <button type="submit" class="safety-add-contact-btn" id="addContactBtn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Add
+          </button>
+        </form>
+      </section>
+
+      <!-- Section 2: Quick Actions -->
+      <section class="safety-section" aria-labelledby="safety-actions-title">
+        <h2 class="safety-section-title" id="safety-actions-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          Quick Actions
+        </h2>
+        <div class="safety-quick-actions">
+          <button type="button" class="safety-action-btn safety-action-btn--fake-call" id="fakeCallBtn" aria-label="Trigger a fake incoming call">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffb74d" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2A19.79 19.79 0 013.07 4.18 2 2 0 015 2h3a2 2 0 012 1.72 11.6 11.6 0 00.59 3.63 2 2 0 01-.45 2.11L8.09 11.5a16 16 0 006.41 6.41l2.04-2.04a2 2 0 012.11-.45 11.6 11.6 0 003.63.59 2 2 0 011.72 2z"/></svg>
+            <span class="safety-action-label">Fake Call</span>
+          </button>
+          <button type="button" class="safety-action-btn" id="shareLocationBtn" aria-label="Share your current location">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent, #2bff86)" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span class="safety-action-label">Share Location</span>
+          </button>
+          <button type="button" class="safety-action-btn safety-action-btn--checkin" id="quickCheckinBtn" aria-label="Check in with your buddy" style="display:none">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent, #2bff86)" stroke-width="2" aria-hidden="true"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <span class="safety-action-label">I'm Here</span>
+          </button>
+        </div>
+        <!-- Fake call delay picker -->
+        <div id="fakeCallDelayPicker" class="safety-delay-picker" role="group" aria-label="Choose delay before fake call">
+          <button type="button" class="safety-delay-btn" data-delay="15">15 sec</button>
+          <button type="button" class="safety-delay-btn" data-delay="30">30 sec</button>
+          <button type="button" class="safety-delay-btn" data-delay="60">1 min</button>
+        </div>
+        <div id="fakeCallPending" class="safety-fake-call-pending">
+          <span id="fakeCallPendingText">Fake call coming in...</span>
+          <button type="button" id="cancelFakeCallBtn">Cancel</button>
+        </div>
+      </section>
+
+      <!-- Section 3: Get Home Safe -->
+      <section class="safety-section" aria-labelledby="safety-home-title">
+        <h2 class="safety-section-title" id="safety-home-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Get Home Safe
+        </h2>
+        <div id="rideshareButtons" class="safety-rideshare-btns">
+          <a href="#" id="uberLink" class="safety-rideshare-btn" target="_blank" rel="noopener noreferrer">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H8v-3h3v3zm5-5h-3V8h3v3z"/></svg>
+            Uber
+          </a>
+          <a href="#" id="lyftLink" class="safety-rideshare-btn" target="_blank" rel="noopener noreferrer">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2V8h2v8z"/></svg>
+            Lyft
+          </a>
+        </div>
+        <a href="tel:+12065222222" class="safety-cab-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2A19.79 19.79 0 013.07 4.18 2 2 0 015 2h3a2 2 0 012 1.72 11.6 11.6 0 00.59 3.63 2 2 0 01-.45 2.11L8.09 11.5a16 16 0 006.41 6.41l2.04-2.04a2 2 0 012.11-.45 11.6 11.6 0 003.63.59 2 2 0 011.72 2z"/></svg>
+          Call a Cab
+        </a>
+        <div id="walkingTips" class="safety-walking-tips">
+          <button type="button" class="safety-walking-tips-header" aria-expanded="false">
+            Walking Safety Tips
+            <svg class="safety-tips-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="safety-walking-tips-body">
+            <ul id="walkingTipsList"></ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 4: Buddy System -->
+      <section class="safety-section" aria-labelledby="safety-buddy-title">
+        <h2 class="safety-section-title" id="safety-buddy-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          Buddy System
+        </h2>
+        <div class="safety-buddy-toggle">
+          <div class="safety-buddy-toggle-label">
+            <span id="buddyStatusDot" class="safety-buddy-status" style="display:none"></span>
+            <span id="buddyToggleLabel">Enable Buddy Mode</span>
+          </div>
+          <label class="safety-toggle">
+            <input type="checkbox" id="buddyToggle" aria-label="Toggle buddy mode" />
+            <span class="safety-toggle-track"></span>
+          </label>
+        </div>
+        <div id="buddyConfig" class="safety-buddy-config">
+          <label>
+            Buddy name
+            <input type="text" id="buddyNameInput" placeholder="Your buddy's name" autocomplete="off" />
+          </label>
+          <label>
+            Check-in reminder
+            <select id="buddyIntervalSelect">
+              <option value="15">Every 15 minutes</option>
+              <option value="30" selected>Every 30 minutes</option>
+              <option value="60">Every 60 minutes</option>
+            </select>
+          </label>
+          <div id="buddyCheckinTimer" class="safety-checkin-timer" style="display:none">
+            <div>
+              <div id="checkinCountdown" class="safety-checkin-countdown">--:--</div>
+              <div class="safety-checkin-label">until next check-in</div>
+            </div>
+            <button type="button" class="safety-checkin-btn" id="buddyCheckinBtn">Check In</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 5: Safety Tips -->
+      <section class="safety-section" aria-labelledby="safety-tips-title">
+        <h2 class="safety-section-title" id="safety-tips-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          Nightlife Safety Tips
+        </h2>
+        <div id="safetyTipsList" class="safety-tips-list"></div>
+      </section>
+
+    </main>
+
+    <!-- Bottom nav (mobile) -->
+    <nav class="bottom-nav mobile-only" aria-label="Main navigation">
+      <a href="index.html" class="bottom-nav-item" aria-label="Browse venues">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        <span>Browse</span>
+      </a>
+      <a href="recommend.html" class="bottom-nav-item" aria-label="For You recommendations">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01z"/></svg>
+        <span>For You</span>
+      </a>
+      <a href="planner.html" class="bottom-nav-item" aria-label="Night plan builder">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/><path d="M12 6v6l4 2"/></svg>
+        <span>Plan</span>
+      </a>
+      <a href="index.html?view=saved" class="bottom-nav-item" id="savedNavItem" aria-label="Saved venues">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        <span>Saved</span>
+      </a>
+      <a href="safety.html" class="bottom-nav-item active" aria-current="page" aria-label="Safe night toolkit">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span>Safety</span>
+      </a>
+    </nav>
+
+    <script src="config.js"></script>
+    <script src="lib/cities.js"></script>
+    <script>(function(){var city=window.LNVCities?window.LNVCities.getCurrentCity():null;if(!city)return;var cn=city.name;document.title="Safe Night \u2014 Late Night Vibes "+cn;var metas={"description":"Your safety toolkit for a night out in "+cn+". Emergency contacts, fake call, buddy system, rideshare links, and safety tips.","og:title":"Safe Night \u2014 Late Night Vibes "+cn,"og:image:alt":"Late Night Vibes "+cn+" \u2014 Safe Night toolkit"};Object.keys(metas).forEach(function(k){var sel=k.indexOf("og:")===0?'meta[property="'+k+'"]':'meta[name="'+k+'"]';var el=document.querySelector(sel);if(el)el.setAttribute("content",metas[k]);});})();</script>
+    <script src="lib/core.js"></script>
+    <script src="lib/shared-nav.js"></script>
+    <script>LNVNav.init({ page: "safety" });</script>
+    <script src="lib/mobile-haptics.js"></script>
+    <script>
+      if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(function () {});
+    </script>
+    <script src="lib/safe-night.js"></script>
+    <script>
+      (function () {
+        const cfg = window.LNV_CONFIG || {};
+        const domain = cfg.plausibleDomain || "";
+        if (!domain) return;
+        const s = document.createElement("script");
+        s.defer = true;
+        s.dataset.domain = domain;
+        s.src = "https://plausible.io/js/script.js";
+        document.head.appendChild(s);
+      })();
+    </script>
+    <script src="safety.js"></script>
+  </body>
+</html>

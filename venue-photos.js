@@ -76,7 +76,7 @@ async function fetchVenuePhoto(venueName, area) {
   if (cached !== undefined) return cached;
 
   try {
-    const cityName = (window.LNVCities && window.LNVCities.getCurrentCity()) ? window.LNVCities.getCurrentCity().name : "Seattle";
+    const cityName = (window.LNVCities && window.LNVCities.getCurrentCity()) ? window.LNVCities.getCurrentCity().name : "";
     const query = `${venueName} ${area} ${cityName}`;
     const resp = await fetch("https://places.googleapis.com/v1/places:searchText", {
       method: "POST",
@@ -108,7 +108,7 @@ async function fetchVenuePhoto(venueName, area) {
     const photoUrl = `https://places.googleapis.com/v1/${photoName}/media?maxWidthPx=${PHOTO_MAX_WIDTH}&key=${GOOGLE_PLACES_API_KEY}`;
     setCachedPhoto(cacheKey, photoUrl);
     return photoUrl;
-  } catch (err) {
+  } catch (_err) {
     setCachedPhoto(cacheKey, null);
     return null;
   }

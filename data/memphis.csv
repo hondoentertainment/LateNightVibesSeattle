@@ -1,25 +1,25 @@
-Area,Name,Category,Typical Closing Time,Address,Phone,Website,Driving Distance,Google Maps Driving Link,Vibe Tags
-Beale Street,B.B. King's Blues Club,Music Venue / Bar,3:00 AM,143 Beale St,,,,,"drinks, live-music, social"
-Beale Street,Rum Boogie Cafe,Music Venue / Bar,3:00 AM,182 Beale St,,,,,"drinks, live-music, social"
-Beale Street,Silky O'Sullivan's,Bar,3:00 AM,183 Beale St,,,,,"drinks, social"
-Beale Street,Dyer's Burgers,Bar / Restaurant,Late,205 Beale St,,,,,"drinks, food-focused, late-eats"
-South Main,Earnestine & Hazel's,Dive Bar,3:00 AM,531 S Main St,,,,,"chill, drinks, social, late-night"
-South Main,Old Dominick Distillery,Lounge,10:00 PM,305 S Front St,,,,,"date-friendly, drinks, upscale"
-Cooper-Young,Celtic Crossing,Bar,2:00 AM,903 S Cooper St,,,,,"drinks, social"
-Cooper-Young,Young Avenue Deli,Music Venue / Bar,3:00 AM,2119 Young Ave,,,,,"drinks, live-music, social"
-Cooper-Young,Alchemy,Cocktail Bar,12:00 AM,940 S Cooper St,,,,,"date-friendly, drinks, upscale"
-Overton Square,Lafayette's Music Room,Music Venue / Bar,Late,2119 Madison Ave,,,,,"drinks, live-music, social"
-Overton Square,The Second Line,Bar / Restaurant,12:00 AM,2144 Monroe Ave,,,,,"drinks, food-focused, social"
-Midtown,Wiseacre Brewing,Brewery,9:00 PM,2783 Broad Ave,,,,,"chill, drinks, social"
-Midtown,Railgarten,Bar,12:00 AM,2166 Central Ave,,,,,"chill, drinks, social, group-fun"
-Downtown,The Peabody Hotel Lobby Bar,Lounge,12:00 AM,149 Union Ave,,,,,"date-friendly, drinks, upscale"
-Crosstown,Crosstown Brewing,Brewery,10:00 PM,1264 Concourse Ave,,,,,"chill, drinks, social"
-Broad Avenue,Bounty on Broad,Bar / Restaurant,12:00 AM,2519 Broad Ave,,,,,"drinks, food-focused, social"
-Broad Avenue,Rec Room,Bar,1:00 AM,3000 Broad Ave,,,,,"drinks, group-fun, social"
-Harbor Town,Tamp & Tap,Lounge,10:00 PM,730 Harbor Bend Rd,,,,,"chill, drinks, social"
-Edge District,Edge Motor Museum Bar,Lounge,10:00 PM,645 Marshall Ave,,,,,"chill, date-friendly, drinks"
-Beale Street,Club 152,Nightclub,3:00 AM,152 Beale St,,,,,"dancey, high-energy, late-night"
-Cooper-Young,Karaoke at Hernando's Hideaway,Karaoke,2:00 AM,3210 Old Hernando Rd,,,,,"group-fun, interactive"
-Overton Square,Babalu Tapas & Tacos,Bar / Restaurant,12:00 AM,2115 Madison Ave,,,,,"drinks, food-focused, social"
-South Main,Ghost River Brewing,Brewery,9:00 PM,827 S Main St,,,,,"chill, drinks, social"
-Midtown,Hi-Tone,Music Venue / Bar,2:00 AM,412 N Cleveland St,,,,,"drinks, live-music, loud"
+Area,Name,Category,Typical Closing Time,Address,Phone,Website,Driving Distance,Google Maps Driving Link,Vibe Tags,Latitude,Longitude
+Beale Street,B.B. King's Blues Club,Music Venue / Bar,3:00 AM,143 Beale St,,,,,"drinks, live-music, social",35.1485,-90.0485
+Beale Street,Rum Boogie Cafe,Music Venue / Bar,3:00 AM,182 Beale St,,,,,"drinks, live-music, social",35.152,-90.0495
+Beale Street,Silky O'Sullivan's,Bar,3:00 AM,183 Beale St,,,,,"drinks, social, casual",35.15,-90.0505
+Beale Street,Dyer's Burgers,Bar / Restaurant,Late,205 Beale St,,,,,"drinks, food-focused, late-eats",35.148,-90.0515
+South Main,Earnestine & Hazel's,Dive Bar,3:00 AM,531 S Main St,,,,,"chill, late-night, dive, neighborhood-gem",35.1435,-90.0515
+South Main,Old Dominick Distillery,Lounge,10:00 PM,305 S Front St,,,,,"date-friendly, drinks, upscale, chill",35.147,-90.0525
+Cooper-Young,Celtic Crossing,Bar,2:00 AM,903 S Cooper St,,,,,"drinks, social, hipster, trendy",35.1385,-90.0285
+Cooper-Young,Young Avenue Deli,Music Venue / Bar,3:00 AM,2119 Young Ave,,,,,"drinks, live-music, social, hipster, trendy",35.142,-90.0295
+Cooper-Young,Alchemy,Cocktail Bar,12:00 AM,940 S Cooper St,,,,,"date-friendly, drinks, upscale, craft-cocktails, hipster",35.14,-90.0305
+Overton Square,Lafayette's Music Room,Music Venue / Bar,Late,2119 Madison Ave,,,,,"drinks, live-music, social",35.1435,-90.0335
+Overton Square,The Second Line,Bar / Restaurant,12:00 AM,2144 Monroe Ave,,,,,"drinks, food-focused, social",35.147,-90.0345
+Midtown,Wiseacre Brewing,Brewery,9:00 PM,2783 Broad Ave,,,,,"chill, drinks, social, brewery, casual",35.1435,-90.0385
+Midtown,Railgarten,Bar,12:00 AM,2166 Central Ave,,,,,"chill, drinks, social, group-fun",35.147,-90.0395
+Downtown,The Peabody Hotel Lobby Bar,Lounge,12:00 AM,149 Union Ave,,,,,"date-friendly, drinks, upscale, chill",35.1505,-90.0505
+Crosstown,Crosstown Brewing,Brewery,10:00 PM,1264 Concourse Ave,,,,,"chill, drinks, social, brewery, casual",35.1535,-90.0385
+Broad Avenue,Bounty on Broad,Bar / Restaurant,12:00 AM,2519 Broad Ave,,,,,"drinks, food-focused, social",35.1565,-90.0285
+Broad Avenue,Rec Room,Bar,1:00 AM,3000 Broad Ave,,,,,"drinks, group-fun, social",35.16,-90.0295
+Harbor Town,Tamp & Tap,Lounge,10:00 PM,730 Harbor Bend Rd,,,,,"chill, drinks, social, date-friendly",35.1585,-90.0585
+Edge District,Edge Motor Museum Bar,Lounge,10:00 PM,645 Marshall Ave,,,,,"chill, date-friendly, drinks",35.1515,-90.0435
+Beale Street,Club 152,Nightclub,3:00 AM,152 Beale St,,,,,"dancey, high-energy, late-night",35.1515,-90.046
+Cooper-Young,Karaoke at Hernando's Hideaway,Karaoke,2:00 AM,3210 Old Hernando Rd,,,,,"group-fun, interactive, karaoke, hipster, trendy",35.138,-90.0315
+Overton Square,Babalu Tapas & Tacos,Bar / Restaurant,12:00 AM,2115 Madison Ave,,,,,"drinks, food-focused, social",35.145,-90.0355
+South Main,Ghost River Brewing,Brewery,9:00 PM,827 S Main St,,,,,"chill, drinks, social, brewery, casual",35.145,-90.0535
+Midtown,Hi-Tone,Music Venue / Bar,2:00 AM,412 N Cleveland St,,,,,"drinks, live-music, loud",35.145,-90.0405

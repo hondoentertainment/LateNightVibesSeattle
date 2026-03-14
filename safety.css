@@ -1,0 +1,827 @@
+/* ─── Safe Night — Safety Dashboard ─── */
+
+.safety-dashboard {
+  padding: 16px;
+  padding-bottom: calc(var(--bottom-nav-offset, 88px) + 24px);
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+/* ─── Page header ─── */
+.safety-header {
+  text-align: center;
+  padding: 24px 0 8px;
+}
+
+.safety-header-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: rgba(43, 255, 134, 0.1);
+  margin-bottom: 12px;
+}
+
+.safety-header-icon svg {
+  color: var(--color-accent, #2bff86);
+}
+
+.safety-header h1 {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--color-text, #e8e8e8);
+  margin: 0 0 4px;
+}
+
+.safety-header p {
+  font-size: 14px;
+  color: var(--color-text-secondary, #a0b0d0);
+  margin: 0;
+}
+
+.safety-late-hour-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: rgba(255, 91, 91, 0.12);
+  border: 1px solid rgba(255, 91, 91, 0.3);
+  color: #ff8a8a;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.safety-late-hour-banner svg {
+  flex-shrink: 0;
+}
+
+/* ─── Section cards ─── */
+.safety-section {
+  background: var(--color-surface, #101520);
+  border: 1px solid var(--color-border, #2a334d);
+  border-radius: 14px;
+  padding: 20px;
+  margin-top: 16px;
+}
+
+.safety-section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-text, #e8e8e8);
+  margin: 0 0 14px;
+}
+
+.safety-section-title svg {
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
+/* ─── Emergency Contacts ─── */
+.safety-contacts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.safety-contact-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--color-border, #2a334d);
+  border-radius: 10px;
+}
+
+.safety-contact-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.safety-contact-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text, #e8e8e8);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.safety-contact-phone {
+  font-size: 12px;
+  color: var(--color-text-secondary, #a0b0d0);
+}
+
+.safety-contact-actions {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.safety-alert-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-height: 40px;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 8px;
+  background: #ff5b5b;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s ease;
+}
+
+.safety-alert-btn:hover { background: #ff4040; }
+.safety-alert-btn:active { background: #e03535; }
+
+.safety-contact-edit-btn,
+.safety-contact-delete-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--color-border, #2a334d);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--color-text-secondary, #a0b0d0);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.safety-contact-edit-btn:hover,
+.safety-contact-delete-btn:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.safety-contact-delete-btn:hover {
+  color: var(--color-danger, #ff5b5b);
+  border-color: var(--color-danger, #ff5b5b);
+}
+
+.safety-add-contact-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.safety-add-contact-form input {
+  flex: 1;
+  min-width: 100px;
+  height: 44px;
+  padding: 0 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--color-border, #2a334d);
+  border-radius: 8px;
+  color: var(--color-text, #e8e8e8);
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.safety-add-contact-form input::placeholder {
+  color: var(--color-text-muted, #7a8aaa);
+}
+
+.safety-add-contact-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-height: 44px;
+  padding: 8px 16px;
+  border: 1px dashed var(--color-accent, #2bff86);
+  border-radius: 8px;
+  background: rgba(43, 255, 134, 0.06);
+  color: var(--color-accent, #2bff86);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s ease;
+}
+
+.safety-add-contact-btn:hover {
+  background: rgba(43, 255, 134, 0.12);
+}
+
+.safety-contacts-empty {
+  text-align: center;
+  padding: 16px 0;
+  color: var(--color-text-secondary, #a0b0d0);
+  font-size: 13px;
+}
+
+/* ─── Quick Actions ─── */
+.safety-quick-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.safety-action-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 80px;
+  padding: 16px 10px;
+  border: 1px solid var(--color-border, #2a334d);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--color-text, #e8e8e8);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+  text-decoration: none;
+  text-align: center;
+}
+
+.safety-action-btn svg {
+  opacity: 0.8;
+}
+
+.safety-action-btn:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.safety-action-btn:active {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.safety-action-btn--fake-call {
+  border-color: rgba(255, 183, 77, 0.4);
+  background: rgba(255, 183, 77, 0.06);
+}
+
+.safety-action-btn--fake-call:hover {
+  background: rgba(255, 183, 77, 0.12);
+}
+
+.safety-action-btn--checkin {
+  border-color: rgba(43, 255, 134, 0.4);
+  background: rgba(43, 255, 134, 0.06);
+}
+
+.safety-action-btn--checkin:hover {
+  background: rgba(43, 255, 134, 0.12);
+}
+
+.safety-action-btn--checkin .safety-action-label {
+  color: var(--color-accent, #2bff86);
+}
+
+/* Fake call delay picker */
+.safety-delay-picker {
+  display: none;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.safety-delay-picker.active {
+  display: flex;
+}
+
+.safety-delay-btn {
+  flex: 1;
+  min-width: 80px;
+  min-height: 48px;
+  padding: 10px 12px;
+  border: 1px solid rgba(255, 183, 77, 0.3);
+  border-radius: 10px;
+  background: rgba(255, 183, 77, 0.08);
+  color: #ffb74d;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.safety-delay-btn:hover {
+  background: rgba(255, 183, 77, 0.16);
+}
+
+.safety-delay-btn:active {
+  background: rgba(255, 183, 77, 0.22);
+}
+
+.safety-fake-call-pending {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: rgba(255, 183, 77, 0.1);
+  border: 1px solid rgba(255, 183, 77, 0.3);
+  color: #ffb74d;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.safety-fake-call-pending.active {
+  display: flex;
+}
+
+.safety-fake-call-pending button {
+  margin-left: auto;
+  padding: 4px 10px;
+  border: 1px solid rgba(255, 183, 77, 0.4);
+  border-radius: 6px;
+  background: transparent;
+  color: #ffb74d;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* ─── Fake Call Overlay ─── */
+.safety-fake-call {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  background: linear-gradient(180deg, #0a0f1a 0%, #131a2e 50%, #0a0f1a 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.safety-fake-call.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.fake-call-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+  width: 100%;
+  max-width: 320px;
+  padding: 40px 24px;
+}
+
+.fake-call-icon {
+  margin-bottom: 12px;
+}
+
+.fake-call-label {
+  font-size: 14px;
+  color: var(--color-text-secondary, #a0b0d0);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 500;
+}
+
+.fake-call-name {
+  font-size: 32px;
+  font-weight: 700;
+  color: #fff;
+  margin: 4px 0;
+}
+
+.fake-call-status {
+  font-size: 14px;
+  color: var(--color-text-secondary, #a0b0d0);
+  margin-bottom: 48px;
+}
+
+.fake-call-actions {
+  display: flex;
+  justify-content: center;
+  gap: 56px;
+  width: 100%;
+}
+
+.fake-call-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  font-size: 13px;
+  padding: 0;
+}
+
+.fake-call-btn svg {
+  width: 56px;
+  height: 56px;
+  padding: 14px;
+  border-radius: 50%;
+}
+
+.fake-call-decline svg {
+  background: #ff3b30;
+}
+
+.fake-call-answer svg {
+  background: #30d158;
+}
+
+.fake-call-btn span {
+  color: var(--color-text-secondary, #a0b0d0);
+  font-weight: 500;
+}
+
+/* Ringing animation on the fake-call icon */
+@keyframes safety-ring-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(43, 255, 134, 0.3); }
+  50% { box-shadow: 0 0 0 18px rgba(43, 255, 134, 0); }
+}
+
+.safety-fake-call.active .fake-call-icon svg {
+  border-radius: 50%;
+  animation: safety-ring-pulse 1.6s ease-in-out infinite;
+}
+
+/* ─── Get Home Safe / Rideshare ─── */
+.safety-rideshare-btns {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.safety-rideshare-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 52px;
+  padding: 12px 16px;
+  border: 1px solid var(--color-border, #2a334d);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--color-text, #e8e8e8);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.safety-rideshare-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.safety-rideshare-btn svg {
+  flex-shrink: 0;
+}
+
+.safety-cab-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 48px;
+  padding: 10px 16px;
+  border: 1px solid var(--color-border, #2a334d);
+  border-radius: 10px;
+  background: transparent;
+  color: var(--color-text-secondary, #a0b0d0);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  margin-bottom: 10px;
+}
+
+.safety-cab-btn:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* ─── Buddy System ─── */
+.safety-buddy-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 0;
+}
+
+.safety-buddy-toggle-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text, #e8e8e8);
+}
+
+.safety-buddy-status {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.safety-buddy-status--green {
+  background: #2bff86;
+  box-shadow: 0 0 6px rgba(43, 255, 134, 0.5);
+}
+
+.safety-buddy-status--yellow {
+  background: #ffd54f;
+  box-shadow: 0 0 6px rgba(255, 213, 79, 0.5);
+}
+
+.safety-buddy-status--red {
+  background: #ff5b5b;
+  box-shadow: 0 0 6px rgba(255, 91, 91, 0.5);
+}
+
+/* Toggle switch */
+.safety-toggle {
+  position: relative;
+  width: 48px;
+  height: 28px;
+  flex-shrink: 0;
+}
+
+.safety-toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+
+.safety-toggle-track {
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  background: var(--color-border, #2a334d);
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.safety-toggle-track::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.2s ease;
+}
+
+.safety-toggle input:checked + .safety-toggle-track {
+  background: var(--color-accent, #2bff86);
+}
+
+.safety-toggle input:checked + .safety-toggle-track::after {
+  transform: translateX(20px);
+}
+
+.safety-buddy-config {
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--color-border, #2a334d);
+  margin-top: 10px;
+}
+
+.safety-buddy-config.active {
+  display: flex;
+}
+
+.safety-buddy-config label {
+  font-size: 13px;
+  color: var(--color-text-secondary, #a0b0d0);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.safety-buddy-config input,
+.safety-buddy-config select {
+  height: 44px;
+  padding: 0 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--color-border, #2a334d);
+  border-radius: 8px;
+  color: var(--color-text, #e8e8e8);
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.safety-buddy-config select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23a0b0d0' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 32px;
+}
+
+.safety-checkin-timer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--color-border, #2a334d);
+}
+
+.safety-checkin-countdown {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-accent, #2bff86);
+  font-variant-numeric: tabular-nums;
+}
+
+.safety-checkin-countdown.warning {
+  color: #ffd54f;
+}
+
+.safety-checkin-countdown.overdue {
+  color: #ff5b5b;
+}
+
+.safety-checkin-label {
+  font-size: 12px;
+  color: var(--color-text-secondary, #a0b0d0);
+}
+
+.safety-checkin-btn {
+  min-height: 44px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background: var(--color-accent, #2bff86);
+  color: var(--color-bg, #0b0d14);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.safety-checkin-btn:hover { background: #22e676; }
+.safety-checkin-btn:active { background: #1ad16a; }
+
+/* ─── Collapsible tips ─── */
+.safety-tips-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.safety-tips-category {
+  border: 1px solid var(--color-border, #2a334d);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.safety-tips-category-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.02);
+  border: none;
+  color: var(--color-text, #e8e8e8);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+}
+
+.safety-tips-category-header:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.safety-tips-chevron {
+  transition: transform 0.2s ease;
+  color: var(--color-text-secondary, #a0b0d0);
+}
+
+.safety-tips-category.open .safety-tips-chevron {
+  transform: rotate(180deg);
+}
+
+.safety-tips-body {
+  display: none;
+  padding: 0 14px 12px;
+}
+
+.safety-tips-category.open .safety-tips-body {
+  display: block;
+}
+
+.safety-tips-body ul {
+  margin: 0;
+  padding: 0 0 0 16px;
+  list-style: disc;
+}
+
+.safety-tips-body li {
+  font-size: 13px;
+  color: var(--color-text-secondary, #a0b0d0);
+  line-height: 1.6;
+  margin-bottom: 4px;
+}
+
+/* Walking safety tips in get-home section */
+.safety-walking-tips {
+  border: 1px solid var(--color-border, #2a334d);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.safety-walking-tips-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.02);
+  border: none;
+  color: var(--color-text-secondary, #a0b0d0);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+}
+
+.safety-walking-tips-body {
+  display: none;
+  padding: 0 14px 12px;
+}
+
+.safety-walking-tips.open .safety-walking-tips-body {
+  display: block;
+}
+
+.safety-walking-tips.open .safety-tips-chevron {
+  transform: rotate(180deg);
+}
+
+.safety-walking-tips-body ul {
+  margin: 0;
+  padding: 0 0 0 16px;
+  list-style: disc;
+}
+
+.safety-walking-tips-body li {
+  font-size: 13px;
+  color: var(--color-text-secondary, #a0b0d0);
+  line-height: 1.6;
+  margin-bottom: 4px;
+}
+
+/* ─── Responsive ─── */
+@media (min-width: 860px) {
+  .safety-dashboard {
+    padding: 24px 32px 48px;
+  }
+
+  .safety-quick-actions {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 380px) {
+  .safety-quick-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .safety-rideshare-btns {
+    flex-direction: column;
+  }
+
+  .fake-call-actions {
+    gap: 36px;
+  }
+}

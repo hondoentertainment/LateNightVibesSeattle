@@ -1,25 +1,25 @@
-Area,Name,Category,Typical Closing Time,Address,Phone,Website,Driving Distance,Google Maps Driving Link,Vibe Tags
-Sundance Square,Thompson's Bookstore Bar,Cocktail Bar,2:00 AM,900 Houston St,,,,,"date-friendly, drinks, upscale"
-Sundance Square,Scat Jazz Lounge,Music Venue / Bar,2:00 AM,111 W 4th St,,,,,"drinks, live-music, chill"
-Sundance Square,Flying Saucer,Bar,12:00 AM,111 E 3rd St,,,,,"drinks, social"
-West 7th,The Usual,Cocktail Bar,2:00 AM,1408 W Magnolia Ave,,,,,"date-friendly, drinks, upscale"
-West 7th,Varsity Tavern,Sports Bar,2:00 AM,2600 W 7th St,,,,,"drinks, social, sports"
-West 7th,Lola's Saloon,Music Venue / Bar,2:00 AM,2736 W 6th St,,,,,"drinks, live-music, social"
-Near Southside,Shipping & Receiving Bar,Music Venue / Bar,2:00 AM,201 S Calhoun St,,,,,"drinks, live-music, social"
-Near Southside,Magnolia Motor Lounge,Music Venue / Bar,2:00 AM,3005 Morton St,,,,,"drinks, live-music, social"
-Stockyards,White Elephant Saloon,Bar,2:00 AM,106 E Exchange Ave,,,,,"drinks, live-music, social"
-Stockyards,Booger Red's Saloon,Dive Bar,2:00 AM,109 E Exchange Ave,,,,,"chill, drinks, social"
-Stockyards,Billy Bob's Texas,Music Venue / Bar,2:00 AM,2520 Rodeo Plaza,,,,,"drinks, live-music, high-energy"
-Magnolia Avenue,Kent & Co. Wines,Wine Bar,11:00 PM,1101 W Magnolia Ave,,,,,"chill, date-friendly, drinks"
-Magnolia Avenue,Brewed,Brewery,10:00 PM,801 W Magnolia Ave,,,,,"chill, drinks, social"
-Cultural District,HopFusion Ale Works,Brewery,10:00 PM,200 E Broadway Ave,,,,,"chill, drinks, social"
-Downtown,Basement Bar,Dive Bar,2:00 AM,1118 W Magnolia Ave,,,,,"chill, drinks, social"
-Downtown,Pour House,Bar,2:00 AM,209 W 5th St,,,,,"drinks, social"
-Fairmount,Chat Room Pub,Dive Bar,2:00 AM,1263 W Magnolia Ave,,,,,"chill, drinks, social"
-Fairmount,Twilite Lounge,Lounge,2:00 AM,212 Lipscomb St,,,,,"chill, drinks, social"
-South Main,The Republic Street Bar,Bar,2:00 AM,501 S Main St,,,,,"drinks, social"
-Camp Bowie,The Boiled Owl Tavern,Dive Bar,2:00 AM,909 W Magnolia Ave,,,,,"chill, drinks, social"
-West 7th,Tin Panther,Cocktail Bar,2:00 AM,2736 W 7th St,,,,,"drinks, date-friendly, upscale"
-Sundance Square,Pete's Dueling Piano Bar FW,Bar,2:00 AM,621 Houston St,,,,,"group-fun, interactive, live-music"
-Near Southside,Karaoke at Kowloon,Karaoke,2:00 AM,2800 S Hulen St,,,,,"group-fun, interactive"
-Stockyards,Aura Nightclub,Nightclub,2:00 AM,2536 Rodeo Plaza,,,,,"dancey, high-energy, late-night"
+Area,Name,Category,Typical Closing Time,Address,Phone,Website,Driving Distance,Google Maps Driving Link,Vibe Tags,Latitude,Longitude
+Sundance Square,Thompson's Bookstore Bar,Cocktail Bar,2:00 AM,900 Houston St,,,,,"date-friendly, drinks, upscale, craft-cocktails",32.7545,-97.3303
+Sundance Square,Scat Jazz Lounge,Music Venue / Bar,2:00 AM,111 W 4th St,,,,,"drinks, live-music, chill",32.758,-97.3313
+Sundance Square,Flying Saucer,Bar,12:00 AM,111 E 3rd St,,,,,"drinks, social, casual",32.756,-97.3323
+West 7th,The Usual,Cocktail Bar,2:00 AM,1408 W Magnolia Ave,,,,,"date-friendly, drinks, upscale, craft-cocktails",32.7595,-97.3403
+West 7th,Varsity Tavern,Sports Bar,2:00 AM,2600 W 7th St,,,,,"drinks, social, sports, sports-bar, casual",32.763,-97.3413
+West 7th,Lola's Saloon,Music Venue / Bar,2:00 AM,2736 W 6th St,,,,,"drinks, live-music, social",32.761,-97.3423
+Near Southside,Shipping & Receiving Bar,Music Venue / Bar,2:00 AM,201 S Calhoun St,,,,,"drinks, live-music, social",32.7445,-97.3353
+Near Southside,Magnolia Motor Lounge,Music Venue / Bar,2:00 AM,3005 Morton St,,,,,"drinks, live-music, social",32.748,-97.3363
+Stockyards,White Elephant Saloon,Bar,2:00 AM,106 E Exchange Ave,,,,,"drinks, live-music, social",32.7695,-97.3253
+Stockyards,Booger Red's Saloon,Dive Bar,2:00 AM,109 E Exchange Ave,,,,,"chill, dive, neighborhood-gem",32.773,-97.3263
+Stockyards,Billy Bob's Texas,Music Venue / Bar,2:00 AM,2520 Rodeo Plaza,,,,,"drinks, live-music, high-energy",32.771,-97.3273
+Magnolia Avenue,Kent & Co. Wines,Wine Bar,11:00 PM,1101 W Magnolia Ave,,,,,"chill, date-friendly, drinks, wine-bar",32.7465,-97.3333
+Magnolia Avenue,Brewed,Brewery,10:00 PM,801 W Magnolia Ave,,,,,"chill, drinks, social, brewery, casual",32.75,-97.3343
+Cultural District,HopFusion Ale Works,Brewery,10:00 PM,200 E Broadway Ave,,,,,"chill, drinks, social, brewery, casual",32.7595,-97.3453
+Downtown,Basement Bar,Dive Bar,2:00 AM,1118 W Magnolia Ave,,,,,"chill, dive, neighborhood-gem",32.7565,-97.3283
+Downtown,Pour House,Bar,2:00 AM,209 W 5th St,,,,,"drinks, social, casual",32.76,-97.3293
+Fairmount,Chat Room Pub,Dive Bar,2:00 AM,1263 W Magnolia Ave,,,,,"chill, dive, neighborhood-gem",32.7495,-97.3353
+Fairmount,Twilite Lounge,Lounge,2:00 AM,212 Lipscomb St,,,,,"chill, drinks, social, date-friendly",32.753,-97.3363
+South Main,The Republic Street Bar,Bar,2:00 AM,501 S Main St,,,,,"drinks, social, casual",32.7465,-97.3303
+Camp Bowie,The Boiled Owl Tavern,Dive Bar,2:00 AM,909 W Magnolia Ave,,,,,"chill, dive, neighborhood-gem",32.7595,-97.3503
+West 7th,Tin Panther,Cocktail Bar,2:00 AM,2736 W 7th St,,,,,"drinks, date-friendly, upscale, craft-cocktails",32.759,-97.3433
+Sundance Square,Pete's Dueling Piano Bar FW,Bar,2:00 AM,621 Houston St,,,,,"group-fun, interactive, live-music",32.754,-97.3333
+Near Southside,Karaoke at Kowloon,Karaoke,2:00 AM,2800 S Hulen St,,,,,"group-fun, interactive, karaoke",32.746,-97.3373
+Stockyards,Aura Nightclub,Nightclub,2:00 AM,2536 Rodeo Plaza,,,,,"dancey, high-energy, late-night",32.769,-97.3283

@@ -8,7 +8,8 @@
     { "source": "/recommend", "destination": "/recommend.html" },
     { "source": "/neighborhoods", "destination": "/neighborhoods.html" },
     { "source": "/admin", "destination": "/admin.html" },
-    { "source": "/cities", "destination": "/cities.html" }
+    { "source": "/cities", "destination": "/cities.html" },
+    { "source": "/cities/:slug", "destination": "/index.html" }
   ],
   "headers": [
     {

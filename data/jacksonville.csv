@@ -1,26 +1,26 @@
-Area,Name,Category,Typical Closing Time,Address,Phone,Website,Driving Distance,Google Maps Driving Link,Vibe Tags
-Downtown,Dos Gatos,Cocktail Bar,2:00 AM,123 E Forsyth St,,,,,"date-friendly, drinks, upscale"
-Downtown,Spliffs Gastropub,Bar / Restaurant,2:00 AM,15 N Ocean St,,,,,"drinks, food-focused, social"
-San Marco,Grape & Grain Exchange,Wine Bar,12:00 AM,2000 San Marco Blvd,,,,,"chill, date-friendly, drinks"
-San Marco,Taverna,Bar / Restaurant,2:00 AM,1986 San Marco Blvd,,,,,"drinks, food-focused, social"
-Five Points,Birdies,Bar,2:00 AM,1044 Park St,,,,,"chill, drinks, social"
-Five Points,Rain Dogs,Bar,2:00 AM,1045 Park St,,,,,"drinks, social, live-music"
-Riverside,Kickbacks Gastropub,Bar / Restaurant,2:00 AM,910 King St,,,,,"drinks, food-focused, social"
-Riverside,Hoptinger Bier Garden,Brewery,12:00 AM,903 King St,,,,,"drinks, social, food-focused"
-Avondale,Zeta Brewing Company,Brewery,10:00 PM,2781 Industrial Ln,,,,,"chill, drinks, social"
-Springfield,Main & Six Brewing,Brewery,10:00 PM,1636 N Main St,,,,,"chill, drinks, social"
-Jacksonville Beach,Lynch's Irish Pub,Bar,2:00 AM,514 N 1st St,,,,,"drinks, social, live-music"
-Jacksonville Beach,Brix Taphouse,Sports Bar,2:00 AM,1402 3rd St S,,,,,"drinks, social, sports"
-Downtown,Myth Nightclub,Nightclub,2:00 AM,333 E Bay St,,,,,"dancey, high-energy, late-night"
-San Marco,The Parlour,Cocktail Bar,12:00 AM,2029 San Marco Blvd,,,,,"date-friendly, drinks, upscale"
-Five Points,Lemon Bar,Bar,2:00 AM,1053 Park St,,,,,"drinks, social, chill"
-Riverside,The Volstead,Bar,2:00 AM,915 King St,,,,,"drinks, social"
-Downtown,Underbelly,Music Venue / Bar,2:00 AM,113 E Bay St,,,,,"drinks, live-music, loud"
-Southside,Dahlia's Pour House,Dive Bar,2:00 AM,4200 St Johns Ave,,,,,"chill, drinks, social"
-Town Center,Topgolf Lounge,Sports Bar,12:00 AM,10531 Brightman Blvd,,,,,"drinks, social, sports, group-fun"
-Neptune Beach,TacoLu,Bar / Restaurant,11:00 PM,1712 Beach Blvd,,,,,"chill, drinks, food-focused"
-Springfield,Crispy's Springfield Gallery,Lounge,12:00 AM,1618 N Main St,,,,,"chill, drinks, social"
-Downtown,Cowford Chophouse Rooftop,Lounge,11:00 PM,101 E Bay St,,,,,"date-friendly, drinks, upscale"
-Five Points,Karaoke at Sing Sing,Karaoke,2:00 AM,1060 Park St,,,,,"group-fun, interactive"
-San Marco,Wine Cellar,Wine Bar,11:00 PM,1314 Prudential Dr,,,,,"chill, date-friendly, drinks"
-Jacksonville Beach,Surfer The Bar,Dive Bar,2:00 AM,200 N 1st St,,,,,"chill, drinks, social"
+Area,Name,Category,Typical Closing Time,Address,Phone,Website,Driving Distance,Google Maps Driving Link,Vibe Tags,Latitude,Longitude
+Downtown,Dos Gatos,Cocktail Bar,2:00 AM,123 E Forsyth St,,,,,"date-friendly, drinks, upscale, craft-cocktails",30.3312,-81.6552
+Downtown,Spliffs Gastropub,Bar / Restaurant,2:00 AM,15 N Ocean St,,,,,"drinks, food-focused, social",30.3347,-81.6562
+San Marco,Grape & Grain Exchange,Wine Bar,12:00 AM,2000 San Marco Blvd,,,,,"chill, date-friendly, drinks, wine-bar",30.3212,-81.6502
+San Marco,Taverna,Bar / Restaurant,2:00 AM,1986 San Marco Blvd,,,,,"drinks, food-focused, social",30.3247,-81.6512
+Five Points,Birdies,Bar,2:00 AM,1044 Park St,,,,,"chill, drinks, social, hipster, trendy",30.3262,-81.6702
+Five Points,Rain Dogs,Bar,2:00 AM,1045 Park St,,,,,"drinks, social, live-music, hipster, trendy",30.3297,-81.6712
+Riverside,Kickbacks Gastropub,Bar / Restaurant,2:00 AM,910 King St,,,,,"drinks, food-focused, social",30.3262,-81.6652
+Riverside,Hoptinger Bier Garden,Brewery,12:00 AM,903 King St,,,,,"food-focused, brewery, chill",30.3297,-81.6662
+Avondale,Zeta Brewing Company,Brewery,10:00 PM,2781 Industrial Ln,,,,,"chill, drinks, social, brewery, casual",30.3262,-81.6752
+Springfield,Main & Six Brewing,Brewery,10:00 PM,1636 N Main St,,,,,"chill, drinks, social, brewery, casual",30.3362,-81.6502
+Jacksonville Beach,Lynch's Irish Pub,Bar,2:00 AM,514 N 1st St,,,,,"drinks, social, live-music",30.3212,-81.6052
+Jacksonville Beach,Brix Taphouse,Sports Bar,2:00 AM,1402 3rd St S,,,,,"drinks, social, sports, sports-bar, casual",30.3247,-81.6062
+Downtown,Myth Nightclub,Nightclub,2:00 AM,333 E Bay St,,,,,"dancey, high-energy, late-night",30.3327,-81.6572
+San Marco,The Parlour,Cocktail Bar,12:00 AM,2029 San Marco Blvd,,,,,"date-friendly, drinks, upscale, craft-cocktails",30.3227,-81.6522
+Five Points,Lemon Bar,Bar,2:00 AM,1053 Park St,,,,,"drinks, social, chill, hipster, trendy",30.3277,-81.6722
+Riverside,The Volstead,Bar,2:00 AM,915 King St,,,,,"drinks, social, casual",30.3277,-81.6672
+Downtown,Underbelly,Music Venue / Bar,2:00 AM,113 E Bay St,,,,,"drinks, live-music, loud",30.3307,-81.6582
+Southside,Dahlia's Pour House,Dive Bar,2:00 AM,4200 St Johns Ave,,,,,"chill, dive, neighborhood-gem",30.3112,-81.6352
+Town Center,Topgolf Lounge,Sports Bar,12:00 AM,10531 Brightman Blvd,,,,,"sports, group-fun, sports-bar",30.3012,-81.6252
+Neptune Beach,TacoLu,Bar / Restaurant,11:00 PM,1712 Beach Blvd,,,,,"chill, drinks, food-focused",30.3262,-81.6072
+Springfield,Crispy's Springfield Gallery,Lounge,12:00 AM,1618 N Main St,,,,,"chill, drinks, social, date-friendly",30.3397,-81.6512
+Downtown,Cowford Chophouse Rooftop,Lounge,11:00 PM,101 E Bay St,,,,,"date-friendly, drinks, upscale, chill",30.3342,-81.6527
+Five Points,Karaoke at Sing Sing,Karaoke,2:00 AM,1060 Park St,,,,,"group-fun, interactive, karaoke, hipster, trendy",30.3257,-81.6732
+San Marco,Wine Cellar,Wine Bar,11:00 PM,1314 Prudential Dr,,,,,"chill, date-friendly, drinks, wine-bar",30.3207,-81.6532
+Jacksonville Beach,Surfer The Bar,Dive Bar,2:00 AM,200 N 1st St,,,,,"chill, dive, neighborhood-gem",30.3227,-81.6072

@@ -90,9 +90,10 @@ function renderComparison() {
 
     const card = document.createElement("div");
     card.className = "hood-card";
+    const limitedTag = data.total < 3 ? ' <span class="lnv-limited-data" style="font-size:11px;color:#ffd36e;font-weight:500;opacity:0.85;">(limited data)</span>' : "";
     card.innerHTML = `
       <div class="hood-header">
-        <div class="hood-name">${data.name}</div>
+        <div class="hood-name">${data.name}${limitedTag}</div>
         <div class="hood-subtitle">${data.total} venue${data.total !== 1 ? "s" : ""} · ${data.categoryCount} categories</div>
         <div class="hood-best-for">Best for: ${data.bestFor || "varied vibes"}</div>
         ${data.openNowCount !== undefined ? `<div class="hood-open-now">${data.openNowCount} open right now</div>` : ""}
@@ -215,9 +216,27 @@ function buildAreaOptions() {
   });
 }
 
+function showDataThresholdBanner() {
+  const existing = document.querySelector(".lnv-data-threshold-banner");
+  if (existing) existing.remove();
+  if (allVenues.length >= 30) return;
+  const cityObj = (window.LNVCities && window.LNVCities.getCurrentCity) ? window.LNVCities.getCurrentCity() : null;
+  const cityName = cityObj ? cityObj.name : "this city";
+  const banner = document.createElement("div");
+  banner.className = "lnv-data-threshold-banner";
+  banner.setAttribute("role", "status");
+  banner.innerHTML = '<span class="lnv-banner-icon">i</span> We\'re still building out ' + cityName + '\'s venue data. Some features may be limited.';
+  banner.style.cssText = "background:rgba(43,255,134,0.08);border:1px solid rgba(43,255,134,0.25);color:#c8ffd8;padding:10px 16px;border-radius:10px;font-size:13px;margin:0 0 16px;display:flex;align-items:center;gap:8px;";
+  const iconEl = banner.querySelector(".lnv-banner-icon");
+  if (iconEl) iconEl.style.cssText = "display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:rgba(43,255,134,0.18);color:#2bff86;font-size:12px;font-weight:700;flex-shrink:0;";
+  const grid = $("comparisonGrid");
+  if (grid && grid.parentNode) grid.parentNode.insertBefore(banner, grid);
+}
+
 function loadFromText(text) {
   allVenues = loadDataFromCSV(text);
   buildAreaOptions();
+  showDataThresholdBanner();
 
   const area1 = $("area1");
   const area2 = $("area2");
@@ -276,7 +295,7 @@ async function loadDefaultCSV() {
     const resp = await fetch(DEFAULT_CSV);
     if (!resp.ok) throw new Error("Fetch failed");
     loadFromText(await resp.text());
-  } catch (err) {
+  } catch (_err) {
     renderLoadError(grid, true);
   }
 }

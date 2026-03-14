@@ -1,8 +1,15 @@
 /**
- * Late Night Vibes Seattle — Service Worker
+ * Late Night Vibes — Service Worker
  * Caches static assets and venue data for offline use.
+ *
+ * Caching strategies:
+ * - Static assets (HTML, CSS, JS, images): precached on install, then cache-first.
+ * - City CSV data (data/*.csv): lazily cached on first visit using a network-first
+ *   strategy. Only seattle.csv (the default city) is precached. Other city CSVs are
+ *   fetched from the network on demand and cached for offline use, avoiding the
+ *   bandwidth cost of precaching all 31 cities for users who only visit 1-2.
  */
-const CACHE_NAME = "lnv-v5";
+const CACHE_NAME = "lnv-v6";
 
 const PRECACHE_URLS = [
   "/",
@@ -31,6 +38,7 @@ const PRECACHE_URLS = [
   "/og-image.png",
   "/splash/splash-1170x2532.png",
   "/splash/splash-750x1334.png",
+  "/data/seattle.csv",
 ];
 
 self.addEventListener("install", (event) => {
@@ -61,6 +69,8 @@ self.addEventListener("fetch", (event) => {
 
   const isCSV = url.pathname.endsWith(".csv");
 
+  // Network-first strategy for city CSVs: fetch fresh data when online,
+  // fall back to cache when offline. Lazily caches each city on first visit.
   if (isCSV) {
     event.respondWith(
       fetch(event.request)
