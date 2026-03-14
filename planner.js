@@ -641,7 +641,7 @@ function openPlanDetail(venue) {
 }
 
 /* ─── Search/filter within itinerary stops ─── */
-const plannerFilterBar = $("plannerFilterBar");
+const _plannerFilterBar = $("plannerFilterBar");
 const plannerSearchFilter = $("plannerSearchFilter");
 let _planFilterDebounce = null;
 

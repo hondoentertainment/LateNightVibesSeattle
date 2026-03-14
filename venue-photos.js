@@ -108,7 +108,7 @@ async function fetchVenuePhoto(venueName, area) {
     const photoUrl = `https://places.googleapis.com/v1/${photoName}/media?maxWidthPx=${PHOTO_MAX_WIDTH}&key=${GOOGLE_PLACES_API_KEY}`;
     setCachedPhoto(cacheKey, photoUrl);
     return photoUrl;
-  } catch (err) {
+  } catch (_err) {
     setCachedPhoto(cacheKey, null);
     return null;
   }

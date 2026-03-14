@@ -352,7 +352,7 @@ async function loadDefaultCSV() {
     const resp = await fetch(DEFAULT_CSV);
     if (!resp.ok) throw new Error("Fetch failed");
     loadFromText(await resp.text());
-  } catch (err) {
+  } catch (_err) {
     renderLoadError(grid, true);
     const msg = !navigator.onLine ? "You appear to be offline. Connect and try again." : "Failed to load venues — check your connection.";
     showErrorToast(msg);

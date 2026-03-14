@@ -403,7 +403,7 @@
     try {
       document.execCommand("copy");
       showToast("Copied to clipboard!");
-    } catch (e) {
+    } catch (_e) {
       showToast("Could not copy");
     }
     document.body.removeChild(ta);

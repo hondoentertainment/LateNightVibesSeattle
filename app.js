@@ -1599,7 +1599,7 @@ function updateTonightHighlights() {
       ${highlights.map((h) => {
         const link = normalizeValue(h.venue["Google Maps Driving Link"]);
         const name = normalizeValue(h.venue.Name);
-        const area = normalizeValue(h.venue.Area);
+        const _area = normalizeValue(h.venue.Area);
         const label = h.event.label + (h.event.detail ? ` — ${h.event.detail}` : "");
         return link
           ? `<a href="${link}" target="_blank" rel="noopener" class="tonight-highlight-item">${name} · ${label}</a>`
@@ -1714,7 +1714,7 @@ async function loadDefaultCSV() {
     const response = await fetch(DEFAULT_CSV);
     if (!response.ok) throw new Error("Fetch failed");
     loadFromText(await response.text());
-  } catch (err) {
+  } catch (_err) {
     setStatus("Unable to load default CSV.");
     const isOffline = !navigator.onLine;
     renderLoadErrorState(

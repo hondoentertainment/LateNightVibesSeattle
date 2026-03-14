@@ -389,7 +389,7 @@
           tag: "buddy-checkin-overdue",
           requireInteraction: true
         });
-      } catch (e) { /* notification API not available */ }
+      } catch (_e) { /* notification API not available */ }
     }
   }
 

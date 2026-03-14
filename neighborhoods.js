@@ -295,7 +295,7 @@ async function loadDefaultCSV() {
     const resp = await fetch(DEFAULT_CSV);
     if (!resp.ok) throw new Error("Fetch failed");
     loadFromText(await resp.text());
-  } catch (err) {
+  } catch (_err) {
     renderLoadError(grid, true);
   }
 }

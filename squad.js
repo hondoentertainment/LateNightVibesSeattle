@@ -300,7 +300,7 @@ function buildVenueCard(venue) {
 /* ─── Swipe gesture (touch + drag) ─── */
 function initSwipeGesture(card, containerId, progressId, fillId, labelId, btnsId) {
   let startX = 0;
-  let startY = 0;
+  let _startY = 0;
   let currentX = 0;
   let isDragging = false;
 
@@ -311,7 +311,7 @@ function initSwipeGesture(card, containerId, progressId, fillId, labelId, btnsId
     isDragging = true;
     const point = e.touches ? e.touches[0] : e;
     startX = point.clientX;
-    startY = point.clientY;
+    _startY = point.clientY;
     card.style.transition = "none";
   }
 
@@ -536,7 +536,7 @@ function showResultsView() {
   // Plan link for matches
   const planLinkEl = $("resultsPlanLink");
   if (matches.length > 0) {
-    const venueNames = matches.map((m) => m.venueName).join(",");
+    const _venueNames = matches.map((m) => m.venueName).join(",");
     planLinkEl.innerHTML = `<a href="planner.html">Plan This Night</a>`;
   } else {
     planLinkEl.innerHTML = "";
