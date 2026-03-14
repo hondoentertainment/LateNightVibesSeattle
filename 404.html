@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#0a0c12" />
-    <title>Page not found — Late Night Vibes Seattle</title>
+    <title>Page not found — Late Night Vibes</title>
     <link rel="icon" type="image/png" href="favicon.png" />
     <link rel="apple-touch-icon" href="favicon-512.png" />
     <link rel="manifest" href="manifest.json" />
@@ -39,7 +39,7 @@
     <main class="not-found" id="main">
       <h1>404</h1>
       <h2>Page not found</h2>
-      <p>The page you're looking for doesn't exist or may have moved. Get back to exploring Seattle nightlife.</p>
+      <p>The page you're looking for doesn't exist or may have moved. Get back to exploring nightlife.</p>
       <div class="nav-links">
         <a href="index.html">Browse venues</a>
         <a href="recommend.html">Recommendations</a>
@@ -49,6 +49,6 @@
 
     <script src="config.js"></script>
     <script src="lib/cities.js"></script>
-    <script>(function(){var city=window.LNVCities?window.LNVCities.getCurrentCity():null;if(!city)return;var r=function(s){return s.replace(/Seattle/g,city.name);};document.title=r(document.title);var p=document.querySelector('.not-found p');if(p)p.textContent=r(p.textContent);})();</script>
+    <script>(function(){var city=window.LNVCities?window.LNVCities.getCurrentCity():null;if(!city)return;var cn=city.name;document.title="Page not found \u2014 Late Night Vibes "+cn;var p=document.querySelector('.not-found p');if(p)p.textContent="The page you\u2019re looking for doesn\u2019t exist or may have moved. Get back to exploring "+cn+" nightlife.";})();</script>
   </body>
 </html>

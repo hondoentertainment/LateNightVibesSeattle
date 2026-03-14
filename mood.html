@@ -4,15 +4,15 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#0a0c12" />
-    <title>Mood Match — Late Night Vibes Seattle</title>
-    <meta name="description" content="Describe your perfect night out and we'll match you with Seattle venues that fit the vibe. Natural language venue search." />
-    <meta property="og:title" content="Mood Match — Late Night Vibes Seattle" />
-    <meta property="og:description" content="Describe your vibe and find matching Seattle nightlife venues." />
+    <title>Mood Match — Late Night Vibes</title>
+    <meta name="description" content="Describe your perfect night out and we'll match you with venues that fit the vibe. Natural language venue search." />
+    <meta property="og:title" content="Mood Match — Late Night Vibes" />
+    <meta property="og:description" content="Describe your vibe and find matching nightlife venues." />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="https://late-night-vibes-seattle.vercel.app/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Late Night Vibes Seattle — mood-based venue matching" />
+    <meta property="og:image:alt" content="Late Night Vibes — mood-based venue matching" />
     <link rel="icon" type="image/png" href="favicon.png" />
     <link rel="apple-touch-icon" href="favicon-512.png" />
     <link rel="apple-touch-startup-image" href="splash/splash-1170x2532.png" media="(device-width: 390px) and (device-height: 844px)" />
@@ -117,7 +117,7 @@
 
     <script src="config.js"></script>
     <script src="lib/cities.js"></script>
-    <script>(function(){var city=window.LNVCities?window.LNVCities.getCurrentCity():null;if(!city)return;var r=function(s){return s.replace(/Seattle/g,city.name);};document.title=r(document.title);var metas=[['meta[name="description"]','content'],['meta[property="og:title"]','content'],['meta[property="og:description"]','content'],['meta[property="og:image:alt"]','content']];metas.forEach(function(m){var el=document.querySelector(m[0]);if(el)el.setAttribute(m[1],r(el.getAttribute(m[1])));});var h1=document.querySelector('h1.sr-only');if(h1)h1.textContent=r(h1.textContent);})();</script>
+    <script>(function(){var city=window.LNVCities?window.LNVCities.getCurrentCity():null;if(!city)return;var cn=city.name;document.title="Mood Match \u2014 Late Night Vibes "+cn;var metas={"description":"Describe your perfect night out and we'll match you with "+cn+" venues that fit the vibe. Natural language venue search.","og:title":"Mood Match \u2014 Late Night Vibes "+cn,"og:description":"Describe your vibe and find matching "+cn+" nightlife venues.","og:image:alt":"Late Night Vibes "+cn+" \u2014 mood-based venue matching"};Object.keys(metas).forEach(function(k){var sel=k.indexOf("og:")===0?'meta[property="'+k+'"]':'meta[name="'+k+'"]';var el=document.querySelector(sel);if(el)el.setAttribute("content",metas[k]);});})();</script>
     <script src="lib/core.js"></script>
     <script src="lib/mood-match.js"></script>
     <script src="lib/shared-nav.js"></script>

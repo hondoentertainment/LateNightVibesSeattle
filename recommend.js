@@ -283,10 +283,26 @@ function applyOnboardingContext() {
   syncSelect(contextMobile || { value: mode }, contextDesktop);
 }
 
+function showRecDataThresholdBanner() {
+  const existing = document.querySelector(".lnv-data-threshold-banner");
+  if (existing) existing.remove();
+  if (allVenues.length >= 15) return;
+  const cityObj = (window.LNVCities && window.LNVCities.getCurrentCity) ? window.LNVCities.getCurrentCity() : null;
+  const cityName = cityObj ? cityObj.name : "this city";
+  const banner = document.createElement("div");
+  banner.className = "lnv-data-threshold-banner";
+  banner.setAttribute("role", "status");
+  banner.innerHTML = '<span style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:rgba(43,255,134,0.18);color:#2bff86;font-size:12px;font-weight:700;flex-shrink:0;">i</span> Recommendations improve as we add more ' + cityName + ' venues.';
+  banner.style.cssText = "background:rgba(43,255,134,0.08);border:1px solid rgba(43,255,134,0.25);color:#c8ffd8;padding:10px 16px;border-radius:10px;font-size:13px;margin:0 0 16px;display:flex;align-items:center;gap:8px;";
+  const grid = $("recommendationGrid");
+  if (grid && grid.parentNode) grid.parentNode.insertBefore(banner, grid);
+}
+
 function loadFromText(text) {
   allVenues = loadDataFromCSV(text);
   buildVenueOptions();
   applyOnboardingContext();
+  showRecDataThresholdBanner();
   renderRecommendations();
   // Deep-link: auto-open venue drawer if ?venue= param is present
   if (window.LNVDetailDrawer && window.LNVDetailDrawer.openFromURL) {
