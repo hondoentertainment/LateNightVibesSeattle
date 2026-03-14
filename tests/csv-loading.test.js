@@ -22,6 +22,8 @@ const REQUIRED_HEADERS = [
   "vibe tags",
 ];
 
+const OPTIONAL_EXTRA_HEADERS = ["latitude", "longitude"];
+
 /** Parse a simple CSV into rows of strings, handling quoted fields. */
 function parseCSVRows(text) {
   const rows = [];
@@ -69,7 +71,14 @@ describe("city CSV files", () => {
         const text = readFileSync(csvPath, "utf-8");
         const rows = parseCSVRows(text);
         const headers = rows[0].map((h) => h.trim().toLowerCase());
-        expect(headers).toEqual(REQUIRED_HEADERS);
+        // All CSVs must start with the required headers; new city CSVs may
+        // also include optional Latitude/Longitude columns at the end.
+        const requiredPart = headers.slice(0, REQUIRED_HEADERS.length);
+        expect(requiredPart).toEqual(REQUIRED_HEADERS);
+        const extra = headers.slice(REQUIRED_HEADERS.length);
+        expect(extra.every((h) => OPTIONAL_EXTRA_HEADERS.includes(h))).toBe(
+          true
+        );
       });
 
       it("has at least one data row beyond the header", () => {

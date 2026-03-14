@@ -26,10 +26,17 @@ export default [
         MouseEvent: "readonly",
         HTMLElement: "readonly",
         Intl: "readonly",
+        alert: "readonly",
+        Notification: "readonly",
+        IntersectionObserver: "readonly",
+        MutationObserver: "readonly",
+        Event: "readonly",
+        Blob: "readonly",
         L: "readonly", // Leaflet
         // Node/UMD
         module: "readonly",
         exports: "readonly",
+        require: "readonly",
       },
     },
     rules: {
@@ -52,7 +59,7 @@ export default [
       "no-throw-literal": "warn",
 
       // Variables
-      "no-unused-vars": ["warn", { args: "none", varsIgnorePattern: "^_" }],
+      "no-unused-vars": ["warn", { args: "none", varsIgnorePattern: "^_", caughtErrorsIgnorePattern: "^_" }],
       "no-undef": "error",
       "no-shadow-restricted-names": "error",
       "no-use-before-define": ["warn", { functions: false }],
@@ -72,6 +79,18 @@ export default [
     },
   },
   {
+    // Node config files
+    files: ["playwright.config.js"],
+    languageOptions: {
+      globals: {
+        require: "readonly",
+        module: "readonly",
+        process: "readonly",
+        __dirname: "readonly",
+      },
+    },
+  },
+  {
     files: ["sw.js"],
     languageOptions: {
       globals: {
@@ -82,6 +101,6 @@ export default [
     },
   },
   {
-    ignores: ["node_modules/**"],
+    ignores: ["node_modules/**", ".claude/worktrees/**"],
   },
 ];
