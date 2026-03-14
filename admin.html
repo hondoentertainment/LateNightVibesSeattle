@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Admin — Late Night Vibes Seattle</title>
+    <title>Admin — Late Night Vibes</title>
     <link rel="icon" type="image/png" href="favicon.png" />
     <link rel="apple-touch-icon" href="favicon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -26,7 +26,7 @@
     </header>
 
     <main class="admin-layout" id="main">
-      <h1 class="sr-only">Admin — Late Night Vibes Seattle</h1>
+      <h1 class="sr-only">Admin — Late Night Vibes</h1>
       <section class="admin-card admin-hero" aria-labelledby="statsHeading">
         <h2 id="statsHeading">Dataset Stats</h2>
         <div class="admin-stats" role="group" aria-label="Venue dataset statistics">
@@ -100,7 +100,7 @@
 
     <script src="config.js"></script>
     <script src="lib/cities.js"></script>
-    <script>(function(){var city=window.LNVCities?window.LNVCities.getCurrentCity():null;if(!city)return;var r=function(s){return s.replace(/Seattle/g,city.name);};document.title=r(document.title);var h1=document.querySelector('h1.sr-only');if(h1)h1.textContent=r(h1.textContent);})();</script>
+    <script>(function(){var city=window.LNVCities?window.LNVCities.getCurrentCity():null;if(!city)return;var cn=city.name;document.title="Admin \u2014 Late Night Vibes "+cn;var h1=document.querySelector('h1.sr-only');if(h1)h1.textContent="Admin \u2014 Late Night Vibes "+cn;})();</script>
     <script src="lib/core.js"></script>
     <script>
       if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(function () {});
