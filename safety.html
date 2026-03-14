@@ -4,15 +4,15 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#0a0c12" />
-    <title>Safe Night — Late Night Vibes Seattle</title>
-    <meta name="description" content="Your safety toolkit for a night out in Seattle. Emergency contacts, fake call, buddy system, rideshare links, and safety tips." />
-    <meta property="og:title" content="Safe Night — Late Night Vibes Seattle" />
+    <title>Safe Night — Late Night Vibes</title>
+    <meta name="description" content="Your safety toolkit for a night out. Emergency contacts, fake call, buddy system, rideshare links, and safety tips." />
+    <meta property="og:title" content="Safe Night — Late Night Vibes" />
     <meta property="og:description" content="Stay safe on your night out. Emergency contacts, fake call, buddy system, and more." />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="https://late-night-vibes-seattle.vercel.app/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Late Night Vibes Seattle — Safe Night toolkit" />
+    <meta property="og:image:alt" content="Late Night Vibes — Safe Night toolkit" />
     <link rel="icon" type="image/png" href="favicon.png" />
     <link rel="apple-touch-icon" href="favicon-512.png" />
     <link rel="apple-touch-startup-image" href="splash/splash-1170x2532.png" media="(device-width: 390px) and (device-height: 844px)" />
@@ -129,7 +129,7 @@
         </div>
         <a href="tel:+12065222222" class="safety-cab-btn">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2A19.79 19.79 0 013.07 4.18 2 2 0 015 2h3a2 2 0 012 1.72 11.6 11.6 0 00.59 3.63 2 2 0 01-.45 2.11L8.09 11.5a16 16 0 006.41 6.41l2.04-2.04a2 2 0 012.11-.45 11.6 11.6 0 003.63.59 2 2 0 011.72 2z"/></svg>
-          Call a Cab (Seattle Yellow Cab)
+          Call a Cab
         </a>
         <div id="walkingTips" class="safety-walking-tips">
           <button type="button" class="safety-walking-tips-header" aria-expanded="false">
@@ -218,7 +218,7 @@
 
     <script src="config.js"></script>
     <script src="lib/cities.js"></script>
-    <script>(function(){var city=window.LNVCities?window.LNVCities.getCurrentCity():null;if(!city)return;var r=function(s){return s.replace(/Seattle/g,city.name);};document.title=r(document.title);var metas=[['meta[name="description"]','content'],['meta[property="og:title"]','content'],['meta[property="og:description"]','content'],['meta[property="og:image:alt"]','content']];metas.forEach(function(m){var el=document.querySelector(m[0]);if(el)el.setAttribute(m[1],r(el.getAttribute(m[1])));});})();</script>
+    <script>(function(){var city=window.LNVCities?window.LNVCities.getCurrentCity():null;if(!city)return;var cn=city.name;document.title="Safe Night \u2014 Late Night Vibes "+cn;var metas={"description":"Your safety toolkit for a night out in "+cn+". Emergency contacts, fake call, buddy system, rideshare links, and safety tips.","og:title":"Safe Night \u2014 Late Night Vibes "+cn,"og:image:alt":"Late Night Vibes "+cn+" \u2014 Safe Night toolkit"};Object.keys(metas).forEach(function(k){var sel=k.indexOf("og:")===0?'meta[property="'+k+'"]':'meta[name="'+k+'"]';var el=document.querySelector(sel);if(el)el.setAttribute("content",metas[k]);});})();</script>
     <script src="lib/core.js"></script>
     <script src="lib/shared-nav.js"></script>
     <script>LNVNav.init({ page: "safety" });</script>
