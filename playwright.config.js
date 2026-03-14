@@ -2,7 +2,7 @@
 const { defineConfig, devices } = require("@playwright/test");
 
 /**
- * Playwright config for Late Night Vibes Seattle.
+ * Playwright config for Late Night Vibes.
  * Static site served via `serve`; no build step.
  * @see https://playwright.dev/docs/test-configuration
  */
