@@ -4,15 +4,15 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#0a0c12" />
-    <title>Night Replay — Late Night Vibes Seattle</title>
-    <meta name="description" content="Relive your Seattle night out. See your venue timeline, vibe cloud, stats, and shareable Night Card from your crawl history." />
-    <meta property="og:title" content="Night Replay — Late Night Vibes Seattle" />
+    <title>Night Replay — Late Night Vibes</title>
+    <meta name="description" content="Relive your night out. See your venue timeline, vibe cloud, stats, and shareable Night Card from your crawl history." />
+    <meta property="og:title" content="Night Replay — Late Night Vibes" />
     <meta property="og:description" content="Relive your night out with a post-night summary, timeline, and shareable Night Card." />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="https://late-night-vibes-seattle.vercel.app/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Late Night Vibes Seattle — Night Replay summary" />
+    <meta property="og:image:alt" content="Late Night Vibes — Night Replay summary" />
     <link rel="icon" type="image/png" href="favicon.png" />
     <link rel="apple-touch-icon" href="favicon-512.png" />
     <link rel="apple-touch-startup-image" href="splash/splash-1170x2532.png" media="(device-width: 390px) and (device-height: 844px)" />
@@ -93,7 +93,7 @@
 
     <script src="config.js"></script>
     <script src="lib/cities.js"></script>
-    <script>(function(){var city=window.LNVCities?window.LNVCities.getCurrentCity():null;if(!city)return;var r=function(s){return s.replace(/Seattle/g,city.name);};document.title=r(document.title);var metas=[['meta[name="description"]','content'],['meta[property="og:title"]','content'],['meta[property="og:description"]','content'],['meta[property="og:image:alt"]','content']];metas.forEach(function(m){var el=document.querySelector(m[0]);if(el)el.setAttribute(m[1],r(el.getAttribute(m[1])));});var h1=document.querySelector('h1.sr-only');if(h1)h1.textContent=r(h1.textContent);})();</script>
+    <script>(function(){var city=window.LNVCities?window.LNVCities.getCurrentCity():null;if(!city)return;var cn=city.name;document.title="Night Replay \u2014 Late Night Vibes "+cn;var metas={"description":"Relive your "+cn+" night out. See your venue timeline, vibe cloud, stats, and shareable Night Card from your crawl history.","og:title":"Night Replay \u2014 Late Night Vibes "+cn,"og:image:alt":"Late Night Vibes "+cn+" \u2014 Night Replay summary"};Object.keys(metas).forEach(function(k){var sel=k.indexOf("og:")===0?'meta[property="'+k+'"]':'meta[name="'+k+'"]';var el=document.querySelector(sel);if(el)el.setAttribute("content",metas[k]);});})();</script>
     <script src="lib/core.js"></script>
     <script src="lib/shared-nav.js"></script>
     <script>LNVNav.init({ page: "replay" });</script>
