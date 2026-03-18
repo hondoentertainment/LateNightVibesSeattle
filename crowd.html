@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0a0c12" />
+    <title>Crowd Predictions — Late Night Vibes</title>
+    <meta name="description" content="See predicted crowd levels and wait times for Seattle nightlife venues — find the best time to visit." />
+    <meta property="og:title" content="Crowd Predictions — Late Night Vibes" />
+    <meta property="og:description" content="See predicted crowd levels and wait times for Seattle nightlife venues." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://late-night-vibes-seattle.vercel.app/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Late Night Vibes — crowd predictions" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="apple-touch-icon" href="favicon-512.png" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* ─── Crowd page styles ─── */
+      .crowd-header {
+        padding: 20px 16px 16px;
+        border-bottom: 1px solid #1c2232;
+        background: #0e1118;
+      }
+      @media (min-width: 860px) {
+        .crowd-header { padding: 28px 32px 20px; }
+      }
+      .crowd-title {
+        font-size: 20px;
+        font-weight: 700;
+        margin: 0 0 6px;
+      }
+      .crowd-desc {
+        font-size: 13px;
+        color: #93a1c6;
+        margin: 0 0 16px;
+        line-height: 1.5;
+      }
+      .crowd-search {
+        display: flex;
+        gap: 10px;
+      }
+      .crowd-search select {
+        flex: 1;
+        background: #111827;
+        color: #e8e8e8;
+        border: 1px solid #2a334d;
+        padding: 12px 14px;
+        border-radius: 12px;
+        font-size: 14px;
+        min-height: 48px;
+      }
+
+      .crowd-content {
+        padding: 16px;
+        padding-bottom: calc(var(--bottom-nav-offset) + 16px);
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      @media (min-width: 860px) {
+        .crowd-content { padding: 24px 32px; }
+      }
+
+      /* ─── Current prediction card ─── */
+      .crowd-current {
+        background: #101520;
+        border: 1px solid #1c2232;
+        border-radius: 14px;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+      .crowd-current-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+      }
+      .crowd-current-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: #e8e8e8;
+      }
+      .live-badge {
+        background: #2bff86;
+        color: #0b0d14;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 3px 8px;
+        border-radius: 8px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      .crowd-level-display {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 12px;
+      }
+      .crowd-level-number {
+        font-size: 36px;
+        font-weight: 700;
+        color: #2bff86;
+      }
+      .crowd-level-info {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .crowd-level-label {
+        font-size: 18px;
+        font-weight: 600;
+        color: #e8e8e8;
+      }
+      .crowd-wait-label {
+        font-size: 13px;
+        color: #93a1c6;
+      }
+      .crowd-best-time {
+        font-size: 13px;
+        color: #93a1c6;
+        margin-top: 8px;
+        padding-top: 12px;
+        border-top: 1px solid #1c2232;
+      }
+      .crowd-best-time strong {
+        color: #2bff86;
+      }
+
+      /* ─── Popular times chart ─── */
+      .crowd-chart-section {
+        background: #101520;
+        border: 1px solid #1c2232;
+        border-radius: 14px;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+      .crowd-chart-title {
+        font-size: 15px;
+        font-weight: 600;
+        color: #e8e8e8;
+        margin: 0 0 16px;
+      }
+      .crowd-chart {
+        display: flex;
+        align-items: flex-end;
+        gap: 6px;
+        height: 120px;
+      }
+      .crowd-bar-wrapper {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100%;
+        justify-content: flex-end;
+      }
+      .crowd-bar {
+        width: 100%;
+        min-width: 16px;
+        max-width: 40px;
+        border-radius: 6px 6px 2px 2px;
+        transition: height 0.3s ease, background 0.3s ease;
+      }
+      .crowd-bar.level-1 { background: #1a3a2a; height: 20%; }
+      .crowd-bar.level-2 { background: #1a4a3a; height: 40%; }
+      .crowd-bar.level-3 { background: #2bff86; height: 60%; opacity: 0.6; }
+      .crowd-bar.level-4 { background: #ff9f43; height: 80%; }
+      .crowd-bar.level-5 { background: #ff5b5b; height: 100%; }
+      .crowd-bar.current-hour {
+        box-shadow: 0 0 8px rgba(43, 255, 134, 0.4);
+        outline: 2px solid #2bff86;
+        outline-offset: 1px;
+      }
+      .crowd-bar-label {
+        font-size: 10px;
+        color: #7a8aaa;
+        margin-top: 6px;
+        white-space: nowrap;
+      }
+
+      /* ─── Report section ─── */
+      .crowd-report-section {
+        background: #101520;
+        border: 1px solid #1c2232;
+        border-radius: 14px;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+      .crowd-report-title {
+        font-size: 15px;
+        font-weight: 600;
+        color: #e8e8e8;
+        margin: 0 0 12px;
+      }
+      .crowd-report-buttons {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .crowd-report-btn {
+        flex: 1;
+        min-width: 60px;
+        padding: 10px 8px;
+        border: 1px solid #2a334d;
+        border-radius: 10px;
+        background: #161d2f;
+        color: #e8e8e8;
+        font-size: 12px;
+        font-weight: 500;
+        cursor: pointer;
+        text-align: center;
+        transition: background 0.2s, border-color 0.2s;
+        min-height: 44px;
+      }
+      .crowd-report-btn:hover {
+        background: #1e2740;
+        border-color: #3a4a6d;
+      }
+      .crowd-report-btn:active,
+      .crowd-report-btn.selected {
+        background: #2bff86;
+        color: #0b0d14;
+        border-color: #2bff86;
+        font-weight: 700;
+      }
+      .crowd-report-emoji {
+        display: block;
+        font-size: 20px;
+        margin-bottom: 4px;
+      }
+
+      /* ─── Quiet venues section ─── */
+      .crowd-quiet-section {
+        background: #101520;
+        border: 1px solid #1c2232;
+        border-radius: 14px;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+      .crowd-quiet-title {
+        font-size: 15px;
+        font-weight: 600;
+        color: #e8e8e8;
+        margin: 0 0 12px;
+      }
+      .crowd-quiet-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .crowd-quiet-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 0;
+        border-bottom: 1px solid #1c2232;
+      }
+      .crowd-quiet-item:last-child {
+        border-bottom: none;
+      }
+      .crowd-quiet-name {
+        font-size: 14px;
+        color: #e8e8e8;
+      }
+      .crowd-quiet-badge {
+        font-size: 12px;
+        padding: 3px 10px;
+        border-radius: 8px;
+        font-weight: 500;
+      }
+      .crowd-quiet-badge.level-1 { background: #1a3a2a; color: #2bff86; }
+      .crowd-quiet-badge.level-2 { background: #1a4a3a; color: #6adfaa; }
+      .crowd-quiet-badge.level-3 { background: #2a3320; color: #bfdf6a; }
+
+      /* ─── Empty state ─── */
+      .crowd-empty {
+        text-align: center;
+        padding: 40px 20px;
+        color: #7a8aaa;
+      }
+      .crowd-empty-icon {
+        font-size: 40px;
+        margin-bottom: 12px;
+        opacity: 0.5;
+      }
+      .crowd-empty p {
+        margin: 0;
+        font-size: 14px;
+        line-height: 1.5;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <header class="topbar" role="banner">
+      <div class="brand">
+        <img src="lnv-logo.png" alt="Late Night Vibes" class="header-logo" />
+      </div>
+      <nav class="top-actions desktop-only" aria-label="Main navigation">
+        <a href="index.html" class="nav-pill">Browse Venues</a>
+        <a href="recommend.html" class="nav-pill">Recommendations</a>
+        <a href="planner.html" class="nav-pill">Night Plan</a>
+        <a href="index.html?view=saved" class="nav-pill">Saved</a>
+        <a href="admin.html" class="nav-pill nav-admin">Admin</a>
+      </nav>
+    </header>
+
+    <div class="crowd-header" id="main">
+      <h1 class="crowd-title">Crowd Predictions</h1>
+      <p class="crowd-desc">See how busy venues are predicted to be tonight — and find the best time to go.</p>
+      <div class="crowd-search">
+        <select id="venueSelect" aria-label="Select a venue">
+          <option value="">Select a venue...</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="crowd-content">
+      <!-- Current prediction -->
+      <div id="currentPrediction" class="crowd-current" style="display:none;" aria-live="polite"></div>
+
+      <!-- Popular times chart -->
+      <div id="chartSection" class="crowd-chart-section" style="display:none;">
+        <h2 class="crowd-chart-title">Popular Times</h2>
+        <div id="crowdChart" class="crowd-chart" role="img" aria-label="Bar chart showing predicted busyness by hour"></div>
+      </div>
+
+      <!-- Report crowd level -->
+      <div id="reportSection" class="crowd-report-section" style="display:none;">
+        <h2 class="crowd-report-title">How busy is it?</h2>
+        <div class="crowd-report-buttons" id="reportButtons"></div>
+      </div>
+
+      <!-- Quiet venues now -->
+      <div id="quietSection" class="crowd-quiet-section">
+        <h2 class="crowd-quiet-title">Quiet Right Now</h2>
+        <ul id="quietList" class="crowd-quiet-list" aria-live="polite"></ul>
+      </div>
+
+      <!-- Empty state when no venue selected -->
+      <div id="emptyState" class="crowd-empty">
+        <div class="crowd-empty-icon" aria-hidden="true">&#x1F4CA;</div>
+        <p>Select a venue above to see crowd predictions and the best time to visit.</p>
+      </div>
+    </div>
+
+    <!-- Bottom nav (mobile) -->
+    <nav class="bottom-nav mobile-only" aria-label="Main navigation">
+      <a href="index.html" class="bottom-nav-item" aria-label="Browse venues">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        <span>Browse</span>
+      </a>
+      <a href="recommend.html" class="bottom-nav-item" aria-label="For You recommendations">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01z"/></svg>
+        <span>For You</span>
+      </a>
+      <a href="planner.html" class="bottom-nav-item" aria-label="Night plan builder">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/><path d="M12 6v6l4 2"/></svg>
+        <span>Plan</span>
+      </a>
+      <a href="index.html?view=saved" class="bottom-nav-item" id="savedNavItem" aria-label="Saved venues">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        <span>Saved</span>
+      </a>
+      <a href="crowd.html" class="bottom-nav-item active" aria-current="page" aria-label="Crowd predictions">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        <span>Crowds</span>
+      </a>
+    </nav>
+
+    <script src="config.js"></script>
+    <script src="lib/cities.js"></script>
+    <script src="lib/core.js"></script>
+    <script src="lib/shared-nav.js"></script>
+    <script>LNVNav.init({ page: "crowd" });</script>
+    <script src="lib/mobile-haptics.js"></script>
+    <script>
+      if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(function () {});
+    </script>
+    <script src="lib/crowd-predictor.js"></script>
+    <script src="crowd.js"></script>
+  </body>
+</html>

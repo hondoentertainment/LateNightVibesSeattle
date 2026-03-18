@@ -1,0 +1,332 @@
+/* ─── Vibe Heatmap page styles ─── */
+
+.heatmap-header {
+  padding: 20px 16px 16px;
+  border-bottom: 1px solid #1c2232;
+  background: #0e1118;
+}
+
+@media (min-width: 860px) {
+  .heatmap-header { padding: 28px 32px 20px; }
+}
+
+.heatmap-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 6px;
+}
+
+.heatmap-subtitle {
+  font-size: 13px;
+  color: #93a1c6;
+  margin: 0 0 4px;
+  line-height: 1.5;
+}
+
+.heatmap-meta {
+  font-size: 11px;
+  color: #6b7a9a;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.heatmap-meta .pulse-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #2bff86;
+  animation: heatPulse 2s ease-in-out infinite;
+}
+
+@keyframes heatPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* ─── Hero: Hottest Right Now ─── */
+.heatmap-hero {
+  padding: 16px;
+  background: linear-gradient(135deg, rgba(255, 90, 50, 0.08) 0%, rgba(255, 160, 50, 0.04) 100%);
+  border-bottom: 1px solid #1c2232;
+}
+
+@media (min-width: 860px) {
+  .heatmap-hero { padding: 20px 32px; }
+}
+
+.heatmap-hero-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #ff6b35;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.heatmap-hero-cards {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 4px;
+}
+
+.heatmap-hero-card {
+  flex: 0 0 auto;
+  min-width: 200px;
+  background: rgba(255, 90, 50, 0.1);
+  border: 1px solid rgba(255, 90, 50, 0.2);
+  border-radius: 14px;
+  padding: 14px 16px;
+  scroll-snap-align: start;
+}
+
+.heatmap-hero-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 4px;
+}
+
+.heatmap-hero-score {
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.heatmap-hero-details {
+  font-size: 11px;
+  color: #b8c6e6;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.heatmap-hero-details span {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+/* ─── Neighborhood grid ─── */
+.heatmap-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  padding: 16px;
+  padding-bottom: calc(var(--bottom-nav-offset, 80px) + 16px);
+}
+
+@media (min-width: 520px) {
+  .heatmap-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 860px) {
+  .heatmap-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    padding: 20px 32px 48px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .heatmap-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* ─── Heat card ─── */
+.heat-card {
+  background: #101520;
+  border: 1px solid #1f2638;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: border-color 0.2s ease, transform 0.1s ease;
+}
+
+.heat-card:hover {
+  border-color: #2a354d;
+}
+
+.heat-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 16px 16px 12px;
+}
+
+.heat-card-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.heat-card-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: #e8e8e8;
+  margin-bottom: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.heat-card-vibe {
+  font-size: 11px;
+  color: #8fa0c2;
+}
+
+.heat-card-score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+  margin-left: 12px;
+}
+
+.heat-score-value {
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.heat-score-label {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #6b7a9a;
+}
+
+/* ─── Heat bar ─── */
+.heat-bar-container {
+  padding: 0 16px 12px;
+}
+
+.heat-bar {
+  height: 4px;
+  border-radius: 2px;
+  background: #1a2030;
+  overflow: hidden;
+}
+
+.heat-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.6s ease;
+}
+
+/* ─── Heat card details row ─── */
+.heat-card-details {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 16px;
+  border-top: 1px solid #1a2030;
+  font-size: 11px;
+  color: #8fa0c2;
+}
+
+.heat-card-detail {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.heat-trend {
+  font-weight: 700;
+}
+
+.heat-trend-up { color: #2bff86; }
+.heat-trend-rising { color: #86ffa6; }
+.heat-trend-steady { color: #8fa0c2; }
+.heat-trend-cooling { color: #ffa040; }
+.heat-trend-down { color: #ff5a5a; }
+
+/* ─── Heat color classes ─── */
+.heat-color-hot { color: #ff4040; }
+.heat-color-warm { color: #ff8c00; }
+.heat-color-medium { color: #ffc040; }
+.heat-color-cool { color: #40a0ff; }
+.heat-color-cold { color: #6080b0; }
+
+.heat-bar-hot { background: linear-gradient(90deg, #ff4040, #ff6040); }
+.heat-bar-warm { background: linear-gradient(90deg, #ff8c00, #ffa040); }
+.heat-bar-medium { background: linear-gradient(90deg, #ffc040, #ffe060); }
+.heat-bar-cool { background: linear-gradient(90deg, #40a0ff, #60c0ff); }
+.heat-bar-cold { background: linear-gradient(90deg, #4060a0, #6080b0); }
+
+/* ─── Empty state ─── */
+.heatmap-empty {
+  grid-column: 1 / -1;
+  padding: 48px 24px;
+  text-align: center;
+  background: #101520;
+  border: 1px dashed #2a334d;
+  border-radius: 16px;
+  color: #93a1c6;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.heatmap-empty-icon {
+  font-size: 32px;
+  margin-bottom: 12px;
+}
+
+.heatmap-empty-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #e8e8e8;
+  margin-bottom: 8px;
+}
+
+/* ─── Mobile UX polish ─── */
+@media (max-width: 859px) {
+  .heatmap-header {
+    padding: 12px;
+    position: sticky;
+    top: 57px;
+    z-index: 8;
+    background: rgba(14, 17, 24, 0.97);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .heatmap-title {
+    font-size: 17px;
+    font-weight: 800;
+  }
+
+  .heatmap-subtitle {
+    font-size: 12px;
+  }
+
+  .heatmap-hero {
+    padding: 12px;
+  }
+
+  .heatmap-grid {
+    padding: 8px 12px;
+    gap: 10px;
+    padding-bottom: calc(var(--bottom-nav-offset, 80px) + 8px);
+  }
+
+  .heat-card {
+    border-radius: 14px;
+    border-width: 1.5px;
+  }
+
+  .heat-card:active {
+    transform: scale(0.98);
+    transition: transform 0.08s ease;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heatmap-meta .pulse-dot { animation: none; }
+  .heat-bar-fill { transition: none; }
+}

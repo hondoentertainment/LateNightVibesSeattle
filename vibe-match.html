@@ -1,0 +1,590 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0a0c12" />
+    <title>Vibe Match — Late Night Vibes</title>
+    <meta name="description" content="Compare vibe preferences with friends and find the perfect venues that everyone will love." />
+    <meta property="og:title" content="Vibe Match — Late Night Vibes" />
+    <meta property="og:description" content="Compare vibes with friends and discover where your nightlife tastes overlap." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://late-night-vibes-seattle.vercel.app/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Late Night Vibes — Vibe Match with friends" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="apple-touch-icon" href="favicon-512.png" />
+    <link rel="apple-touch-startup-image" href="splash/splash-1170x2532.png" media="(device-width: 390px) and (device-height: 844px)" />
+    <link rel="apple-touch-startup-image" href="splash/splash-1290x2796.png" media="(device-width: 430px) and (device-height: 932px)" />
+    <link rel="apple-touch-startup-image" href="splash/splash-1242x2688.png" media="(device-width: 414px) and (device-height: 896px)" />
+    <link rel="apple-touch-startup-image" href="splash/splash-1284x2778.png" media="(device-width: 428px) and (device-height: 926px)" />
+    <link rel="apple-touch-startup-image" href="splash/splash-750x1334.png" media="(device-width: 375px) and (device-height: 667px)" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* ─── Vibe Match page styles ─── */
+      .vm-page {
+        max-width: 680px;
+        margin: 0 auto;
+        padding: 16px;
+        padding-bottom: calc(var(--bottom-nav-offset) + 24px);
+      }
+      .vm-title {
+        font-size: 22px;
+        font-weight: 800;
+        color: var(--color-text);
+        margin: 0 0 4px 0;
+      }
+      .vm-subtitle {
+        font-size: 13px;
+        color: var(--color-text-secondary);
+        line-height: 1.5;
+        margin: 0 0 20px 0;
+      }
+
+      /* ─── Profile panels ─── */
+      .vm-profiles {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-bottom: 20px;
+      }
+      @media (max-width: 520px) {
+        .vm-profiles {
+          grid-template-columns: 1fr;
+        }
+      }
+      .vm-profile-card {
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: 14px;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .vm-profile-label {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--color-text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+      .vm-profile-card input[type="text"] {
+        width: 100%;
+        padding: 10px 12px;
+        background: var(--color-bg);
+        color: var(--color-text);
+        border: 1px solid var(--color-border);
+        border-radius: 10px;
+        font-size: 14px;
+        outline: none;
+        transition: border-color 0.15s ease;
+      }
+      .vm-profile-card input[type="text"]:focus {
+        border-color: var(--color-accent);
+      }
+      .vm-profile-card input[type="text"]::placeholder {
+        color: var(--color-text-muted);
+      }
+
+      /* Tag input area */
+      .vm-tag-section {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .vm-tag-section-label {
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--color-text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+      }
+      .vm-tag-input-row {
+        display: flex;
+        gap: 6px;
+      }
+      .vm-tag-input-row input {
+        flex: 1;
+        padding: 8px 10px;
+        background: var(--color-bg);
+        color: var(--color-text);
+        border: 1px solid var(--color-border);
+        border-radius: 8px;
+        font-size: 13px;
+        outline: none;
+      }
+      .vm-tag-input-row input:focus {
+        border-color: var(--color-accent);
+      }
+      .vm-tag-input-row input::placeholder {
+        color: var(--color-text-muted);
+      }
+      .vm-tag-add-btn {
+        padding: 8px 12px;
+        background: var(--color-accent);
+        color: #000;
+        border: none;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+      .vm-tags-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        min-height: 24px;
+      }
+      .vm-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 4px 10px;
+        background: rgba(43, 255, 134, 0.1);
+        color: var(--color-accent);
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 500;
+      }
+      .vm-tag-remove {
+        cursor: pointer;
+        opacity: 0.7;
+        font-size: 14px;
+        line-height: 1;
+      }
+      .vm-tag-remove:hover {
+        opacity: 1;
+      }
+
+      /* ─── Compare button ─── */
+      .vm-compare-btn {
+        width: 100%;
+        padding: 14px;
+        background: var(--color-accent);
+        color: #000;
+        border: none;
+        border-radius: 14px;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: opacity 0.15s ease;
+        margin-bottom: 24px;
+      }
+      .vm-compare-btn:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+
+      /* ─── Results ─── */
+      .vm-results {
+        display: none;
+      }
+      .vm-results.active {
+        display: block;
+        animation: vmFadeIn 0.3s ease;
+      }
+      @keyframes vmFadeIn {
+        from { opacity: 0; transform: translateY(8px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      /* Score ring */
+      .vm-score-section {
+        text-align: center;
+        margin-bottom: 24px;
+      }
+      .vm-score-ring {
+        position: relative;
+        width: 140px;
+        height: 140px;
+        margin: 0 auto 12px;
+      }
+      .vm-score-ring svg {
+        transform: rotate(-90deg);
+      }
+      .vm-score-ring .ring-bg {
+        stroke: var(--color-border);
+      }
+      .vm-score-ring .ring-fill {
+        stroke: var(--color-accent);
+        transition: stroke-dashoffset 0.8s ease;
+      }
+      .vm-score-value {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 36px;
+        font-weight: 800;
+        color: var(--color-text);
+      }
+      .vm-score-label {
+        font-size: 14px;
+        color: var(--color-text-secondary);
+        font-weight: 500;
+      }
+
+      /* Breakdown bars */
+      .vm-breakdown {
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: 14px;
+        padding: 16px;
+        margin-bottom: 16px;
+      }
+      .vm-breakdown-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--color-text);
+        margin: 0 0 12px 0;
+      }
+      .vm-breakdown-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+      }
+      .vm-breakdown-row:last-child {
+        margin-bottom: 0;
+      }
+      .vm-breakdown-label {
+        width: 100px;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--color-text-secondary);
+        flex-shrink: 0;
+      }
+      .vm-breakdown-bar {
+        flex: 1;
+        height: 8px;
+        background: var(--color-border);
+        border-radius: 4px;
+        overflow: hidden;
+      }
+      .vm-breakdown-bar-fill {
+        height: 100%;
+        background: var(--color-accent);
+        border-radius: 4px;
+        transition: width 0.6s ease;
+      }
+      .vm-breakdown-pct {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--color-text);
+        width: 36px;
+        text-align: right;
+        flex-shrink: 0;
+      }
+
+      /* Shared / Conflicts / Unique sections */
+      .vm-section {
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: 14px;
+        padding: 16px;
+        margin-bottom: 16px;
+      }
+      .vm-section-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--color-text);
+        margin: 0 0 10px 0;
+      }
+      .vm-pill-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .vm-pill {
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 500;
+      }
+      .vm-pill-shared {
+        background: rgba(43, 255, 134, 0.15);
+        color: #2bff86;
+      }
+      .vm-pill-conflict {
+        background: rgba(255, 91, 91, 0.15);
+        color: #ff5b5b;
+      }
+      .vm-pill-unique-a {
+        background: rgba(100, 149, 237, 0.15);
+        color: #6495ed;
+      }
+      .vm-pill-unique-b {
+        background: rgba(255, 165, 0, 0.15);
+        color: #ffa500;
+      }
+      .vm-empty-note {
+        font-size: 12px;
+        color: var(--color-text-muted);
+        font-style: italic;
+      }
+
+      /* Compromise venues */
+      .vm-venue-card {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px;
+        background: var(--color-bg);
+        border: 1px solid var(--color-border);
+        border-radius: 12px;
+        margin-bottom: 8px;
+      }
+      .vm-venue-card:last-child {
+        margin-bottom: 0;
+      }
+      .vm-venue-rank {
+        width: 28px;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--color-accent);
+        color: #000;
+        border-radius: 50%;
+        font-size: 12px;
+        font-weight: 700;
+        flex-shrink: 0;
+      }
+      .vm-venue-info {
+        flex: 1;
+        min-width: 0;
+      }
+      .vm-venue-name {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--color-text);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .vm-venue-meta {
+        font-size: 11px;
+        color: var(--color-text-muted);
+        margin-top: 2px;
+      }
+      .vm-venue-score {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--color-accent);
+        flex-shrink: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <header class="topbar" role="banner">
+      <div class="brand">
+        <img src="lnv-logo.png" alt="Late Night Vibes" class="header-logo" />
+      </div>
+      <nav class="top-actions desktop-only" aria-label="Main navigation">
+        <a href="index.html" class="nav-pill">Browse Venues</a>
+        <a href="recommend.html" class="nav-pill">Recommendations</a>
+        <a href="planner.html" class="nav-pill">Night Plan</a>
+        <a href="neighborhoods.html" class="nav-pill">Compare</a>
+        <a href="index.html?view=saved" class="nav-pill">Saved</a>
+      </nav>
+    </header>
+
+    <main id="main" class="vm-page" aria-live="polite">
+      <h1 class="sr-only">Vibe Match with Friends</h1>
+      <div class="vm-title">Vibe Match</div>
+      <p class="vm-subtitle">Compare your nightlife vibes with a friend and find spots you'll both love</p>
+
+      <!-- Profile panels -->
+      <div class="vm-profiles">
+        <!-- Profile A -->
+        <div class="vm-profile-card" id="profileCardA">
+          <div class="vm-profile-label">Your Profile</div>
+          <input type="text" id="nameA" placeholder="Your name" maxlength="30" />
+
+          <div class="vm-tag-section">
+            <div class="vm-tag-section-label">Vibe Preferences</div>
+            <div class="vm-tag-input-row">
+              <input type="text" id="vibeInputA" placeholder="e.g. chill, rooftop" />
+              <button type="button" class="vm-tag-add-btn" data-target="vibesA">Add</button>
+            </div>
+            <div class="vm-tags-list" id="vibesA"></div>
+          </div>
+
+          <div class="vm-tag-section">
+            <div class="vm-tag-section-label">Favorite Categories</div>
+            <div class="vm-tag-input-row">
+              <input type="text" id="catInputA" placeholder="e.g. cocktail bar" />
+              <button type="button" class="vm-tag-add-btn" data-target="catsA">Add</button>
+            </div>
+            <div class="vm-tags-list" id="catsA"></div>
+          </div>
+
+          <div class="vm-tag-section">
+            <div class="vm-tag-section-label">Preferred Neighborhoods</div>
+            <div class="vm-tag-input-row">
+              <input type="text" id="hoodInputA" placeholder="e.g. Capitol Hill" />
+              <button type="button" class="vm-tag-add-btn" data-target="hoodsA">Add</button>
+            </div>
+            <div class="vm-tags-list" id="hoodsA"></div>
+          </div>
+
+          <div class="vm-tag-section">
+            <div class="vm-tag-section-label">Visited Venues</div>
+            <div class="vm-tag-input-row">
+              <input type="text" id="venueInputA" placeholder="e.g. The Owl & Thistle" />
+              <button type="button" class="vm-tag-add-btn" data-target="venuesA">Add</button>
+            </div>
+            <div class="vm-tags-list" id="venuesA"></div>
+          </div>
+        </div>
+
+        <!-- Profile B -->
+        <div class="vm-profile-card" id="profileCardB">
+          <div class="vm-profile-label">Friend's Profile</div>
+          <input type="text" id="nameB" placeholder="Friend's name" maxlength="30" />
+
+          <div class="vm-tag-section">
+            <div class="vm-tag-section-label">Vibe Preferences</div>
+            <div class="vm-tag-input-row">
+              <input type="text" id="vibeInputB" placeholder="e.g. loud, dance" />
+              <button type="button" class="vm-tag-add-btn" data-target="vibesB">Add</button>
+            </div>
+            <div class="vm-tags-list" id="vibesB"></div>
+          </div>
+
+          <div class="vm-tag-section">
+            <div class="vm-tag-section-label">Favorite Categories</div>
+            <div class="vm-tag-input-row">
+              <input type="text" id="catInputB" placeholder="e.g. nightclub" />
+              <button type="button" class="vm-tag-add-btn" data-target="catsB">Add</button>
+            </div>
+            <div class="vm-tags-list" id="catsB"></div>
+          </div>
+
+          <div class="vm-tag-section">
+            <div class="vm-tag-section-label">Preferred Neighborhoods</div>
+            <div class="vm-tag-input-row">
+              <input type="text" id="hoodInputB" placeholder="e.g. Belltown" />
+              <button type="button" class="vm-tag-add-btn" data-target="hoodsB">Add</button>
+            </div>
+            <div class="vm-tags-list" id="hoodsB"></div>
+          </div>
+
+          <div class="vm-tag-section">
+            <div class="vm-tag-section-label">Visited Venues</div>
+            <div class="vm-tag-input-row">
+              <input type="text" id="venueInputB" placeholder="e.g. Rhein Haus" />
+              <button type="button" class="vm-tag-add-btn" data-target="venuesB">Add</button>
+            </div>
+            <div class="vm-tags-list" id="venuesB"></div>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" id="btnCompare" class="vm-compare-btn">Compare Vibes</button>
+
+      <!-- Results area -->
+      <div id="vmResults" class="vm-results">
+        <!-- Score ring -->
+        <div class="vm-score-section">
+          <div class="vm-score-ring">
+            <svg width="140" height="140" viewBox="0 0 140 140">
+              <circle class="ring-bg" cx="70" cy="70" r="60" fill="none" stroke-width="10"/>
+              <circle class="ring-fill" id="scoreRing" cx="70" cy="70" r="60" fill="none" stroke-width="10"
+                stroke-dasharray="377" stroke-dashoffset="377" stroke-linecap="round"/>
+            </svg>
+            <div class="vm-score-value" id="scoreValue">0</div>
+          </div>
+          <div class="vm-score-label" id="scoreLabel">Compatibility Score</div>
+        </div>
+
+        <!-- Breakdown -->
+        <div class="vm-breakdown" id="breakdownSection">
+          <div class="vm-breakdown-title">Score Breakdown</div>
+          <div id="breakdownBars"></div>
+        </div>
+
+        <!-- Shared vibes -->
+        <div class="vm-section" id="sharedSection">
+          <div class="vm-section-title">Shared Vibes</div>
+          <div class="vm-pill-list" id="sharedVibes"></div>
+        </div>
+
+        <!-- Conflicts -->
+        <div class="vm-section" id="conflictsSection">
+          <div class="vm-section-title">Conflicting Vibes</div>
+          <div class="vm-pill-list" id="conflictVibes"></div>
+        </div>
+
+        <!-- Unique to each -->
+        <div class="vm-section" id="uniqueSection">
+          <div class="vm-section-title" id="uniqueTitle">Unique Preferences</div>
+          <div id="uniqueVibes"></div>
+        </div>
+
+        <!-- Compromise venues -->
+        <div class="vm-section" id="compromiseSection">
+          <div class="vm-section-title">Suggested Compromise Venues</div>
+          <div id="compromiseVenues"></div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Bottom nav (mobile) -->
+    <nav class="bottom-nav mobile-only" aria-label="Main navigation">
+      <a href="index.html" class="bottom-nav-item" aria-label="Browse venues">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        <span>Browse</span>
+      </a>
+      <a href="recommend.html" class="bottom-nav-item" aria-label="For You recommendations">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01z"/></svg>
+        <span>For You</span>
+      </a>
+      <a href="planner.html" class="bottom-nav-item" aria-label="Night plan builder">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/><path d="M12 6v6l4 2"/></svg>
+        <span>Plan</span>
+      </a>
+      <a href="index.html?view=saved" class="bottom-nav-item" id="savedNavItem" aria-label="Saved venues">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        <span>Saved</span>
+      </a>
+      <a href="neighborhoods.html" class="bottom-nav-item" aria-label="Compare neighborhoods">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span>Compare</span>
+      </a>
+    </nav>
+
+    <script src="config.js"></script>
+    <script src="lib/cities.js"></script>
+    <script>(function(){var city=window.LNVCities?window.LNVCities.getCurrentCity():null;if(!city)return;var cn=city.name;document.title="Vibe Match \u2014 Late Night Vibes "+cn;var metas={"og:title":"Vibe Match \u2014 Late Night Vibes "+cn,"og:image:alt":"Late Night Vibes "+cn+" \u2014 Vibe Match with friends"};Object.keys(metas).forEach(function(k){var el=document.querySelector('meta[property="'+k+'"]');if(el)el.setAttribute("content",metas[k]);});})();</script>
+    <script src="lib/core.js"></script>
+    <script src="lib/vibe-match-friends.js"></script>
+    <script src="lib/shared-nav.js"></script>
+    <script>LNVNav.init({ page: "vibe-match" });</script>
+    <script src="lib/mobile-haptics.js"></script>
+    <script>
+      if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(function () {});
+    </script>
+    <script>
+      (function () {
+        const cfg = window.LNV_CONFIG || {};
+        const domain = cfg.plausibleDomain || "";
+        if (!domain) return;
+        const s = document.createElement("script");
+        s.defer = true;
+        s.dataset.domain = domain;
+        s.src = "https://plausible.io/js/script.js";
+        document.head.appendChild(s);
+      })();
+    </script>
+    <script src="vibe-match.js"></script>
+  </body>
+</html>

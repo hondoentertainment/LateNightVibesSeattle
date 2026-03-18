@@ -1,0 +1,537 @@
+/* ─── Morning Recap page styles ─── */
+
+/* ─── Page layout ─── */
+.recap-main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 24px 16px 100px;
+}
+
+.recap-page-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--color-text, #e8e8e8);
+  margin: 0 0 4px;
+}
+
+.recap-subtitle {
+  display: block;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--color-text-secondary, #a0b0d0);
+  margin-top: 4px;
+}
+
+/* ─── Controls ─── */
+.recap-controls {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  margin: 20px 0 24px;
+}
+
+.recap-controls .field {
+  flex: 1;
+  min-width: 0;
+}
+
+.recap-controls input[type="date"] {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--color-border, #2a334d);
+  background: var(--color-surface, #101520);
+  color: var(--color-text, #e8e8e8);
+  font-size: 14px;
+  font-family: inherit;
+  -webkit-appearance: none;
+}
+
+.recap-controls input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.8);
+}
+
+.recap-btn-generate {
+  background: var(--color-accent, #2bff86);
+  color: var(--color-bg, #0b0d14);
+  border: none;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  min-height: 46px;
+  transition: background 0.15s ease;
+}
+
+.recap-btn-generate:hover {
+  background: #22e676;
+}
+
+.recap-btn-generate:active {
+  background: #1ad16a;
+}
+
+/* ─── Recap content area ─── */
+.recap-content {
+  min-height: 200px;
+}
+
+/* ─── Empty state ─── */
+.recap-empty {
+  text-align: center;
+  padding: 48px 16px;
+  color: var(--color-text-secondary, #a0b0d0);
+}
+
+.recap-empty-icon {
+  margin-bottom: 16px;
+  opacity: 0.4;
+}
+
+.recap-empty-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-text, #e8e8e8);
+  margin: 0 0 8px;
+}
+
+.recap-empty-desc {
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
+  max-width: 360px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ─── Night card ─── */
+.recap-night-card {
+  background: linear-gradient(145deg, #101520 0%, #0e1828 40%, #0f1a2a 70%, #0b1420 100%);
+  border: 1px solid transparent;
+  border-radius: 20px;
+  padding: 28px 24px;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.recap-night-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--color-accent, #2bff86), #1a8f5a, #7b61ff, var(--color-border, #2a334d));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.recap-night-card::after {
+  content: "";
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle, rgba(43, 255, 134, 0.06), transparent 70%);
+  pointer-events: none;
+}
+
+.recap-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.recap-card-brand {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--color-accent, #2bff86);
+  opacity: 0.7;
+}
+
+.recap-card-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-text, #e8e8e8);
+  margin: 0;
+}
+
+.recap-card-date {
+  font-size: 13px;
+  color: var(--color-text-secondary, #a0b0d0);
+  margin-top: 2px;
+}
+
+/* ─── Score ring ─── */
+.recap-score-section {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.recap-score-ring {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 120px;
+  margin-bottom: 8px;
+}
+
+.recap-score-ring svg {
+  transform: rotate(-90deg);
+}
+
+.recap-score-value {
+  position: absolute;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--color-accent, #2bff86);
+}
+
+.recap-score-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-secondary, #a0b0d0);
+}
+
+/* ─── Stats grid ─── */
+.recap-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 28px;
+}
+
+.recap-stat {
+  background: rgba(43, 255, 134, 0.04);
+  border: 1px solid var(--color-border, #2a334d);
+  border-radius: 12px;
+  padding: 14px 10px;
+  text-align: center;
+}
+
+.recap-stat-number {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--color-accent, #2bff86);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.recap-stat-label {
+  font-size: 11px;
+  color: var(--color-text-secondary, #a0b0d0);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ─── Venues list ─── */
+.recap-section-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text, #e8e8e8);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 12px;
+}
+
+.recap-venues-list {
+  list-style: none;
+  margin: 0 0 24px;
+  padding: 0;
+}
+
+.recap-venue-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  margin-bottom: 6px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 10px;
+  transition: background 0.15s ease;
+}
+
+.recap-venue-item:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.recap-venue-number {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-accent, #2bff86);
+  width: 24px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.recap-venue-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-text, #e8e8e8);
+  flex: 1;
+}
+
+/* ─── Vibe cloud ─── */
+.recap-vibe-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.recap-vibe-tag {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  background: rgba(43, 255, 134, 0.08);
+  color: var(--color-accent, #2bff86);
+  border: 1px solid rgba(43, 255, 134, 0.15);
+  transition: transform 0.15s ease;
+}
+
+.recap-vibe-tag.size-1 {
+  font-size: 12px;
+  padding: 4px 10px;
+  opacity: 0.7;
+}
+
+.recap-vibe-tag.size-2 {
+  font-size: 13px;
+}
+
+.recap-vibe-tag.size-3 {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.recap-vibe-tag.size-4 {
+  font-size: 17px;
+  font-weight: 700;
+  background: rgba(43, 255, 134, 0.14);
+}
+
+/* ─── Highlights ─── */
+.recap-highlights {
+  margin-bottom: 24px;
+}
+
+.recap-highlight-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 14px;
+  margin-bottom: 6px;
+  background: rgba(123, 97, 255, 0.06);
+  border: 1px solid rgba(123, 97, 255, 0.15);
+  border-radius: 10px;
+}
+
+.recap-highlight-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+  width: 28px;
+  text-align: center;
+}
+
+.recap-highlight-text {
+  font-size: 14px;
+  color: var(--color-text, #e8e8e8);
+  line-height: 1.4;
+}
+
+/* ─── Mood badge ─── */
+.recap-mood {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.recap-mood-badge {
+  display: inline-block;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  background: rgba(43, 255, 134, 0.08);
+  color: var(--color-accent, #2bff86);
+  border: 1px solid rgba(43, 255, 134, 0.2);
+}
+
+/* ─── Action buttons ─── */
+.recap-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.recap-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid var(--color-border, #2a334d);
+  background: var(--color-surface, #101520);
+  color: var(--color-text, #e8e8e8);
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.recap-btn:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: var(--color-accent, #2bff86);
+}
+
+.recap-btn:active {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.recap-btn svg {
+  flex-shrink: 0;
+}
+
+.recap-btn-share {
+  background: rgba(43, 255, 134, 0.1);
+  border-color: rgba(43, 255, 134, 0.3);
+  color: var(--color-accent, #2bff86);
+}
+
+.recap-btn-share:hover {
+  background: rgba(43, 255, 134, 0.16);
+}
+
+/* ─── History section ─── */
+.recap-history-section {
+  margin-top: 40px;
+}
+
+.recap-history-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-text, #e8e8e8);
+  margin: 0 0 16px;
+}
+
+.recap-history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.recap-history-card {
+  background: var(--color-surface, #101520);
+  border: 1px solid var(--color-border, #2a334d);
+  border-radius: 14px;
+  padding: 18px 20px;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.recap-history-card:hover {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(43, 255, 134, 0.3);
+}
+
+.recap-history-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.recap-history-date {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text, #e8e8e8);
+}
+
+.recap-history-score {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-accent, #2bff86);
+}
+
+.recap-history-stats {
+  font-size: 12px;
+  color: var(--color-text-secondary, #a0b0d0);
+}
+
+/* ─── Toast ─── */
+.recap-toast {
+  position: fixed;
+  bottom: 90px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--color-surface, #101520);
+  color: var(--color-accent, #2bff86);
+  border: 1px solid var(--color-accent, #2bff86);
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  opacity: 0;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.recap-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 600px) {
+  .recap-main {
+    padding: 16px 12px 100px;
+  }
+
+  .recap-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .recap-night-card {
+    padding: 20px 16px;
+  }
+
+  .recap-stats-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+  }
+
+  .recap-stat {
+    padding: 10px 6px;
+  }
+
+  .recap-stat-number {
+    font-size: 20px;
+  }
+
+  .recap-actions {
+    flex-direction: column;
+  }
+
+  .recap-score-ring {
+    width: 100px;
+    height: 100px;
+  }
+
+  .recap-score-value {
+    font-size: 28px;
+  }
+}
