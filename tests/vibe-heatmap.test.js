@@ -8,17 +8,14 @@ const mockLocalStorage = {
 };
 if (typeof globalThis !== "undefined") globalThis.localStorage = mockLocalStorage;
 
-// Set up window._lnvData for venue→neighborhood mapping
-if (typeof globalThis !== "undefined") {
-  globalThis.window = globalThis.window || globalThis;
-  globalThis.window._lnvData = [
-    { Name: "Bar Alpha", Area: "Capitol Hill" },
-    { Name: "Club Beta", Area: "Capitol Hill" },
-    { Name: "Lounge Gamma", Area: "Ballard" },
-    { Name: "Dive Delta", Area: "Fremont" },
-    { Name: "Pub Epsilon", Area: "Ballard" },
-  ];
-}
+// Set up _lnvData for venue→neighborhood mapping (on globalThis for Node/test env)
+globalThis._lnvData = [
+  { Name: "Bar Alpha", Area: "Capitol Hill" },
+  { Name: "Club Beta", Area: "Capitol Hill" },
+  { Name: "Lounge Gamma", Area: "Ballard" },
+  { Name: "Dive Delta", Area: "Fremont" },
+  { Name: "Pub Epsilon", Area: "Ballard" },
+];
 
 import {
   getNeighborhoodHeat,
@@ -124,6 +121,7 @@ describe("LNVVibeHeatmap", () => {
   /* ─── getHottestNeighborhoods ─── */
   describe("getHottestNeighborhoods", () => {
     it("returns empty array with no data", () => {
+      refreshHeatData();
       expect(getHottestNeighborhoods()).toEqual([]);
     });
 
