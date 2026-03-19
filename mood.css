@@ -43,6 +43,11 @@
   box-shadow: 0 0 0 3px rgba(43, 255, 134, 0.12);
 }
 
+.mood-textarea:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 0;
+}
+
 .mood-textarea::placeholder {
   color: var(--color-text-muted);
 }
