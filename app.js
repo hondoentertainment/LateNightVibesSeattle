@@ -1228,10 +1228,12 @@ function buildVibeLegend() {
 }
 
 if (elements.legendToggle) {
+  elements.legendToggle.setAttribute("aria-expanded", "false");
   elements.legendToggle.addEventListener("click", () => {
     if (!elements.vibeLegend) return;
     const visible = elements.vibeLegend.style.display !== "none";
     elements.vibeLegend.style.display = visible ? "none" : "grid";
+    elements.legendToggle.setAttribute("aria-expanded", visible ? "false" : "true");
   });
 }
 

@@ -122,6 +122,7 @@
       bar.className = "crowd-bar level-" + prediction.level;
       if (hour === currentHour) bar.className += " current-hour";
       bar.title = prediction.label + " at " + HOUR_LABELS[hour];
+      bar.setAttribute("aria-label", prediction.label + " at " + HOUR_LABELS[hour]);
 
       var label = document.createElement("span");
       label.className = "crowd-bar-label";
@@ -149,7 +150,8 @@
       var btn = document.createElement("button");
       btn.type = "button";
       btn.className = "crowd-report-btn";
-      btn.innerHTML = '<span class="crowd-report-emoji">' + LEVEL_EMOJIS[lvl] + '</span>' + label;
+      btn.setAttribute("aria-label", "Report crowd level: " + label);
+      btn.innerHTML = '<span class="crowd-report-emoji" aria-hidden="true">' + LEVEL_EMOJIS[lvl] + '</span>' + label;
       btn.addEventListener("click", function () {
         var result = CP.reportCrowdLevel(venueName, lvl);
         if (result) {
