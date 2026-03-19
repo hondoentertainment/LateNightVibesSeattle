@@ -547,6 +547,11 @@
   border-color: #2bff86;
 }
 
+.planner-search-input:focus-visible {
+  outline: 2px solid #2bff86;
+  outline-offset: 0;
+}
+
 .planner-search-input::placeholder {
   color: #6b7a9a;
 }
