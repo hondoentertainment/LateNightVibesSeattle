@@ -1299,6 +1299,12 @@ button,
   color: #9fd6ff;
 }
 
+.pill-near-me {
+  border-color: #1a3a2a;
+  color: #2bff86;
+  font-weight: 600;
+}
+
 a.pill-link {
   text-decoration: none;
   cursor: pointer;

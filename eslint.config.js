@@ -80,7 +80,7 @@ export default [
   },
   {
     // Node config files
-    files: ["playwright.config.js"],
+    files: ["playwright.config.js", "build.js"],
     languageOptions: {
       globals: {
         require: "readonly",

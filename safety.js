@@ -143,7 +143,8 @@
     var cancelBtn = document.getElementById("cancelFakeCallBtn");
 
     fakeCallBtn.addEventListener("click", function () {
-      picker.classList.toggle("active");
+      var isOpen = picker.classList.toggle("active");
+      fakeCallBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
     });
 
     picker.querySelectorAll(".safety-delay-btn").forEach(function (btn) {
@@ -472,6 +473,8 @@
   function showToast(message) {
     var toast = document.createElement("div");
     toast.textContent = message;
+    toast.setAttribute("role", "status");
+    toast.setAttribute("aria-live", "polite");
     toast.style.cssText =
       "position:fixed;bottom:100px;left:50%;transform:translateX(-50%);" +
       "background:#1a2235;color:#e8e8e8;padding:10px 20px;border-radius:10px;" +

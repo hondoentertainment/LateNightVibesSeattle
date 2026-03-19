@@ -417,6 +417,8 @@
     var toast = document.createElement("div");
     toast.className = "replay-toast";
     toast.textContent = msg;
+    toast.setAttribute("role", "status");
+    toast.setAttribute("aria-live", "polite");
     document.body.appendChild(toast);
 
     requestAnimationFrame(function () {

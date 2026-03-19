@@ -46,20 +46,51 @@ describe("getTrustBadge", () => {
 });
 
 describe("estimateTravelMinutes", () => {
-  it("returns 5 when same area", () => {
-    const a = { Area: "Capitol Hill" };
-    const b = { Area: "Capitol Hill" };
+  it("uses Haversine distance for venues with known coordinates (same neighborhood)", () => {
+    // Two venues in Capitol Hill — coordinates are close, should be walkable (~0.1-0.3 mi)
+    const a = { Area: "Capitol Hill", Latitude: "47.6253", Longitude: "-122.3222" };
+    const b = { Area: "Capitol Hill", Latitude: "47.6260", Longitude: "-122.3230" };
+    const result = estimateTravelMinutes(a, b, "seattle");
+    // Very close venues: should be a small number based on walking distance
+    expect(result).toBeGreaterThanOrEqual(2);
+    expect(result).toBeLessThanOrEqual(10);
+  });
+
+  it("uses Haversine distance for venues in different neighborhoods", () => {
+    // Capitol Hill to Ballard — ~4-5 miles apart
+    const a = { Area: "Capitol Hill", Latitude: "47.6253", Longitude: "-122.3222" };
+    const b = { Area: "Ballard", Latitude: "47.6677", Longitude: "-122.3846" };
+    const result = estimateTravelMinutes(a, b, "seattle");
+    // Driving formula: ceil(5 + miles * 4), for ~4mi => ~21 min
+    expect(result).toBeGreaterThan(10);
+    expect(result).toBeLessThan(40);
+  });
+
+  it("falls back to area-based estimate when no coordinates available", () => {
+    // No Latitude/Longitude and Area that won't match neighborhood coords
+    const a = { Area: "UnknownAreaXYZ" };
+    const b = { Area: "UnknownAreaXYZ" };
     expect(estimateTravelMinutes(a, b)).toBe(5);
   });
 
-  it("returns 15 when different area", () => {
-    const a = { Area: "Capitol Hill" };
-    const b = { Area: "Ballard" };
+  it("falls back to 15 for different unknown areas without coordinates", () => {
+    const a = { Area: "UnknownAreaXYZ" };
+    const b = { Area: "AnotherUnknownArea" };
     expect(estimateTravelMinutes(a, b)).toBe(15);
   });
 
-  it("handles empty/missing Area", () => {
-    expect(estimateTravelMinutes({ Area: "" }, { Area: "Capitol Hill" })).toBe(15);
+  it("handles empty/missing Area in fallback", () => {
+    expect(estimateTravelMinutes({ Area: "" }, { Area: "UnknownAreaXYZ" })).toBe(15);
+  });
+
+  it("returns realistic walking time for close venues", () => {
+    // Two venues ~0.2 miles apart (within walkable range of 0.5 mi)
+    const a = { Latitude: "47.6253", Longitude: "-122.3222" };
+    const b = { Latitude: "47.6270", Longitude: "-122.3222" };
+    const result = estimateTravelMinutes(a, b, "seattle");
+    // ~0.12 mi * 20 = ~2.4 => ceil = 3, but min is 2
+    expect(result).toBeGreaterThanOrEqual(2);
+    expect(result).toBeLessThanOrEqual(10);
   });
 });
 

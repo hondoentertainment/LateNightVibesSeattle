@@ -194,6 +194,7 @@ function openDrawer() {
   elements.filterOverlay.classList.add("open");
   elements.filterDrawer.classList.add("open");
   document.body.style.overflow = "hidden";
+  if (elements.filterToggle) elements.filterToggle.setAttribute("aria-expanded", "true");
   const closeBtn = elements.filterClose;
   if (closeBtn) setTimeout(() => closeBtn.focus(), 100);
 }
@@ -202,6 +203,7 @@ function closeDrawer() {
   elements.filterOverlay.classList.remove("open");
   elements.filterDrawer.classList.remove("open");
   document.body.style.overflow = "";
+  if (elements.filterToggle) elements.filterToggle.setAttribute("aria-expanded", "false");
   if (_filterDrawerTrigger) { _filterDrawerTrigger.focus(); _filterDrawerTrigger = null; }
 }
 
@@ -680,28 +682,28 @@ function updateFilterBadge() {
 
 /* ─── Geolocation for "Near me" sort ─── */
 function requestUserLocation() {
-  if (!navigator.geolocation) {
-    if (elements.sortSelect) elements.sortSelect.value = "name";
-    if (elements.sortSelectMobile) elements.sortSelectMobile.value = "name";
-    applyFilters(true);
+  const geo = window.LNVGeo;
+  if (!geo || !geo.getUserLocation) {
+    _fallbackFromNearMe("Geolocation is not available in this browser.");
     return;
   }
-  navigator.geolocation.getCurrentPosition(
-    (pos) => {
-      state.userLocation = { lat: pos.coords.latitude, lng: pos.coords.longitude };
-      sortFiltered();
-      renderGrid();
-      updateLoadMore();
-      updateResultSummary();
-      if (state.currentView === "map") renderMap();
-    },
-    () => {
-      if (elements.sortSelect) elements.sortSelect.value = "name";
-      if (elements.sortSelectMobile) elements.sortSelectMobile.value = "name";
-      applyFilters(true);
-      showErrorToast("Location unavailable — sorting by name. Enable location in browser settings for distance-based sorting.");
-    }
-  );
+  geo.getUserLocation().then((loc) => {
+    state.userLocation = loc;
+    sortFiltered();
+    renderGrid();
+    updateLoadMore();
+    updateResultSummary();
+    if (state.currentView === "map") renderMap();
+  }).catch(() => {
+    _fallbackFromNearMe("Location unavailable — sorting by name. Enable location in browser settings for distance-based sorting.");
+  });
+}
+
+function _fallbackFromNearMe(msg) {
+  if (elements.sortSelect) elements.sortSelect.value = "name";
+  if (elements.sortSelectMobile) elements.sortSelectMobile.value = "name";
+  applyFilters(true);
+  showErrorToast(msg);
 }
 
 /* ─── Get current filter values ─── */
@@ -821,6 +823,29 @@ function sortFiltered() {
     if (sortBy === "category") return collator.compare(a.Category, b.Category);
     return collator.compare(a.Name, b.Name);
   });
+}
+
+/* ─── Distance pill helper for Near Me mode ─── */
+function _renderDistancePill(venue, mapLink) {
+  const sortBy = getSortValue();
+  // When sorting by Near Me and we have the user's location, show computed distance
+  if (sortBy === "near-me" && state.userLocation && window.LNVGeo && window.LNVGeo.distanceToVenueMiles) {
+    const citySlug = (window.LNVCities && window.LNVCities.getCurrentCitySlug) ? window.LNVCities.getCurrentCitySlug() : "seattle";
+    const dist = window.LNVGeo.distanceToVenueMiles(state.userLocation.lat, state.userLocation.lng, venue, citySlug);
+    if (dist !== null) {
+      const label = dist < 0.1 ? "< 0.1 mi from you" : dist.toFixed(1) + " mi from you";
+      if (mapLink) {
+        return `<a href="${mapLink}" target="_blank" rel="noopener" class="pill pill-distance pill-near-me pill-link" onclick="event.stopPropagation()">${label} ↗</a>`;
+      }
+      return `<span class="pill pill-distance pill-near-me">${label}</span>`;
+    }
+  }
+  // Default: show driving distance from CSV
+  const drivingDist = normalizeValue(venue["Driving Distance"]);
+  if (mapLink) {
+    return `<a href="${mapLink}" target="_blank" rel="noopener" class="pill pill-distance pill-link" onclick="event.stopPropagation()">${drivingDist || "Directions"} ↗</a>`;
+  }
+  return `<span class="pill pill-distance">${drivingDist || "Distance TBD"}</span>`;
 }
 
 /* ─── Render ─── */
@@ -957,7 +982,7 @@ function renderGrid() {
           ${visited ? '<span class="pill pill-visited">Been There</span>' : '<span class="pill pill-new">New to you</span>'}
           ${viabilityPills}
           <span class="pill pill-closing">${closingTime || "Late"}</span>
-          ${mapLink ? `<a href="${mapLink}" target="_blank" rel="noopener" class="pill pill-distance pill-link" onclick="event.stopPropagation()">${normalizeValue(venue["Driving Distance"]) || "Directions"} ↗</a>` : `<span class="pill pill-distance">${normalizeValue(venue["Driving Distance"]) || "Distance TBD"}</span>`}
+          ${_renderDistancePill(venue, mapLink)}
         </div>
         <div class="venue-vibes">${normalizeValue(venue["Vibe Tags"])}</div>
       </div>
@@ -1215,7 +1240,9 @@ function setView(view) {
   state.currentView = view;
   if (elements.viewToggle) {
     elements.viewToggle.querySelectorAll("button").forEach((btn) => {
-      btn.classList.toggle("active", btn.dataset.view === view);
+      const isActive = btn.dataset.view === view;
+      btn.classList.toggle("active", isActive);
+      btn.setAttribute("aria-pressed", isActive ? "true" : "false");
     });
   }
   if (view === "grid") {

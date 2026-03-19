@@ -42,7 +42,7 @@ function renderTags(listId) {
   tags.forEach(function (tag, idx) {
     const el = document.createElement("span");
     el.className = "vm-tag";
-    el.innerHTML = escapeHTML(tag) + ' <span class="vm-tag-remove" data-list="' + listId + '" data-idx="' + idx + '">&times;</span>';
+    el.innerHTML = escapeHTML(tag) + ' <span class="vm-tag-remove" data-list="' + listId + '" data-idx="' + idx + '" role="button" tabindex="0" aria-label="Remove ' + escapeHTML(tag) + '">&times;</span>';
     container.appendChild(el);
   });
 }
@@ -98,6 +98,15 @@ Object.keys(tagInputMap).forEach(function (listId) {
 /* Remove tags via event delegation */
 document.addEventListener("click", function (e) {
   if (e.target.classList.contains("vm-tag-remove")) {
+    var listId = e.target.getAttribute("data-list");
+    var idx = parseInt(e.target.getAttribute("data-idx"), 10);
+    removeTag(listId, idx);
+  }
+});
+
+document.addEventListener("keydown", function (e) {
+  if ((e.key === "Enter" || e.key === " ") && e.target.classList.contains("vm-tag-remove")) {
+    e.preventDefault();
     var listId = e.target.getAttribute("data-list");
     var idx = parseInt(e.target.getAttribute("data-idx"), 10);
     removeTag(listId, idx);
