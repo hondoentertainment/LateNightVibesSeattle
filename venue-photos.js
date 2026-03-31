@@ -34,7 +34,12 @@ function loadCache() {
 
 function persistCache() {
   try {
-    localStorage.setItem(CACHE_KEY, JSON.stringify(photoCache));
+    var sm = (typeof window !== "undefined" && window.LNVStorageManager) || null;
+    if (sm && sm.safePut) {
+      sm.safePut(CACHE_KEY, JSON.stringify(photoCache));
+    } else {
+      localStorage.setItem(CACHE_KEY, JSON.stringify(photoCache));
+    }
   } catch (_) {}
 }
 
