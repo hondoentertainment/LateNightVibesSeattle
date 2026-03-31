@@ -46,20 +46,39 @@ describe("getTrustBadge", () => {
 });
 
 describe("estimateTravelMinutes", () => {
-  it("returns 5 when same area", () => {
-    const a = { Area: "Capitol Hill" };
-    const b = { Area: "Capitol Hill" };
-    expect(estimateTravelMinutes(a, b)).toBe(5);
+  it("returns small value for nearby venues with coords (haversine)", () => {
+    const a = { Area: "Capitol Hill", Latitude: "47.6253", Longitude: "-122.3222" };
+    const b = { Area: "Capitol Hill", Latitude: "47.6260", Longitude: "-122.3230" };
+    const mins = estimateTravelMinutes(a, b, "seattle");
+    // Very close (~0.06 mi) — should be a short walk, 2 min minimum
+    expect(mins).toBeGreaterThanOrEqual(2);
+    expect(mins).toBeLessThanOrEqual(5);
   });
 
-  it("returns 15 when different area", () => {
-    const a = { Area: "Capitol Hill" };
-    const b = { Area: "Ballard" };
-    expect(estimateTravelMinutes(a, b)).toBe(15);
+  it("returns driving estimate for distant venues with coords", () => {
+    // Capitol Hill to Ballard (~3.5 mi)
+    const a = { Area: "Capitol Hill", Latitude: "47.6253", Longitude: "-122.3222" };
+    const b = { Area: "Ballard", Latitude: "47.6677", Longitude: "-122.3846" };
+    const mins = estimateTravelMinutes(a, b, "seattle");
+    // ~3.5 mi * 2 + 3 = ~10 min
+    expect(mins).toBeGreaterThanOrEqual(8);
+    expect(mins).toBeLessThanOrEqual(15);
   });
 
-  it("handles empty/missing Area", () => {
-    expect(estimateTravelMinutes({ Area: "" }, { Area: "Capitol Hill" })).toBe(15);
+  it("falls back to area heuristic when coords unavailable", () => {
+    const a = { Area: "Unknown Place" };
+    const b = { Area: "Unknown Place" };
+    expect(estimateTravelMinutes(a, b, "seattle")).toBe(5);
+  });
+
+  it("falls back to 15 for different unknown areas", () => {
+    const a = { Area: "Nowhere A" };
+    const b = { Area: "Nowhere B" };
+    expect(estimateTravelMinutes(a, b, "seattle")).toBe(15);
+  });
+
+  it("handles empty/missing Area with fallback", () => {
+    expect(estimateTravelMinutes({ Area: "" }, { Area: "Unknown Zone" })).toBe(15);
   });
 });
 

@@ -1063,9 +1063,17 @@ function buildAutocompleteIndex() {
   return items;
 }
 
+function closeAutocomplete(input, dropdown) {
+  if (dropdown) dropdown.classList.remove("open");
+  if (input) {
+    input.setAttribute("aria-expanded", "false");
+    input.removeAttribute("aria-activedescendant");
+  }
+}
+
 function showAutocomplete(input, dropdown, query) {
   if (!dropdown || !query || query.length < 2) {
-    if (dropdown) dropdown.classList.remove("open");
+    closeAutocomplete(input, dropdown);
     return;
   }
 
@@ -1074,15 +1082,18 @@ function showAutocomplete(input, dropdown, query) {
   const matches = items.filter((it) => it.name.toLowerCase().includes(q)).slice(0, 8);
 
   if (!matches.length) {
-    dropdown.classList.remove("open");
+    closeAutocomplete(input, dropdown);
     return;
   }
 
   dropdown.innerHTML = "";
   acHighlight = -1;
+  input.removeAttribute("aria-activedescendant");
   matches.forEach((it, idx) => {
     const div = document.createElement("div");
     div.className = "ac-item";
+    div.id = `autocomplete-item-${idx}`;
+    div.setAttribute("role", "option");
     div.innerHTML = `
       <span><span class="ac-name">${it.name}</span>${it.meta ? ` <span class="ac-meta">${it.meta}</span>` : ""}</span>
       <span class="ac-type">${it.type}</span>
@@ -1110,11 +1121,12 @@ function showAutocomplete(input, dropdown, query) {
         if (elements.searchInputMobile) elements.searchInputMobile.value = "";
         applyFilters();
       }
-      dropdown.classList.remove("open");
+      closeAutocomplete(input, dropdown);
     });
     dropdown.appendChild(div);
   });
   dropdown.classList.add("open");
+  input.setAttribute("aria-expanded", "true");
 }
 
 function setupAutocomplete(input, dropdown) {
@@ -1126,7 +1138,7 @@ function setupAutocomplete(input, dropdown) {
     if (input.value.length >= 2) showAutocomplete(input, dropdown, input.value);
   });
   input.addEventListener("blur", () => {
-    setTimeout(() => dropdown.classList.remove("open"), 150);
+    setTimeout(() => closeAutocomplete(input, dropdown), 150);
   });
   input.addEventListener("keydown", (e) => {
     const items = dropdown.querySelectorAll(".ac-item");
@@ -1135,15 +1147,17 @@ function setupAutocomplete(input, dropdown) {
       e.preventDefault();
       acHighlight = Math.min(acHighlight + 1, items.length - 1);
       items.forEach((it, i) => it.classList.toggle("highlighted", i === acHighlight));
+      input.setAttribute("aria-activedescendant", `autocomplete-item-${acHighlight}`);
     } else if (e.key === "ArrowUp") {
       e.preventDefault();
       acHighlight = Math.max(acHighlight - 1, 0);
       items.forEach((it, i) => it.classList.toggle("highlighted", i === acHighlight));
+      input.setAttribute("aria-activedescendant", `autocomplete-item-${acHighlight}`);
     } else if (e.key === "Enter" && acHighlight >= 0) {
       e.preventDefault();
       items[acHighlight].dispatchEvent(new MouseEvent("mousedown"));
     } else if (e.key === "Escape") {
-      dropdown.classList.remove("open");
+      closeAutocomplete(input, dropdown);
     }
   });
 }
@@ -1313,6 +1327,8 @@ function renderMap() {
       radius: 10, fillColor: "#4dd6ff", color: "#ffffff", weight: 3, opacity: 1, fillOpacity: 0.9,
     }).addTo(leafletMap);
     userLocationMarker.bindPopup("<div><strong>You are here</strong></div>");
+    const ulEl = userLocationMarker.getElement();
+    if (ulEl) { ulEl.setAttribute("aria-label", "Your location"); ulEl.setAttribute("role", "img"); }
   } else if (navigator.geolocation && state.currentView === "map") {
     navigator.geolocation.getCurrentPosition(
       (pos) => {
@@ -1330,17 +1346,23 @@ function renderMap() {
     const tags = normalizeValue(venue["Vibe Tags"]).split(",").map((t) => normalizeValue(t).toLowerCase()).filter(Boolean);
     const primaryTag = tags[0] || "general";
     const color = VIBE_COLORS[primaryTag] || "#2bff86";
+    const venueName = normalizeValue(venue.Name);
+    const venueArea = normalizeValue(venue.Area);
+    const markerLabel = `${venueName}, ${venueArea}`;
     const marker = L.circleMarker([lat, lng], {
       radius: 7, fillColor: color, color: "#0b0d14", weight: 2, opacity: 1, fillOpacity: 0.85,
     }).addTo(leafletMap);
+    marker.bindTooltip(venueName, { permanent: false });
+    const mEl = marker.getElement();
+    if (mEl) { mEl.setAttribute("aria-label", markerLabel); mEl.setAttribute("role", "img"); }
     marker.__lnvBaseStyle = {
       radius: 7, fillColor: color, color: "#0b0d14", weight: 2, opacity: 1, fillOpacity: 0.85,
     };
     marker.__lnvActiveStyle = {
       radius: 10, fillColor: color, color: "#ffffff", weight: 3, opacity: 1, fillOpacity: 1,
     };
-    const isFav = state.favorites.has(normalizeValue(venue.Name));
-    marker.bindPopup(`<div><strong>${normalizeValue(venue.Name)}</strong> ${isFav ? "♥" : ""}<br><span style="color:#8fa0c2">${normalizeValue(venue.Area)} · ${normalizeValue(venue.Category)}</span><br><span style="color:#93a1c6">${normalizeValue(venue["Typical Closing Time"]) || "Late"}</span></div>`);
+    const isFav = state.favorites.has(venueName);
+    marker.bindPopup(`<div><strong>${venueName}</strong> ${isFav ? "♥" : ""}<br><span style="color:#8fa0c2">${venueArea} · ${normalizeValue(venue.Category)}</span><br><span style="color:#93a1c6">${normalizeValue(venue["Typical Closing Time"]) || "Late"}</span></div>`);
     const venueKey = getVenueSyncKey(venue);
     marker.on("mouseover", () => setActiveVenueSync(venueKey));
     marker.on("mouseout", () => clearActiveVenueSync());
@@ -1459,6 +1481,14 @@ function showOnboarding(force) {
   if (!_onboardingInitialized) {
     _onboardingInitialized = true;
     overlay.addEventListener("click", handleClick);
+    overlay.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        overlay.style.display = "none";
+        applyOnboardingResults();
+        return;
+      }
+      trapFocus(e, overlay);
+    });
   }
 
   _onboardingStep = 0;
@@ -1469,6 +1499,8 @@ function showOnboarding(force) {
   steps[1].style.display = "none";
   steps[2].style.display = "none";
   updateProgressDots(0);
+  const firstFocusable = getFocusableElements(overlay)[0];
+  if (firstFocusable) setTimeout(() => firstFocusable.focus(), 100);
 }
 
 function initOnboarding() {
@@ -1531,6 +1563,7 @@ function syncQuickChips() {
       if (key === "open-now") active = state.openNowOnly;
       else active = state.activeVibes.has(key);
       chip.classList.toggle("active", active);
+      chip.setAttribute("aria-pressed", String(active));
     });
   });
 }

@@ -32,6 +32,7 @@ const PRECACHE_URLS = [
   "/lib/geo.js",
   "/lib/features.js",
   "/lib/crawl-history.js",
+  "/lib/storage-manager.js",
   "/lib/favorites-backup.js",
   "/lib/share-plan.js",
   "/manifest.json",

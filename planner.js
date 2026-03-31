@@ -373,10 +373,10 @@ function renderItinerary(stops, phases, startMin, slotDuration) {
     const nextArea = normalizeValue(nextVenue.Area);
     const thisArea = normalizeValue(venue.Area);
     const travelNote = thisArea === nextArea ? "Same neighborhood" : `${thisArea} → ${nextArea}`;
-    let travelMin = (window.LNVFeatures && window.LNVFeatures.estimateTravelMinutes) ? window.LNVFeatures.estimateTravelMinutes(venue, nextVenue) : (thisArea === nextArea ? 5 : 15);
+    const _citySlug = (window.LNVCities && window.LNVCities.getCurrentCitySlug) ? window.LNVCities.getCurrentCitySlug() : "seattle";
+    let travelMin = (window.LNVFeatures && window.LNVFeatures.estimateTravelMinutes) ? window.LNVFeatures.estimateTravelMinutes(venue, nextVenue, _citySlug) : (thisArea === nextArea ? 5 : 15);
     let isWalkable = false;
     let distanceMiles = null;
-    const _citySlug = (window.LNVCities && window.LNVCities.getCurrentCitySlug) ? window.LNVCities.getCurrentCitySlug() : "seattle";
     if (window.LNVGeo) {
       const miles = window.LNVGeo.venueToVenueDistanceMiles(venue, nextVenue, _citySlug);
       if (miles != null) {
