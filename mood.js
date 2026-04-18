@@ -16,6 +16,20 @@ const moodResults = $("moodResults");
 const moodResultsHeader = $("moodResultsHeader");
 const moodResultsCount = $("moodResultsCount");
 const moodExamples = $("moodExamples");
+const moodQuickChips = $("moodQuickChips");
+
+/* ─── Typing indicator ─── */
+function showTypingIndicator() {
+  moodResults.innerHTML = `
+    <div class="mood-typing-indicator">
+      <div class="mood-typing-dots">
+        <span></span><span></span><span></span>
+      </div>
+      <span class="mood-typing-text">Finding your vibe...</span>
+    </div>
+  `;
+  moodResultsHeader.style.display = "none";
+}
 
 /* ─── Search ─── */
 
@@ -30,8 +44,12 @@ function doSearch() {
     return;
   }
 
-  const results = matchMood(query, allVenues);
-  renderResults(results, query);
+  // Show typing indicator, then display results after brief delay
+  showTypingIndicator();
+  setTimeout(function () {
+    const results = matchMood(query, allVenues);
+    renderResults(results, query);
+  }, 600);
 }
 
 /* ─── Render results ─── */
@@ -97,8 +115,24 @@ function renderResults(results, query) {
       if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openMoodDetail(venue); }
     });
 
+    // Apply staggered fade-in animation
+    card.classList.add("mood-fade-in");
+    card.style.animationDelay = (idx * 100) + "ms";
+
     moodResults.appendChild(card);
   });
+
+  // Add "Try another" button at the end of results
+  var tryAnotherWrap = document.createElement("div");
+  tryAnotherWrap.className = "mood-try-another-wrap";
+  tryAnotherWrap.innerHTML = '<button type="button" class="mood-try-another-btn">Try a different mood</button>';
+  tryAnotherWrap.querySelector(".mood-try-another-btn").addEventListener("click", function () {
+    moodInput.value = "";
+    moodInput.focus();
+    renderEmpty();
+    moodInput.scrollIntoView({ behavior: "smooth", block: "center" });
+  });
+  moodResults.appendChild(tryAnotherWrap);
 
   // Scroll results into view on mobile
   if (window.innerWidth < 860) {
@@ -210,6 +244,19 @@ moodExamples.addEventListener("click", function (e) {
     doSearch();
   }
 });
+
+// Quick mood chips (above textarea)
+if (moodQuickChips) {
+  moodQuickChips.addEventListener("click", function (e) {
+    var chip = e.target.closest(".mood-quick-chip");
+    if (!chip) return;
+    var mood = chip.getAttribute("data-mood");
+    if (mood) {
+      moodInput.value = mood;
+      doSearch();
+    }
+  });
+}
 
 /* ─── Detail drawer ─── */
 

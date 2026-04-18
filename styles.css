@@ -1175,6 +1175,198 @@ button,
   color: #93a1c6;
 }
 
+/* ─── Empty state content styling ─── */
+.empty-state__title {
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #e8e8e8;
+}
+
+.empty-state__desc {
+  margin-bottom: 16px;
+  line-height: 1.6;
+}
+
+.empty-state__suggestions {
+  text-align: left;
+  display: inline-block;
+  margin: 0 auto 16px;
+  padding-left: 20px;
+  line-height: 1.8;
+  color: #b8c6e6;
+  list-style: none;
+}
+
+.empty-state__suggestions li::before {
+  content: "\2022";
+  color: var(--color-accent);
+  margin-right: 8px;
+}
+
+.empty-state__actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.empty-state__rec-link {
+  display: inline-block;
+  padding: 10px 20px;
+  color: #2bff86;
+  border: 1px solid rgba(43, 255, 134, 0.25);
+  border-radius: 10px;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 13px;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.empty-state__rec-link:hover {
+  background: rgba(43, 255, 134, 0.08);
+  border-color: rgba(43, 255, 134, 0.4);
+}
+
+.empty-state__link {
+  display: inline-block;
+  margin-top: 16px;
+  color: #2bff86;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.empty-state__link:hover {
+  opacity: 0.8;
+}
+
+/* ─── CSS-only empty state illustrations ─── */
+@keyframes emptySparkle {
+  0%, 100% { opacity: 0; transform: scale(0.5); }
+  50% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes emptyFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.empty-illustration {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 20px;
+  animation: emptyFloat 3s ease-in-out infinite;
+}
+
+/* Cocktail glass illustration (CSS-only) */
+.empty-illustration__glass {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-top: 32px solid rgba(43, 255, 134, 0.15);
+}
+
+.empty-illustration__glass::before {
+  content: "";
+  position: absolute;
+  top: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 16px;
+  background: rgba(43, 255, 134, 0.35);
+  border-radius: 2px;
+}
+
+.empty-illustration__glass::after {
+  content: "";
+  position: absolute;
+  top: 48px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 3px;
+  background: rgba(43, 255, 134, 0.35);
+  border-radius: 2px;
+}
+
+.empty-illustration__sparkle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-accent);
+}
+
+.empty-illustration__sparkle--1 {
+  top: 8px;
+  right: 10px;
+  animation: emptySparkle 2s ease-in-out infinite;
+}
+
+.empty-illustration__sparkle--2 {
+  top: 16px;
+  left: 8px;
+  width: 4px;
+  height: 4px;
+  background: #4dd6ff;
+  animation: emptySparkle 2s ease-in-out infinite 0.6s;
+}
+
+.empty-illustration__sparkle--3 {
+  top: 4px;
+  left: 24px;
+  width: 5px;
+  height: 5px;
+  background: #ff7ad6;
+  animation: emptySparkle 2s ease-in-out infinite 1.2s;
+}
+
+/* Heart illustration for saved empty state */
+.empty-illustration--saved {
+  animation: emptyFloat 3s ease-in-out infinite;
+}
+
+.empty-illustration__heart {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 36px;
+}
+
+.empty-illustration__heart::before,
+.empty-illustration__heart::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 22px;
+  height: 34px;
+  border-radius: 22px 22px 0 0;
+  border: 2.5px solid rgba(43, 255, 134, 0.5);
+  border-bottom: none;
+}
+
+.empty-illustration__heart::before {
+  left: 0;
+  transform: rotate(-45deg);
+  transform-origin: bottom right;
+}
+
+.empty-illustration__heart::after {
+  right: 0;
+  transform: rotate(45deg);
+  transform-origin: bottom left;
+}
+
 .error-state .error-state-icon {
   margin-bottom: 12px;
 }

@@ -518,6 +518,21 @@ function renderItinerary(stops, phases, startMin, slotDuration) {
   });
 }
 
+/* ─── Inviting empty state ─── */
+function renderInvitingEmptyState() {
+  return `
+    <div class="itinerary-empty-inviting">
+      <div class="itinerary-empty-icon" aria-hidden="true">&#x1F30C;</div>
+      <div class="itinerary-empty-title">Start building your night!</div>
+      <div class="itinerary-empty-subtitle">Add venues from Browse or Mood Match, or set your preferences above and tap <strong>Build my night</strong> to auto-generate an itinerary.</div>
+      <div class="itinerary-empty-links">
+        <a href="index.html">Browse Venues</a>
+        <a href="mood.html">Mood Match</a>
+      </div>
+    </div>
+  `;
+}
+
 /* ─── Init ─── */
 function buildAreaOptions() {
   const areas = Array.from(new Set(allVenues.map((v) => normalizeValue(v.Area)).filter(Boolean))).sort();
@@ -596,7 +611,7 @@ function loadFromText(text) {
       generateItinerary();
       window.LNVUserPrefs.clearPlanSeed();
     } else {
-      $("itinerary").innerHTML = `<div class="itinerary-empty">Choose your settings and tap <strong>Build my night</strong> to generate an itinerary with ${allVenues.length} venues.</div>`;
+      $("itinerary").innerHTML = renderInvitingEmptyState();
     }
   } else {
     $("itinerary").innerHTML = renderInvitingEmptyState();
