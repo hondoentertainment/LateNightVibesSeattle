@@ -257,22 +257,117 @@ function shareItinerary() {
         return btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
       })();
   const url = `${window.location.origin}${window.location.pathname}?plan=${encoded}`;
+  const arrivalTimes = computeArrivalTimes(lastItinerary.stops, lastItinerary.startMin, lastItinerary.slotDuration);
   const lines = lastItinerary.stops.map((venue, idx) => {
-    const slotStart = lastItinerary.startMin + idx * lastItinerary.slotDuration;
-    const slotEnd = slotStart + lastItinerary.slotDuration;
-    return `${idx + 1}. ${normalizeValue(venue.Name)} (${minutesToLabel(slotStart)}–${minutesToLabel(slotEnd)}) — ${normalizeValue(venue.Area)}`;
+    const arrival = minutesToLabel(arrivalTimes[idx]);
+    const area = normalizeValue(venue.Area);
+    const category = normalizeValue(venue.Category);
+    const mapLink = normalizeValue(venue["Google Maps Driving Link"]);
+    let line = `${idx + 1}. ${normalizeValue(venue.Name)} (~${arrival}) — ${area}, ${category}`;
+    if (mapLink) line += `\n   ${mapLink}`;
+    return line;
   });
-  const text = `My Late Night Vibes plan:\n${lines.join("\n")}\n\nOpen plan: ${url}`;
+  const text = `My Late Night Vibes plan:\n\n${lines.join("\n\n")}\n\nOpen plan: ${url}`;
+
+  function showClipboardToast() {
+    const existing = document.querySelector(".clipboard-toast");
+    if (existing) existing.remove();
+    const toast = document.createElement("div");
+    toast.className = "clipboard-toast";
+    toast.setAttribute("role", "status");
+    toast.setAttribute("aria-live", "polite");
+    toast.textContent = "Copied to clipboard!";
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 2500);
+  }
 
   if (navigator.share) {
     navigator.share({ title: "Night Plan", text, url }).catch((err) => {
       if (err.name !== "AbortError") {
-        navigator.clipboard.writeText(url).then(() => showToast("Link copied!")).catch(() => {});
+        navigator.clipboard.writeText(text).then(() => showClipboardToast()).catch(() => {});
       }
     });
   } else {
-    navigator.clipboard.writeText(url).then(() => showToast("Plan link copied!")).catch(() => {});
+    navigator.clipboard.writeText(text).then(() => showClipboardToast()).catch(() => {});
   }
+}
+
+/* ─── Drag-and-drop support ─── */
+let _dragSrcIdx = null;
+
+function handleDragStart(e, idx) {
+  _dragSrcIdx = idx;
+  e.dataTransfer.effectAllowed = "move";
+  e.dataTransfer.setData("text/plain", String(idx));
+  requestAnimationFrame(() => {
+    e.target.closest(".stop-card").classList.add("dragging");
+  });
+}
+
+function handleDragEnd(e) {
+  _dragSrcIdx = null;
+  const container = $("itinerary");
+  container.querySelectorAll(".stop-card").forEach((el) => {
+    el.classList.remove("dragging", "drag-over");
+  });
+}
+
+function handleDragOver(e) {
+  e.preventDefault();
+  e.dataTransfer.dropEffect = "move";
+}
+
+function handleDragEnter(e, idx) {
+  if (idx === _dragSrcIdx) return;
+  const card = e.currentTarget;
+  card.classList.add("drag-over");
+}
+
+function handleDragLeave(e) {
+  const card = e.currentTarget;
+  if (!card.contains(e.relatedTarget)) {
+    card.classList.remove("drag-over");
+  }
+}
+
+function handleDrop(e, targetIdx) {
+  e.preventDefault();
+  const card = e.currentTarget;
+  card.classList.remove("drag-over");
+  if (_dragSrcIdx === null || _dragSrcIdx === targetIdx) return;
+  // Reorder stops array
+  const stops = lastItinerary.stops;
+  const [moved] = stops.splice(_dragSrcIdx, 1);
+  stops.splice(targetIdx, 0, moved);
+  // Update locked stops indices
+  const newLocked = new Set();
+  lockedStops.forEach((i) => {
+    if (i === _dragSrcIdx) {
+      newLocked.add(targetIdx);
+    } else if (_dragSrcIdx < targetIdx) {
+      newLocked.add(i > _dragSrcIdx && i <= targetIdx ? i - 1 : i);
+    } else {
+      newLocked.add(i >= targetIdx && i < _dragSrcIdx ? i + 1 : i);
+    }
+  });
+  lockedStops = newLocked;
+  _dragSrcIdx = null;
+  renderItinerary(lastItinerary.stops, lastItinerary.phases, lastItinerary.startMin, lastItinerary.slotDuration);
+}
+
+/* ─── Compute arrival times with travel estimates ─── */
+function computeArrivalTimes(stops, startMin, slotDuration) {
+  const arrivals = [startMin];
+  const _citySlug = (window.LNVCities && window.LNVCities.getCurrentCitySlug) ? window.LNVCities.getCurrentCitySlug() : "seattle";
+  for (let i = 1; i < stops.length; i++) {
+    const prev = stops[i - 1];
+    const curr = stops[i];
+    const prevArea = normalizeValue(prev.Area);
+    const currArea = normalizeValue(curr.Area);
+    let travelMin = (window.LNVFeatures && window.LNVFeatures.estimateTravelMinutes) ? window.LNVFeatures.estimateTravelMinutes(prev, curr, _citySlug) : (prevArea === currArea ? 5 : 15);
+    arrivals.push(arrivals[i - 1] + slotDuration + travelMin);
+  }
+  return arrivals;
 }
 
 /* ─── Render ─── */
@@ -285,9 +380,12 @@ function renderItinerary(stops, phases, startMin, slotDuration) {
     return;
   }
 
+  const arrivalTimes = computeArrivalTimes(stops, startMin, slotDuration);
+
   stops.forEach((venue, idx) => {
     const slotStart = startMin + idx * slotDuration;
     const slotEnd = slotStart + slotDuration;
+    const arrivalMin = arrivalTimes[idx];
     const phase = phases[idx];
     const mapLink = normalizeValue(venue["Google Maps Driving Link"]);
     const nameText = normalizeValue(venue.Name);
@@ -296,6 +394,8 @@ function renderItinerary(stops, phases, startMin, slotDuration) {
 
     const stopEl = document.createElement("div");
     stopEl.className = "stop-card";
+    stopEl.setAttribute("draggable", "true");
+    stopEl.dataset.stopIdx = idx;
     stopEl.innerHTML = `
       <div class="stop-timeline">
         <div class="stop-dot"></div>
@@ -306,8 +406,12 @@ function renderItinerary(stops, phases, startMin, slotDuration) {
           <div>
             <div class="stop-number">Stop ${idx + 1} · ${phase.label}</div>
             <div class="stop-name">${mapLink ? `<a href="${mapLink}" target="_blank" rel="noopener">${nameText}</a>` : nameText}</div>
+            <div class="stop-arrival-time">~${minutesToLabel(arrivalMin)} arrival</div>
           </div>
           <div class="stop-header-right">
+            <button class="drag-handle" type="button" title="Drag to reorder" aria-label="Drag to reorder stop ${idx + 1}">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><circle cx="5" cy="3" r="1.5"/><circle cx="11" cy="3" r="1.5"/><circle cx="5" cy="8" r="1.5"/><circle cx="11" cy="8" r="1.5"/><circle cx="5" cy="13" r="1.5"/><circle cx="11" cy="13" r="1.5"/></svg>
+            </button>
             <button class="stop-lock ${isLocked ? "locked" : ""}" data-idx="${idx}" title="${isLocked ? "Unlock this stop" : "Lock this stop"}" type="button">${isLocked ? "🔒" : "🔓"}</button>
             <div class="stop-time">${minutesToLabel(slotStart)} – ${minutesToLabel(slotEnd)}</div>
           </div>
@@ -336,11 +440,19 @@ function renderItinerary(stops, phases, startMin, slotDuration) {
       </div>
     `;
 
+    // Drag-and-drop event listeners
+    stopEl.addEventListener("dragstart", (e) => handleDragStart(e, idx));
+    stopEl.addEventListener("dragend", handleDragEnd);
+    stopEl.addEventListener("dragover", handleDragOver);
+    stopEl.addEventListener("dragenter", (e) => handleDragEnter(e, idx));
+    stopEl.addEventListener("dragleave", handleDragLeave);
+    stopEl.addEventListener("drop", (e) => handleDrop(e, idx));
+
     // Open detail drawer on stop card click (skip links/buttons)
     const stopContent = stopEl.querySelector(".stop-content");
     stopContent.style.cursor = "pointer";
     stopContent.addEventListener("click", (e) => {
-      if (e.target.closest("a, button")) return;
+      if (e.target.closest("a, button, .drag-handle")) return;
       openPlanDetail(venue);
     });
 
@@ -487,7 +599,7 @@ function loadFromText(text) {
       $("itinerary").innerHTML = `<div class="itinerary-empty">Choose your settings and tap <strong>Build my night</strong> to generate an itinerary with ${allVenues.length} venues.</div>`;
     }
   } else {
-    $("itinerary").innerHTML = `<div class="itinerary-empty">Choose your settings and tap <strong>Build my night</strong> to generate an itinerary with ${allVenues.length} venues.</div>`;
+    $("itinerary").innerHTML = renderInvitingEmptyState();
   }
   // Deep-link: auto-open venue drawer if ?venue= param is present
   if (window.LNVDetailDrawer && window.LNVDetailDrawer.openFromURL) {

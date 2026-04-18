@@ -908,10 +908,12 @@ function renderGrid() {
     empty.className = "empty-state";
     if (state.showSavedOnly) {
       empty.innerHTML = `
-        <div style="font-size:32px;margin-bottom:12px">♡</div>
-        <div style="font-size:16px;font-weight:600;margin-bottom:8px;color:#e8e8e8">No saved venues yet</div>
-        <div>Tap the heart on any venue to save it for later.</div>
-        <a href="index.html" style="display:inline-block;margin-top:16px;color:#2bff86;font-weight:600;text-decoration:none">Browse venues →</a>
+        <div class="empty-illustration empty-illustration--saved" aria-hidden="true">
+          <div class="empty-illustration__heart"></div>
+        </div>
+        <div class="empty-state__title">No saved venues yet</div>
+        <div class="empty-state__desc">Tap the heart on any venue to save it for later.</div>
+        <a href="index.html" class="empty-state__link">Browse venues &rarr;</a>
       `;
     } else {
       const filterCount = (getAreaValue() ? 1 : 0) + (getCategoryValue() ? 1 : 0) + (state.openNowOnly ? 1 : 0) + (state.visitedFilter ? 1 : 0) + state.activeVibes.size;
@@ -924,18 +926,23 @@ function renderGrid() {
       if (!suggestions.length) suggestions.push("Try broadening your search or removing a filter");
 
       empty.innerHTML = `
-        <div style="font-size:40px;margin-bottom:16px">🔍</div>
-        <div style="font-size:17px;font-weight:700;margin-bottom:10px;color:#e8e8e8">No venues match your filters</div>
-        <div style="margin-bottom:16px;line-height:1.6">${filterCount > 1
-          ? `You have <strong>${filterCount} filters</strong> active — here are some things to try:`
+        <div class="empty-illustration" aria-hidden="true">
+          <div class="empty-illustration__glass"></div>
+          <div class="empty-illustration__sparkle empty-illustration__sparkle--1"></div>
+          <div class="empty-illustration__sparkle empty-illustration__sparkle--2"></div>
+          <div class="empty-illustration__sparkle empty-illustration__sparkle--3"></div>
+        </div>
+        <div class="empty-state__title">No venues match your filters</div>
+        <div class="empty-state__desc">${filterCount > 1
+          ? `You have <strong>${filterCount} filters</strong> active &mdash; here are some things to try:`
           : "Here's what you can do:"}
         </div>
-        <ul style="text-align:left;display:inline-block;margin:0 auto 16px;padding-left:20px;line-height:1.8;color:#b8c6e6">
+        <ul class="empty-state__suggestions">
           ${suggestions.map((s) => `<li>${s}</li>`).join("")}
         </ul>
-        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+        <div class="empty-state__actions">
           ${filterCount > 0 ? '<button type="button" class="clear-all-filters" onclick="clearAllFilters()">Clear all filters</button>' : ""}
-          <a href="recommend.html" style="display:inline-block;padding:10px 20px;color:#2bff86;border:1px solid rgba(43,255,134,0.25);border-radius:10px;font-weight:600;text-decoration:none;font-size:13px">Try Recommendations →</a>
+          <a href="recommend.html" class="empty-state__rec-link">Try Recommendations &rarr;</a>
         </div>
       `;
     }
@@ -1767,7 +1774,7 @@ function debounce(fn, delay) {
   };
 }
 
-const debouncedApplyFilters = debounce(() => applyFilters(), 250);
+const debouncedApplyFilters = debounce(() => applyFilters(), 300);
 
 /* ─── Event listeners (desktop) ─── (addListener from LNVCore) */
 
@@ -2085,7 +2092,7 @@ document.addEventListener("keydown", (e) => {
   window.addEventListener("scroll", () => {
     if (!ticking) {
       requestAnimationFrame(() => {
-        btn.classList.toggle("visible", window.scrollY > 400);
+        btn.classList.toggle("visible", window.scrollY > 500);
         ticking = false;
       });
       ticking = true;

@@ -389,6 +389,75 @@ body {
   transform: scale(0.98);
 }
 
+/* ─── More dropdown ─── */
+.nav-more-wrapper {
+  position: relative;
+  display: inline-flex;
+}
+
+.nav-more-toggle {
+  cursor: pointer;
+  gap: 4px;
+}
+
+.nav-more-toggle svg {
+  transition: transform 0.25s ease;
+}
+
+.nav-more-wrapper.open .nav-more-toggle svg {
+  transform: rotate(180deg);
+}
+
+.nav-more-wrapper.open .nav-more-toggle {
+  color: #2bff86;
+  border-color: rgba(43, 255, 134, 0.35);
+  background: rgba(43, 255, 134, 0.08);
+}
+
+.nav-more-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 200px;
+  background: #101520;
+  border: 1px solid rgba(43, 255, 134, 0.15);
+  border-radius: 14px;
+  padding: 6px;
+  z-index: 100;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(43, 255, 134, 0.06);
+  opacity: 0;
+  transform: translateY(-8px) scale(0.96);
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.nav-more-wrapper.open .nav-more-dropdown {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.nav-more-item {
+  display: block;
+  padding: 10px 16px;
+  color: #c0c8dc;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 10px;
+  transition: background 0.15s ease, color 0.15s ease;
+  white-space: nowrap;
+}
+
+.nav-more-item:hover {
+  background: rgba(43, 255, 134, 0.08);
+  color: #2bff86;
+}
+
+.nav-more-item:active {
+  background: rgba(43, 255, 134, 0.14);
+}
+
 /* keep old class name working */
 .admin-link {
   color: var(--color-text-secondary);
@@ -1143,7 +1212,7 @@ button,
   overflow: hidden;
   display: grid;
   grid-template-rows: 100px auto;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 @media (min-width: 860px) {
@@ -1165,13 +1234,13 @@ button,
 .venue-card.attr-adult { border-color: #50576a; }
 
 .venue-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+  transform: scale(1.02);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .venue-card.sync-active {
-  transform: translateY(-3px);
-  box-shadow: 0 0 0 2px rgba(43, 255, 134, 0.7), 0 12px 24px rgba(0, 0, 0, 0.3);
+  transform: scale(1.02);
+  box-shadow: 0 0 0 2px rgba(43, 255, 134, 0.7), 0 16px 32px rgba(0, 0, 0, 0.4);
 }
 
 /* ─── Poster gradients ─── */
