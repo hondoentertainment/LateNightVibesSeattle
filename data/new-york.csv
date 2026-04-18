@@ -1,36 +1,119 @@
 Area,Name,Category,Typical Closing Time,Address,Phone,Website,Driving Distance,Google Maps Driving Link,Vibe Tags,Latitude,Longitude
-East Village,The Velvet Hour,Cocktail Bar,4:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Times+Square+New+York&destination=The+Velvet+Hour+East+Village+New+York&travelmode=driving,"date-friendly, upscale, craft-cocktails, hipster",40.7148,-73.9975
-East Village,Alphabet Tavern,Bar,4:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Times+Square+New+York&destination=Alphabet+Tavern+East+Village+New+York&travelmode=driving,"drinks, social, late-night, hipster, trendy",40.7183,-73.9985
-East Village,Midnight Ramen House,Restaurant,3:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Times+Square+New+York&destination=Midnight+Ramen+House+East+Village+New+York&travelmode=driving,"food-focused, late-eats, hipster, trendy",40.7163,-73.9995
-East Village,Neon Pony,Bar / Club,4:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Times+Square+New+York&destination=Neon+Pony+East+Village+New+York&travelmode=driving,"dancey, high-energy, late-night, hipster, trendy",40.7143,-74.0005
-West Village,The Copper Fox,Cocktail Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Times+Square+New+York&destination=The+Copper+Fox+West+Village+New+York&travelmode=driving,"date-friendly, drinks, upscale, chill, craft-cocktails",40.7138,-74.0075
-West Village,Grove Street Pub,Pub,4:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Times+Square+New+York&destination=Grove+Street+Pub+West+Village+New+York&travelmode=driving,"drinks, social, casual, neighborhood-gem",40.7173,-74.0085
-West Village,Blue Note Underground,Music Venue / Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Times+Square+New+York&destination=Blue+Note+Underground+West+Village+New+York&travelmode=driving,"drinks, live-music, loud, social",40.7153,-74.0095
-Williamsburg,The Whiskey Still,Bar,4:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Times+Square+New+York&destination=The+Whiskey+Still+Williamsburg+Brooklyn&travelmode=driving,"drinks, social, late-night, hipster, trendy",40.7018,-73.9905
-Williamsburg,Berry Street Brewing,Brewery / Taproom,12:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Times+Square+New+York&destination=Berry+Street+Brewing+Williamsburg+Brooklyn&travelmode=driving,"chill, brewery, hipster, trendy",40.7053,-73.9915
-Williamsburg,Rooftop Babylon,Rooftop Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Times+Square+New+York&destination=Rooftop+Babylon+Williamsburg+Brooklyn&travelmode=driving,"upscale, date-friendly, rooftop, views, hipster",40.7033,-73.9925
-Williamsburg,Vinyl Lounge,Bar / Club,4:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Times+Square+New+York&destination=Vinyl+Lounge+Williamsburg+Brooklyn&travelmode=driving,"dancey, high-energy, late-night, hipster, trendy",40.7013,-73.9935
-Lower East Side,The Sour Note,Dive Bar,4:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Times+Square+New+York&destination=The+Sour+Note+Lower+East+Side+New+York&travelmode=driving,"late-night, dive, neighborhood-gem",40.7128,-73.9955
-Lower East Side,Orchard Social Club,Cocktail Bar,4:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Times+Square+New+York&destination=Orchard+Social+Club+Lower+East+Side+New+York&travelmode=driving,"date-friendly, drinks, upscale, craft-cocktails",40.7163,-73.9965
-Lower East Side,Dumpling Window,Restaurant,3:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Times+Square+New+York&destination=Dumpling+Window+Lower+East+Side+New+York&travelmode=driving,"food-focused, late-eats, casual",40.7143,-73.9975
-SoHo,The Gilded Room,Lounge,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Times+Square+New+York&destination=The+Gilded+Room+SoHo+New+York&travelmode=driving,"date-friendly, drinks, upscale, chill, trendy",40.7168,-74.0035
-SoHo,Mercer Wine Cellar,Wine Bar,1:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Times+Square+New+York&destination=Mercer+Wine+Cellar+SoHo+New+York&travelmode=driving,"date-friendly, drinks, upscale, wine-bar, trendy",40.7203,-74.0045
-Chelsea,The High Rail,Bar,4:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Times+Square+New+York&destination=The+High+Rail+Chelsea+New+York&travelmode=driving,"drinks, social, late-night, trendy",40.7268,-74.0085
-Chelsea,Gallery Pour,Wine Bar,12:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Times+Square+New+York&destination=Gallery+Pour+Chelsea+New+York&travelmode=driving,"date-friendly, drinks, chill, wine-bar, trendy",40.7303,-74.0095
-Chelsea,The Warehouse NYC,Nightclub,4:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Times+Square+New+York&destination=The+Warehouse+NYC+Chelsea+New+York&travelmode=driving,"dancey, high-energy, late-night, trendy",40.7283,-74.0105
-Harlem,Sugar Hill Social,Lounge,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Times+Square+New+York&destination=Sugar+Hill+Social+Harlem+New+York&travelmode=driving,"drinks, social, live-music, chill, date-friendly",40.7518,-74.0085
-Harlem,Lenox Jazz Parlor,Music Venue / Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Times+Square+New+York&destination=Lenox+Jazz+Parlor+Harlem+New+York&travelmode=driving,"drinks, live-music, chill, social",40.7553,-74.0095
-Harlem,Sylvia's Late Night,Restaurant,1:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Times+Square+New+York&destination=Sylvia's+Late+Night+Harlem+New+York&travelmode=driving,"food-focused, late-eats, social",40.7533,-74.0105
-Bushwick,The Paint Factory,Bar / Club,4:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Times+Square+New+York&destination=The+Paint+Factory+Bushwick+Brooklyn&travelmode=driving,"dancey, high-energy, late-night, hipster, trendy",40.6968,-73.9805
-Bushwick,Morgantown Brews,Brewery / Taproom,12:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Times+Square+New+York&destination=Morgantown+Brews+Bushwick+Brooklyn&travelmode=driving,"chill, brewery, hipster, trendy",40.7003,-73.9815
-Bushwick,Bodega Bites,Restaurant,3:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Times+Square+New+York&destination=Bodega+Bites+Bushwick+Brooklyn&travelmode=driving,"food-focused, late-eats, hipster, trendy",40.6983,-73.9825
-Astoria,Steinway Taphouse,Bar,4:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Times+Square+New+York&destination=Steinway+Taphouse+Astoria+Queens&travelmode=driving,"drinks, social, late-night",40.7418,-73.9805
-Astoria,Taverna Nights,Restaurant / Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Times+Square+New+York&destination=Taverna+Nights+Astoria+Queens&travelmode=driving,"drinks, food-focused, late-eats, social",40.7453,-73.9815
-Brooklyn,The Crow's Nest,Rooftop Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Times+Square+New+York&destination=The+Crow's+Nest+Brooklyn&travelmode=driving,"upscale, date-friendly, rooftop, views",40.6918,-73.9955
-Brooklyn,Flatbush Ale Works,Brewery / Taproom,12:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Times+Square+New+York&destination=Flatbush+Ale+Works+Brooklyn&travelmode=driving,"drinks, chill, social, brewery, casual",40.6953,-73.9965
-Manhattan,The Parlour Room,Cocktail Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Times+Square+New+York&destination=The+Parlour+Room+Manhattan+New+York&travelmode=driving,"date-friendly, drinks, upscale, craft-cocktails",40.7218,-74.0005
-Manhattan,All Night Slice,Restaurant,4:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Times+Square+New+York&destination=All+Night+Slice+Manhattan+New+York&travelmode=driving,"food-focused, late-eats, casual",40.7253,-74.0015
-Manhattan,Brass Monkey Social,Sports Bar,4:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Times+Square+New+York&destination=Brass+Monkey+Social+Manhattan+New+York&travelmode=driving,"drinks, social, loud, sports-bar, casual",40.7233,-74.0025
-Queens,Jackson Heights Cantina,Restaurant / Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Times+Square+New+York&destination=Jackson+Heights+Cantina+Queens&travelmode=driving,"drinks, food-focused, late-eats, social",40.7318,-73.9755
-Manhattan,The Penrose Uptown,Bar,4:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Times+Square+New+York&destination=The+Penrose+Uptown+Manhattan+New+York&travelmode=driving,"drinks, social, late-night",40.7213,-74.0035
-Lower East Side,Rivington Karaoke,Karaoke,4:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Times+Square+New+York&destination=Rivington+Karaoke+Lower+East+Side+New+York&travelmode=driving,"group-fun, interactive, late-night, karaoke",40.7123,-73.9985
+East Village,Death & Co,Cocktail Bar,2:00 AM,433 E 6th St,,,,,"date-friendly, upscale, craft-cocktails, intimate",40.7262,-73.9891
+East Village,McSorley's Old Ale House,Pub,1:00 AM,15 E 7th St,,,,,"drinks, social, historic, cozy",40.7289,-73.9903
+East Village,Please Don't Tell (PDT),Speakeasy,2:00 AM,113 St Marks Pl,,,,,"craft-cocktails, speakeasy-style, intimate, upscale",40.7275,-73.9849
+East Village,Amor y Amargo,Cocktail Bar,2:00 AM,443 E 6th St,,,,,"craft-cocktails, intimate, date-friendly, hipster",40.7261,-73.9887
+East Village,The Wayland,Bar,4:00 AM,700 E 9th St,,,,,"drinks, live-music, social, hipster",40.7249,-73.9792
+East Village,PKNY,Cocktail Bar,2:00 AM,250 E Houston St,,,,,"craft-cocktails, upscale, trendy",40.7221,-73.9858
+East Village,Sophie's,Dive Bar,4:00 AM,507 E 5th St,,,,,"drinks, dive, social, late-night",40.7251,-73.9835
+East Village,Mace,Cocktail Bar,2:00 AM,649 E 9th St,,,,,"craft-cocktails, upscale, intimate",40.7253,-73.9808
+East Village,Holiday Cocktail Lounge,Bar,4:00 AM,75 St Marks Pl,,,,,"drinks, social, dive, retro",40.7279,-73.9859
+East Village,Horseshoe Bar,Dive Bar,4:00 AM,108 Ave B,,,,,"drinks, dive, social, late-night",40.7243,-73.9795
+West Village,Employees Only,Cocktail Bar,4:00 AM,510 Hudson St,,,,,"craft-cocktails, upscale, late-night, date-friendly",40.7333,-74.0071
+West Village,The Stonewall Inn,Bar,4:00 AM,53 Christopher St,,,,,"drinks, social, historic, lively",40.7339,-74.0021
+West Village,Cubbyhole,Bar,4:00 AM,281 W 12th St,,,,,"drinks, social, cozy, lively",40.7376,-74.0016
+West Village,Corner Bistro,Dive Bar,4:00 AM,331 W 4th St,,,,,"food-focused, dive, late-eats, social",40.7382,-74.0038
+West Village,Dante,Cocktail Bar,1:00 AM,79-81 MacDougal St,,,,,"craft-cocktails, upscale, classy, date-friendly",40.7296,-73.9998
+West Village,Blind Tiger Ale House,Pub,4:00 AM,281 Bleecker St,,,,,"drinks, craft, social, cozy",40.7325,-74.0037
+West Village,124 Old Rabbit Club,Speakeasy,2:00 AM,124 MacDougal St,,,,,"speakeasy-style, craft-cocktails, intimate, underground",40.7289,-74.0003
+West Village,Wally's,Bar,4:00 AM,78 7th Ave S,,,,,"drinks, social, dancey, late-night",40.7329,-74.0011
+Lower East Side,Attaboy,Cocktail Bar,4:00 AM,134 Eldridge St,,,,,"craft-cocktails, speakeasy-style, intimate, upscale",40.7191,-73.9920
+Lower East Side,Welcome to the Johnsons,Dive Bar,4:00 AM,123 Rivington St,,,,,"drinks, dive, social, retro, hipster",40.7193,-73.9867
+Lower East Side,Beauty & Essex,Lounge,2:00 AM,146 Essex St,,,,,"upscale, trendy, food-focused, craft-cocktails",40.7193,-73.9870
+Lower East Side,Mr. Purple,Rooftop Bar,4:00 AM,180 Orchard St,,,,,"rooftop, trendy, upscale, dancey",40.7217,-73.9893
+Lower East Side,Pianos,Music Venue / Bar,4:00 AM,158 Ludlow St,,,,,"live-music, drinks, social, hipster",40.7198,-73.9882
+Lower East Side,The Back Room,Speakeasy,3:00 AM,102 Norfolk St,,,,,"speakeasy-style, craft-cocktails, upscale, historic",40.7187,-73.9863
+Lower East Side,169 Bar,Dive Bar,4:00 AM,169 E Broadway,,,,,"drinks, dive, social, live-music, late-night",40.7138,-73.9884
+Lower East Side,Whiskey Tavern,Dive Bar,4:00 AM,79 Baxter St,,,,,"drinks, dive, social, late-night",40.7155,-73.9996
+SoHo,Pegu Club,Cocktail Bar,2:00 AM,77 W Houston St,,,,,"craft-cocktails, upscale, classy, date-friendly",40.7274,-73.9998
+SoHo,Fanelli Cafe,Pub,2:00 AM,94 Prince St,,,,,"drinks, social, historic, cozy",40.7236,-73.9988
+SoHo,Le Bain,Club,4:00 AM,848 Washington St,,,,,"dancey, high-energy, rooftop, trendy, late-night",40.7403,-74.0078
+SoHo,Ear Inn,Pub,4:00 AM,326 Spring St,,,,,"drinks, social, historic, cozy",40.7259,-74.0098
+SoHo,Club Room at Soho Grand,Lounge,2:00 AM,310 West Broadway,,,,,"upscale, classy, date-friendly, craft-cocktails",40.7225,-74.0025
+Chelsea,Bathtub Gin,Speakeasy,2:00 AM,132 9th Ave,,,,,"speakeasy-style, craft-cocktails, intimate, upscale",40.7433,-74.0013
+Chelsea,Marquee,Club,4:00 AM,289 10th Ave,,,,,"dancey, high-energy, late-night, trendy, dj",40.7493,-74.0043
+Chelsea,Tao Downtown,Club / Lounge,4:00 AM,92 9th Ave,,,,,"dancey, upscale, trendy, high-energy",40.7424,-74.0007
+Chelsea,Rocking Horse Cafe,Bar,4:00 AM,182 8th Ave,,,,,"drinks, social, food-focused, lively",40.7422,-73.9985
+Chelsea,Frying Pan,Bar,12:00 AM,Pier 66 Maritime,,,,,"drinks, outdoor-seating, chill, social",40.7551,-74.0026
+Hell's Kitchen,Rudy's Bar & Grill,Dive Bar,4:00 AM,627 9th Ave,,,,,"drinks, dive, social, late-night",40.7581,-73.9923
+Hell's Kitchen,Flaming Saddles Saloon,Bar,4:00 AM,793 9th Ave,,,,,"drinks, social, lively, dancey",40.7620,-73.9896
+Hell's Kitchen,Valhalla,Bar,4:00 AM,815 9th Ave,,,,,"drinks, craft, social, cozy",40.7625,-73.9890
+Hell's Kitchen,Robert,Rooftop Bar,1:00 AM,603 W 55th St,,,,,"rooftop, upscale, date-friendly, classy",40.7670,-73.9915
+Hell's Kitchen,Terminal 5,Music Venue,12:00 AM,610 W 56th St,,,,,"live-music, loud, high-energy, dancey",40.7695,-73.9935
+Midtown,The Campbell,Cocktail Bar,2:00 AM,15 Vanderbilt Ave,,,,,"craft-cocktails, upscale, classy, historic",40.7527,-73.9769
+Midtown,Fine & Rare,Cocktail Bar,2:00 AM,9 E 37th St,,,,,"craft-cocktails, upscale, date-friendly, classy",40.7500,-73.9816
+Midtown,Jimmy's Corner,Dive Bar,4:00 AM,140 W 44th St,,,,,"drinks, dive, social, historic",40.7569,-73.9855
+Midtown,Dear Irving on Hudson,Rooftop Bar,2:00 AM,310 W 40th St,,,,,"rooftop, upscale, craft-cocktails, classy",40.7571,-73.9919
+Midtown,The Press Lounge,Rooftop Bar,1:00 AM,653 11th Ave,,,,,"rooftop, upscale, date-friendly, classy",40.7636,-73.9975
+Upper East Side,Bemelmans Bar,Cocktail Bar,1:00 AM,35 E 76th St,,,,,"craft-cocktails, upscale, classy, historic, date-friendly",40.7750,-73.9654
+Upper East Side,The Penrose,Bar,4:00 AM,1590 2nd Ave,,,,,"drinks, social, cozy, hipster",40.7760,-73.9522
+Upper East Side,Dorrian's Red Hand,Bar,4:00 AM,1616 2nd Ave,,,,,"drinks, social, lively, late-night",40.7772,-73.9529
+Upper East Side,Brandy's Piano Bar,Piano Bar,4:00 AM,235 E 84th St,,,,,"live-music, social, intimate, cozy",40.7780,-73.9528
+Upper West Side,Dead Poet,Pub,4:00 AM,450 Amsterdam Ave,,,,,"drinks, social, cozy, literary",40.7855,-73.9750
+Upper West Side,Prohibition,Bar,4:00 AM,503 Columbus Ave,,,,,"drinks, social, live-music, retro",40.7907,-73.9698
+Upper West Side,Gebhard's Beer Culture,Brewery,12:00 AM,680 Columbus Ave,,,,,"craft, drinks, brewery, social",40.7987,-73.9632
+Harlem,The Shrine,Music Venue / Bar,4:00 AM,2271 Adam Clayton Powell Jr Blvd,,,,,"live-music, drinks, social, dancey, artsy",40.8183,-73.9486
+Harlem,Ginny's Supper Club,Lounge,12:00 AM,310 Lenox Ave,,,,,"live-music, upscale, date-friendly, classy",40.8116,-73.9414
+Harlem,Silvana,Music Venue / Bar,4:00 AM,300 W 116th St,,,,,"live-music, drinks, social, hipster",40.8040,-73.9527
+Harlem,Harlem Hops,Bar,12:00 AM,2268 Adam Clayton Powell Jr Blvd,,,,,"craft, drinks, social, chill",40.8180,-73.9484
+FiDi,The Dead Rabbit,Cocktail Bar,4:00 AM,30 Water St,,,,,"craft-cocktails, upscale, historic, classy",40.7034,-74.0099
+FiDi,Stone Street Tavern,Pub,12:00 AM,52 Stone St,,,,,"drinks, social, outdoor-seating, lively",40.7042,-74.0104
+FiDi,The Beekman Beer Garden,Bar,12:00 AM,89 South St,,,,,"drinks, outdoor-seating, social, chill",40.7065,-74.0020
+Williamsburg,Maison Premiere,Cocktail Bar,2:00 AM,298 Bedford Ave,,,,,"craft-cocktails, upscale, date-friendly, classy",40.7138,-73.9612
+Williamsburg,Radegast Hall & Biergarten,Beer Hall,2:00 AM,113 N 3rd St,,,,,"drinks, social, live-music, lively",40.7162,-73.9619
+Williamsburg,The Commodore,Dive Bar,4:00 AM,366 Metropolitan Ave,,,,,"drinks, dive, social, hipster, late-night",40.7142,-73.9560
+Williamsburg,Rough Trade NYC,Music Venue,12:00 AM,64 N 9th St,,,,,"live-music, hipster, social, artsy",40.7181,-73.9621
+Williamsburg,Union Pool,Bar,4:00 AM,484 Union Ave,,,,,"drinks, social, outdoor-seating, hipster, live-music",40.7002,-73.9508
+Williamsburg,Pete's Candy Store,Bar,2:00 AM,709 Lorimer St,,,,,"live-music, drinks, intimate, hipster, cozy",40.7131,-73.9505
+Williamsburg,Spritzenhaus,Beer Garden,12:00 AM,33 Nassau Ave,,,,,"drinks, outdoor-seating, social, craft",40.7233,-73.9515
+Williamsburg,Output,Club,4:00 AM,74 Wythe Ave,,,,,"dancey, dj, high-energy, late-night, underground",40.7222,-73.9584
+Williamsburg,Baby's All Right,Music Venue / Bar,4:00 AM,146 Broadway,,,,,"live-music, drinks, social, hipster, dancey",40.7101,-73.9627
+Williamsburg,Westlight,Rooftop Bar,2:00 AM,111 N 12th St,,,,,"rooftop, upscale, trendy, date-friendly",40.7224,-73.9576
+Bushwick,House of Yes,Club,4:00 AM,2 Wyckoff Ave,,,,,"dancey, high-energy, artsy, late-night, underground",40.7044,-73.9227
+Bushwick,Bizarre,Bar,4:00 AM,12 Jefferson St,,,,,"drinks, artsy, hipster, live-music",40.7059,-73.9224
+Bushwick,Mood Ring,Bar,4:00 AM,1260 Myrtle Ave,,,,,"drinks, hipster, chill, artsy",40.6979,-73.9276
+Bushwick,The Johnsons,Dive Bar,4:00 AM,269 Bogart St,,,,,"drinks, dive, social, hipster",40.7052,-73.9261
+Bushwick,Lot 45,Lounge,4:00 AM,411 Troutman St,,,,,"drinks, social, dancey, trendy, dj",40.7079,-73.9173
+Bushwick,Heavy Woods,Bar,4:00 AM,50 Wyckoff Ave,,,,,"drinks, hipster, chill, artsy",40.7054,-73.9215
+Park Slope,Union Hall,Bar,4:00 AM,702 Union St,,,,,"drinks, social, live-music, hipster, cozy",40.6746,-73.9797
+Park Slope,Freddy's Bar,Dive Bar,4:00 AM,627 5th Ave,,,,,"drinks, live-music, social, dive, hipster",40.6668,-73.9820
+Park Slope,Barbes,Music Venue / Bar,2:00 AM,376 9th St,,,,,"live-music, intimate, artsy, hipster",40.6700,-73.9804
+Park Slope,Mission Dolores,Bar,2:00 AM,249 4th Ave,,,,,"drinks, craft, outdoor-seating, hipster",40.6793,-73.9825
+DUMBO,Time Out Market,Food Hall / Bar,11:00 PM,55 Water St,,,,,"food-focused, drinks, social, trendy",40.7028,-73.9903
+DUMBO,Cecconi's,Restaurant / Bar,12:00 AM,55 Water St,,,,,"food-focused, upscale, date-friendly, classy",40.7030,-73.9905
+Greenpoint,The Diamond,Bar,4:00 AM,43 Franklin St,,,,,"drinks, social, chill, hipster",40.7298,-73.9578
+Greenpoint,Pencil Factory,Bar,4:00 AM,142 Franklin St,,,,,"drinks, social, hipster, cozy",40.7309,-73.9570
+Greenpoint,WORD Bar,Bar,4:00 AM,47 Norman Ave,,,,,"drinks, hipster, chill, social",40.7264,-73.9503
+Greenpoint,Achilles Heel,Cocktail Bar,2:00 AM,180 West St,,,,,"craft-cocktails, date-friendly, intimate, hipster",40.7294,-73.9604
+Bed-Stuy,Doris,Bar,4:00 AM,1088 Fulton St,,,,,"drinks, social, hipster, lively",40.6806,-73.9584
+Bed-Stuy,Dynaco,Bar,4:00 AM,1112 Bedford Ave,,,,,"drinks, hipster, cozy, chill",40.6871,-73.9538
+Bed-Stuy,Casablanca Cocktail Lounge,Lounge,4:00 AM,636 Nostrand Ave,,,,,"drinks, social, retro, cozy",40.6781,-73.9501
+Astoria,Bohemian Hall & Beer Garden,Beer Garden,1:00 AM,29-19 24th Ave,,,,,"drinks, outdoor-seating, social, lively",40.7674,-73.9189
+Astoria,The Bonnie,Cocktail Bar,2:00 AM,29-12 23rd Ave,,,,,"craft-cocktails, hipster, date-friendly, cozy",40.7683,-73.9190
+Astoria,ICON,Bar,4:00 AM,36-18 30th Ave,,,,,"drinks, social, lively, dancey",40.7659,-73.9247
+Astoria,Mosaic,Lounge,4:00 AM,25-80 Steinway St,,,,,"drinks, social, chill, trendy",40.7745,-73.9082
+Long Island City,Dutch Kills,Cocktail Bar,2:00 AM,27-24 Jackson Ave,,,,,"craft-cocktails, speakeasy-style, intimate, upscale",40.7464,-73.9432
+Long Island City,LIC Bar,Bar,4:00 AM,45-58 Vernon Blvd,,,,,"drinks, social, outdoor-seating, chill",40.7490,-73.9560
+Long Island City,Alewife,Brewery / Bar,12:00 AM,5-14 51st Ave,,,,,"craft, drinks, brewery, social",40.7418,-73.9464
+Chelsea,1 Oak,Club,4:00 AM,453 W 17th St,,,,,"dancey, high-energy, upscale, trendy, late-night",40.7436,-74.0036
+SoHo,Spring Lounge,Bar,4:00 AM,48 Spring St,,,,,"drinks, dive, social, late-night",40.7224,-73.9968
+Lower East Side,Katz's Delicatessen,Restaurant,2:45 AM,205 E Houston St,,,,,"food-focused, late-eats, historic, social",40.7223,-73.9873
+Lower East Side,Mercury Lounge,Music Venue,1:00 AM,217 E Houston St,,,,,"live-music, drinks, social, hipster",40.7222,-73.9869
+East Village,Burp Castle,Bar,1:00 AM,41 E 7th St,,,,,"drinks, chill, intimate, artsy",40.7285,-73.9901
+East Village,d.b.a.,Bar,2:00 AM,41 1st Ave,,,,,"drinks, craft, social, hipster",40.7237,-73.9887
+West Village,Little Branch,Cocktail Bar,3:00 AM,20 7th Ave S,,,,,"craft-cocktails, speakeasy-style, intimate, date-friendly",40.7320,-74.0003
+West Village,Chunky's,Dive Bar,4:00 AM,White Horse Tavern vicinity,,,,,"drinks, dive, social, late-night",40.7354,-74.0015
+Williamsburg,Brooklyn Bowl,Music Venue / Bar,2:00 AM,61 Wythe Ave,,,,,"live-music, drinks, social, lively",40.7225,-73.9579
+Williamsburg,The Shanty,Cocktail Bar,12:00 AM,79 Richardson St,,,,,"craft-cocktails, intimate, hipster, cozy",40.7193,-73.9577
+Hell's Kitchen,Therapy,Bar,4:00 AM,348 W 52nd St,,,,,"drinks, social, lively, dancey",40.7638,-73.9871
+Midtown,230 Fifth,Rooftop Bar,4:00 AM,230 Fifth Ave,,,,,"rooftop, drinks, social, trendy, late-night",40.7441,-73.9880
+FiDi,Pier A Harbor House,Bar,12:00 AM,22 Battery Pl,,,,,"drinks, outdoor-seating, social, classy",40.7042,-74.0177
+Harlem,Red Rooster,Restaurant / Bar,12:00 AM,310 Lenox Ave,,,,,"food-focused, drinks, live-music, upscale",40.8115,-73.9414
+Bushwick,Elsewhere,Club / Music Venue,4:00 AM,599 Johnson Ave,,,,,"dancey, live-music, dj, high-energy, underground",40.7096,-73.9266
+Park Slope,Pacific Standard,Bar,4:00 AM,82 4th Ave,,,,,"drinks, social, sports-tv, cozy",40.6863,-73.9785
+Greenpoint,Ramona,Bar,4:00 AM,113 Franklin St,,,,,"drinks, social, hipster, chill",40.7305,-73.9574
+Upper East Side,Caledonia,Pub,4:00 AM,1609 2nd Ave,,,,,"drinks, social, cozy, sports-tv",40.7769,-73.9533
+Bed-Stuy,Peaches HotHouse,Restaurant / Bar,12:00 AM,415 Tompkins Ave,,,,,"food-focused, drinks, social, lively",40.6842,-73.9431
+Chelsea,The Tippler,Cocktail Bar,2:00 AM,425 W 15th St,,,,,"craft-cocktails, underground, upscale, intimate",40.7418,-74.0041
+Lower East Side,Nurse Bettie,Bar,4:00 AM,106 Norfolk St,,,,,"drinks, social, retro, burlesque",40.7189,-73.9862
+East Village,Bua,Bar,4:00 AM,122 St Marks Pl,,,,,"drinks, social, chill, hipster, late-night",40.7272,-73.9826

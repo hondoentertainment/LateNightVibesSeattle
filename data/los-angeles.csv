@@ -1,36 +1,103 @@
 Area,Name,Category,Typical Closing Time,Address,Phone,Website,Driving Distance,Google Maps Driving Link,Vibe Tags,Latitude,Longitude
-Hollywood,Sunset Social,Rooftop Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Hollywood+Blvd+Los+Angeles&destination=Sunset+Social+Hollywood+Los+Angeles&travelmode=driving,"upscale, date-friendly, rooftop, views",34.0812,-118.2932
-Hollywood,The Vinyl Vault,Bar / Club,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Hollywood+Blvd+Los+Angeles&destination=The+Vinyl+Vault+Hollywood+Los+Angeles&travelmode=driving,"dancey, drinks, high-energy, late-night",34.0847,-118.2942
-Hollywood,Neon Taco,Restaurant,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Hollywood+Blvd+Los+Angeles&destination=Neon+Taco+Hollywood+Los+Angeles&travelmode=driving,"food-focused, late-eats, casual",34.0827,-118.2952
-Hollywood,The Roosevelt Lounge,Lounge,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Hollywood+Blvd+Los+Angeles&destination=The+Roosevelt+Lounge+Hollywood+Los+Angeles&travelmode=driving,"date-friendly, drinks, upscale, chill",34.0807,-118.2962
-Silver Lake,The Thirsty Cactus,Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Hollywood+Blvd+Los+Angeles&destination=The+Thirsty+Cactus+Silver+Lake+Los+Angeles&travelmode=driving,"drinks, social, chill, hipster, trendy",34.0712,-118.2632
-Silver Lake,Reservoir Brewing,Brewery / Taproom,12:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Hollywood+Blvd+Los+Angeles&destination=Reservoir+Brewing+Silver+Lake+Los+Angeles&travelmode=driving,"chill, brewery, hipster, trendy",34.0747,-118.2642
-Silver Lake,The Satellite Stage,Music Venue / Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Hollywood+Blvd+Los+Angeles&destination=The+Satellite+Stage+Silver+Lake+Los+Angeles&travelmode=driving,"live-music, loud, hipster, trendy",34.0727,-118.2652
-Echo Park,Sunset Echo Lounge,Lounge,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Hollywood+Blvd+Los+Angeles&destination=Sunset+Echo+Lounge+Echo+Park+Los+Angeles&travelmode=driving,"chill, date-friendly, hipster, trendy",34.0662,-118.2582
-Echo Park,The Short Stop,Dive Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Hollywood+Blvd+Los+Angeles&destination=The+Short+Stop+Echo+Park+Los+Angeles&travelmode=driving,"late-night, dive, neighborhood-gem, hipster, trendy",34.0697,-118.2592
-Echo Park,Elysian Tacos,Restaurant,1:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Hollywood+Blvd+Los+Angeles&destination=Elysian+Tacos+Echo+Park+Los+Angeles&travelmode=driving,"food-focused, late-eats, hipster, trendy",34.0677,-118.2602
-Downtown LA,The Basement Speakeasy,Cocktail Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Hollywood+Blvd+Los+Angeles&destination=The+Basement+Speakeasy+Downtown+Los+Angeles&travelmode=driving,"date-friendly, drinks, upscale, craft-cocktails",34.0512,-118.2432
-Downtown LA,Grand Avenue Nightclub,Nightclub,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Hollywood+Blvd+Los+Angeles&destination=Grand+Avenue+Nightclub+Downtown+Los+Angeles&travelmode=driving,"dancey, high-energy, late-night",34.0547,-118.2442
-Downtown LA,Spring Street Wine Room,Wine Bar,12:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Hollywood+Blvd+Los+Angeles&destination=Spring+Street+Wine+Room+Downtown+Los+Angeles&travelmode=driving,"date-friendly, drinks, chill, wine-bar",34.0527,-118.2452
-West Hollywood,The Sunset Pour,Cocktail Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Hollywood+Blvd+Los+Angeles&destination=The+Sunset+Pour+West+Hollywood&travelmode=driving,"date-friendly, upscale, craft-cocktails, trendy, lgbtq-friendly",34.0862,-118.3032
-West Hollywood,Rainbow Room Social,Bar / Club,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Hollywood+Blvd+Los+Angeles&destination=Rainbow+Room+Social+West+Hollywood&travelmode=driving,"dancey, high-energy, late-night, trendy, lgbtq-friendly",34.0897,-118.3042
-West Hollywood,Whiskey & Rye,Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Hollywood+Blvd+Los+Angeles&destination=Whiskey+&+Rye+West+Hollywood&travelmode=driving,"drinks, social, trendy, lgbtq-friendly",34.0877,-118.3052
-Venice,The Boardwalk Tavern,Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Hollywood+Blvd+Los+Angeles&destination=The+Boardwalk+Tavern+Venice+Los+Angeles&travelmode=driving,"drinks, social, chill, outdoor-seating, casual",34.0412,-118.3632
-Venice,Abbot Kinney Wine Bar,Wine Bar,12:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Hollywood+Blvd+Los+Angeles&destination=Abbot+Kinney+Wine+Bar+Venice+Los+Angeles&travelmode=driving,"date-friendly, chill, wine-bar, outdoor-seating",34.0447,-118.3642
-Venice,Oceanfront Late Bites,Restaurant,1:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Hollywood+Blvd+Los+Angeles&destination=Oceanfront+Late+Bites+Venice+Los+Angeles&travelmode=driving,"food-focused, late-eats, outdoor-seating, casual",34.0427,-118.3652
-Santa Monica,The Promenade Pub,Pub,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Hollywood+Blvd+Los+Angeles&destination=The+Promenade+Pub+Santa+Monica&travelmode=driving,"drinks, social, casual, neighborhood-gem, outdoor-seating",34.0462,-118.3832
-Santa Monica,Pacific Pint House,Sports Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Hollywood+Blvd+Los+Angeles&destination=Pacific+Pint+House+Santa+Monica&travelmode=driving,"loud, sports-bar, outdoor-seating",34.0497,-118.3842
-Koreatown,The Soju Room,Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Hollywood+Blvd+Los+Angeles&destination=The+Soju+Room+Koreatown+Los+Angeles&travelmode=driving,"drinks, social, late-night",34.0612,-118.2732
-Koreatown,K-Town Karaoke Palace,Karaoke,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Hollywood+Blvd+Los+Angeles&destination=K-Town+Karaoke+Palace+Koreatown+Los+Angeles&travelmode=driving,"group-fun, interactive, late-night, karaoke",34.0647,-118.2742
-Koreatown,Midnight BBQ House,Restaurant,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Hollywood+Blvd+Los+Angeles&destination=Midnight+BBQ+House+Koreatown+Los+Angeles&travelmode=driving,"food-focused, late-eats, casual",34.0627,-118.2752
-Los Feliz,The Alcove After Dark,Bar / Restaurant,1:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Hollywood+Blvd+Los+Angeles&destination=The+Alcove+After+Dark+Los+Feliz+Los+Angeles&travelmode=driving,"drinks, food-focused, late-eats, social",34.0762,-118.2682
-Los Feliz,Griffith Park Brewing,Brewery / Taproom,11:00 PM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Hollywood+Blvd+Los+Angeles&destination=Griffith+Park+Brewing+Los+Feliz+Los+Angeles&travelmode=driving,"drinks, chill, social, brewery, casual",34.0797,-118.2692
-Highland Park,The York Social,Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Hollywood+Blvd+Los+Angeles&destination=The+York+Social+Highland+Park+Los+Angeles&travelmode=driving,"drinks, social, chill, hipster, trendy",34.0912,-118.2532
-Highland Park,Figueroa Taproom,Brewery / Taproom,12:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Hollywood+Blvd+Los+Angeles&destination=Figueroa+Taproom+Highland+Park+Los+Angeles&travelmode=driving,"chill, brewery, hipster, trendy",34.0947,-118.2542
-Highland Park,HP Night Owl Pizza,Restaurant,1:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Hollywood+Blvd+Los+Angeles&destination=HP+Night+Owl+Pizza+Highland+Park+Los+Angeles&travelmode=driving,"food-focused, late-eats, hipster, trendy",34.0927,-118.2552
-Arts District,The Foundry Bar,Cocktail Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Hollywood+Blvd+Los+Angeles&destination=The+Foundry+Bar+Arts+District+Los+Angeles&travelmode=driving,"date-friendly, drinks, upscale, craft-cocktails, hipster",34.0462,-118.2382
-Arts District,Warehouse Sound,Music Venue / Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Hollywood+Blvd+Los+Angeles&destination=Warehouse+Sound+Arts+District+Los+Angeles&travelmode=driving,"live-music, loud, hipster, trendy",34.0497,-118.2392
-Arts District,Iron Works Brewing,Brewery / Taproom,11:00 PM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Hollywood+Blvd+Los+Angeles&destination=Iron+Works+Brewing+Arts+District+Los+Angeles&travelmode=driving,"chill, brewery, hipster, trendy",34.0477,-118.2402
-Culver City,The Backyard Social,Bar,12:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Hollywood+Blvd+Los+Angeles&destination=The+Backyard+Social+Culver+City&travelmode=driving,"drinks, social, chill",34.0312,-118.3232
-Culver City,Culver Steps Wine Bar,Wine Bar,11:00 PM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Hollywood+Blvd+Los+Angeles&destination=Culver+Steps+Wine+Bar+Culver+City&travelmode=driving,"date-friendly, drinks, chill, wine-bar",34.0347,-118.3242
-Hollywood,Laugh Factory Underground,Comedy Club / Bar,1:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Hollywood+Blvd+Los+Angeles&destination=Laugh+Factory+Underground+Hollywood+Los+Angeles&travelmode=driving,"group-fun, dancey, high-energy, comedy",34.0842,-118.2907
+Hollywood,No Vacancy,Cocktail Bar,2:00 AM,1727 N Hudson Ave,,,,,"craft-cocktails, speakeasy-style, upscale, date-friendly",34.1017,-118.3357
+Hollywood,Good Times at Davey Wayne's,Bar,2:00 AM,1611 N El Centro Ave,,,,,"drinks, retro, social, lively",34.0996,-118.3286
+Hollywood,Musso & Frank Grill,Restaurant / Bar,11:00 PM,6667 Hollywood Blvd,,,,,"food-focused, upscale, historic, classy",34.1016,-118.3352
+Hollywood,The Frolic Room,Dive Bar,2:00 AM,6245 Hollywood Blvd,,,,,"drinks, dive, historic, retro",34.1016,-118.3257
+Hollywood,Harvard & Stone,Bar,2:00 AM,5221 Hollywood Blvd,,,,,"drinks, live-music, social, hipster",34.1017,-118.3080
+Hollywood,Three Clubs,Bar,2:00 AM,1123 Vine St,,,,,"drinks, social, retro, chill",34.0934,-118.3268
+Hollywood,Dirty Laundry,Speakeasy,2:00 AM,1725 N Hudson Ave,,,,,"speakeasy-style, craft-cocktails, underground, intimate",34.1016,-118.3357
+Hollywood,Boardner's,Bar / Club,2:00 AM,1652 N Cherokee Ave,,,,,"drinks, social, dancey, late-night",34.0992,-118.3349
+Hollywood,Avalon Hollywood,Club,2:00 AM,1735 Vine St,,,,,"dancey, dj, high-energy, late-night",34.1004,-118.3268
+Hollywood,Jumbo's Clown Room,Bar,2:00 AM,5153 Hollywood Blvd,,,,,"drinks, social, dancey, retro, dive",34.1017,-118.3054
+Hollywood,Black Rabbit Rose,Bar / Magic Club,2:00 AM,1719 N Hudson Ave,,,,,"drinks, social, intimate, artsy, underground",34.1014,-118.3356
+Hollywood,Yamashiro,Restaurant / Bar,12:00 AM,1999 N Sycamore Ave,,,,,"food-focused, upscale, date-friendly, scenic",34.1062,-118.3433
+West Hollywood,The Abbey,Bar / Club,2:00 AM,692 N Robertson Blvd,,,,,"drinks, social, dancey, lively, outdoor-seating",34.0815,-118.3839
+West Hollywood,Laurel Hardware,Cocktail Bar,2:00 AM,7984 Santa Monica Blvd,,,,,"craft-cocktails, upscale, trendy, date-friendly",34.0910,-118.3600
+West Hollywood,Whiskey a Go Go,Music Venue,2:00 AM,8901 W Sunset Blvd,,,,,"live-music, loud, high-energy, historic",34.0907,-118.3852
+West Hollywood,Rainbow Bar & Grill,Bar / Restaurant,2:00 AM,9015 W Sunset Blvd,,,,,"drinks, food-focused, live-music, retro, historic",34.0901,-118.3887
+West Hollywood,The Viper Room,Music Venue / Bar,2:00 AM,8852 Sunset Blvd,,,,,"live-music, drinks, social, historic",34.0906,-118.3838
+West Hollywood,Employees Only LA,Cocktail Bar,2:00 AM,7953 Santa Monica Blvd,,,,,"craft-cocktails, upscale, date-friendly, late-night",34.0908,-118.3594
+West Hollywood,Trunks,Bar,2:00 AM,8809 Santa Monica Blvd,,,,,"drinks, social, dive, sports-tv",34.0879,-118.3854
+West Hollywood,The Den on Sunset,Bar,2:00 AM,8226 W Sunset Blvd,,,,,"drinks, social, lively, outdoor-seating",34.0973,-118.3677
+West Hollywood,Bar Lubitsch,Cocktail Bar,2:00 AM,7702 Santa Monica Blvd,,,,,"craft-cocktails, upscale, intimate, date-friendly",34.0907,-118.3543
+West Hollywood,Skybar at Mondrian,Rooftop Bar,2:00 AM,8440 Sunset Blvd,,,,,"rooftop, upscale, trendy, date-friendly",34.0957,-118.3725
+West Hollywood,Rocco's WeHo,Bar / Restaurant,2:00 AM,8900 Santa Monica Blvd,,,,,"drinks, food-focused, social, lively, dancey",34.0887,-118.3861
+West Hollywood,The Comedy Store,Comedy Club,2:00 AM,8433 Sunset Blvd,,,,,"comedy, drinks, social, late-night",34.0953,-118.3715
+Silver Lake,Akbar,Bar,2:00 AM,4356 W Sunset Blvd,,,,,"drinks, social, dancey, hipster",34.0847,-118.2855
+Silver Lake,Cha Cha Lounge,Dive Bar,2:00 AM,2375 Glendale Blvd,,,,,"drinks, dive, social, hipster",34.0848,-118.2593
+Silver Lake,The Short Stop,Dive Bar,2:00 AM,1455 Sunset Blvd,,,,,"drinks, dive, dancey, social, hipster",34.0669,-118.2568
+Silver Lake,El Prado,Bar,2:00 AM,1805 Sunset Blvd,,,,,"drinks, social, outdoor-seating, hipster, chill",34.0768,-118.2631
+Silver Lake,Red Lion Tavern,Pub,2:00 AM,2366 Glendale Blvd,,,,,"drinks, social, cozy, retro",34.0844,-118.2593
+Silver Lake,The Satellite,Music Venue / Bar,2:00 AM,1717 Silver Lake Blvd,,,,,"live-music, drinks, hipster, social",34.0880,-118.2684
+Silver Lake,Silverlake Lounge,Music Venue / Bar,2:00 AM,2906 Sunset Blvd,,,,,"live-music, drinks, dive, hipster",34.0828,-118.2730
+Silver Lake,L&E Oyster Bar,Restaurant / Bar,12:00 AM,1637 Silver Lake Blvd,,,,,"food-focused, upscale, date-friendly, intimate",34.0871,-118.2682
+Echo Park,The Echo,Music Venue / Bar,2:00 AM,1822 Sunset Blvd,,,,,"live-music, drinks, hipster, social, loud",34.0771,-118.2632
+Echo Park,Echoplex,Music Venue / Club,2:00 AM,1154 Glendale Blvd,,,,,"live-music, dancey, dj, underground, high-energy",34.0731,-118.2553
+Echo Park,Mohawk Bend,Restaurant / Bar,12:00 AM,2141 Sunset Blvd,,,,,"food-focused, craft, drinks, hipster",34.0773,-118.2592
+Echo Park,The Semi-Tropic,Bar,2:00 AM,1412 Glendale Blvd,,,,,"drinks, hipster, social, chill",34.0768,-118.2593
+Echo Park,1642 Bar,Cocktail Bar,2:00 AM,1642 W Temple St,,,,,"craft-cocktails, intimate, date-friendly, hipster",34.0686,-118.2515
+Echo Park,Button Mash,Bar / Arcade,12:00 AM,1391 Sunset Blvd,,,,,"drinks, arcade, social, hipster, food-focused",34.0778,-118.2552
+Downtown LA,The Varnish,Speakeasy,2:00 AM,118 E 6th St,,,,,"speakeasy-style, craft-cocktails, intimate, upscale",34.0453,-118.2474
+Downtown LA,Clifton's Republic,Bar,2:00 AM,648 S Broadway,,,,,"drinks, social, retro, historic, multi-level",34.0443,-118.2533
+Downtown LA,The Edison,Cocktail Bar,2:00 AM,108 W 2nd St,,,,,"craft-cocktails, upscale, underground, classy",34.0510,-118.2461
+Downtown LA,Pattern Bar,Cocktail Bar,2:00 AM,100 W 9th St,,,,,"craft-cocktails, trendy, social, date-friendly",34.0387,-118.2562
+Downtown LA,Las Perlas,Bar,2:00 AM,107 E 6th St,,,,,"drinks, social, craft, hipster",34.0454,-118.2481
+Downtown LA,Seven Grand,Whiskey Bar,2:00 AM,515 W 7th St,,,,,"craft-cocktails, upscale, classy, intimate",34.0480,-118.2554
+Downtown LA,Angel City Brewery,Brewery,12:00 AM,216 S Alameda St,,,,,"craft, brewery, social, outdoor-seating",34.0477,-118.2380
+Downtown LA,Exchange LA,Club,2:00 AM,618 S Spring St,,,,,"dancey, dj, high-energy, late-night",34.0446,-118.2515
+Downtown LA,Resident,Bar,2:00 AM,428 S Hewitt St,,,,,"drinks, outdoor-seating, dj, social, trendy",34.0425,-118.2329
+Downtown LA,Bar Jackalope,Bar,2:00 AM,334 E 2nd St,,,,,"drinks, hipster, social, outdoor-seating",34.0484,-118.2378
+Downtown LA,Apotheke LA,Cocktail Bar,2:00 AM,1746 E 7th St,,,,,"craft-cocktails, upscale, speakeasy-style, intimate",34.0335,-118.2283
+Santa Monica,Chez Jay,Dive Bar,2:00 AM,1657 Ocean Ave,,,,,"drinks, dive, historic, cozy",34.0126,-118.4952
+Santa Monica,The Bungalow,Bar,2:00 AM,101 Wilshire Blvd,,,,,"drinks, social, trendy, outdoor-seating",34.0119,-118.4936
+Santa Monica,Harvelle's,Music Venue / Bar,2:00 AM,1432 4th St,,,,,"live-music, drinks, social, intimate",34.0141,-118.4923
+Santa Monica,Basement Tavern,Bar,2:00 AM,2640 Main St,,,,,"drinks, live-music, social, underground",34.0000,-118.4835
+Santa Monica,Copa d'Oro,Cocktail Bar,12:00 AM,217 Broadway,,,,,"craft-cocktails, upscale, date-friendly, intimate",34.0106,-118.4942
+Santa Monica,Daily Pint,Pub,2:00 AM,2310 Pico Blvd,,,,,"drinks, social, cozy, sports-tv",34.0151,-118.4676
+Venice,The Townhouse & Del Monte Speakeasy,Bar / Speakeasy,2:00 AM,52 Windward Ave,,,,,"drinks, speakeasy-style, social, retro",33.9933,-118.4678
+Venice,High Rooftop Lounge,Rooftop Bar,12:00 AM,1697 Pacific Ave,,,,,"rooftop, upscale, date-friendly, trendy",33.9864,-118.4701
+Venice,James Beach,Restaurant / Bar,12:00 AM,60 N Venice Blvd,,,,,"food-focused, drinks, social, chill",33.9920,-118.4675
+Venice,The Other Room,Bar,2:00 AM,1201 Abbot Kinney Blvd,,,,,"drinks, chill, intimate, hipster",33.9892,-118.4667
+Venice,Brig,Bar,2:00 AM,1515 Abbot Kinney Blvd,,,,,"drinks, social, hipster, outdoor-seating",33.9930,-118.4672
+Venice,Wabi Sabi,Restaurant / Bar,12:00 AM,1637 Abbot Kinney Blvd,,,,,"food-focused, drinks, hipster, social",33.9948,-118.4668
+Koreatown,The Prince,Bar / Restaurant,2:00 AM,3198 1/2 W 7th St,,,,,"drinks, food-focused, retro, social, historic",34.0594,-118.2971
+Koreatown,Dan Sung Sa,Bar,2:00 AM,3317 W 6th St,,,,,"drinks, social, late-night, cozy",34.0636,-118.2970
+Koreatown,HMS Bounty,Dive Bar,2:00 AM,3357 Wilshire Blvd,,,,,"drinks, dive, retro, historic",34.0616,-118.2982
+Koreatown,Breakroom 86,Bar,2:00 AM,3183 Wilshire Blvd,,,,,"drinks, retro, social, dancey, arcade",34.0610,-118.2925
+Koreatown,R Bar,Dive Bar,2:00 AM,3331 W 8th St,,,,,"drinks, dive, social, karaoke",34.0552,-118.2999
+Koreatown,Lock & Key,Cocktail Bar,2:00 AM,239 S Vermont Ave,,,,,"craft-cocktails, speakeasy-style, date-friendly, trendy",34.0664,-118.2921
+Koreatown,Beer Belly,Restaurant / Bar,12:00 AM,532 S Western Ave,,,,,"food-focused, craft, hipster, social",34.0633,-118.3093
+Koreatown,Normandie Club,Cocktail Bar,2:00 AM,3612 W 6th St,,,,,"craft-cocktails, upscale, speakeasy-style, intimate",34.0635,-118.3015
+Los Feliz,Ye Rustic Inn,Dive Bar,2:00 AM,1831 Hillhurst Ave,,,,,"drinks, dive, social, hipster",34.1026,-118.2849
+Los Feliz,The Dresden,Lounge,2:00 AM,1760 N Vermont Ave,,,,,"drinks, live-music, retro, classy, date-friendly",34.1025,-118.2918
+Los Feliz,Tiki-Ti,Bar,2:00 AM,4427 Sunset Blvd,,,,,"drinks, retro, intimate, cozy, tiki",34.0907,-118.2826
+Los Feliz,Covell,Wine Bar,12:00 AM,4628 Hollywood Blvd,,,,,"wine-focused, intimate, date-friendly, hipster",34.0987,-118.2924
+Los Feliz,Drawing Room,Dive Bar,2:00 AM,1800 Hillhurst Ave,,,,,"drinks, dive, social, hipster",34.1022,-118.2851
+Los Feliz,Alcove Cafe & Bakery,Restaurant / Bar,11:00 PM,1929 Hillhurst Ave,,,,,"food-focused, chill, outdoor-seating, cozy",34.1044,-118.2856
+Highland Park,The Hermit,Bar,2:00 AM,5043 York Blvd,,,,,"drinks, social, hipster, cozy",34.1122,-118.1998
+Highland Park,ETA,Bar,2:00 AM,5630 N Figueroa St,,,,,"drinks, hipster, craft-cocktails, trendy",34.1130,-118.1974
+Highland Park,Blind Barber,Cocktail Bar,2:00 AM,5050 York Blvd,,,,,"craft-cocktails, trendy, hipster, social",34.1123,-118.2001
+Highland Park,Block Party Highland Park,Bar,2:00 AM,5500 N Figueroa St,,,,,"drinks, social, outdoor-seating, hipster, lively",34.1120,-118.1968
+Highland Park,Checker Hall,Music Venue / Bar,2:00 AM,5260 N Figueroa St,,,,,"live-music, drinks, social, hipster",34.1145,-118.1898
+Highland Park,The York,Restaurant / Bar,12:00 AM,5018 York Blvd,,,,,"food-focused, drinks, hipster, craft",34.1118,-118.2007
+Highland Park,Town House,Bar,2:00 AM,5036 York Blvd,,,,,"drinks, social, hipster, dive",34.1121,-118.2003
+Arts District,Manuela,Restaurant / Bar,12:00 AM,907 E 3rd St,,,,,"food-focused, upscale, craft-cocktails, date-friendly",34.0381,-118.2326
+Arts District,Wurstkuche,Restaurant / Bar,12:00 AM,800 E 3rd St,,,,,"food-focused, drinks, social, hipster",34.0387,-118.2333
+Arts District,Everson Royce Bar,Bar,2:00 AM,1936 E 7th St,,,,,"drinks, outdoor-seating, hipster, social",34.0329,-118.2286
+Arts District,Iron Triangle Brewing,Brewery,10:00 PM,1581 Industrial St,,,,,"craft, brewery, hipster, chill",34.0309,-118.2267
+Arts District,Villains Tavern,Bar,2:00 AM,1356 Palmetto St,,,,,"drinks, live-music, social, artsy",34.0480,-118.2289
+Arts District,ArtShare LA,Bar / Gallery,12:00 AM,801 E 4th Pl,,,,,"drinks, artsy, hipster, social",34.0404,-118.2330
+Downtown LA,The Standard Rooftop,Rooftop Bar,2:00 AM,550 S Flower St,,,,,"rooftop, upscale, trendy, dancey",34.0463,-118.2571
+Downtown LA,Mignon,Wine Bar,12:00 AM,128 E 6th St,,,,,"wine-focused, intimate, upscale, date-friendly",34.0451,-118.2472
+Hollywood,The Roosevelt Hotel Pool,Bar,12:00 AM,7000 Hollywood Blvd,,,,,"drinks, upscale, trendy, social",34.1015,-118.3407
+West Hollywood,Pump Restaurant & Lounge,Lounge,12:00 AM,8948 Santa Monica Blvd,,,,,"drinks, upscale, outdoor-seating, trendy",34.0889,-118.3867
+Silver Lake,Sunset Beer Company,Bottle Shop / Bar,10:00 PM,1498 Sunset Blvd,,,,,"craft, chill, hipster, social",34.0771,-118.2569
+Echo Park,Stories Books & Cafe,Bar / Cafe,12:00 AM,1716 Sunset Blvd,,,,,"chill, hipster, artsy, cozy",34.0764,-118.2609
+Downtown LA,The Mermaid,Bar,2:00 AM,428 E 1st St,,,,,"drinks, social, hipster, chill",34.0492,-118.2366
+Santa Monica,Misfit,Restaurant / Bar,12:00 AM,225 Santa Monica Blvd,,,,,"food-focused, craft-cocktails, trendy, social",34.0125,-118.4945
+Los Feliz,Griffith Park Cocktails,Bar,2:00 AM,4722 Fountain Ave,,,,,"drinks, chill, hipster, social",34.0948,-118.2974
+Koreatown,Frank n Hank,Dive Bar,2:00 AM,518 S Western Ave,,,,,"drinks, dive, social, karaoke, late-night",34.0636,-118.3093
+Hollywood,Lost Property Bar,Cocktail Bar,2:00 AM,1704 N Las Palmas Ave,,,,,"craft-cocktails, intimate, upscale, date-friendly",34.1008,-118.3346
+West Hollywood,E.P. & L.P.,Rooftop Bar,2:00 AM,603 N La Cienega Blvd,,,,,"rooftop, trendy, upscale, social",34.0829,-118.3769
+Downtown LA,Perch,Rooftop Bar,2:00 AM,448 S Hill St,,,,,"rooftop, upscale, date-friendly, classy",34.0480,-118.2524
+Downtown LA,Barcade DTLA,Bar / Arcade,2:00 AM,300 S Grand Ave,,,,,"drinks, arcade, social, retro",34.0503,-118.2554
