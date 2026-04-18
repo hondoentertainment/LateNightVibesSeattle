@@ -1,32 +1,103 @@
 Area,Name,Category,Typical Closing Time,Address,Phone,Website,Driving Distance,Google Maps Driving Link,Vibe Tags,Latitude,Longitude
-Wicker Park,The Violet Hour Social,Cocktail Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Millennium+Park+Chicago&destination=The+Violet+Hour+Social+Wicker+Park+Chicago&travelmode=driving,"date-friendly, upscale, chill, craft-cocktails, hipster",41.8921,-87.6443
-Wicker Park,Division Street Tavern,Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Millennium+Park+Chicago&destination=Division+Street+Tavern+Wicker+Park+Chicago&travelmode=driving,"drinks, social, late-night, hipster, trendy",41.8956,-87.6453
-Wicker Park,Subterranean Sounds,Music Venue / Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Millennium+Park+Chicago&destination=Subterranean+Sounds+Wicker+Park+Chicago&travelmode=driving,"live-music, loud, hipster, trendy",41.8936,-87.6463
-Wicker Park,Flat Iron Karaoke,Karaoke,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Millennium+Park+Chicago&destination=Flat+Iron+Karaoke+Wicker+Park+Chicago&travelmode=driving,"group-fun, interactive, karaoke, hipster, trendy",41.8916,-87.6473
-Logan Square,The Whistler's Den,Cocktail Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Millennium+Park+Chicago&destination=The+Whistler's+Den+Logan+Square+Chicago&travelmode=driving,"date-friendly, live-music, chill, craft-cocktails, upscale",41.9021,-87.6493
-Logan Square,Revolution Taphouse,Brewery / Taproom,12:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Millennium+Park+Chicago&destination=Revolution+Taphouse+Logan+Square+Chicago&travelmode=driving,"chill, brewery, hipster, trendy",41.9056,-87.6503
-Logan Square,The Owl After Dark,Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Millennium+Park+Chicago&destination=The+Owl+After+Dark+Logan+Square+Chicago&travelmode=driving,"drinks, social, late-night, hipster, trendy",41.9036,-87.6513
-Logan Square,Boulevard Bites,Restaurant,1:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Millennium+Park+Chicago&destination=Boulevard+Bites+Logan+Square+Chicago&travelmode=driving,"food-focused, late-eats, hipster, trendy",41.9016,-87.6523
-Lincoln Park,The Duce Pub,Pub,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Millennium+Park+Chicago&destination=The+Duce+Pub+Lincoln+Park+Chicago&travelmode=driving,"drinks, social, casual, neighborhood-gem",41.8971,-87.6343
-Lincoln Park,Halsted Wine Room,Wine Bar,12:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Millennium+Park+Chicago&destination=Halsted+Wine+Room+Lincoln+Park+Chicago&travelmode=driving,"date-friendly, drinks, chill, wine-bar",41.9006,-87.6353
-Lincoln Park,The North Side Grill,Restaurant / Bar,1:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Millennium+Park+Chicago&destination=The+North+Side+Grill+Lincoln+Park+Chicago&travelmode=driving,"drinks, food-focused, late-eats, social",41.8986,-87.6363
-Lakeview,Clark After Dark,Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Millennium+Park+Chicago&destination=Clark+After+Dark+Lakeview+Chicago&travelmode=driving,"drinks, social, late-night",41.9071,-87.6343
-Lakeview,The Cubby Hole Sports Bar,Sports Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Millennium+Park+Chicago&destination=The+Cubby+Hole+Sports+Bar+Lakeview+Chicago&travelmode=driving,"drinks, social, loud, sports-bar, casual",41.9106,-87.6353
-Pilsen,La Luna Cantina,Bar / Restaurant,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Millennium+Park+Chicago&destination=La+Luna+Cantina+Pilsen+Chicago&travelmode=driving,"food-focused, late-eats, hipster, trendy",41.8671,-87.6393
-Pilsen,18th Street Brewing Co.,Brewery / Taproom,11:00 PM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Millennium+Park+Chicago&destination=18th+Street+Brewing+Co.+Pilsen+Chicago&travelmode=driving,"chill, brewery, hipster, trendy",41.8706,-87.6403
-Pilsen,The Skylark Lounge,Lounge,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Millennium+Park+Chicago&destination=The+Skylark+Lounge+Pilsen+Chicago&travelmode=driving,"chill, date-friendly, hipster, trendy",41.8686,-87.6413
-River North,The Chicago Cut Lounge,Lounge,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Millennium+Park+Chicago&destination=The+Chicago+Cut+Lounge+River+North+Chicago&travelmode=driving,"date-friendly, drinks, upscale, chill, trendy",41.8821,-87.6343
-River North,Gilt Bar Social,Cocktail Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Millennium+Park+Chicago&destination=Gilt+Bar+Social+River+North+Chicago&travelmode=driving,"date-friendly, drinks, upscale, craft-cocktails, trendy",41.8856,-87.6353
-River North,Sound-Bar Underground,Nightclub,4:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Millennium+Park+Chicago&destination=Sound-Bar+Underground+River+North+Chicago&travelmode=driving,"dancey, high-energy, late-night, trendy",41.8836,-87.6363
-Wrigleyville,The Ivy Tavern,Sports Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Millennium+Park+Chicago&destination=The+Ivy+Tavern+Wrigleyville+Chicago&travelmode=driving,"loud, sports-bar, college",41.9121,-87.6343
-Wrigleyville,Clark & Addison Pub,Pub,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Millennium+Park+Chicago&destination=Clark+&+Addison+Pub+Wrigleyville+Chicago&travelmode=driving,"drinks, social, casual, neighborhood-gem, college",41.9156,-87.6353
-Andersonville,The Swedish Mule,Cocktail Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Millennium+Park+Chicago&destination=The+Swedish+Mule+Andersonville+Chicago&travelmode=driving,"date-friendly, drinks, chill, craft-cocktails, upscale",41.9271,-87.6343
-Andersonville,Hopleaf Social,Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Millennium+Park+Chicago&destination=Hopleaf+Social+Andersonville+Chicago&travelmode=driving,"drinks, social, casual",41.9306,-87.6353
-Bucktown,The Map Room Annex,Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Millennium+Park+Chicago&destination=The+Map+Room+Annex+Bucktown+Chicago&travelmode=driving,"drinks, chill, social",41.8971,-87.6443
-Bucktown,Damen Avenue Brewing,Brewery / Taproom,12:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Millennium+Park+Chicago&destination=Damen+Avenue+Brewing+Bucktown+Chicago&travelmode=driving,"drinks, chill, social, brewery, casual",41.9006,-87.6453
-Hyde Park,53rd Street Jazz Parlor,Music Venue / Bar,1:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Millennium+Park+Chicago&destination=53rd+Street+Jazz+Parlor+Hyde+Park+Chicago&travelmode=driving,"live-music, chill, college",41.8471,-87.6343
-Hyde Park,The Promontory Tap,Bar,12:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Millennium+Park+Chicago&destination=The+Promontory+Tap+Hyde+Park+Chicago&travelmode=driving,"drinks, chill, social, college, casual",41.8506,-87.6353
-Old Town,Second City Spirits,Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Millennium+Park+Chicago&destination=Second+City+Spirits+Old+Town+Chicago&travelmode=driving,"drinks, social, group-fun",41.8921,-87.6323
-Old Town,North & Wells Wine Bar,Wine Bar,12:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Millennium+Park+Chicago&destination=North+&+Wells+Wine+Bar+Old+Town+Chicago&travelmode=driving,"date-friendly, drinks, chill, wine-bar",41.8956,-87.6333
-Uptown,Green Mill Revival,Music Venue / Bar,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Millennium+Park+Chicago&destination=Green+Mill+Revival+Uptown+Chicago&travelmode=driving,"drinks, live-music, social, trendy",41.9221,-87.6343
-Uptown,Lawrence Avenue Late Eats,Restaurant,2:00 AM,,,,Click link,https://www.google.com/maps/dir/?api=1&origin=Millennium+Park+Chicago&destination=Lawrence+Avenue+Late+Eats+Uptown+Chicago&travelmode=driving,"food-focused, late-eats, trendy",41.9256,-87.6353
+River North,Celeste,Cocktail Bar,2:00 AM,111 W Hubbard St,,,,,"craft-cocktails, upscale, date-friendly, classy",41.8898,-87.6318
+River North,Sound-Bar,Club,4:00 AM,226 W Ontario St,,,,,"dancey, dj, high-energy, late-night",41.8933,-87.6358
+River North,Esco Bar,Bar,2:00 AM,436 N Clark St,,,,,"drinks, social, trendy, lively",41.8903,-87.6308
+River North,Rossi's,Dive Bar,4:00 AM,412 N State St,,,,,"drinks, dive, late-night, social",41.8906,-87.6283
+River North,Hubbard Inn,Bar / Restaurant,2:00 AM,110 W Hubbard St,,,,,"drinks, food-focused, social, upscale",41.8898,-87.6316
+River North,Bottled Blonde,Bar / Restaurant,2:00 AM,504 N Wells St,,,,,"drinks, social, trendy, lively",41.8913,-87.6339
+River North,Bub City,Bar / Restaurant,2:00 AM,435 N Clark St,,,,,"food-focused, live-music, social, lively",41.8903,-87.6308
+River North,Richard's Bar,Dive Bar,4:00 AM,491 N Milwaukee Ave,,,,,"drinks, dive, late-night, social, cash-only",41.8895,-87.6476
+River North,The Underground,Club,2:00 AM,56 W Illinois St,,,,,"dancey, dj, underground, high-energy",41.8909,-87.6313
+River North,Crimson Lounge,Lounge,2:00 AM,333 N Dearborn St,,,,,"upscale, drinks, trendy, date-friendly",41.8885,-87.6296
+Wicker Park,The Violet Hour,Cocktail Bar,2:00 AM,1520 N Damen Ave,,,,,"craft-cocktails, upscale, date-friendly, intimate",41.9088,-87.6777
+Wicker Park,Big Star,Bar / Restaurant,2:00 AM,1531 N Damen Ave,,,,,"food-focused, drinks, outdoor-seating, hipster",41.9092,-87.6775
+Wicker Park,Flat Iron,Bar,2:00 AM,1579 N Milwaukee Ave,,,,,"drinks, social, hipster, lively",41.9100,-87.6731
+Wicker Park,Rainbo Club,Dive Bar,2:00 AM,1150 N Damen Ave,,,,,"drinks, dive, hipster, social",41.9028,-87.6773
+Wicker Park,Estelle's,Dive Bar,2:00 AM,2013 W North Ave,,,,,"drinks, dive, social, cozy",41.9106,-87.6788
+Wicker Park,Double Door (legacy),Music Venue,2:00 AM,1551 N Damen Ave,,,,,"live-music, drinks, social, hipster",41.9093,-87.6777
+Wicker Park,Emporium Arcade Bar,Bar / Arcade,2:00 AM,1366 N Milwaukee Ave,,,,,"drinks, arcade, social, hipster",41.9057,-87.6694
+Wicker Park,The Map Room,Pub,2:00 AM,1949 N Hoyne Ave,,,,,"drinks, craft, cozy, hipster",41.9169,-87.6808
+Wicker Park,Nick's Beer Garden,Beer Garden,2:00 AM,1516 N Milwaukee Ave,,,,,"drinks, outdoor-seating, social, chill",41.9085,-87.6720
+Wicker Park,Phyllis' Musical Inn,Music Venue / Bar,2:00 AM,1800 W Division St,,,,,"live-music, drinks, dive, hipster",41.9034,-87.6754
+Logan Square,The Whistler,Cocktail Bar,2:00 AM,2421 N Milwaukee Ave,,,,,"craft-cocktails, live-music, hipster, intimate",41.9271,-87.6990
+Logan Square,Lost Lake,Bar,2:00 AM,3154 W Diversey Ave,,,,,"drinks, tiki, social, hipster, cozy",41.9321,-87.7064
+Logan Square,Revolution Brewing Brewpub,Brewery,12:00 AM,2323 N Milwaukee Ave,,,,,"craft, brewery, food-focused, social",41.9244,-87.6979
+Logan Square,Billy Sunday,Cocktail Bar,2:00 AM,3143 W Logan Blvd,,,,,"craft-cocktails, upscale, hipster, intimate",41.9296,-87.7058
+Logan Square,The Burlington,Dive Bar,2:00 AM,3425 W Fullerton Ave,,,,,"drinks, dive, social, late-night, hipster",41.9247,-87.7114
+Logan Square,Cole's Bar,Bar,2:00 AM,2338 N Milwaukee Ave,,,,,"drinks, live-music, social, hipster",41.9247,-87.6981
+Logan Square,Slippery Slope,Bar,2:00 AM,2357 N Milwaukee Ave,,,,,"drinks, social, dancey, hipster, late-night",41.9252,-87.6986
+Logan Square,Scofflaw,Cocktail Bar,2:00 AM,3201 W Armitage Ave,,,,,"craft-cocktails, hipster, intimate, cozy",41.9170,-87.7068
+Logan Square,Lula Cafe,Restaurant / Bar,12:00 AM,2537 N Kedzie Blvd,,,,,"food-focused, drinks, hipster, intimate",41.9277,-87.7083
+Lincoln Park,The J. Parker,Rooftop Bar,12:00 AM,1816 N Clark St,,,,,"rooftop, upscale, date-friendly, trendy",41.9143,-87.6358
+Lincoln Park,Delilah's,Dive Bar,2:00 AM,2771 N Lincoln Ave,,,,,"drinks, dive, social, punk, hipster",41.9294,-87.6503
+Lincoln Park,Kingston Mines,Music Venue / Bar,4:00 AM,2548 N Halsted St,,,,,"live-music, drinks, social, late-night, blues",41.9282,-87.6490
+Lincoln Park,B.L.U.E.S.,Music Venue / Bar,2:00 AM,2519 N Halsted St,,,,,"live-music, drinks, intimate, blues",41.9277,-87.6490
+Lincoln Park,The Pony Inn,Dive Bar,2:00 AM,1638 W Belmont Ave,,,,,"drinks, dive, social, cozy",41.9394,-87.6696
+Lincoln Park,Halligan Bar,Bar,2:00 AM,2274 N Lincoln Ave,,,,,"drinks, social, sports-tv, lively",41.9244,-87.6456
+Lincoln Park,Earl's,Cocktail Bar,2:00 AM,2535 N Milwaukee Ave,,,,,"craft-cocktails, social, cozy, retro",41.9277,-87.6996
+Lincoln Park,Webster's Wine Bar,Wine Bar,12:00 AM,1480 W Webster Ave,,,,,"wine-focused, intimate, date-friendly, cozy",41.9215,-87.6645
+Lakeview,Smart Bar,Club,4:00 AM,3730 N Clark St,,,,,"dancey, dj, late-night, underground",41.9498,-87.6541
+Lakeview,Metro Chicago,Music Venue,12:00 AM,3730 N Clark St,,,,,"live-music, high-energy, social, loud",41.9498,-87.6541
+Lakeview,L&L Tavern,Dive Bar,2:00 AM,3207 N Clark St,,,,,"drinks, dive, social, hipster",41.9421,-87.6544
+Lakeview,Sidetrack,Bar,2:00 AM,3349 N Halsted St,,,,,"drinks, social, dancey, lively",41.9443,-87.6490
+Lakeview,The Glenwood,Bar,2:00 AM,6962 N Glenwood Ave,,,,,"drinks, social, outdoor-seating, chill",41.9995,-87.6656
+Lakeview,Lucky Horseshoe Lounge,Bar,4:00 AM,3169 N Halsted St,,,,,"drinks, social, dancey, late-night",41.9419,-87.6488
+Lakeview,Sheffield's Beer Garden,Beer Garden,2:00 AM,3258 N Sheffield Ave,,,,,"drinks, outdoor-seating, craft, social",41.9422,-87.6539
+Lakeview,The Gingerman Tavern,Pub,2:00 AM,3740 N Clark St,,,,,"drinks, social, craft, cozy",41.9499,-87.6541
+Lakeview,Berlin,Club,4:00 AM,954 W Belmont Ave,,,,,"dancey, dj, late-night, underground",41.9394,-87.6526
+West Loop,The Aviary,Cocktail Bar,12:00 AM,955 W Fulton Market,,,,,"craft-cocktails, upscale, date-friendly, classy",41.8867,-87.6520
+West Loop,Moneygun,Cocktail Bar,2:00 AM,660 W Lake St,,,,,"craft-cocktails, intimate, upscale, speakeasy-style",41.8856,-87.6449
+West Loop,Haymarket Pub & Brewery,Brewery,2:00 AM,737 W Randolph St,,,,,"craft, brewery, food-focused, social",41.8842,-87.6467
+West Loop,ROOF on theWit,Rooftop Bar,12:00 AM,201 N State St,,,,,"rooftop, upscale, trendy, date-friendly",41.8865,-87.6276
+West Loop,RM Champagne Salon,Wine Bar,12:00 AM,116 N Green St,,,,,"wine-focused, upscale, date-friendly, classy",41.8842,-87.6483
+West Loop,Lone Wolf,Bar,2:00 AM,806 W Randolph St,,,,,"drinks, social, trendy, outdoor-seating",41.8843,-87.6483
+West Loop,The Ogden,Bar,2:00 AM,1659 W Ogden Ave,,,,,"drinks, social, hipster, chill",41.8669,-87.6677
+Pilsen,Punch House,Cocktail Bar,2:00 AM,1227 W 18th St,,,,,"craft-cocktails, underground, hipster, intimate",41.8578,-87.6594
+Pilsen,Skylark,Bar,2:00 AM,2149 S Halsted St,,,,,"drinks, hipster, social, chill",41.8540,-87.6457
+Pilsen,Simone's,Bar,2:00 AM,960 W 18th St,,,,,"drinks, hipster, artsy, social",41.8580,-87.6528
+Pilsen,Dusek's Board & Beer,Restaurant / Bar,12:00 AM,1227 W 18th St,,,,,"food-focused, craft, upscale, hipster",41.8578,-87.6594
+Pilsen,Pl-zen,Cocktail Bar,2:00 AM,1519 W 18th St,,,,,"craft-cocktails, hipster, artsy, chill",41.8578,-87.6651
+Bucktown,The Charleston,Dive Bar,2:00 AM,2076 N Hoyne Ave,,,,,"drinks, dive, social, hipster",41.9187,-87.6808
+Bucktown,The Owl,Dive Bar,2:00 AM,2521 N Milwaukee Ave,,,,,"drinks, dive, late-night, social",41.9277,-87.6990
+Bucktown,Danny's Tavern,Bar,2:00 AM,1951 W Dickens Ave,,,,,"drinks, social, dancey, hipster, artsy",41.9193,-87.6776
+Bucktown,Lemming's,Dive Bar,2:00 AM,1850 N Damen Ave,,,,,"drinks, dive, social, cozy",41.9139,-87.6775
+Bucktown,Gallery Cabaret,Bar / Music Venue,2:00 AM,2020 N Oakley Ave,,,,,"drinks, live-music, artsy, hipster",41.9182,-87.6835
+Old Town,Old Town Ale House,Dive Bar,4:00 AM,219 W North Ave,,,,,"drinks, dive, historic, social, late-night",41.9109,-87.6354
+Old Town,Zanies Comedy Night Club,Comedy Club,12:00 AM,1548 N Wells St,,,,,"comedy, drinks, social, lively",41.9101,-87.6343
+Old Town,Second City,Comedy Club,12:00 AM,1616 N Wells St,,,,,"comedy, drinks, social, historic",41.9113,-87.6343
+Old Town,The Fireplace Inn,Bar,2:00 AM,1448 N Wells St,,,,,"drinks, social, cozy, retro",41.9088,-87.6341
+Old Town,Corcoran's,Pub,2:00 AM,1615 N Wells St,,,,,"drinks, social, sports-tv, cozy",41.9113,-87.6343
+Gold Coast,The Signature Room at the 95th,Cocktail Bar,11:00 PM,875 N Michigan Ave,,,,,"upscale, classy, scenic, date-friendly",41.8988,-87.6233
+Gold Coast,Coq d'Or,Cocktail Bar,12:00 AM,140 E Walton Pl,,,,,"craft-cocktails, upscale, historic, classy",41.9001,-87.6257
+Gold Coast,She-nanigans House of Beer,Bar,2:00 AM,16 W Division St,,,,,"drinks, social, lively, late-night",41.9038,-87.6299
+Gold Coast,Butch McGuire's,Pub,2:00 AM,20 W Division St,,,,,"drinks, social, lively, historic",41.9038,-87.6302
+Gold Coast,Lodge Tavern,Pub,4:00 AM,21 W Division St,,,,,"drinks, social, late-night, dive",41.9038,-87.6304
+Andersonville,Hopleaf,Pub / Restaurant,12:00 AM,5148 N Clark St,,,,,"craft, food-focused, social, cozy",41.9755,-87.6685
+Andersonville,Simon's Tavern,Dive Bar,2:00 AM,5210 N Clark St,,,,,"drinks, dive, historic, cozy",41.9763,-87.6684
+Andersonville,The Anvil,Bar,2:00 AM,1137 W Granville Ave,,,,,"drinks, social, hipster, chill",41.9938,-87.6548
+Andersonville,Big Chicks,Bar,2:00 AM,5024 N Sheridan Rd,,,,,"drinks, social, artsy, lively",41.9733,-87.6557
+Andersonville,Farragut's,Bar,2:00 AM,5240 N Clark St,,,,,"drinks, social, cozy, chill",41.9767,-87.6685
+Wicker Park,Subterranean,Music Venue / Bar,2:00 AM,2011 W North Ave,,,,,"live-music, drinks, social, underground, hipster",41.9106,-87.6788
+Logan Square,Longman & Eagle,Restaurant / Bar,2:00 AM,2657 N Kedzie Ave,,,,,"food-focused, craft-cocktails, hipster, cozy",41.9297,-87.7086
+Logan Square,Parson's Chicken & Fish,Restaurant / Bar,12:00 AM,2952 W Armitage Ave,,,,,"food-focused, outdoor-seating, social, hipster",41.9170,-87.7001
+Lincoln Park,Barrelhouse Flat,Cocktail Bar,2:00 AM,2624 N Lincoln Ave,,,,,"craft-cocktails, upscale, classy, date-friendly",41.9292,-87.6480
+Lakeview,Nisei Lounge,Dive Bar,2:00 AM,3439 N Sheffield Ave,,,,,"drinks, dive, social, cozy",41.9445,-87.6539
+West Loop,Green Street Smoked Meats,Restaurant / Bar,12:00 AM,112 N Green St,,,,,"food-focused, drinks, trendy, social",41.8842,-87.6483
+Pilsen,Lo Rez Brewing,Brewery,10:00 PM,2101 S Carpenter St,,,,,"craft, brewery, chill, hipster",41.8545,-87.6522
+Bucktown,Map Room,Bar,2:00 AM,1949 N Hoyne Ave,,,,,"drinks, craft, cozy, hipster",41.9169,-87.6808
+Old Town,Twin Anchors,Restaurant / Bar,12:00 AM,1655 N Sedgwick St,,,,,"food-focused, drinks, historic, cozy",41.9122,-87.6383
+Gold Coast,Rush & Division Nightclub District,Club,4:00 AM,2 W Division St,,,,,"dancey, high-energy, late-night, social",41.9038,-87.6277
+Andersonville,Lady Gregory's,Pub,2:00 AM,5260 N Clark St,,,,,"drinks, social, live-music, cozy",41.9770,-87.6685
+River North,Three Dots and a Dash,Cocktail Bar,2:00 AM,435 N Clark St,,,,,"craft-cocktails, tiki, underground, date-friendly",41.8903,-87.6308
+Lincoln Park,The Second City Training Center,Comedy Club,12:00 AM,1608 N Wells St,,,,,"comedy, drinks, social, lively",41.9112,-87.6343
+Lakeview,Roscoe's Tavern,Bar,2:00 AM,3356 N Halsted St,,,,,"drinks, social, dancey, lively",41.9444,-87.6490
+West Loop,City Winery Chicago,Wine Bar / Music Venue,12:00 AM,1200 W Randolph St,,,,,"wine-focused, live-music, upscale, date-friendly",41.8842,-87.6570
+Bucktown,Innertown Pub,Dive Bar,2:00 AM,1935 W Thomas St,,,,,"drinks, dive, social, chill, hipster",41.9014,-87.6775
+Gold Coast,Gibsons Bar & Steakhouse,Restaurant / Bar,12:00 AM,1028 N Rush St,,,,,"food-focused, upscale, classy, social",41.9016,-87.6276
+River North,Tao Chicago,Club / Lounge,2:00 AM,632 N Dearborn St,,,,,"dancey, upscale, trendy, high-energy",41.8929,-87.6299
+Wicker Park,Debonair Social Club,Bar,2:00 AM,1575 N Milwaukee Ave,,,,,"drinks, social, dancey, hipster",41.9098,-87.6728
+Logan Square,Boiler Room,Bar / Pizza,2:00 AM,2210 N California Ave,,,,,"food-focused, drinks, hipster, social",41.9218,-87.6972
+West Loop,Bar Siena,Restaurant / Bar,12:00 AM,832 W Randolph St,,,,,"food-focused, drinks, outdoor-seating, trendy",41.8843,-87.6494
+Pilsen,Thalia Hall,Music Venue / Bar,2:00 AM,1807 S Allport St,,,,,"live-music, drinks, social, artsy, hipster",41.8575,-87.6586
+River North,The Drifter,Speakeasy,2:00 AM,676 N Orleans St,,,,,"speakeasy-style, craft-cocktails, underground, intimate",41.8935,-87.6372
+Lakeview,Wrigleyville Tap,Bar,2:00 AM,3724 N Clark St,,,,,"drinks, social, sports-tv, lively",41.9497,-87.6541
