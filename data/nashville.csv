@@ -1,26 +1,103 @@
 Area,Name,Category,Typical Closing Time,Address,Phone,Website,Driving Distance,Google Maps Driving Link,Vibe Tags,Latitude,Longitude
-Broadway,Tootsie's Orchid Lounge,Bar,3:00 AM,422 Broadway,,,,,"drinks, live-music, social",36.1617,-86.7811
-Broadway,Robert's Western World,Music Venue / Bar,3:00 AM,416 Broadway,,,,,"drinks, live-music, social",36.1652,-86.7821
-Broadway,Nudie's Honky Tonk,Bar,3:00 AM,409 Broadway,,,,,"drinks, live-music, high-energy",36.1632,-86.7831
-Broadway,AJ's Good Time Bar,Bar,3:00 AM,421 Broadway,,,,,"drinks, live-music, social",36.1612,-86.7841
-East Nashville,The 5 Spot,Music Venue / Bar,2:00 AM,1006 Forrest Ave,,,,,"drinks, live-music, social, hipster, trendy",36.1667,-86.7711
-East Nashville,Dino's,Dive Bar,3:00 AM,411 Gallatin Ave,,,,,"chill, dive, neighborhood-gem, hipster, trendy",36.1702,-86.7721
-East Nashville,Rosemary & Beauty Queen,Cocktail Bar,12:00 AM,1000 Forrest Ave,,,,,"date-friendly, drinks, upscale, craft-cocktails, hipster",36.1682,-86.7731
-East Nashville,Butcher & Bee,Bar / Restaurant,10:00 PM,902 Main St,,,,,"date-friendly, drinks, food-focused, hipster, trendy",36.1662,-86.7741
-Midtown,Patterson House,Cocktail Bar,1:00 AM,1711 Division St,,,,,"date-friendly, drinks, upscale, craft-cocktails",36.1667,-86.7911
-Midtown,Winners & Losers Bar,Bar,3:00 AM,1818 Division St,,,,,"drinks, social, casual",36.1702,-86.7921
-Midtown,The Valentine,Bar / Restaurant,2:00 AM,312 Broadway,,,,,"drinks, food-focused, social",36.1682,-86.7931
-The Gulch,L.A. Jackson,Lounge,12:00 AM,401 11th Ave S,,,,,"date-friendly, drinks, upscale, chill, trendy",36.1567,-86.7841
-The Gulch,Station Inn,Music Venue / Bar,Late,402 12th Ave S,,,,,"drinks, live-music, chill, trendy",36.1602,-86.7851
-Germantown,Von Elrod's Beer Hall,Brewery / Restaurant,12:00 AM,1004 4th Ave N,,,,,"food-focused, brewery, chill",36.1697,-86.7811
-Germantown,Bearded Iris Brewing,Brewery,9:00 PM,101 Van Buren St,,,,,"chill, drinks, social, brewery, casual",36.1732,-86.7821
-12 South,The Bluebird Cafe,Music Venue / Bar,Late,4104 Hillsboro Pike,,,,,"drinks, live-music, chill",36.1517,-86.7891
-Hillsboro Village,Fido,Bar / Restaurant,11:00 PM,1812 21st Ave S,,,,,"chill, drinks, food-focused",36.1537,-86.7931
-Sobro,Acme Feed & Seed,Bar / Restaurant,Late,101 Broadway,,,,,"drinks, food-focused, live-music, social",36.1597,-86.7781
-Printers Alley,Skull's Rainbow Room,Music Venue / Bar,2:00 AM,222 Printers Alley,,,,,"drinks, live-music, date-friendly",36.1637,-86.7801
-Printers Alley,Fleet Street Pub,Bar,3:00 AM,207 Printers Alley,,,,,"drinks, social, casual",36.1672,-86.7811
-Broadway,Kid Rock's Big Ass Honky Tonk,Bar,3:00 AM,221 Broadway,,,,,"drinks, live-music, high-energy",36.1647,-86.7786
-East Nashville,The Basement East,Music Venue / Bar,Late,917 Woodland St,,,,,"drinks, live-music, loud, hipster, trendy",36.1697,-86.7686
-Midtown,Karaoke at Santa's Pub,Karaoke,3:00 AM,2225 Bransford Ave,,,,,"group-fun, interactive, karaoke",36.1662,-86.7941
-Marathon Village,Tennessee Brew Works,Brewery,10:00 PM,809 Ewing Ave,,,,,"chill, drinks, social, brewery, casual",36.1667,-86.7861
-The Gulch,Rudy's Jazz Room,Music Venue / Bar,12:00 AM,809 Gleaves St,,,,,"drinks, live-music, chill, date-friendly, trendy",36.1582,-86.7861
+Broadway,Tootsie's Orchid Lounge,Bar,3:00 AM,422 Broadway,,,,,"drinks, live-music, social, historic",36.1621,-86.7764
+Broadway,Robert's Western World,Music Venue / Bar,3:00 AM,416B Broadway,,,,,"live-music, drinks, social, honky-tonk, historic",36.1621,-86.7767
+Broadway,Nudie's Honky Tonk,Bar,3:00 AM,409 Broadway,,,,,"drinks, live-music, lively, honky-tonk",36.1623,-86.7770
+Broadway,AJ's Good Time Bar,Bar,3:00 AM,421 Broadway,,,,,"drinks, live-music, social, lively",36.1622,-86.7765
+Broadway,The Stage on Broadway,Bar,3:00 AM,412 Broadway,,,,,"drinks, live-music, social, dancey",36.1622,-86.7769
+Broadway,Honky Tonk Central,Bar,3:00 AM,329 Broadway,,,,,"drinks, live-music, social, lively, multi-level",36.1622,-86.7781
+Broadway,Luke Bryan's 32 Bridge,Bar / Restaurant,3:00 AM,301 Broadway,,,,,"drinks, live-music, food-focused, lively",36.1622,-86.7787
+Broadway,Jason Aldean's Kitchen + Rooftop Bar,Bar / Restaurant,3:00 AM,307 Broadway,,,,,"drinks, live-music, food-focused, rooftop, lively",36.1622,-86.7786
+Broadway,Kid Rock's Big Ass Honky Tonk Rock N' Roll Steakhouse,Bar / Restaurant,3:00 AM,221 Broadway,,,,,"drinks, live-music, food-focused, lively, loud",36.1622,-86.7797
+Broadway,The Valentine,Bar,3:00 AM,312 Broadway,,,,,"drinks, live-music, social, lively",36.1623,-86.7784
+Broadway,Legends Corner,Bar,3:00 AM,428 Broadway,,,,,"drinks, live-music, social, historic",36.1621,-86.7763
+Broadway,Layla's Honky Tonk,Bar,3:00 AM,418 Broadway,,,,,"drinks, live-music, social, honky-tonk",36.1621,-86.7766
+Broadway,Crazy Town,Bar,3:00 AM,327 Broadway,,,,,"drinks, social, dancey, lively",36.1623,-86.7782
+Broadway,The Ryman Auditorium,Music Venue,11:00 PM,116 5th Ave N,,,,,"live-music, historic, upscale, social",36.1614,-86.7779
+Broadway,Acme Feed & Seed,Bar / Restaurant,3:00 AM,101 Broadway,,,,,"drinks, food-focused, live-music, rooftop, trendy",36.1614,-86.7820
+Broadway,Blake Shelton's Ole Red,Bar / Restaurant,3:00 AM,300 Broadway,,,,,"drinks, live-music, food-focused, lively",36.1623,-86.7787
+Broadway,FGL House,Bar / Restaurant,3:00 AM,120 3rd Ave S,,,,,"drinks, food-focused, rooftop, trendy",36.1610,-86.7787
+Broadway,Dierks Bentley's Whiskey Row,Bar,3:00 AM,400 Broadway,,,,,"drinks, live-music, social, lively",36.1622,-86.7772
+Broadway,Tin Roof Broadway,Bar / Restaurant,3:00 AM,316 Broadway,,,,,"drinks, live-music, food-focused, social",36.1623,-86.7783
+Printers Alley,Skull's Rainbow Room,Lounge,2:00 AM,222 Printers Alley,,,,,"live-music, upscale, retro, date-friendly, intimate",36.1636,-86.7779
+Printers Alley,Fleet Street Pub,Pub,3:00 AM,207 Printers Alley,,,,,"drinks, social, cozy, historic",36.1637,-86.7780
+Printers Alley,Bourbon Street Blues & Boogie Bar,Music Venue / Bar,3:00 AM,220 Printers Alley,,,,,"live-music, drinks, social, blues",36.1636,-86.7779
+Printers Alley,Alley Taps,Bar,3:00 AM,161 3rd Ave N,,,,,"drinks, social, cozy, chill",36.1638,-86.7780
+The Gulch,The Patterson House,Cocktail Bar,1:00 AM,1711 Division St,,,,,"craft-cocktails, upscale, speakeasy-style, intimate",36.1528,-86.7894
+The Gulch,L.A. Jackson,Rooftop Bar,12:00 AM,401 11th Ave S,,,,,"rooftop, upscale, trendy, date-friendly",36.1536,-86.7905
+The Gulch,Station Inn,Music Venue / Bar,12:00 AM,402 12th Ave S,,,,,"live-music, drinks, intimate, bluegrass, historic",36.1529,-86.7922
+The Gulch,Winners Bar,Bar,3:00 AM,1517 Church St,,,,,"drinks, social, lively, sports-tv",36.1541,-86.7862
+The Gulch,The 404 Kitchen,Restaurant / Bar,12:00 AM,507 Lea Ave,,,,,"food-focused, upscale, craft-cocktails, intimate",36.1536,-86.7899
+The Gulch,Sinema,Cocktail Bar / Restaurant,12:00 AM,2600 8th Ave S,,,,,"craft-cocktails, upscale, date-friendly, classy",36.1357,-86.7849
+The Gulch,Marsh House,Restaurant / Bar,12:00 AM,401 11th Ave S,,,,,"food-focused, upscale, date-friendly, classy",36.1536,-86.7905
+East Nashville,The Basement East,Music Venue,2:00 AM,917 Woodland St,,,,,"live-music, drinks, social, hipster",36.1728,-86.7570
+East Nashville,Dino's,Dive Bar,3:00 AM,411 Gallatin Ave,,,,,"drinks, dive, social, hipster, late-night",36.1752,-86.7537
+East Nashville,The 5 Spot,Music Venue / Bar,2:00 AM,1006 Forrest Ave,,,,,"live-music, drinks, dancey, social, hipster",36.1785,-86.7515
+East Nashville,Edley's Bar-B-Que,Restaurant / Bar,10:00 PM,908 Main St,,,,,"food-focused, drinks, social, chill",36.1734,-86.7595
+East Nashville,Rosemary & Beauty Queen,Bar,2:00 AM,1000 E Main St,,,,,"drinks, hipster, social, chill",36.1710,-86.7541
+East Nashville,Duke's,Bar,3:00 AM,1113 Woodland St,,,,,"drinks, social, live-music, hipster",36.1728,-86.7541
+East Nashville,Crying Wolf,Bar,3:00 AM,823 Woodland St,,,,,"drinks, social, hipster, outdoor-seating",36.1729,-86.7590
+East Nashville,3 Crow Bar,Bar,2:00 AM,1024 Woodland St,,,,,"drinks, social, hipster, outdoor-seating",36.1728,-86.7556
+East Nashville,Beyond the Edge,Bar,3:00 AM,112 S 11th St,,,,,"drinks, social, hipster, outdoor-seating, dive",36.1767,-86.7529
+East Nashville,No. 308,Cocktail Bar,2:00 AM,407 Gallatin Ave,,,,,"craft-cocktails, hipster, date-friendly, intimate",36.1751,-86.7538
+East Nashville,Attaboy Nashville,Cocktail Bar,2:00 AM,8 McFerrin Ave,,,,,"craft-cocktails, speakeasy-style, intimate, upscale",36.1750,-86.7568
+East Nashville,Mickey's Tavern,Dive Bar,3:00 AM,530 Gallatin Ave,,,,,"drinks, dive, social, late-night",36.1767,-86.7517
+Germantown,Von Elrod's Beer Hall & Kitchen,Beer Hall,12:00 AM,1000 4th Ave N,,,,,"drinks, food-focused, social, outdoor-seating",36.1775,-86.7756
+Germantown,Bearded Iris Brewing,Brewery,10:00 PM,101 Van Buren St,,,,,"craft, brewery, chill, hipster",36.1815,-86.7754
+Germantown,The Red Headed Stranger,Bar,2:00 AM,305 Arrington St,,,,,"drinks, social, outdoor-seating, hipster",36.1820,-86.7737
+Germantown,Geist,Bar,3:00 AM,311 Jefferson St,,,,,"drinks, social, hipster, chill",36.1739,-86.7778
+Germantown,Nelson's Green Brier Distillery,Distillery / Bar,9:00 PM,1414 Clinton St,,,,,"craft, drinks, social, historic",36.1849,-86.7854
+Germantown,Southern Grist Brewing,Brewery,10:00 PM,764 Douglas Ave,,,,,"craft, brewery, hipster, chill",36.1807,-86.7746
+Germantown,Tempered Cafe & Chocolate,Bar / Cafe,10:00 PM,1201 5th Ave N,,,,,"chill, hipster, cozy, artsy",36.1809,-86.7746
+12 South,The Flipside,Bar / Restaurant,2:00 AM,2403 12th Ave S,,,,,"drinks, food-focused, outdoor-seating, hipster",36.1303,-86.7914
+12 South,Edley's 12 South,Restaurant / Bar,10:00 PM,2706 12th Ave S,,,,,"food-focused, drinks, social, chill",36.1266,-86.7915
+12 South,Draper James,Wine Bar,8:00 PM,2608 12th Ave S,,,,,"wine-focused, upscale, intimate, trendy",36.1277,-86.7914
+12 South,The Filling Station,Bar,2:00 AM,1108 Halcyon Ave,,,,,"drinks, social, outdoor-seating, chill",36.1364,-86.7898
+12 South,Corner Pub 12 South,Pub,2:00 AM,2901 12th Ave S,,,,,"drinks, social, cozy, sports-tv",36.1243,-86.7918
+Midtown,The Villager Tavern,Dive Bar,3:00 AM,1719 21st Ave S,,,,,"drinks, dive, social, late-night",36.1404,-86.7998
+Midtown,Winners and Losers Bar,Bar,3:00 AM,2117 Division St,,,,,"drinks, social, lively, outdoor-seating",36.1519,-86.7951
+Midtown,Losers Bar & Grill,Bar,3:00 AM,1911 Division St,,,,,"drinks, social, outdoor-seating, lively",36.1522,-86.7928
+Midtown,Red Door Saloon,Bar,3:00 AM,1816 Division St,,,,,"drinks, social, dive, cozy",36.1523,-86.7916
+Midtown,Tin Roof Midtown,Bar / Restaurant,3:00 AM,1516 Demonbreun St,,,,,"drinks, live-music, food-focused, social",36.1512,-86.7870
+Midtown,The Local,Bar,3:00 AM,110 28th Ave N,,,,,"drinks, social, lively, outdoor-seating",36.1447,-86.8069
+Midtown,Broadway Brewhouse Midtown,Brewery / Restaurant,12:00 AM,1900 Broadway,,,,,"craft, brewery, food-focused, social",36.1522,-86.7907
+Midtown,Kung Fu Saloon Nashville,Bar / Arcade,2:00 AM,1921 Division St,,,,,"drinks, arcade, social, lively",36.1521,-86.7930
+Music Row,Bobby's Idle Hour,Dive Bar,3:00 AM,1028 16th Ave S,,,,,"drinks, dive, live-music, social, historic",36.1500,-86.7921
+Music Row,The Bluebird Cafe,Music Venue,12:00 AM,4104 Hillsboro Pike,,,,,"live-music, intimate, acoustic, historic",36.1094,-86.8168
+Music Row,Belcourt Taps,Pub,3:00 AM,2117 Belcourt Ave,,,,,"drinks, social, cozy, chill",36.1331,-86.8021
+Music Row,Dan McGuinness Pub,Pub,2:00 AM,1538 Demonbreun St,,,,,"drinks, social, cozy, sports-tv",36.1509,-86.7872
+Sobro,The George Jones,Bar / Restaurant,3:00 AM,128 2nd Ave N,,,,,"drinks, live-music, food-focused, social",36.1635,-86.7749
+Sobro,Assembly Food Hall,Food Hall / Bar,12:00 AM,5055 Broadway Pl,,,,,"food-focused, drinks, social, trendy",36.1574,-86.7809
+Sobro,Nashville Underground,Bar,3:00 AM,105 Broadway,,,,,"drinks, social, dancey, lively, multi-level",36.1614,-86.7816
+Sobro,Ryman Bar & Grill,Bar / Restaurant,3:00 AM,123 2nd Ave N,,,,,"drinks, food-focused, live-music, social",36.1636,-86.7748
+Sobro,Virago,Restaurant / Bar,12:00 AM,1811 Division St,,,,,"food-focused, upscale, craft-cocktails, date-friendly",36.1523,-86.7916
+Sobro,The Johnny Cash Museum Bar,Bar,10:00 PM,119 3rd Ave S,,,,,"drinks, social, historic, live-music",36.1617,-86.7760
+Marathon Village,Corsair Distillery,Distillery / Bar,9:00 PM,1200 Clinton St,,,,,"craft, drinks, intimate, artsy",36.1845,-86.7836
+Marathon Village,Yazoo Brewing,Brewery,10:00 PM,900 River Bluff Dr,,,,,"craft, brewery, social, chill",36.1801,-86.7902
+Marathon Village,Fat Bottom Brewing,Brewery,10:00 PM,800 44th Ave N,,,,,"craft, brewery, social, outdoor-seating",36.1812,-86.8117
+Marathon Village,Antique Archaeology,Bar / Shop,8:00 PM,1300 Clinton St,,,,,"social, retro, artsy, chill",36.1849,-86.7854
+East Nashville,Rosepepper Cantina,Restaurant / Bar,12:00 AM,1907 Eastland Ave,,,,,"food-focused, drinks, social, outdoor-seating",36.1742,-86.7401
+East Nashville,Pharmacy Burger Parlor,Restaurant / Bar,10:00 PM,731 McFerrin Ave,,,,,"food-focused, drinks, social, hipster",36.1766,-86.7530
+Germantown,Henley,Restaurant / Bar,12:00 AM,311 4th Ave N,,,,,"food-focused, upscale, craft-cocktails, classy",36.1682,-86.7762
+Broadway,The Local at Broadway,Bar,3:00 AM,110 2nd Ave S,,,,,"drinks, social, lively, live-music",36.1617,-86.7753
+Midtown,3rd & Lindsley,Music Venue / Bar,2:00 AM,816 3rd Ave S,,,,,"live-music, drinks, social, intimate",36.1556,-86.7730
+The Gulch,Rudy's Jazz Room,Music Venue / Bar,12:00 AM,809 Gleaves St,,,,,"live-music, drinks, intimate, jazz, upscale",36.1494,-86.7857
+East Nashville,Lockeland Table,Restaurant / Bar,12:00 AM,1520 Woodland St,,,,,"food-focused, upscale, date-friendly, intimate",36.1730,-86.7487
+Midtown,Hattie B's,Restaurant / Bar,10:00 PM,112 19th Ave S,,,,,"food-focused, drinks, social, lively",36.1447,-86.7952
+The Gulch,Pinewood Social,Bar / Restaurant,12:00 AM,33 Peabody St,,,,,"drinks, food-focused, social, trendy, outdoor-seating",36.1553,-86.7801
+East Nashville,Fond Object Records & Bar,Bar,10:00 PM,1313 McGavock Pike,,,,,"drinks, hipster, artsy, chill",36.1718,-86.7454
+Broadway,Rippy's Honky Tonk,Bar,3:00 AM,429 Broadway,,,,,"drinks, live-music, social, lively, food-focused",36.1621,-86.7762
+Sobro,White Limozeen,Rooftop Bar,12:00 AM,507 Lea Ave,,,,,"rooftop, upscale, trendy, date-friendly",36.1535,-86.7899
+12 South,Frothy Monkey,Bar / Cafe,10:00 PM,2509 12th Ave S,,,,,"chill, hipster, social, cozy",36.1288,-86.7914
+Germantown,Butchertown Hall,Restaurant / Bar,12:00 AM,1416 4th Ave N,,,,,"food-focused, drinks, social, trendy, outdoor-seating",36.1838,-86.7752
+East Nashville,Village Pub & Beer Garden,Pub,2:00 AM,1308 McGavock Pike,,,,,"drinks, social, outdoor-seating, chill",36.1723,-86.7457
+Midtown,Patterson House,Cocktail Bar,1:00 AM,1711 Division St,,,,,"craft-cocktails, upscale, speakeasy-style, intimate",36.1528,-86.7894
+The Gulch,Two Old Hippies,Bar / Shop,10:00 PM,401 12th Ave S,,,,,"drinks, social, retro, chill",36.1529,-86.7918
+Broadway,Second Fiddle,Bar,3:00 AM,420 Broadway,,,,,"drinks, live-music, social, honky-tonk",36.1621,-86.7766
+Sobro,Rock Bottom Restaurant & Brewery,Brewery / Restaurant,12:00 AM,111 Broadway,,,,,"craft, brewery, food-focused, social",36.1614,-86.7813
+East Nashville,Pearl Diver,Cocktail Bar,2:00 AM,1008 Gallatin Ave,,,,,"craft-cocktails, hipster, date-friendly, intimate",36.1793,-86.7443
+Midtown,Tribe,Bar,3:00 AM,1517 Church St,,,,,"drinks, social, dancey, lively",36.1541,-86.7862
+Broadway,Nudie's Honky Tonk (upstairs),Rooftop Bar,3:00 AM,409 Broadway,,,,,"rooftop, live-music, drinks, lively",36.1623,-86.7770
+Germantown,Tailgate Brewery Germantown,Brewery,10:00 PM,1538 Buchanan St,,,,,"craft, brewery, social, chill",36.1842,-86.7826
+East Nashville,Old Glory,Cocktail Bar,2:00 AM,1200 Main St,,,,,"craft-cocktails, hipster, intimate, date-friendly",36.1705,-86.7518
+12 South,Bartaco 12 South,Restaurant / Bar,12:00 AM,2526 12th Ave S,,,,,"food-focused, drinks, social, outdoor-seating",36.1284,-86.7914
+Hillsboro Village,Cabana,Restaurant / Bar,12:00 AM,1910 Belcourt Ave,,,,,"food-focused, drinks, outdoor-seating, social",36.1362,-86.8008

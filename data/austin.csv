@@ -1,27 +1,102 @@
 Area,Name,Category,Typical Closing Time,Address,Phone,Website,Driving Distance,Google Maps Driving Link,Vibe Tags,Latitude,Longitude
-Sixth Street,Maggie Mae's,Bar,2:00 AM,323 E 6th St,,,,,"drinks, live-music, social, hipster, trendy",30.2672,-97.7406
-Sixth Street,Midnight Cowboy,Cocktail Bar,2:00 AM,313 E 6th St,,,,,"date-friendly, drinks, upscale, craft-cocktails, hipster",30.2707,-97.7416
-Sixth Street,Casino El Camino,Dive Bar,2:00 AM,517 E 6th St,,,,,"food-focused, dive, neighborhood-gem, hipster, trendy",30.2687,-97.7426
-Rainey Street,Banger's Sausage House,Brewery / Restaurant,12:00 AM,79 Rainey St,,,,,"food-focused, brewery, chill, outdoor-seating",30.2632,-97.7396
-Rainey Street,Lustre Pearl,Bar,2:00 AM,97 Rainey St,,,,,"drinks, social, chill, outdoor-seating, casual",30.2667,-97.7406
-Rainey Street,Container Bar,Bar,2:00 AM,90 Rainey St,,,,,"drinks, social, outdoor-seating, casual",30.2647,-97.7416
-Red River Cultural District,Mohawk,Music Venue / Bar,2:00 AM,912 Red River St,,,,,"drinks, live-music, loud",30.2692,-97.7396
-Red River Cultural District,Stubb's BBQ,Music Venue / Restaurant,Late,801 Red River St,,,,,"drinks, food-focused, live-music",30.2727,-97.7406
-Red River Cultural District,Cheer Up Charlies,Bar,2:00 AM,900 Red River St,,,,,"chill, drinks, social",30.2707,-97.7416
-East Austin,Whisler's,Cocktail Bar,2:00 AM,1816 E 6th St,,,,,"date-friendly, drinks, upscale, craft-cocktails, hipster",30.2662,-97.7326
-East Austin,Yellow Jacket Social Club,Bar,2:00 AM,1704 E 5th St,,,,,"chill, drinks, social, hipster, trendy",30.2697,-97.7336
-East Austin,Lazarus Brewing,Brewery,10:00 PM,1902 E 6th St,,,,,"chill, food-focused, brewery, hipster, trendy",30.2677,-97.7346
-South Congress,Continental Club,Music Venue / Bar,2:00 AM,1315 S Congress Ave,,,,,"drinks, live-music, social",30.2562,-97.7426
-South Congress,C-Boy's Heart & Soul,Music Venue / Bar,2:00 AM,2008 S Congress Ave,,,,,"drinks, live-music, social",30.2597,-97.7436
-West Sixth,HandleBar,Bar,2:00 AM,121 E 5th St,,,,,"drinks, social, casual",30.2682,-97.7476
-West Sixth,Kung Fu Saloon,Sports Bar,2:00 AM,510 Rio Grande St,,,,,"sports, group-fun, sports-bar",30.2717,-97.7486
-Downtown,The Driskill Bar,Lounge,12:00 AM,604 Brazos St,,,,,"date-friendly, drinks, upscale, chill",30.2662,-97.7426
-Downtown,Pete's Dueling Piano Bar,Bar,2:00 AM,421 E 6th St,,,,,"group-fun, interactive, live-music",30.2697,-97.7436
-South Lamar,The Broken Spoke,Music Venue / Bar,12:00 AM,3201 S Lamar Blvd,,,,,"drinks, live-music, social",30.2512,-97.7476
-South Lamar,Radio Coffee & Beer,Brewery,12:00 AM,4204 Manchaca Rd,,,,,"chill, drinks, social, brewery, casual",30.2547,-97.7486
-North Loop,Workhorse Bar,Dive Bar,2:00 AM,100 E North Loop Blvd,,,,,"chill, dive, neighborhood-gem",30.2862,-97.7376
-North Loop,Kick Butt Coffee,Music Venue / Bar,12:00 AM,5775 Airport Blvd,,,,,"drinks, live-music, social",30.2897,-97.7386
-Sixth Street,Barbarella,Nightclub,2:00 AM,615 Red River St,,,,,"dancey, high-energy, late-night, hipster, trendy",30.2667,-97.7436
-Rainey Street,Clive Bar,Bar,2:00 AM,609 Davis St,,,,,"drinks, social, chill, outdoor-seating, casual",30.2627,-97.7426
-East Austin,Karaoke at Ego's,Karaoke,2:00 AM,510 S Congress Ave,,,,,"group-fun, interactive, karaoke, hipster, trendy",30.2657,-97.7356
-Downtown,Firehouse Lounge,Cocktail Bar,2:00 AM,605 Brazos St,,,,,"date-friendly, drinks, upscale, craft-cocktails",30.2677,-97.7446
+Sixth Street,Maggie Mae's,Bar,2:00 AM,323 E 6th St,,,,,"drinks, live-music, social, lively",30.2672,-97.7406
+Sixth Street,Midnight Cowboy,Cocktail Bar,2:00 AM,313 E 6th St,,,,,"craft-cocktails, speakeasy-style, upscale, intimate",30.2672,-97.7411
+Sixth Street,Casino El Camino,Dive Bar,2:00 AM,517 E 6th St,,,,,"food-focused, dive, social, hipster, late-eats",30.2673,-97.7380
+Sixth Street,Esther's Follies,Comedy Club,12:00 AM,525 E 6th St,,,,,"comedy, drinks, social, lively",30.2673,-97.7378
+Sixth Street,Pete's Dueling Piano Bar,Piano Bar,2:00 AM,421 E 6th St,,,,,"live-music, drinks, social, interactive, lively",30.2673,-97.7393
+Sixth Street,The Jackalope,Dive Bar,2:00 AM,404 E 6th St,,,,,"drinks, dive, social, outdoor-seating",30.2673,-97.7396
+Sixth Street,Driskill Bar,Cocktail Bar,12:00 AM,604 Brazos St,,,,,"craft-cocktails, upscale, historic, classy",30.2672,-97.7417
+Sixth Street,Handlebar,Bar,2:00 AM,121 E 5th St,,,,,"drinks, social, lively, dancey",30.2667,-97.7432
+Sixth Street,Shakespeare's Pub,Pub,2:00 AM,314 E 6th St,,,,,"drinks, social, cozy, dive",30.2672,-97.7410
+Sixth Street,Flamingo Cantina,Music Venue / Bar,2:00 AM,515 E 6th St,,,,,"live-music, drinks, social, reggae, dancey",30.2673,-97.7381
+Sixth Street,Coyote Ugly Saloon,Bar,2:00 AM,412 E 6th St,,,,,"drinks, social, dancey, lively",30.2673,-97.7395
+Sixth Street,The Blind Pig Pub,Pub,2:00 AM,317 E 6th St,,,,,"drinks, social, dive, cozy",30.2672,-97.7410
+Rainey Street,Banger's Sausage House & Beer Garden,Brewery / Restaurant,12:00 AM,79 Rainey St,,,,,"food-focused, brewery, chill, outdoor-seating",30.2583,-97.7390
+Rainey Street,Half Step,Cocktail Bar,2:00 AM,75 1/2 Rainey St,,,,,"craft-cocktails, chill, hipster, intimate",30.2582,-97.7391
+Rainey Street,Clive Bar,Bar,2:00 AM,609 Davis St,,,,,"drinks, social, outdoor-seating, chill",30.2582,-97.7388
+Rainey Street,Geraldine's,Restaurant / Bar,12:00 AM,605 Davis St,,,,,"food-focused, live-music, upscale, date-friendly",30.2580,-97.7389
+Rainey Street,Lustre Pearl,Bar,2:00 AM,97 Rainey St,,,,,"drinks, social, outdoor-seating, lively",30.2584,-97.7389
+Rainey Street,Emmer & Rye,Restaurant / Bar,12:00 AM,51 Rainey St,,,,,"food-focused, upscale, craft-cocktails, intimate",30.2580,-97.7393
+Rainey Street,Unbarlievable,Bar,2:00 AM,95 Rainey St,,,,,"drinks, social, outdoor-seating, lively",30.2584,-97.7389
+Rainey Street,Lucille Patio Lounge,Lounge,2:00 AM,77 Rainey St,,,,,"drinks, social, outdoor-seating, chill",30.2583,-97.7390
+Rainey Street,Craft Pride,Bar,2:00 AM,61 Rainey St,,,,,"craft, drinks, social, outdoor-seating",30.2581,-97.7392
+Rainey Street,The Javelina,Bar,2:00 AM,69 Rainey St,,,,,"drinks, social, outdoor-seating, hipster",30.2582,-97.7391
+East Austin,Whisler's,Cocktail Bar,2:00 AM,1816 E 6th St,,,,,"craft-cocktails, hipster, outdoor-seating, date-friendly",30.2646,-97.7250
+East Austin,Justine's Brasserie,Restaurant / Bar,2:00 AM,4710 E 5th St,,,,,"food-focused, upscale, date-friendly, romantic",30.2628,-97.7112
+East Austin,Hotel Vegas,Music Venue / Bar,2:00 AM,1502 E 6th St,,,,,"live-music, drinks, hipster, social",30.2651,-97.7283
+East Austin,The White Horse,Bar,2:00 AM,500 Comal St,,,,,"drinks, live-music, dancey, honky-tonk, hipster",30.2620,-97.7273
+East Austin,Nickel City,Dive Bar,2:00 AM,1133 E 11th St,,,,,"drinks, dive, social, hipster",30.2704,-97.7270
+East Austin,Zilker Brewing Company,Brewery,10:00 PM,1701 E 6th St,,,,,"craft, brewery, chill, outdoor-seating",30.2647,-97.7261
+East Austin,Weather Up,Cocktail Bar,2:00 AM,1808 E Cesar Chavez St,,,,,"craft-cocktails, intimate, date-friendly, hipster",30.2571,-97.7254
+East Austin,Stay Gold,Bar,2:00 AM,1910 E Cesar Chavez St,,,,,"drinks, social, hipster, artsy",30.2568,-97.7242
+East Austin,Ah Sing Den,Cocktail Bar,2:00 AM,1100 E 6th St,,,,,"craft-cocktails, upscale, intimate, date-friendly",30.2658,-97.7324
+East Austin,Licha's Cantina,Restaurant / Bar,12:00 AM,1306 E 6th St,,,,,"food-focused, drinks, outdoor-seating, chill",30.2654,-97.7302
+East Austin,Lazarus Brewing,Brewery / Restaurant,10:00 PM,1902 E 6th St,,,,,"craft, brewery, food-focused, chill, outdoor-seating",30.2645,-97.7244
+East Austin,Yellow Jacket Social Club,Bar,2:00 AM,1704 E 5th St,,,,,"drinks, social, outdoor-seating, hipster",30.2637,-97.7261
+East Austin,Scoot Inn,Music Venue / Bar,2:00 AM,1308 E 4th St,,,,,"live-music, drinks, outdoor-seating, hipster",30.2628,-97.7301
+South Congress,Continental Club,Music Venue / Bar,2:00 AM,1315 S Congress Ave,,,,,"live-music, drinks, social, historic",30.2490,-97.7492
+South Congress,C-Boy's Heart & Soul,Music Venue / Bar,2:00 AM,2008 S Congress Ave,,,,,"live-music, drinks, social, blues, intimate",30.2420,-97.7489
+South Congress,Ego's,Karaoke Bar,2:00 AM,510 S Congress Ave,,,,,"karaoke, drinks, social, lively",30.2585,-97.7465
+South Congress,The Continental Club Gallery,Music Venue / Bar,2:00 AM,1315 S Congress Ave (upstairs),,,,,"live-music, intimate, drinks, hipster",30.2490,-97.7492
+South Congress,Perla's,Restaurant / Bar,12:00 AM,1400 S Congress Ave,,,,,"food-focused, upscale, outdoor-seating, date-friendly",30.2480,-97.7490
+South Congress,June's All Day,Restaurant / Bar,12:00 AM,1722 S Congress Ave,,,,,"food-focused, drinks, trendy, social",30.2442,-97.7491
+South Congress,Hotel San Jose Bar,Lounge,12:00 AM,1316 S Congress Ave,,,,,"drinks, chill, hipster, intimate",30.2490,-97.7490
+South Lamar,The Broken Spoke,Dance Hall,12:00 AM,3201 S Lamar Blvd,,,,,"live-music, dancey, honky-tonk, historic",30.2325,-97.7913
+South Lamar,Saxon Pub,Music Venue / Bar,2:00 AM,1320 S Lamar Blvd,,,,,"live-music, drinks, intimate, cozy",30.2511,-97.7695
+South Lamar,Hopfields,Restaurant / Bar,12:00 AM,3110 Guadalupe St,,,,,"food-focused, craft, drinks, cozy",30.2971,-97.7397
+South Lamar,Black Sheep Lodge,Bar,2:00 AM,2108 S Lamar Blvd,,,,,"drinks, social, sports-tv, cozy, pool-tables",30.2428,-97.7800
+South Lamar,ABGB (Austin Beer Garden Brewing),Brewery,10:00 PM,1305 W Oltorf St,,,,,"craft, brewery, food-focused, outdoor-seating",30.2381,-97.7658
+South Lamar,Radio Coffee & Beer,Bar / Cafe,12:00 AM,4204 Manchaca Rd,,,,,"drinks, chill, outdoor-seating, hipster, live-music",30.2282,-97.7928
+Red River Cultural District,Mohawk,Music Venue / Bar,2:00 AM,912 Red River St,,,,,"live-music, drinks, outdoor-seating, loud, hipster",30.2693,-97.7368
+Red River Cultural District,Stubb's Bar-B-Q,Music Venue / Restaurant,12:00 AM,801 Red River St,,,,,"live-music, food-focused, outdoor-seating, social",30.2703,-97.7374
+Red River Cultural District,Cheer Up Charlies,Bar,2:00 AM,900 Red River St,,,,,"drinks, social, outdoor-seating, artsy, hipster",30.2694,-97.7370
+Red River Cultural District,Empire Control Room & Garage,Music Venue / Bar,2:00 AM,606 E 7th St,,,,,"live-music, drinks, social, hipster",30.2680,-97.7372
+Red River Cultural District,Valhalla,Bar,2:00 AM,710 Red River St,,,,,"drinks, social, live-music, dive",30.2706,-97.7377
+Red River Cultural District,Elysium,Club,2:00 AM,705 Red River St,,,,,"dancey, dj, underground, late-night",30.2706,-97.7378
+Red River Cultural District,Barracuda,Music Venue / Bar,2:00 AM,611 E 7th St,,,,,"live-music, drinks, hipster, loud",30.2680,-97.7370
+Red River Cultural District,The Sidewinder,Music Venue / Bar,2:00 AM,715 Red River St,,,,,"live-music, drinks, social, hipster",30.2704,-97.7377
+Downtown,Firehouse Lounge,Cocktail Bar,2:00 AM,605 Brazos St,,,,,"craft-cocktails, speakeasy-style, intimate, upscale",30.2675,-97.7417
+Downtown,The Roosevelt Room,Cocktail Bar,2:00 AM,307 W 5th St,,,,,"craft-cocktails, upscale, date-friendly, classy",30.2663,-97.7452
+Downtown,Small Victory,Cocktail Bar,2:00 AM,108 E 7th St,,,,,"craft-cocktails, intimate, upscale, date-friendly",30.2682,-97.7430
+Downtown,Kung Fu Saloon,Bar / Arcade,2:00 AM,510 Rio Grande St,,,,,"drinks, arcade, social, lively",30.2693,-97.7489
+Downtown,Speakeasy,Bar,2:00 AM,412 Congress Ave,,,,,"drinks, live-music, social, late-night",30.2660,-97.7437
+Downtown,The Parish,Music Venue / Bar,2:00 AM,214 E 6th St,,,,,"live-music, drinks, social, loud",30.2672,-97.7424
+Downtown,Oilcan Harry's,Bar,2:00 AM,211 W 4th St,,,,,"drinks, social, dancey, lively",30.2653,-97.7459
+Downtown,Summit Rooftop,Rooftop Bar,2:00 AM,120 W 5th St,,,,,"rooftop, drinks, trendy, dancey, dj",30.2663,-97.7445
+Downtown,Maggie Mae's Rooftop,Rooftop Bar,2:00 AM,323 E 6th St,,,,,"rooftop, drinks, live-music, social, lively",30.2672,-97.7406
+West Sixth,Easy Tiger,Bar / Bakery,2:00 AM,709 E 6th St,,,,,"drinks, food-focused, outdoor-seating, social",30.2668,-97.7356
+West Sixth,Irene's,Restaurant / Bar,12:00 AM,506 West Ave,,,,,"food-focused, upscale, intimate, date-friendly",30.2688,-97.7500
+West Sixth,Bar Congress,Cocktail Bar,12:00 AM,200 Congress Ave,,,,,"craft-cocktails, upscale, classy, date-friendly",30.2637,-97.7435
+West Sixth,Ranch 616,Restaurant / Bar,12:00 AM,616 Nueces St,,,,,"food-focused, drinks, social, retro",30.2698,-97.7487
+West Sixth,Cedar Door,Bar,2:00 AM,201 Brazos St,,,,,"drinks, social, outdoor-seating, chill",30.2631,-97.7413
+North Loop,Workhorse Bar,Dive Bar,2:00 AM,100 E North Loop Blvd,,,,,"drinks, dive, social, hipster",30.3175,-97.7225
+North Loop,Tigress Pub,Bar,2:00 AM,100 E North Loop Blvd,,,,,"drinks, social, chill, hipster",30.3175,-97.7225
+North Loop,Skylark Lounge,Music Venue / Bar,2:00 AM,2039 Airport Blvd,,,,,"live-music, drinks, social, retro",30.3005,-97.7110
+North Loop,Epoch Coffee,Bar / Cafe,24h,221 W North Loop Blvd,,,,,"chill, hipster, social, late-night",30.3180,-97.7270
+East Austin,Dozen Street,Bar,2:00 AM,1808 E 12th St,,,,,"drinks, outdoor-seating, hipster, social",30.2715,-97.7218
+East Austin,Butterfly Bar at Vortex Theatre,Bar,12:00 AM,2307 Manor Rd,,,,,"drinks, artsy, outdoor-seating, chill",30.2729,-97.7196
+East Austin,Batch Craft Beer & Kolaches,Brewery / Restaurant,12:00 AM,3220 Manor Rd,,,,,"craft, brewery, food-focused, chill",30.2736,-97.7100
+East Austin,Meanwhile Brewing,Brewery,10:00 PM,3901 Promontory Point Dr,,,,,"craft, brewery, outdoor-seating, chill",30.2247,-97.7213
+Sixth Street,Midnight Rodeo,Bar / Club,2:00 AM,213 E 6th St,,,,,"drinks, dancey, social, lively",30.2672,-97.7425
+Sixth Street,Dizzy Rooster,Bar,2:00 AM,306 E 6th St,,,,,"drinks, social, lively, dancey",30.2672,-97.7411
+Rainey Street,Container Bar,Bar,2:00 AM,90 Rainey St,,,,,"drinks, social, outdoor-seating, trendy",30.2583,-97.7389
+Rainey Street,Bangers,Brewery / Restaurant,12:00 AM,79 Rainey St,,,,,"craft, brewery, food-focused, outdoor-seating",30.2583,-97.7390
+South Congress,Snack Bar,Cocktail Bar,2:00 AM,1209 S Congress Ave,,,,,"craft-cocktails, chill, hipster, outdoor-seating",30.2503,-97.7492
+South Lamar,The Highball,Bar / Venue,2:00 AM,1120 S Lamar Blvd,,,,,"drinks, karaoke, social, retro, dancey",30.2524,-97.7660
+Red River Cultural District,Hole in the Wall,Music Venue / Bar,2:00 AM,2538 Guadalupe St,,,,,"live-music, drinks, dive, hipster",30.2912,-97.7413
+Downtown,Maggie Mae's Lease on 6th,Bar,2:00 AM,323 E 6th St (rooftop),,,,,"drinks, social, rooftop, lively",30.2672,-97.7406
+East Austin,The Grackle,Dive Bar,2:00 AM,1700 E 6th St,,,,,"drinks, dive, hipster, social, outdoor-seating",30.2647,-97.7261
+East Austin,Kitty Cohen's,Bar,2:00 AM,2211 Webberville Rd,,,,,"drinks, social, outdoor-seating, hipster, retro",30.2622,-97.7167
+South Congress,Guero's Taco Bar,Restaurant / Bar,12:00 AM,1412 S Congress Ave,,,,,"food-focused, drinks, live-music, outdoor-seating",30.2479,-97.7491
+Downtown,Pete's Piano Bar,Piano Bar,2:00 AM,421 E 6th St,,,,,"live-music, drinks, social, interactive",30.2673,-97.7393
+East Austin,Cenote,Bar / Cafe,12:00 AM,1010 E Cesar Chavez St,,,,,"drinks, chill, hipster, outdoor-seating",30.2569,-97.7321
+Rainey Street,G'Raj Mahal,Restaurant / Bar,12:00 AM,73 Rainey St,,,,,"food-focused, drinks, outdoor-seating, chill",30.2582,-97.7391
+South Lamar,Cosmic Coffee + Beer Garden,Brewery / Cafe,12:00 AM,121 Pickle Rd,,,,,"craft, chill, outdoor-seating, hipster, food-focused",30.2334,-97.7773
+Red River Cultural District,Swan Dive,Music Venue / Bar,2:00 AM,615 Red River St,,,,,"live-music, drinks, hipster, social",30.2709,-97.7379
+Downtown,Barbarella,Club,2:00 AM,615 Red River St,,,,,"dancey, dj, hipster, late-night",30.2709,-97.7379
+East Austin,Violet Crown Social Club,Bar,2:00 AM,1111 E 6th St,,,,,"drinks, social, outdoor-seating, hipster, chill",30.2658,-97.7323
+Sixth Street,The Driskill Hotel Bar,Cocktail Bar,12:00 AM,604 Brazos St,,,,,"craft-cocktails, upscale, historic, classy",30.2672,-97.7417
+South Lamar,Moontower Saloon,Bar,2:00 AM,10212 Manchaca Rd,,,,,"drinks, outdoor-seating, social, chill, live-music",30.1637,-97.8032
+East Austin,Lustre Pearl East,Bar,2:00 AM,114 Linden St,,,,,"drinks, social, outdoor-seating, hipster",30.2633,-97.7268
+Downtown,Fiddle & Steel Guitar Bar,Bar,2:00 AM,102 E 4th St,,,,,"live-music, drinks, social, country",30.2660,-97.7438
+South Congress,Sagebrush,Music Venue / Bar,2:00 AM,5500 S Congress Ave,,,,,"live-music, honky-tonk, drinks, dancey, social",30.2168,-97.7689
