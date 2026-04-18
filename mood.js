@@ -74,7 +74,7 @@ function renderResults(results, query) {
   moodResultsCount.textContent = results.length + " venue" + (results.length !== 1 ? "s" : "") + " matched";
 
   // Render cards
-  results.forEach(function (result) {
+  results.forEach(function (result, idx) {
     var venue = result.venue;
     var tags = normalizeValue(venue["Vibe Tags"]).split(",").map(function (t) { return normalizeValue(t).toLowerCase(); }).filter(Boolean);
     var primaryTag = tags[0] || "general";
