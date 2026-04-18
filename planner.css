@@ -671,3 +671,156 @@
     transform: scale(0.94);
   }
 }
+
+/* ─── Drag-and-drop reordering ─── */
+.drag-handle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: transparent;
+  border: none;
+  color: #6b7a9a;
+  cursor: grab;
+  padding: 0;
+  flex-shrink: 0;
+  transition: color 0.15s ease, background 0.15s ease;
+  touch-action: none;
+}
+
+.drag-handle:hover {
+  color: #2bff86;
+  background: rgba(43, 255, 134, 0.08);
+}
+
+.drag-handle:active {
+  cursor: grabbing;
+}
+
+.drag-handle svg {
+  pointer-events: none;
+}
+
+.stop-card.dragging {
+  opacity: 0.4;
+}
+
+.stop-card.drag-over {
+  border-top: 2px solid #2bff86;
+}
+
+.stop-card.drag-over .stop-content {
+  box-shadow: 0 -4px 12px rgba(43, 255, 134, 0.15);
+}
+
+/* ─── Arrival time badge ─── */
+.stop-arrival-time {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #2bff86;
+  background: rgba(43, 255, 134, 0.08);
+  padding: 4px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(43, 255, 134, 0.18);
+  white-space: nowrap;
+}
+
+/* ─── Inviting empty state ─── */
+.itinerary-empty-inviting {
+  grid-column: 1 / -1;
+  padding: 56px 28px;
+  text-align: center;
+  background: #101520;
+  border: 1.5px dashed #2a334d;
+  border-radius: 20px;
+  color: #93a1c6;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.itinerary-empty-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  opacity: 0.7;
+}
+
+.itinerary-empty-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #e8e8e8;
+  margin-bottom: 8px;
+}
+
+.itinerary-empty-subtitle {
+  font-size: 14px;
+  color: #93a1c6;
+  max-width: 360px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.itinerary-empty-links {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.itinerary-empty-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  background: rgba(43, 255, 134, 0.08);
+  border: 1px solid rgba(43, 255, 134, 0.2);
+  border-radius: 12px;
+  color: #2bff86;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.itinerary-empty-links a:hover {
+  background: rgba(43, 255, 134, 0.16);
+  border-color: #2bff86;
+}
+
+/* ─── Clipboard toast ─── */
+.clipboard-toast {
+  position: fixed;
+  bottom: calc(var(--bottom-nav-offset) + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #2bff86;
+  color: #0b0d14;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  z-index: 200;
+  pointer-events: none;
+  animation: toastIn 0.3s ease, toastOut 0.3s ease 1.7s forwards;
+}
+
+@media (max-width: 859px) {
+  .drag-handle {
+    width: 32px;
+    height: 32px;
+  }
+
+  .itinerary-empty-inviting {
+    padding: 48px 20px;
+    border-radius: 18px;
+  }
+
+  .itinerary-empty-title {
+    font-size: 17px;
+  }
+}
